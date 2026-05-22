@@ -1,11 +1,19 @@
 import { useEffect, useRef } from 'react'
 import Taro from '@tarojs/taro'
 import './app.scss'
+import { loadMiniProgramFonts, loadH5Fonts } from './utils/fontLoader'
 
 function App({ children }) {
   const audioRef = useRef<any>(null)
 
   useEffect(() => {
+    // Load fonts dynamically to avoid WXSS size issues
+    if (process.env.TARO_ENV === 'weapp') {
+      loadMiniProgramFonts()
+    } else {
+      loadH5Fonts()
+    }
+
     // Initialize audio context
     const initAudio = () => {
       // For WeChat mini program, use InnerAudioContext for local files

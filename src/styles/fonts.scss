@@ -1,41 +1,17 @@
 // Custom fonts for the wedding invitation
+// Using local files for mini program - these should be loaded dynamically
+// to avoid embedding large base64 data in WXSS
 
-@font-face {
-  font-family: 'ThinBlack';
-  src: url('../assets/fonts/thin-black.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+// Font face declarations - files are in assets/fonts/
+// Note: For WeChat mini program, we need to load fonts dynamically
+// to prevent WXSS file size limit issues
 
-@font-face {
-  font-family: 'Bordered';
-  src: url('../assets/fonts/bordered.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+// Use system fonts as fallback
+$font-family-thin-black: 'ThinBlack', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+$font-family-bordered: 'Bordered', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+$font-family-childhood: 'Childhood', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+$font-family-handwriting-bold: 'HandWritingBold', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+$font-family-handwriting-thin: 'HandWritingThin', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 
-@font-face {
-  font-family: 'Childhood';
-  src: url('../assets/fonts/childhood.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'HandWritingBold';
-  src: url('../assets/fonts/hand-writing-bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'HandWritingThin';
-  src: url('../assets/fonts/hand-writing-thin.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+// For H5/Web, we can use @font-face
+// For WeChat mini program, fonts are loaded dynamically via JS
