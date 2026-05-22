@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/weapp/",
   "projectname": "wedding-invitation",
   "description": "Wedding electronic invitation",
-  "appid": "touristappid",
+  "appid": "gh_88bae9e18600",
   "setting": {
     "urlCheck": true,
     "es6": false,
