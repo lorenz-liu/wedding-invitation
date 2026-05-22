@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import { motion } from 'framer-motion'
+import { AnimatedView } from '../../../components/AnimatedView'
 import './PageDistance.scss'
 
 interface PageDistanceProps {
@@ -17,22 +17,23 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
   return (
     <View className='page page-distance'>
       <View className='content-wrapper'>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6 }}
+        <AnimatedView
+          animation='fadeIn'
+          isActive={isActive}
+          duration={600}
         >
           <Text className='years-range'>2019 - 2023</Text>
           <Text className='main-title'>跨越了时差与国界</Text>
-        </motion.div>
+        </AnimatedView>
 
         <View className='timeline-container'>
           {years.map((item, index) => (
-            <motion.div
+            <AnimatedView
               key={item.year}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
+              animation={index % 2 === 0 ? 'fadeInLeft' : 'fadeInRight'}
+              isActive={isActive}
+              delay={200 + index * 150}
+              duration={600}
               className='timeline-item'
             >
               <View className={`timeline-card ${index % 2 === 0 ? 'left' : 'right'}`}>
@@ -41,14 +42,15 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
                 <Text className='location-text'>{item.location}</Text>
                 <Text className='desc-text'>{item.desc}</Text>
               </View>
-            </motion.div>
+            </AnimatedView>
           ))}
         </View>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={800}
+          duration={800}
         >
           <View className='conclusion-box'>
             <Text className='conclusion-text'>
@@ -59,7 +61,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
               并肩前行才是最好的选择。
             </Text>
           </View>
-        </motion.div>
+        </AnimatedView>
       </View>
     </View>
   )

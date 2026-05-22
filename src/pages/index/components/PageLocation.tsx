@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Map, Button } from '@tarojs/components'
-import { motion } from 'framer-motion'
+import { AnimatedView } from '../../../components/AnimatedView'
 import Taro from '@tarojs/taro'
 import { DoodleRing, DoodleCorner } from '../../../components/DoodleElements'
 import './PageLocation.scss'
@@ -24,20 +24,21 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
     <View className='page page-location'>
       <DoodleCorner position='tl' className='corner-tl' />
       <DoodleCorner position='tr' className='corner-tr' />
-      
+
       <View className='content-wrapper'>
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          duration={600}
         >
           <Text className='page-title'>婚礼地点</Text>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <AnimatedView
+          animation='fadeInScale'
+          isActive={isActive}
+          delay={200}
+          duration={600}
         >
           <View className='location-header'>
             <Text className='location-city'>成都</Text>
@@ -47,12 +48,13 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
               <DoodleRing className='header-ring' />
             </View>
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={400}
+          duration={600}
         >
           <View className='map-container'>
             <Map
@@ -77,12 +79,13 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
               打开导航
             </Button>
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+        <AnimatedView
+          animation='fadeIn'
+          isActive={isActive}
+          delay={600}
+          duration={600}
         >
           <View className='transport-info'>
             <View className='transport-item'>
@@ -94,7 +97,7 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
               <Text className='transport-text'>若您希望我们提供接驳服务，请在下一页表单中填写。</Text>
             </View>
           </View>
-        </motion.div>
+        </AnimatedView>
       </View>
     </View>
   )

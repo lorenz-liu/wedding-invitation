@@ -7,25 +7,11 @@
   overflow: hidden;
   background: linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
 
-  .pages-container {
+  .page-container {
     width: 100%;
     height: 100%;
+    position: relative;
     overflow: hidden;
-  }
-
-  .pages-wrapper {
-    width: 100%;
-    height: 100% * 12;
-    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-    will-change: transform;
-
-    .page {
-      width: 100vw;
-      height: 100vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
   }
 
   .page-indicator {
@@ -50,11 +36,21 @@
         background: $color-accent;
         transform: scale(1.5);
       }
-
-      &:hover {
-        background: $color-highlight;
-      }
     }
+  }
+
+  .page-counter {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    font-family: 'ThinBlack', sans-serif;
+    font-size: $font-size-sm;
+    color: $color-secondary;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 4px 12px;
+    border-radius: 12px;
   }
 
   .scroll-hint-global {
@@ -68,7 +64,6 @@
     background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
     box-shadow: $shadow-sm;
-    backdrop-filter: blur(4px);
     animation: bounce 2s infinite;
 
     .hint-arrow {
@@ -100,17 +95,6 @@
       .indicator-dot {
         width: 6px;
         height: 6px;
-      }
-    }
-  }
-}
-
-// For desktop/larger screens
-@media (min-width: 768px) {
-  .index {
-    .pages-wrapper {
-      .page {
-        max-width: 100vw;
       }
     }
   }

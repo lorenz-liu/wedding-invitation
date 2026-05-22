@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import { motion } from 'framer-motion'
+import { AnimatedView } from '../../../components/AnimatedView'
 import { DoodleFlower, DoodleLine } from '../../../components/DoodleElements'
 import './PageSchedule.scss'
 
@@ -46,22 +46,23 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
   return (
     <View className='page page-schedule'>
       <View className='content-wrapper'>
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          duration={600}
         >
           <Text className='page-title'>当日安排</Text>
           <DoodleLine className='title-line' />
-        </motion.div>
+        </AnimatedView>
 
         <View className='schedule-list'>
           {scheduleData.map((item, index) => (
-            <motion.div
+            <AnimatedView
               key={item.time}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+              animation={index % 2 === 0 ? 'fadeInLeft' : 'fadeInRight'}
+              isActive={isActive}
+              delay={100 + index * 100}
+              duration={600}
               className='schedule-item'
             >
               <View className={`time-badge ${index % 2 === 0 ? 'left' : 'right'}`}>
@@ -72,19 +73,20 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
                 <Text className='event-subtitle'>{item.subtitle}</Text>
                 <Text className='event-desc'>{item.description}</Text>
               </View>
-            </motion.div>
+            </AnimatedView>
           ))}
         </View>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+        <AnimatedView
+          animation='fadeIn'
+          isActive={isActive}
+          delay={600}
+          duration={600}
         >
           <View className='decoration-footer'>
             <DoodleFlower className='footer-flower' />
           </View>
-        </motion.div>
+        </AnimatedView>
       </View>
     </View>
   )

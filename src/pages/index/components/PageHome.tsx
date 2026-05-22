@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import { motion } from 'framer-motion'
+import { AnimatedView } from '../../../components/AnimatedView'
 import { DoodleHeart, DoodleLine, DoodleCorner } from '../../../components/DoodleElements'
 import './PageHome.scss'
 
@@ -17,63 +17,38 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
       <DoodleCorner position='br' className='corner-br' />
       
       <View className='content-wrapper'>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, ease: [0.645, 0.045, 0.355, 1] }}
-        >
+        <AnimatedView animation='fadeInUp' delay={0} duration={800} isActive={isActive}>
           <Text className='names-text'>刘兆薰 & 高文珩</Text>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.645, 0.045, 0.355, 1] }}
-        >
+        <AnimatedView animation='fadeInScale' delay={300} duration={600} isActive={isActive}>
           <DoodleHeart className='main-heart' />
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
+        <AnimatedView animation='fadeInUp' delay={500} duration={600} isActive={isActive}>
           <View className='date-info'>
             <Text className='date-text'>2026年7月25日 · 礼拜六 · 成都</Text>
           </View>
-        </motion.div>
+        </AnimatedView>
 
         <DoodleLine className='divider-line' />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        >
+        <AnimatedView animation='fadeInUp' delay={700} duration={600} isActive={isActive}>
           <Text className='invite-title'>诚挚邀请您见证我们的婚礼</Text>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-        >
+        <AnimatedView animation='fadeIn' delay={900} duration={800} isActive={isActive}>
           <View className='poem-section'>
             <Text className='poem-line'>我们期待</Text>
             <Text className='poem-line'>于我们意义非凡的您</Text>
             <Text className='poem-line'>能够莅临现场</Text>
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className='scroll-hint'
-        >
-          <Text className='scroll-text'>向下滚动开启故事</Text>
+        <AnimatedView animation='fadeInUp' delay={1200} duration={600} isActive={isActive} className='scroll-hint'>
+          <Text className='scroll-text'>向下滑动开启故事</Text>
           <View className='scroll-arrow'>↓</View>
-        </motion.div>
+        </AnimatedView>
       </View>
     </View>
   )

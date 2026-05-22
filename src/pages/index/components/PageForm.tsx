@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, Input, Textarea, Button, Switch, Label } from '@tarojs/components'
-import { motion } from 'framer-motion'
+import { AnimatedView } from '../../../components/AnimatedView'
 import Taro from '@tarojs/taro'
 import { DoodleHeart, DoodleFlower } from '../../../components/DoodleElements'
 import './PageForm.scss'
@@ -66,7 +66,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
 
     try {
       // Replace with your actual Lambda function URL after deployment
-      const API_ENDPOINT = process.env.TARO_ENV === 'weapp' 
+      const API_ENDPOINT = process.env.TARO_ENV === 'weapp'
         ? 'https://your-lambda-url.lambda-url.us-east-1.on.aws/'
         : 'https://your-lambda-url.lambda-url.us-east-1.on.aws/'
 
@@ -97,8 +97,8 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
       }
     } catch (error) {
       console.error('Submit error:', error)
-      Taro.showToast({ 
-        title: error.message || '网络错误，请重试', 
+      Taro.showToast({
+        title: error.message || '网络错误，请重试',
         icon: 'none',
         duration: 3000
       })
@@ -110,21 +110,22 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
   return (
     <View className='page page-form'>
       <View className='content-wrapper'>
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          duration={600}
         >
           <View className='form-header'>
             <Text className='page-title'>宾客表单</Text>
             <DoodleHeart className='header-heart' />
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={200}
+          duration={600}
         >
           <View className='form-section'>
             <Label className='form-label'>主联系人</Label>
@@ -135,12 +136,13 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               placeholder='请输入您的姓名'
             />
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={300}
+          duration={600}
         >
           <View className='form-section required'>
             <Label className='form-label'>主联系人手机号 *</Label>
@@ -152,12 +154,13 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               placeholder='请输入手机号（必填）'
             />
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={400}
+          duration={600}
         >
           <View className='form-section'>
             <Label className='form-label'>同行赴宴人员</Label>
@@ -182,12 +185,13 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
             ))}
             <Button className='add-btn' onClick={addGuest}>+ 添加同行人员</Button>
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={500}
+          duration={600}
         >
           <View className='form-section'>
             <Label className='form-label'>饮食忌口</Label>
@@ -198,12 +202,13 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               placeholder='如有食物过敏或特殊饮食需求，请在此填写'
             />
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={600}
+          duration={600}
         >
           <View className='form-section switches'>
             <View className='switch-row'>
@@ -223,13 +228,13 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               />
             </View>
           </View>
-        </motion.div>
+        </AnimatedView>
 
         {formData.needsShuttle && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            transition={{ duration: 0.3 }}
+          <AnimatedView
+            animation='fadeIn'
+            isActive={true}
+            duration={300}
           >
             <View className='form-section'>
               <Label className='form-label'>接驳地点</Label>
@@ -240,13 +245,14 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
                 placeholder='请输入您希望的接驳地点'
               />
             </View>
-          </motion.div>
+          </AnimatedView>
         )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={700}
+          duration={600}
         >
           <View className='form-section'>
             <Label className='form-label'>您还希望我们知道什么？</Label>
@@ -257,29 +263,31 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               placeholder='任何其他信息或问题都可以写在这里'
             />
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={800}
+          duration={600}
         >
           <Button className='submit-btn' onClick={handleSubmit}>
             提交
           </Button>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
+        <AnimatedView
+          animation='fadeIn'
+          isActive={isActive}
+          delay={1000}
+          duration={600}
         >
           <View className='thank-you-section'>
             <DoodleFlower className='thanks-flower' />
             <Text className='thanks-text'>感谢您的到来，期待与您相聚！</Text>
             <DoodleFlower className='thanks-flower' />
           </View>
-        </motion.div>
+        </AnimatedView>
       </View>
     </View>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import { motion } from 'framer-motion'
+import { AnimatedView } from '../../../components/AnimatedView'
 import { DoodleHeart, DoodleRing } from '../../../components/DoodleElements'
 import './PageRelationship.scss'
 
@@ -12,41 +12,44 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({ isActive }) 
   return (
     <View className='page page-relationship'>
       <View className='content-wrapper'>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.6 }}
+        <AnimatedView
+          animation='fadeInScale'
+          isActive={isActive}
+          duration={600}
         >
           <View className='special-date'>
             <Text className='date-number'>2019</Text>
             <Text className='date-month-day'>7月25日</Text>
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={300}
+          duration={600}
         >
           <View className='icons-row'>
             <DoodleHeart className='rel-heart' />
             <Text className='plus-sign'>+</Text>
             <DoodleRing className='rel-ring' />
           </View>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+        <AnimatedView
+          animation='fadeInUp'
+          isActive={isActive}
+          delay={500}
+          duration={800}
         >
           <Text className='story-title'>故事的转角</Text>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+        <AnimatedView
+          animation='fadeIn'
+          isActive={isActive}
+          delay={700}
+          duration={800}
         >
           <Text className='story-content'>
             我们正式确定了彼此的心意。
@@ -57,17 +60,18 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({ isActive }) 
             {'\n'}
             由此写下新的篇章。
           </Text>
-        </motion.div>
+        </AnimatedView>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-          transition={{ duration: 0.6, delay: 1, ease: [0.68, -0.55, 0.265, 1.55] }}
+        <AnimatedView
+          animation='fadeInScale'
+          isActive={isActive}
+          delay={1000}
+          duration={600}
         >
           <View className='heart-decoration'>
             <DoodleHeart className='big-heart' />
           </View>
-        </motion.div>
+        </AnimatedView>
       </View>
     </View>
   )
