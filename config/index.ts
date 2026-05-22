@@ -11,7 +11,7 @@ export default {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [],
+  plugins: ['@tarojs/plugin-html'],
   defineConstants: {},
   copy: {
     patterns: [
@@ -36,7 +36,13 @@ export default {
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
-    esnextModules: ['framer-motion'],
+    output: {
+      filename: 'js/[name].[hash:8].js',
+      chunkFilename: 'js/[name].[chunkhash:8].js'
+    },
+    router: {
+      mode: 'browser'
+    },
     postcss: {
       autoprefixer: {
         enable: true,
