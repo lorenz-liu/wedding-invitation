@@ -1,0 +1,112 @@
+@import '../../../styles/variables.scss';
+
+.page-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: $spacing-xl;
+  position: relative;
+  overflow: hidden;
+
+  .corner-tl { position: absolute; top: 20px; left: 20px; }
+  .corner-tr { position: absolute; top: 20px; right: 20px; }
+  .corner-bl { position: absolute; bottom: 20px; left: 20px; }
+  .corner-br { position: absolute; bottom: 20px; right: 20px; }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .names-text {
+    font-family: 'ThinBlack', sans-serif;
+    font-size: 42px;
+    color: $color-primary;
+    letter-spacing: 8px;
+    margin-bottom: $spacing-md;
+  }
+
+  .main-heart {
+    width: 80px;
+    height: 80px;
+    margin: $spacing-md 0;
+    opacity: 0.8;
+  }
+
+  .date-info {
+    margin: $spacing-lg 0;
+
+    .date-text {
+      font-family: 'ThinBlack', sans-serif;
+      font-size: $font-size-md;
+      color: $color-secondary;
+      letter-spacing: 4px;
+    }
+  }
+
+  .divider-line {
+    margin: $spacing-md 0;
+    width: 120px;
+  }
+
+  .invite-title {
+    font-family: 'HandWritingBold', sans-serif;
+    font-size: $font-size-xl;
+    color: $color-primary;
+    margin: $spacing-md 0;
+    letter-spacing: 2px;
+  }
+
+  .poem-section {
+    margin-top: $spacing-xl;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    .poem-line {
+      font-family: 'ThinBlack', sans-serif;
+      font-size: $font-size-lg;
+      color: $color-text-primary;
+      line-height: 1.8;
+      letter-spacing: 2px;
+    }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-xs;
+
+    .scroll-text {
+      font-family: 'HandWritingThin', sans-serif;
+      font-size: $font-size-sm;
+      color: $color-secondary;
+    }
+
+    .scroll-arrow {
+      font-size: $font-size-lg;
+      color: $color-accent;
+      animation: bounce 2s infinite;
+    }
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}

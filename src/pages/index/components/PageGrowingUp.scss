@@ -1,0 +1,73 @@
+@import '../../../styles/variables.scss';
+
+.page-growing-up {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: $spacing-xl;
+  background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 500px;
+  }
+
+  .years-text {
+    font-family: 'Childhood', sans-serif;
+    font-size: 48px;
+    color: $color-accent;
+    margin-bottom: $spacing-md;
+    letter-spacing: 4px;
+  }
+
+  .timeline-line {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    margin: $spacing-md 0;
+
+    .timeline-dot {
+      width: 8px;
+      height: 8px;
+      background: $color-accent;
+      border-radius: 50%;
+    }
+
+    .timeline-doodle {
+      width: 80px;
+    }
+  }
+
+  .story-text {
+    font-family: 'Childhood', sans-serif;
+    font-size: $font-size-xl;
+    color: $color-text-primary;
+    line-height: 2.2;
+    margin: $spacing-lg 0;
+    white-space: pre-line;
+  }
+
+  .flowers-row {
+    display: flex;
+    gap: $spacing-md;
+    margin: $spacing-lg 0;
+
+    .flower-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .quote-text {
+    font-family: 'HandWritingThin', sans-serif;
+    font-size: $font-size-md;
+    color: $color-secondary;
+    font-style: italic;
+    margin-top: $spacing-lg;
+  }
+}

@@ -1,0 +1,234 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Wedding Invitation Backend - DynamoDB and SNS
+
+Parameters:
+  Environment:
+    Type: String
+    Default: prod
+    AllowedValues:
+      - dev
+      - prod
+    Description: Deployment environment
+
+Resources:
+  # DynamoDB Table for Guest Responses
+  GuestResponsesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'wedding-guest-responses-${Environment}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: phone
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: PhoneIndex
+          KeySchema:
+            - AttributeName: phone
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+      Tags:
+        - Key: Project
+          Value: WeddingInvitation
+        - Key: Environment
+          Value: !Ref Environment
+
+  # SNS Topic for SMS notifications
+  WeddingNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub 'wedding-notifications-${Environment}'
+      DisplayName: Wedding Invitations
+      Tags:
+        - Key: Project
+          Value: WeddingInvitation
+        - Key: Environment
+          Value: !Ref Environment
+
+  # Lambda Execution Role
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: DynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                  - dynamodb:GetItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                Resource:
+                  - !GetAtt GuestResponsesTable.Arn
+                  - !Sub '${GuestResponsesTable.Arn}/index/*'
+        - PolicyName: SNSAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref WeddingNotificationTopic
+
+  # Lambda Function for Submitting Guest Response
+  SubmitResponseFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub 'wedding-submit-response-${Environment}'
+      Runtime: nodejs18.x
+      Handler: index.handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        ZipFile: |
+          const AWS = require('aws-sdk');
+          const dynamodb = new AWS.DynamoDB.DocumentClient();
+          const sns = new AWS.SNS();
+
+          exports.handler = async (event) => {
+            const corsHeaders = {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Headers': 'Content-Type,Authorization',
+              'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            };
+
+            if (event.httpMethod === 'OPTIONS') {
+              return { statusCode: 200, headers: corsHeaders, body: '' };
+            }
+
+            try {
+              const body = JSON.parse(event.body);
+              const { mainContact, phone, guests, dietaryRestrictions, isDriving, needsShuttle, shuttleLocation, notes } = body;
+
+              // Validation
+              if (!phone) {
+                return {
+                  statusCode: 400,
+                  headers: corsHeaders,
+                  body: JSON.stringify({ error: 'Phone number is required' })
+                };
+              }
+
+              // Generate unique ID
+              const id = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+              const timestamp = new Date().toISOString();
+
+              // Save to DynamoDB
+              await dynamodb.put({
+                TableName: process.env.TABLE_NAME,
+                Item: {
+                  id,
+                  phone,
+                  mainContact: mainContact || '',
+                  guests: guests || [],
+                  dietaryRestrictions: dietaryRestrictions || '',
+                  isDriving: isDriving || false,
+                  needsShuttle: needsShuttle || false,
+                  shuttleLocation: shuttleLocation || '',
+                  notes: notes || '',
+                  createdAt: timestamp
+                }
+              }).promise();
+
+              // Send SMS confirmation
+              if (phone) {
+                const message = `亲爱的${mainContact || '宾客'}，感谢您确认参加刘兆薰&高文珩的婚礼！我们会尽快与您联系确认细节。期待与您相见！`;
+                await sns.publish({
+                  TopicArn: process.env.SNS_TOPIC_ARN,
+                  Message: message,
+                  PhoneNumber: phone.startsWith('+') ? phone : `+86${phone}`
+                }).promise();
+              }
+
+              return {
+                statusCode: 200,
+                headers: corsHeaders,
+                body: JSON.stringify({ 
+                  success: true, 
+                  id,
+                  message: '感谢您的回复！确认短信已发送。'
+                })
+              };
+            } catch (error) {
+              console.error('Error:', error);
+              return {
+                statusCode: 500,
+                headers: corsHeaders,
+                body: JSON.stringify({ 
+                  error: 'Internal server error',
+                  message: error.message 
+                })
+              };
+            }
+          };
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref GuestResponsesTable
+          SNS_TOPIC_ARN: !Ref WeddingNotificationTopic
+      Timeout: 30
+      MemorySize: 256
+      Tags:
+        - Key: Project
+          Value: WeddingInvitation
+        - Key: Environment
+          Value: !Ref Environment
+
+  # Lambda Function URL
+  SubmitResponseFunctionUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      AuthType: NONE
+      TargetFunctionArn: !Ref SubmitResponseFunction
+      Cors:
+        AllowOrigins:
+          - '*'
+        AllowMethods:
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+          - Authorization
+        MaxAge: 86400
+
+  # Permission for Function URL
+  SubmitResponseFunctionUrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref SubmitResponseFunction
+      Action: lambda:InvokeFunctionUrl
+      Principal: '*'
+      FunctionUrlAuthType: NONE
+
+Outputs:
+  ApiEndpoint:
+    Description: API Gateway endpoint URL
+    Value: !GetAtt SubmitResponseFunctionUrl.FunctionUrl
+    Export:
+      Name: !Sub 'WeddingApiEndpoint-${Environment}'
+
+  DynamoDBTable:
+    Description: DynamoDB Table Name
+    Value: !Ref GuestResponsesTable
+    Export:
+      Name: !Sub 'WeddingTableName-${Environment}'
+
+  SNSTopic:
+    Description: SNS Topic ARN
+    Value: !Ref WeddingNotificationTopic
+    Export:
+      Name: !Sub 'WeddingTopicArn-${Environment}'

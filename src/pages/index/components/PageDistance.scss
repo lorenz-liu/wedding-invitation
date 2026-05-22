@@ -1,0 +1,136 @@
+@import '../../../styles/variables.scss';
+
+.page-distance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: $spacing-xl;
+  background: linear-gradient(180deg, #f5efe6 0%, #ece5d8 100%);
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .years-range {
+    font-family: 'Childhood', sans-serif;
+    font-size: 48px;
+    color: $color-accent;
+    letter-spacing: 4px;
+    margin-bottom: $spacing-sm;
+  }
+
+  .main-title {
+    font-family: 'Childhood', sans-serif;
+    font-size: $font-size-xl;
+    color: $color-secondary;
+    margin-bottom: $spacing-xl;
+    letter-spacing: 2px;
+  }
+
+  .timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    width: 100%;
+    margin: $spacing-lg 0;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, $color-border, $color-accent, $color-border);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: center;
+      position: relative;
+
+      .timeline-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: $border-radius-lg;
+        padding: $spacing-lg;
+        min-width: 180px;
+        box-shadow: $shadow-md;
+        border: 2px dashed $color-border;
+        position: relative;
+        z-index: 1;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          width: 12px;
+          height: 12px;
+          background: $color-accent;
+          border-radius: 50%;
+          transform: translateY(-50%);
+        }
+
+        &.left::before {
+          right: -36px;
+        }
+
+        &.right::before {
+          left: -36px;
+        }
+
+        .year-badge {
+          font-family: 'Childhood', sans-serif;
+          font-size: $font-size-xxl;
+          color: $color-accent;
+          display: block;
+          margin-bottom: $spacing-xs;
+        }
+
+        .timeline-icon {
+          font-size: 32px;
+          display: block;
+          margin: $spacing-sm 0;
+        }
+
+        .location-text {
+          font-family: 'Childhood', sans-serif;
+          font-size: $font-size-lg;
+          color: $color-primary;
+          display: block;
+          margin-bottom: $spacing-xs;
+        }
+
+        .desc-text {
+          font-family: 'Childhood', sans-serif;
+          font-size: $font-size-sm;
+          color: $color-secondary;
+        }
+      }
+    }
+  }
+
+  .conclusion-box {
+    margin-top: $spacing-xl;
+    padding: $spacing-xl;
+    background: rgba(201, 168, 124, 0.1);
+    border-radius: $border-radius-lg;
+    border: 2px dashed $color-accent;
+
+    .conclusion-text {
+      font-family: 'Childhood', sans-serif;
+      font-size: $font-size-lg;
+      color: $color-text-primary;
+      line-height: 2;
+      white-space: pre-line;
+    }
+  }
+}

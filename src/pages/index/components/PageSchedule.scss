@@ -1,0 +1,103 @@
+@import '../../../styles/variables.scss';
+
+.page-schedule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: $spacing-xxl $spacing-xl;
+  background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .page-title {
+    font-family: 'ThinBlack', sans-serif;
+    font-size: $font-size-xxl;
+    color: $color-primary;
+    letter-spacing: 8px;
+    margin-bottom: $spacing-sm;
+  }
+
+  .title-line {
+    width: 120px;
+    margin-bottom: $spacing-xl;
+  }
+
+  .schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    width: 100%;
+
+    .schedule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: $spacing-md;
+
+      .time-badge {
+        flex-shrink: 0;
+        padding: $spacing-sm $spacing-md;
+        background: $color-accent;
+        border-radius: $border-radius-sm;
+        min-width: 70px;
+        text-align: center;
+
+        .time-text {
+          font-family: 'ThinBlack', sans-serif;
+          font-size: $font-size-lg;
+          color: white;
+          letter-spacing: 1px;
+        }
+      }
+
+      .schedule-card {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: $border-radius-md;
+        padding: $spacing-md;
+        border-left: 3px solid $color-accent;
+        box-shadow: $shadow-sm;
+
+        .event-title {
+          font-family: 'ThinBlack', sans-serif;
+          font-size: $font-size-lg;
+          color: $color-primary;
+          display: block;
+          margin-bottom: $spacing-xs;
+        }
+
+        .event-subtitle {
+          font-family: 'HandWritingThin', sans-serif;
+          font-size: $font-size-sm;
+          color: $color-accent;
+          display: block;
+          margin-bottom: $spacing-sm;
+          letter-spacing: 1px;
+        }
+
+        .event-desc {
+          font-family: 'ThinBlack', sans-serif;
+          font-size: $font-size-sm;
+          color: $color-secondary;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  .decoration-footer {
+    margin-top: $spacing-xl;
+
+    .footer-flower {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

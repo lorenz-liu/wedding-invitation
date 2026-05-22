@@ -1,0 +1,100 @@
+@import '../../../styles/variables.scss';
+
+.page-birth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: $spacing-xl;
+  background: linear-gradient(180deg, #f5f0e8 0%, #faf8f5 100%);
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .year-badge {
+    font-family: 'Childhood', sans-serif;
+    font-size: 72px;
+    color: $color-accent;
+    margin-bottom: $spacing-lg;
+    text-shadow: 2px 2px 4px rgba(201, 168, 124, 0.2);
+  }
+
+  .intro-text {
+    font-family: 'Childhood', sans-serif;
+    font-size: $font-size-lg;
+    color: $color-text-secondary;
+    line-height: 1.8;
+    margin-bottom: $spacing-xl;
+    max-width: 400px;
+  }
+
+  .birth-cards {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-xl;
+    margin: $spacing-lg 0;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: $spacing-lg;
+    }
+
+    .birth-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: $border-radius-lg;
+      padding: $spacing-xl;
+      min-width: 160px;
+      box-shadow: $shadow-md;
+      border: 2px dashed $color-border;
+      position: relative;
+
+      &.groom {
+        border-color: rgba(201, 168, 124, 0.3);
+      }
+
+      &.bride {
+        border-color: rgba(201, 168, 124, 0.5);
+      }
+
+      .card-decoration {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .card-heart {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .date-text {
+        font-family: 'Childhood', sans-serif;
+        font-size: $font-size-xxl;
+        color: $color-primary;
+        display: block;
+        margin-bottom: $spacing-sm;
+      }
+
+      .label-text {
+        font-family: 'Childhood', sans-serif;
+        font-size: $font-size-md;
+        color: $color-secondary;
+      }
+    }
+  }
+
+  .doctor-text {
+    font-family: 'Childhood', sans-serif;
+    font-size: $font-size-md;
+    color: $color-accent;
+    margin-top: $spacing-xl;
+    letter-spacing: 2px;
+  }
+}

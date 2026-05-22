@@ -1,0 +1,125 @@
+@import '../../../styles/variables.scss';
+
+.page-life {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: $spacing-xl;
+  background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 500px;
+  }
+
+  .years-text {
+    font-family: 'Childhood', sans-serif;
+    font-size: 48px;
+    color: $color-accent;
+    letter-spacing: 4px;
+    margin-bottom: $spacing-lg;
+  }
+
+  .life-text {
+    font-family: 'Childhood', sans-serif;
+    font-size: $font-size-xl;
+    color: $color-text-primary;
+    line-height: 2;
+    margin-bottom: $spacing-xl;
+    white-space: pre-line;
+  }
+
+  .cat-section {
+    position: relative;
+    margin: $spacing-lg 0;
+
+    .cat-icon {
+      font-size: 80px;
+      animation: catBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes catBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .cat-name {
+      font-family: 'HandWritingBold', sans-serif;
+      font-size: $font-size-xl;
+      color: $color-accent;
+      display: block;
+      margin-top: $spacing-sm;
+      letter-spacing: 4px;
+    }
+
+    .flowers-around {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      pointer-events: none;
+
+      .flower-1 {
+        position: absolute;
+        top: -30px;
+        left: 10px;
+        width: 30px;
+        height: 30px;
+        animation: rotateFlower 8s linear infinite;
+      }
+
+      .flower-2 {
+        position: absolute;
+        top: 50%;
+        right: -20px;
+        width: 25px;
+        height: 25px;
+        animation: rotateFlower 10s linear infinite reverse;
+      }
+
+      .flower-3 {
+        position: absolute;
+        bottom: -20px;
+        left: 30%;
+        width: 35px;
+        height: 35px;
+        animation: rotateFlower 12s linear infinite;
+      }
+
+      @keyframes rotateFlower {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    }
+  }
+
+  .cat-desc {
+    font-family: 'Childhood', sans-serif;
+    font-size: $font-size-lg;
+    color: $color-text-secondary;
+    line-height: 2;
+    margin: $spacing-xl 0;
+    white-space: pre-line;
+  }
+
+  .quote-box {
+    margin-top: $spacing-lg;
+    padding: $spacing-md $spacing-xl;
+    background: rgba(201, 168, 124, 0.15);
+    border-radius: $border-radius-lg;
+
+    .quote-text {
+      font-family: 'HandWritingThin', sans-serif;
+      font-size: $font-size-lg;
+      color: $color-accent;
+      font-style: italic;
+    }
+  }
+}
