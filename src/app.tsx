@@ -1,45 +1,61 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Taro from '@tarojs/taro'
 import './app.scss'
 
 function App({ children }) {
+  const audioRef = useRef<any>(null)
+
   useEffect(() => {
-    // Background music auto-play setup
-    const setupAudio = () => {
-      const bgm = Taro.getBackgroundAudioManager()
-      if (bgm) {
-        bgm.title = 'Our Love'
-        bgm.epname = 'Wedding'
-        bgm.singer = 'Wedding'
-        bgm.coverImgUrl = ''
+    // Initialize audio context
+    const initAudio = () => {
+      // For WeChat mini program, use InnerAudioContext for local files
+      // BackgroundAudioManager requires network URLs
+      if (process.env.TARO_ENV === 'weapp') {
+        const innerAudioContext = Taro.createInnerAudioContext()
+        innerAudioContext.src = require('./assets/music/our-love.mp3')
+        innerAudioContext.loop = true
+        innerAudioContext.volume = 0.7
         
-        try {
-          // Use the correct path for the audio file
-          if (process.env.TARO_ENV === 'weapp') {
-            // For WeChat mini program
-            bgm.src = 'cloud://placeholder/our-love.mp3' // Replace with actual cloud path
-          } else {
-            // For H5/web
-            bgm.src = require('./assets/music/our-love.mp3')
-          }
+        // Error handling
+        innerAudioContext.onError((err) => {
+          console.error('Audio play error:', err)
+        })
+        
+        // When can play, start playing
+        innerAudioContext.onCanplay(() => {
+          console.log('Audio can play')
+          innerAudioContext.play()
+        })
+        
+        audioRef.current = innerAudioContext
+      } else {
+        // For H5/web, use BackgroundAudioManager
+        const bgm = Taro.getBackgroundAudioManager()
+        if (bgm) {
+          bgm.title = 'Our Love'
+          bgm.epname = 'Wedding'
+          bgm.singer = 'Wedding'
+          bgm.coverImgUrl = ''
+          bgm.src = require('./assets/music/our-love.mp3')
           bgm.loop = true
-          
-          // WeChat requires user interaction before playing audio
-          const playAudio = () => {
-            bgm.play()
-            document.removeEventListener('touchstart', playAudio)
-            document.removeEventListener('click', playAudio)
-          }
-          
-          document.addEventListener('touchstart', playAudio, { once: true })
-          document.addEventListener('click', playAudio, { once: true })
-        } catch (err) {
-          console.log('Audio setup failed:', err)
+          bgm.play()
+          audioRef.current = bgm
         }
       }
     }
 
-    setupAudio()
+    // Delay slightly to ensure page is ready
+    const timer = setTimeout(initAudio, 500)
+
+    return () => {
+      clearTimeout(timer)
+      // Cleanup audio
+      if (audioRef.current) {
+        if (process.env.TARO_ENV === 'weapp') {
+          audioRef.current.destroy?.()
+        }
+      }
+    }
   }, [])
 
   return children
