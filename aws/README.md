@@ -36,7 +36,7 @@ chmod +x deploy.sh
 ```bash
 aws cloudformation describe-stacks \
   --stack-name wedding \
-  --region ap-northeast-1 \
+  --region ca-central-1 \
   --query 'Stacks[0].Outputs'
 ```
 
@@ -47,7 +47,7 @@ aws cloudformation describe-stacks \
 ```bash
 aws dynamodb scan \
   --table-name wedding-guests \
-  --region ap-northeast-1
+  --region ca-central-1
 ```
 
 ## 短信内容
@@ -71,7 +71,7 @@ aws cloudformation update-stack \
   --stack-name wedding \
   --template-body file://template.yaml \
   --capabilities CAPABILITY_NAMED_IAM \
-  --region ap-northeast-1
+  --region ca-central-1
 ```
 
 ## 删除
@@ -79,5 +79,5 @@ aws cloudformation update-stack \
 ```bash
 aws cloudformation delete-stack \
   --stack-name wedding \
-  --region ap-northeast-1
+  --region ca-central-1
 ```

@@ -12,7 +12,7 @@ TEMPLATE_FILE="${SCRIPT_DIR}/template.yaml"
 
 AWS_PROFILE="${AWS_PROFILE:-wedding}"
 STACK_NAME="${STACK_NAME:-wedding}"
-AWS_REGION="${AWS_REGION:-ap-northeast-1}"
+AWS_REGION="${AWS_REGION:-ca-central-1}"
 
 aws_cmd() {
   aws --profile "${AWS_PROFILE}" --region "${AWS_REGION}" "$@"
@@ -119,6 +119,11 @@ deploy_stack() {
       CREATE_COMPLETE|UPDATE_COMPLETE|UPDATE_ROLLBACK_COMPLETE)
         update_stack
         ;;
+      ROLLBACK_COMPLETE|ROLLBACK_FAILED)
+        log "Stack is in ${status} after a failed deploy. Deleting before retry..."
+        delete_stack
+        create_stack
+        ;;
       *_IN_PROGRESS)
         die "Stack '${STACK_NAME}' is currently ${status}. Wait and retry."
         ;;
@@ -175,7 +180,7 @@ Commands:
 
 Environment variables:
   AWS_PROFILE   AWS CLI profile (default: wedding)
-  AWS_REGION    AWS region (default: ap-northeast-1)
+  AWS_REGION    AWS region (default: ca-central-1)
   STACK_NAME    CloudFormation stack name (default: wedding)
 EOF
       ;;

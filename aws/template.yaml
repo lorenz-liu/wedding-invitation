@@ -187,7 +187,6 @@ Resources:
           - '*'
         AllowMethods:
           - POST
-          - OPTIONS
         AllowHeaders:
           - Content-Type
           - Authorization
