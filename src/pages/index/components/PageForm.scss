@@ -651,7 +651,7 @@
   }
 
   .thanks-body {
-    margin-bottom: 48px;
+    margin-bottom: 32px;
 
     .thanks-message {
       font-family: 'Childhood', 'PingFang SC', sans-serif;
@@ -670,6 +670,31 @@
       line-height: 2;
       letter-spacing: 2px;
       white-space: pre-line;
+    }
+  }
+
+  .thanks-actions {
+    margin-bottom: 32px;
+
+    .refill-btn {
+      height: 48px;
+      line-height: 48px;
+      padding: 0 40px;
+      background: transparent;
+      border: 2px solid rgba(201, 168, 124, 0.5);
+      border-radius: 24px;
+      font-family: 'ThinBlack', 'PingFang SC', sans-serif;
+      font-size: 16px;
+      color: $color-accent;
+      letter-spacing: 4px;
+
+      &::after {
+        border: none;
+      }
+
+      &:active {
+        background: rgba(201, 168, 124, 0.08);
+      }
     }
   }
 }

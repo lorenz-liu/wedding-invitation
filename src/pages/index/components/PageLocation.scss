@@ -1,24 +1,68 @@
 @import '../../../styles/variables.scss';
 
 .page-location {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding: $spacing-xxl $spacing-xl;
-  background: linear-gradient(180deg, #f5efe6 0%, #faf8f5 100%);
   position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
 
-  .corner-tl { position: absolute; top: 20px; left: 20px; }
-  .corner-tr { position: absolute; top: 20px; right: 20px; }
+  .map-fullscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
 
-  .content-wrapper {
+  .location-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .overlay-gradient {
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+
+  .overlay-gradient-top {
+    top: 0;
+    height: 45%;
+    background: linear-gradient(
+      180deg,
+      rgba(250, 248, 245, 0.92) 0%,
+      rgba(250, 248, 245, 0.72) 55%,
+      rgba(250, 248, 245, 0) 100%
+    );
+  }
+
+  .overlay-gradient-bottom {
+    bottom: 0;
+    height: 55%;
+    background: linear-gradient(
+      0deg,
+      rgba(250, 248, 245, 0.96) 0%,
+      rgba(250, 248, 245, 0.82) 45%,
+      rgba(250, 248, 245, 0) 100%
+    );
+  }
+
+  .overlay-top {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 600px;
+    padding: 48px 24px 0;
+    pointer-events: none;
   }
 
   .page-title {
@@ -27,20 +71,22 @@
     color: $color-primary;
     letter-spacing: 8px;
     margin-bottom: $spacing-lg;
+    text-shadow: 0 1px 8px rgba(255, 255, 255, 0.8);
   }
 
   .location-header {
     display: flex;
     align-items: center;
     gap: $spacing-sm;
-    margin-bottom: $spacing-xl;
     position: relative;
 
-    .location-city, .location-venue {
+    .location-city,
+    .location-venue {
       font-family: 'Bordered', sans-serif;
       font-size: 48px;
       color: $color-primary;
       letter-spacing: 4px;
+      text-shadow: 0 2px 12px rgba(255, 255, 255, 0.9);
     }
 
     .location-dot {
@@ -63,30 +109,11 @@
     }
   }
 
-  .map-container {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: $border-radius-lg;
-    overflow: hidden;
-    box-shadow: $shadow-md;
-    margin-bottom: $spacing-lg;
-
-    .map {
-      width: 100%;
-      height: 250px;
-    }
-
-    .open-map-btn {
-      width: 100%;
-      padding: $spacing-md;
-      background: $color-accent;
-      color: white;
-      font-family: 'ThinBlack', sans-serif;
-      font-size: $font-size-md;
-      border: none;
-      border-radius: 0;
-      letter-spacing: 2px;
-    }
+  .overlay-bottom {
+    position: relative;
+    z-index: 2;
+    padding: 0 24px 40px;
+    pointer-events: auto;
   }
 
   .transport-info {
@@ -94,15 +121,18 @@
     flex-direction: column;
     gap: $spacing-md;
     width: 100%;
+    margin-bottom: $spacing-lg;
 
     .transport-item {
       display: flex;
       align-items: flex-start;
       gap: $spacing-sm;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
       padding: $spacing-md;
       border-radius: $border-radius-md;
       border-left: 3px solid $color-accent;
+      box-shadow: 0 4px 16px rgba(201, 168, 124, 0.12);
 
       .transport-icon {
         font-size: 24px;
@@ -114,6 +144,49 @@
         font-size: $font-size-sm;
         color: $color-secondary;
         line-height: 1.6;
+      }
+    }
+  }
+
+  .open-map-btn {
+    width: 100%;
+    height: 52px;
+    line-height: 52px;
+    background: linear-gradient(135deg, $color-accent 0%, darken($color-accent, 8%) 100%);
+    color: white;
+    font-family: 'ThinBlack', sans-serif;
+    font-size: $font-size-md;
+    border: none;
+    border-radius: 26px;
+    letter-spacing: 4px;
+    box-shadow: 0 4px 16px rgba(201, 168, 124, 0.35);
+
+    &::after {
+      border: none;
+    }
+
+    &:active {
+      opacity: 0.92;
+      transform: scale(0.98);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-location {
+    .location-header {
+      .location-city,
+      .location-venue {
+        font-size: 36px;
+      }
+
+      .ring-icon-wrapper {
+        right: -36px;
+
+        .header-ring {
+          width: 32px;
+          height: 32px;
+        }
       }
     }
   }

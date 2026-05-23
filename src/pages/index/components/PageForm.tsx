@@ -22,22 +22,24 @@ interface FormData {
   notes: string
 }
 
+const EMPTY_FORM_DATA: FormData = {
+  mainContact: '',
+  phone: '',
+  guests: [{ name: '', relation: '' }],
+  dietaryRestrictions: '',
+  isDriving: false,
+  needsShuttle: false,
+  shuttleLocation: '',
+  notes: ''
+}
+
 interface PageFormProps {
   isActive: boolean
 }
 
 export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
   const [submitted, setSubmitted] = useState(false)
-  const [formData, setFormData] = useState<FormData>({
-    mainContact: '',
-    phone: '',
-    guests: [{ name: '', relation: '' }],
-    dietaryRestrictions: '',
-    isDriving: false,
-    needsShuttle: false,
-    shuttleLocation: '',
-    notes: ''
-  })
+  const [formData, setFormData] = useState<FormData>(EMPTY_FORM_DATA)
 
   useEffect(() => {
     const alreadySubmitted = Taro.getStorageSync(FORM_SUBMITTED_KEY)
@@ -48,6 +50,35 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
 
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
+  }
+
+  const handleDrivingToggle = () => {
+    setFormData(prev => {
+      if (prev.isDriving) {
+        return { ...prev, isDriving: false }
+      }
+      return {
+        ...prev,
+        isDriving: true,
+        needsShuttle: false,
+        shuttleLocation: ''
+      }
+    })
+  }
+
+  const handleShuttleToggle = () => {
+    setFormData(prev => {
+      if (prev.needsShuttle) {
+        return { ...prev, needsShuttle: false, shuttleLocation: '' }
+      }
+      return { ...prev, needsShuttle: true, isDriving: false }
+    })
+  }
+
+  const handleRefillForm = () => {
+    Taro.removeStorageSync(FORM_SUBMITTED_KEY)
+    setFormData(EMPTY_FORM_DATA)
+    setSubmitted(false)
   }
 
   const handleGuestChange = (index: number, field: keyof Guest, value: string) => {
@@ -133,6 +164,11 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
           </AnimatedView>
 
           <AnimatedView animation='fadeIn' isActive={isActive} delay={600} duration={600}>
+            <View className='thanks-actions'>
+              <Button className='refill-btn' onClick={handleRefillForm}>
+                重新填写
+              </Button>
+            </View>
             <View className='form-footer'>
               <View className='footer-flowers'>
                 <DoodleFlower className='footer-flower' />
@@ -252,7 +288,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
             <View className='transport-options'>
               <View 
                 className={`transport-card ${formData.isDriving ? 'selected' : ''}`}
-                onClick={() => handleInputChange('isDriving', !formData.isDriving)}
+                onClick={handleDrivingToggle}
               >
                 <View className='transport-icon'>🚗</View>
                 <Text className='transport-label'>自驾前往</Text>
@@ -262,7 +298,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               </View>
               <View 
                 className={`transport-card ${formData.needsShuttle ? 'selected' : ''}`}
-                onClick={() => handleInputChange('needsShuttle', !formData.needsShuttle)}
+                onClick={handleShuttleToggle}
               >
                 <View className='transport-icon'>🚌</View>
                 <Text className='transport-label'>需要接驳</Text>
