@@ -2,7 +2,7 @@
 // Using local files for mini program - these should be loaded dynamically
 // to avoid embedding large base64 data in WXSS
 
-// Font face declarations - files are in assets/fonts/
+// Fonts are loaded dynamically via JS from assets/fonts/
 // Note: For WeChat mini program, we need to load fonts dynamically
 // to prevent WXSS file size limit issues
 

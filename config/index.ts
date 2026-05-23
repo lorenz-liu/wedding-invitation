@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { UserConfigExport } from "@tarojs/cli";
 
 export default {
@@ -13,13 +14,11 @@ export default {
   outputRoot: "dist",
   plugins: ["@tarojs/plugin-html"],
   defineConstants: {},
+  alias: {
+    "@assets": path.resolve(__dirname, "..", "assets"),
+  },
   copy: {
-    patterns: [
-      { from: "src/assets/fonts/", to: "dist/assets/fonts/" },
-      { from: "src/assets/music/", to: "dist/assets/music/" },
-      { from: "src/assets/images/", to: "dist/assets/images/" },
-      { from: "images/", to: "dist/images/" },
-    ],
+    patterns: [{ from: "assets/", to: "dist/assets/" }],
     options: {},
   },
   framework: "react",

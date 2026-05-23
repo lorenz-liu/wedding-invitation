@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { AnimatedImage } from "../../../components/AnimatedImage";
+import { images } from "../../../utils/assets";
 import { DoodleLine } from "../../../components/DoodleElements";
 import "./PageDistance.scss";
 
@@ -37,7 +38,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
               <View className="card-year">2020</View>
               <View className="card-image">
                 <AnimatedImage
-                  src={require("../../../assets/images/seattle-4.jpg")}
+                  src={images.seattle4}
                   animation="fadeInScale"
                   delay={400}
                   isActive={isActive}
@@ -62,7 +63,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
               <View className="card-year">2021</View>
               <View className="card-image">
                 <AnimatedImage
-                  src={require("../../../assets/images/sanya.jpg")}
+                  src={images.sanya}
                   animation="fadeInScale"
                   delay={700}
                   isActive={isActive}
@@ -87,7 +88,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
               <View className="card-year">2022</View>
               <View className="dual-images">
                 <AnimatedImage
-                  src={require("../../../assets/images/beijing.jpg")}
+                  src={images.beijing}
                   animation="slideInLeft"
                   delay={1000}
                   isActive={isActive}
@@ -96,7 +97,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
                   className="tilt-left"
                 />
                 <AnimatedImage
-                  src={require("../../../assets/images/shanghai.jpg")}
+                  src={images.shanghai}
                   animation="slideInRight"
                   delay={1100}
                   isActive={isActive}

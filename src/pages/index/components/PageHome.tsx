@@ -2,11 +2,8 @@ import React from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { DoodleHeart, DoodleLine, DoodleCorner } from "../../../components/DoodleElements";
-import { toWeappLocalPath } from "../../../utils/weappAsset";
+import { images } from "../../../utils/assets";
 import "./PageHome.scss";
-
-const HOMEPAGE_NIU = require("../../../assets/images/homepage-niu.png");
-const HOMEPAGE_GAO = require("../../../assets/images/homepage-gao.png");
 
 interface PageHomeProps {
   isActive: boolean;
@@ -64,7 +61,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
       <View className="homepage-figure homepage-figure-niu">
         <Image
           className="homepage-figure-img"
-          src={toWeappLocalPath(HOMEPAGE_NIU)}
+          src={images.homepageNiu}
           mode="widthFix"
         />
       </View>
@@ -72,7 +69,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
       <View className="homepage-figure homepage-figure-gao">
         <Image
           className="homepage-figure-img"
-          src={toWeappLocalPath(HOMEPAGE_GAO)}
+          src={images.homepageGao}
           mode="widthFix"
         />
       </View>

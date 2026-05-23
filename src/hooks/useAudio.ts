@@ -14,7 +14,7 @@ export function useBackgroundAudio() {
     if (process.env.TARO_ENV === "weapp") {
       // Use InnerAudioContext for local files in WeChat mini program
       const innerAudioContext = Taro.createInnerAudioContext();
-      innerAudioContext.src = require("../assets/music/our-love.mp3");
+      innerAudioContext.src = require("@assets/music/our-love.mp3");
       innerAudioContext.loop = true;
       innerAudioContext.volume = 0.7;
 
@@ -52,7 +52,7 @@ export function useBackgroundAudio() {
         bgm.title = "Our Love";
         bgm.epname = "Wedding Invitation";
         bgm.singer = "Wedding";
-        bgm.src = require("../assets/music/our-love.mp3");
+        bgm.src = require("@assets/music/our-love.mp3");
         bgm.loop = true;
 
         // Listen for actual state changes

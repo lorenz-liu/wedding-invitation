@@ -2,11 +2,11 @@ import Taro from "@tarojs/taro";
 import { toWeappFontSource } from "./weappAsset";
 
 const FONT_PATHS = {
-  ThinBlack: require("../assets/fonts/thin-black.ttf"),
-  Bordered: require("../assets/fonts/bordered.ttf"),
-  Childhood: require("../assets/fonts/childhood.ttf"),
-  HandWritingBold: require("../assets/fonts/hand-writing-bold.ttf"),
-  HandWritingThin: require("../assets/fonts/hand-writing-thin.ttf"),
+  ThinBlack: require("@assets/fonts/thin-black.ttf"),
+  Bordered: require("@assets/fonts/bordered.ttf"),
+  Childhood: require("@assets/fonts/childhood.ttf"),
+  HandWritingBold: require("@assets/fonts/hand-writing-bold.ttf"),
+  HandWritingThin: require("@assets/fonts/hand-writing-thin.ttf"),
 };
 
 export function loadMiniProgramFonts(): void {
