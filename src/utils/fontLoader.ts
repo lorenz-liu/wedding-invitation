@@ -1,38 +1,46 @@
 import Taro from '@tarojs/taro'
 
-// Font file paths in the mini program
+// Font file paths - use require to get the actual path
 const FONT_PATHS = {
-  'ThinBlack': '/assets/fonts/thin-black.ttf',
-  'Bordered': '/assets/fonts/bordered.ttf',
-  'Childhood': '/assets/fonts/childhood.ttf',
-  'HandWritingBold': '/assets/fonts/hand-writing-bold.ttf',
-  'HandWritingThin': '/assets/fonts/hand-writing-thin.ttf',
+  'ThinBlack': require('../assets/fonts/thin-black.ttf'),
+  'Bordered': require('../assets/fonts/bordered.ttf'),
+  'Childhood': require('../assets/fonts/childhood.ttf'),
+  'HandWritingBold': require('../assets/fonts/hand-writing-bold.ttf'),
+  'HandWritingThin': require('../assets/fonts/hand-writing-thin.ttf'),
 }
 
 // Load font dynamically for WeChat mini program
-export async function loadMiniProgramFonts(): Promise<void> {
+export function loadMiniProgramFonts(): void {
   if (process.env.TARO_ENV !== 'weapp') return
 
-  try {
-    // Use wx.loadFontFace API
-    for (const [family, path] of Object.entries(FONT_PATHS)) {
-      try {
-        await Taro.loadFontFace({
-          family,
-          source: `url(${path})`,
-          success: () => {
-            console.log(`Font loaded: ${family}`)
-          },
-          fail: (err) => {
-            console.warn(`Font load failed: ${family}`, err)
-          }
-        })
-      } catch (e) {
-        console.warn(`Error loading font ${family}:`, e)
-      }
-    }
-  } catch (error) {
-    console.error('Font loading error:', error)
+  // Load fonts one by one with delay to avoid overwhelming
+  const loadFont = (family: string, path: string, delay: number) => {
+    setTimeout(() => {
+      Taro.loadFontFace({
+        family,
+        source: `url(${path})`,
+        success: () => {
+          console.log(`Font loaded: ${family}`)
+        },
+        fail: (err) => {
+          console.warn(`Font load failed: ${family}`, err)
+          // Try alternative loading method
+          wx.loadFontFace({
+            family,
+            source: `url(${path})`,
+            success: () => console.log(`Font loaded (wx): ${family}`),
+            fail: (err: any) => console.warn(`Font load failed (wx): ${family}`, err)
+          })
+        }
+      })
+    }, delay)
+  }
+
+  // Stagger font loading
+  let delay = 0
+  for (const [family, path] of Object.entries(FONT_PATHS)) {
+    loadFont(family, path, delay)
+    delay += 200 // 200ms delay between each font
   }
 }
 
@@ -44,27 +52,27 @@ export function loadH5Fonts(): void {
   style.textContent = `
     @font-face {
       font-family: 'ThinBlack';
-      src: url('/assets/fonts/thin-black.ttf') format('truetype');
+      src: url('${FONT_PATHS.ThinBlack}') format('truetype');
       font-display: swap;
     }
     @font-face {
       font-family: 'Bordered';
-      src: url('/assets/fonts/bordered.ttf') format('truetype');
+      src: url('${FONT_PATHS.Bordered}') format('truetype');
       font-display: swap;
     }
     @font-face {
       font-family: 'Childhood';
-      src: url('/assets/fonts/childhood.ttf') format('truetype');
+      src: url('${FONT_PATHS.Childhood}') format('truetype');
       font-display: swap;
     }
     @font-face {
       font-family: 'HandWritingBold';
-      src: url('/assets/fonts/hand-writing-bold.ttf') format('truetype');
+      src: url('${FONT_PATHS.HandWritingBold}') format('truetype');
       font-display: swap;
     }
     @font-face {
       font-family: 'HandWritingThin';
-      src: url('/assets/fonts/hand-writing-thin.ttf') format('truetype');
+      src: url('${FONT_PATHS.HandWritingThin}') format('truetype');
       font-display: swap;
     }
   `

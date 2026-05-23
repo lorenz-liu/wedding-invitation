@@ -24,15 +24,18 @@ const Index: React.FC = () => {
   const [isAnimating, setIsAnimating] = useState(false)
   const { isPlaying, togglePlay, initAudio } = useBackgroundAudio()
   const touchStartY = React.useRef(0)
+  const [audioInitialized, setAudioInitialized] = useState(false)
 
-  // Auto-init audio on first interaction
+  // Auto-init audio once on component mount
   useEffect(() => {
-    const initOnTouch = () => {
-      initAudio()
+    if (!audioInitialized) {
+      const timer = setTimeout(() => {
+        initAudio()
+        setAudioInitialized(true)
+      }, 800)
+      return () => clearTimeout(timer)
     }
-    // Delay to ensure audio context is ready
-    setTimeout(initOnTouch, 1000)
-  }, [initAudio])
+  }, [initAudio, audioInitialized])
 
   const goToPage = useCallback((pageIndex: number) => {
     if (pageIndex >= 0 && pageIndex < TOTAL_PAGES && !isAnimating) {

@@ -4,9 +4,12 @@ import Taro from '@tarojs/taro'
 export function useBackgroundAudio() {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<any>(null)
+  const isInitializedRef = useRef(false)
 
   const initAudio = useCallback(() => {
-    if (audioRef.current) return
+    // Prevent multiple initialization
+    if (isInitializedRef.current) return
+    isInitializedRef.current = true
 
     if (process.env.TARO_ENV === 'weapp') {
       // Use InnerAudioContext for local files in WeChat mini program
@@ -15,13 +18,30 @@ export function useBackgroundAudio() {
       innerAudioContext.loop = true
       innerAudioContext.volume = 0.7
       
+      // Track actual playing state
+      innerAudioContext.onPlay(() => {
+        console.log('Audio: onPlay event')
+        setIsPlaying(true)
+      })
+      
+      innerAudioContext.onPause(() => {
+        console.log('Audio: onPause event')
+        setIsPlaying(false)
+      })
+      
+      innerAudioContext.onStop(() => {
+        console.log('Audio: onStop event')
+        setIsPlaying(false)
+      })
+      
       innerAudioContext.onError((err) => {
         console.error('Audio error:', err)
+        setIsPlaying(false)
       })
       
       innerAudioContext.onCanplay(() => {
+        console.log('Audio: can play')
         innerAudioContext.play()
-        setIsPlaying(true)
       })
       
       audioRef.current = innerAudioContext
@@ -34,6 +54,12 @@ export function useBackgroundAudio() {
         bgm.singer = 'Wedding'
         bgm.src = require('../assets/music/our-love.mp3')
         bgm.loop = true
+        
+        // Listen for actual state changes
+        bgm.onPlay(() => setIsPlaying(true))
+        bgm.onPause(() => setIsPlaying(false))
+        bgm.onStop(() => setIsPlaying(false))
+        
         bgm.play()
         audioRef.current = bgm
         setIsPlaying(true)
@@ -42,22 +68,21 @@ export function useBackgroundAudio() {
   }, [])
 
   const togglePlay = useCallback(() => {
-    if (!audioRef.current) return
-
-    if (process.env.TARO_ENV === 'weapp') {
-      if (isPlaying) {
-        audioRef.current.pause()
-      } else {
-        audioRef.current.play()
-      }
-    } else {
-      if (isPlaying) {
-        audioRef.current.pause?.()
-      } else {
-        audioRef.current.play?.()
-      }
+    if (!audioRef.current) {
+      console.log('No audio instance available')
+      return
     }
-    setIsPlaying(!isPlaying)
+
+    const audio = audioRef.current
+    
+    // Use isPlaying state to determine action
+    if (isPlaying) {
+      console.log('Pausing audio...')
+      audio.pause?.()
+    } else {
+      console.log('Playing audio...')
+      audio.play?.()
+    }
   }, [isPlaying])
 
   useEffect(() => {
