@@ -30,8 +30,8 @@
   .homepage-figure {
     position: absolute;
     top: 50px;
-    width: 200px;
-    max-width: 200px;
+    width: 48%;
+    max-width: 450px;
     z-index: 1;
     pointer-events: none;
   }
@@ -46,7 +46,7 @@
 
   .homepage-figure-img {
     width: 100%;
-    max-width: 200px;
+    max-width: 450px;
     display: block;
   }
 
