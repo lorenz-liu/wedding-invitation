@@ -108,6 +108,14 @@ Resources:
       Principal: '*'
       FunctionUrlAuthType: NONE
 
+  SubmitResponseFunctionInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref SubmitResponseFunction
+      Action: lambda:InvokeFunction
+      Principal: '*'
+      InvokedViaFunctionUrl: true
+
 Outputs:
   ApiEndpoint:
     Description: Lambda Function URL for guest form submission

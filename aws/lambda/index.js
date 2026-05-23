@@ -33,6 +33,7 @@ exports.handler = async (event) => {
     const {
       mainContact,
       phone,
+      wechatId,
       guests,
       dietaryRestrictions,
       isDriving,
@@ -41,53 +42,64 @@ exports.handler = async (event) => {
       notes
     } = body
 
-    if (!phone) {
+    if (!mainContact || !String(mainContact).trim()) {
       return {
         statusCode: 400,
         headers: corsHeaders,
-        body: JSON.stringify({ error: 'Phone number is required' })
+        body: JSON.stringify({ error: 'Name is required' })
       }
     }
 
     const id = `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`
     const timestamp = new Date().toISOString()
+    const normalizedPhone = phone ? String(phone).trim() : ''
+
+    const item = {
+      id,
+      mainContact: String(mainContact).trim(),
+      wechatId: wechatId ? String(wechatId).trim() : '',
+      guests: guests || [],
+      dietaryRestrictions: dietaryRestrictions || '',
+      isDriving: isDriving || false,
+      needsShuttle: needsShuttle || false,
+      shuttleLocation: shuttleLocation || '',
+      notes: notes || '',
+      createdAt: timestamp
+    }
+
+    if (normalizedPhone) {
+      item.phone = normalizedPhone
+    }
 
     await dynamodb.send(
       new PutCommand({
         TableName: process.env.TABLE_NAME,
-        Item: {
-          id,
-          phone,
-          mainContact: mainContact || '',
-          guests: guests || [],
-          dietaryRestrictions: dietaryRestrictions || '',
-          isDriving: isDriving || false,
-          needsShuttle: needsShuttle || false,
-          shuttleLocation: shuttleLocation || '',
-          notes: notes || '',
-          createdAt: timestamp
-        }
+        Item: item
       })
     )
 
     let smsSent = false
-    try {
-      const phoneNumber = phone.startsWith('+') ? phone : `+86${phone}`
-      await sns.send(
-        new PublishCommand({
-          Message: SMS_MESSAGE,
-          PhoneNumber: phoneNumber,
-          MessageAttributes: {
-            'AWS.SNS.SMS.SMSType': {
-              DataType: 'String',
-              StringValue: 'Transactional'
+    if (normalizedPhone) {
+      try {
+        const phoneNumber = normalizedPhone.startsWith('+')
+          ? normalizedPhone
+          : `+86${normalizedPhone}`
+        await sns.send(
+          new PublishCommand({
+            Message: SMS_MESSAGE,
+            PhoneNumber: phoneNumber,
+            MessageAttributes: {
+              'AWS.SNS.SMS.SMSType': {
+                DataType: 'String',
+                StringValue: 'Transactional'
+              }
             }
-          }
-        })
-      )
-      smsSent = true
-    } catch (smsError) {
-      console.error('SMS send failed:', smsError)
+          })
+        )
+        smsSent = true
+      } catch (smsError) {
+        console.error('SMS send failed:', smsError)
+      }
     }
 
     return {
