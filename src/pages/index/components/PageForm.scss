@@ -619,8 +619,61 @@
   }
 }
 
-// Responsive
-@media (max-width: 480px) {
+// Thank you page
+.page-form-thanks {
+  .thanks-container {
+    text-align: center;
+    padding: 64px 32px;
+  }
+
+  .thanks-header {
+    margin-bottom: 40px;
+
+    .thanks-heart {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 24px;
+    }
+
+    .thanks-title {
+      font-family: 'Bordered', 'PingFang SC', sans-serif;
+      font-size: 36px;
+      color: $color-primary;
+      letter-spacing: 8px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .title-line {
+      width: 80px;
+      margin: 0 auto;
+    }
+  }
+
+  .thanks-body {
+    margin-bottom: 48px;
+
+    .thanks-message {
+      font-family: 'Childhood', 'PingFang SC', sans-serif;
+      font-size: 18px;
+      color: $color-text-primary;
+      line-height: 2;
+      display: block;
+      margin-bottom: 32px;
+      white-space: pre-line;
+    }
+
+    .thanks-detail {
+      font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
+      font-size: 16px;
+      color: $color-accent;
+      line-height: 2;
+      letter-spacing: 2px;
+      white-space: pre-line;
+    }
+  }
+}
+
   .paper-container {
     padding: 32px 20px;
     margin: 12px 0;

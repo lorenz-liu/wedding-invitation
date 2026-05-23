@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { View, Text, Input, Textarea, Button, Switch } from '@tarojs/components'
+import React, { useState, useEffect } from 'react'
+import { View, Text, Input, Textarea, Button } from '@tarojs/components'
 import { AnimatedView } from '../../../components/AnimatedView'
 import Taro from '@tarojs/taro'
 import { DoodleHeart, DoodleFlower, DoodleLine } from '../../../components/DoodleElements'
+import { API_ENDPOINT, FORM_SUBMITTED_KEY } from '../../../constants/config'
 import './PageForm.scss'
 
 interface Guest {
@@ -26,6 +27,7 @@ interface PageFormProps {
 }
 
 export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
+  const [submitted, setSubmitted] = useState(false)
   const [formData, setFormData] = useState<FormData>({
     mainContact: '',
     phone: '',
@@ -36,6 +38,13 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
     shuttleLocation: '',
     notes: ''
   })
+
+  useEffect(() => {
+    const alreadySubmitted = Taro.getStorageSync(FORM_SUBMITTED_KEY)
+    if (alreadySubmitted) {
+      setSubmitted(true)
+    }
+  }, [])
 
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -65,9 +74,9 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
     Taro.showLoading({ title: '提交中...' })
 
     try {
-      const API_ENDPOINT = process.env.TARO_ENV === 'weapp'
-        ? 'https://your-lambda-url.lambda-url.us-east-1.on.aws/'
-        : 'https://your-lambda-url.lambda-url.us-east-1.on.aws/'
+      if (API_ENDPOINT.includes('your-lambda-url')) {
+        throw new Error('请先配置 API 地址')
+      }
 
       const response = await Taro.request({
         url: API_ENDPOINT,
@@ -79,21 +88,12 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
       })
 
       if (response.statusCode === 200 && response.data.success) {
-        Taro.showToast({ title: '提交成功！', icon: 'success' })
-        setFormData({
-          mainContact: '',
-          phone: '',
-          guests: [{ name: '', relation: '' }],
-          dietaryRestrictions: '',
-          isDriving: false,
-          needsShuttle: false,
-          shuttleLocation: '',
-          notes: ''
-        })
+        Taro.setStorageSync(FORM_SUBMITTED_KEY, true)
+        setSubmitted(true)
       } else {
-        throw new Error(response.data.error || '提交失败')
+        throw new Error(response.data.error || response.data.message || '提交失败')
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Submit error:', error)
       Taro.showToast({
         title: error.message || '网络错误，请重试',
@@ -103,6 +103,48 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
     } finally {
       Taro.hideLoading()
     }
+  }
+
+  if (submitted) {
+    return (
+      <View className='page page-form page-form-thanks'>
+        <View className='paper-container thanks-container'>
+          <AnimatedView animation='fadeInScale' isActive={isActive} duration={800}>
+            <View className='thanks-header'>
+              <DoodleHeart className='thanks-heart' />
+              <Text className='thanks-title'>感谢您的回复</Text>
+              <DoodleLine className='title-line' />
+            </View>
+          </AnimatedView>
+
+          <AnimatedView animation='fadeInUp' isActive={isActive} delay={300} duration={600}>
+            <View className='thanks-body'>
+              <Text className='thanks-message'>
+                我们已收到您的回函。
+                {'\n'}
+                确认短信将发送至您填写的手机号。
+              </Text>
+              <Text className='thanks-detail'>
+                2026年7月25日 · 成都
+                {'\n'}
+                期待与您相见
+              </Text>
+            </View>
+          </AnimatedView>
+
+          <AnimatedView animation='fadeIn' isActive={isActive} delay={600} duration={600}>
+            <View className='form-footer'>
+              <View className='footer-flowers'>
+                <DoodleFlower className='footer-flower' />
+                <DoodleHeart className='footer-heart' />
+                <DoodleFlower className='footer-flower' />
+              </View>
+              <Text className='footer-names'>刘兆薰 & 高文珩 敬邀</Text>
+            </View>
+          </AnimatedView>
+        </View>
+      </View>
+    )
   }
 
   return (

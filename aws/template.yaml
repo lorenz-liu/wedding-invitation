@@ -1,21 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Wedding Invitation Backend - DynamoDB and SNS
 
-Parameters:
-  Environment:
-    Type: String
-    Default: prod
-    AllowedValues:
-      - dev
-      - prod
-    Description: Deployment environment
-
 Resources:
-  # DynamoDB Table for Guest Responses
   GuestResponsesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub 'wedding-guest-responses-${Environment}'
+      TableName: wedding-guests
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
         - AttributeName: id
@@ -35,25 +25,11 @@ Resources:
       Tags:
         - Key: Project
           Value: WeddingInvitation
-        - Key: Environment
-          Value: !Ref Environment
 
-  # SNS Topic for SMS notifications
-  WeddingNotificationTopic:
-    Type: AWS::SNS::Topic
-    Properties:
-      TopicName: !Sub 'wedding-notifications-${Environment}'
-      DisplayName: Wedding Invitations
-      Tags:
-        - Key: Project
-          Value: WeddingInvitation
-        - Key: Environment
-          Value: !Ref Environment
-
-  # Lambda Execution Role
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: wedding-lambda-role
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -77,20 +53,20 @@ Resources:
                 Resource:
                   - !GetAtt GuestResponsesTable.Arn
                   - !Sub '${GuestResponsesTable.Arn}/index/*'
-        - PolicyName: SNSAccess
+        - PolicyName: SNSSMSAccess
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
                   - sns:Publish
-                Resource: !Ref WeddingNotificationTopic
+                  - sns:SetSMSAttributes
+                Resource: '*'
 
-  # Lambda Function for Submitting Guest Response
   SubmitResponseFunction:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Sub 'wedding-submit-response-${Environment}'
+      FunctionName: handle-guest-form-submission
       Runtime: nodejs18.x
       Handler: index.handler
       Role: !GetAtt LambdaExecutionRole.Arn
@@ -99,6 +75,16 @@ Resources:
           const AWS = require('aws-sdk');
           const dynamodb = new AWS.DynamoDB.DocumentClient();
           const sns = new AWS.SNS();
+
+          const SMS_MESSAGE = [
+            '收到啦！我们已悉心记下所有细节。',
+            '',
+            '何其荣幸您将出席我们的婚礼，请放心，我们会为您备好一切。若后续行程有变，或有任何需要，欢迎随时通过微信（LuvGaw）或电话（19800301620）与我们联络。',
+            '',
+            '7月25日，成都·慕上，期待与您相见！',
+            '',
+            '—— 刘兆薰 & 高文珩 敬上'
+          ].join('\n');
 
           exports.handler = async (event) => {
             const corsHeaders = {
@@ -115,7 +101,6 @@ Resources:
               const body = JSON.parse(event.body);
               const { mainContact, phone, guests, dietaryRestrictions, isDriving, needsShuttle, shuttleLocation, notes } = body;
 
-              // Validation
               if (!phone) {
                 return {
                   statusCode: 400,
@@ -124,11 +109,9 @@ Resources:
                 };
               }
 
-              // Generate unique ID
               const id = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
               const timestamp = new Date().toISOString();
 
-              // Save to DynamoDB
               await dynamodb.put({
                 TableName: process.env.TABLE_NAME,
                 Item: {
@@ -145,23 +128,32 @@ Resources:
                 }
               }).promise();
 
-              // Send SMS confirmation
-              if (phone) {
-                const message = `亲爱的${mainContact || '宾客'}，感谢您确认参加刘兆薰&高文珩的婚礼！我们会尽快与您联系确认细节。期待与您相见！`;
+              let smsSent = false;
+              try {
+                const phoneNumber = phone.startsWith('+') ? phone : `+86${phone}`;
                 await sns.publish({
-                  TopicArn: process.env.SNS_TOPIC_ARN,
-                  Message: message,
-                  PhoneNumber: phone.startsWith('+') ? phone : `+86${phone}`
+                  Message: SMS_MESSAGE,
+                  PhoneNumber: phoneNumber,
+                  MessageAttributes: {
+                    'AWS.SNS.SMS.SMSType': {
+                      DataType: 'String',
+                      StringValue: 'Transactional'
+                    }
+                  }
                 }).promise();
+                smsSent = true;
+              } catch (smsError) {
+                console.error('SMS send failed:', smsError);
               }
 
               return {
                 statusCode: 200,
                 headers: corsHeaders,
-                body: JSON.stringify({ 
-                  success: true, 
+                body: JSON.stringify({
+                  success: true,
                   id,
-                  message: '感谢您的回复！确认短信已发送。'
+                  smsSent,
+                  message: smsSent ? '感谢您的回复！确认短信已发送。' : '感谢您的回复！'
                 })
               };
             } catch (error) {
@@ -169,26 +161,22 @@ Resources:
               return {
                 statusCode: 500,
                 headers: corsHeaders,
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                   error: 'Internal server error',
-                  message: error.message 
+                  message: error.message
                 })
               };
             }
           };
       Environment:
         Variables:
-          TABLE_NAME: !Ref GuestResponsesTable
-          SNS_TOPIC_ARN: !Ref WeddingNotificationTopic
+          TABLE_NAME: wedding-guests
       Timeout: 30
       MemorySize: 256
       Tags:
         - Key: Project
           Value: WeddingInvitation
-        - Key: Environment
-          Value: !Ref Environment
 
-  # Lambda Function URL
   SubmitResponseFunctionUrl:
     Type: AWS::Lambda::Url
     Properties:
@@ -205,7 +193,6 @@ Resources:
           - Authorization
         MaxAge: 86400
 
-  # Permission for Function URL
   SubmitResponseFunctionUrlPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -216,19 +203,19 @@ Resources:
 
 Outputs:
   ApiEndpoint:
-    Description: API Gateway endpoint URL
+    Description: Lambda Function URL for guest form submission
     Value: !GetAtt SubmitResponseFunctionUrl.FunctionUrl
     Export:
-      Name: !Sub 'WeddingApiEndpoint-${Environment}'
+      Name: WeddingApiEndpoint
 
   DynamoDBTable:
-    Description: DynamoDB Table Name
+    Description: DynamoDB table name
     Value: !Ref GuestResponsesTable
     Export:
-      Name: !Sub 'WeddingTableName-${Environment}'
+      Name: WeddingTableName
 
-  SNSTopic:
-    Description: SNS Topic ARN
-    Value: !Ref WeddingNotificationTopic
+  LambdaFunctionName:
+    Description: Lambda function name
+    Value: !Ref SubmitResponseFunction
     Export:
-      Name: !Sub 'WeddingTopicArn-${Environment}'
+      Name: WeddingLambdaFunctionName
