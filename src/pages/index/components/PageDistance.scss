@@ -1,136 +1,234 @@
 @import '../../../styles/variables.scss';
 
 .page-distance {
+  min-height: 100vh;
+  padding: 48px 24px;
+  background: linear-gradient(135deg, #faf8f5 0%, #f0ece4 100%);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+// Page Header
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+
+  .years-badge {
+    font-family: 'Childhood', 'PingFang SC', sans-serif;
+    font-size: 48px;
+    color: $color-accent;
+    letter-spacing: 6px;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .header-line {
+    width: 100px;
+    margin: 0 auto;
+  }
+}
+
+// Distance Content
+.distance-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+// Intro Section
+.intro-section {
+  text-align: center;
+
+  .intro-text {
+    font-family: 'Childhood', 'PingFang SC', sans-serif;
+    font-size: 22px;
+    color: $color-text-primary;
+    letter-spacing: 2px;
+    line-height: 1.8;
+  }
+}
+
+// Timeline Cards - Horizontal Layout
+.timeline-cards {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 0 8px;
+}
+
+// Timeline Card
+.timeline-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: $spacing-xl;
-  background: linear-gradient(180deg, #f5efe6 0%, #ece5d8 100%);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 20px 16px;
+  border: 1px solid rgba(201, 168, 124, 0.2);
+  box-shadow: 0 4px 16px rgba(201, 168, 124, 0.08);
+  max-width: 200px;
+  flex: 1;
+  min-width: 140px;
 
-  .content-wrapper {
+  &.wide {
+    max-width: 320px;
+  }
+
+  .card-year {
+    font-family: 'ThinBlack', 'PingFang SC', sans-serif;
+    font-size: 14px;
+    color: $color-accent;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    padding: 6px 12px;
+    background: rgba(201, 168, 124, 0.1);
+    border-radius: 20px;
+  }
+
+  .card-image {
+    margin-bottom: 12px;
+
+    :global(.animated-image-wrapper) {
+      max-width: 160px;
+
+      &.polaroid {
+        padding: 8px 8px 32px 8px;
+      }
+    }
+  }
+
+  .dual-images {
     display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    justify-content: center;
+
+    :global(.animated-image-wrapper) {
+      max-width: 120px;
+
+      &.polaroid {
+        padding: 6px 6px 24px 6px;
+      }
+
+      &.tilt-left {
+        transform: rotate(-4deg);
+      }
+
+      &.tilt-right {
+        transform: rotate(3deg);
+      }
+    }
+  }
+
+  .card-text {
+    text-align: center;
+
+    .card-title {
+      font-family: 'Childhood', 'PingFang SC', sans-serif;
+      font-size: 16px;
+      color: $color-text-primary;
+      letter-spacing: 1px;
+      line-height: 1.5;
+    }
+  }
+}
+
+// Connection Arrow
+.connection-arrow {
+  font-family: 'ThinBlack', 'PingFang SC', sans-serif;
+  font-size: 24px;
+  color: $color-accent;
+  opacity: 0.6;
+  align-self: center;
+  margin-top: 60px;
+}
+
+// Conclusion Section
+.conclusion-section {
+  text-align: center;
+  margin-top: 16px;
+  padding: 24px 32px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  border: 1px dashed rgba(201, 168, 124, 0.3);
+  max-width: 600px;
+  align-self: center;
+
+  .conclusion-text {
+    font-family: 'Childhood', 'PingFang SC', sans-serif;
+    font-size: 18px;
+    color: $color-text-primary;
+    line-height: 1.8;
+    letter-spacing: 1px;
+  }
+}
+
+// Responsive
+@media (max-width: 640px) {
+  .page-distance {
+    padding: 32px 16px;
+  }
+
+  .page-header {
+    .years-badge {
+      font-size: 36px;
+    }
+  }
+
+  .intro-section {
+    .intro-text {
+      font-size: 18px;
+    }
+  }
+
+  .timeline-cards {
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    max-width: 600px;
+    gap: 24px;
+  }
+
+  .timeline-card {
+    max-width: 280px;
     width: 100%;
-  }
 
-  .years-range {
-    font-family: 'Childhood', sans-serif;
-    font-size: 48px;
-    color: $color-accent;
-    letter-spacing: 4px;
-    margin-bottom: $spacing-sm;
-  }
-
-  .main-title {
-    font-family: 'Childhood', sans-serif;
-    font-size: $font-size-xl;
-    color: $color-secondary;
-    margin-bottom: $spacing-xl;
-    letter-spacing: 2px;
-  }
-
-  .timeline-container {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-lg;
-    width: 100%;
-    margin: $spacing-lg 0;
-    position: relative;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, $color-border, $color-accent, $color-border);
-      transform: translateX(-50%);
+    &.wide {
+      max-width: 280px;
     }
 
-    .timeline-item {
-      display: flex;
-      justify-content: center;
-      position: relative;
+    .card-image {
+      :global(.animated-image-wrapper) {
+        max-width: 200px;
+      }
+    }
 
-      .timeline-card {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: $border-radius-lg;
-        padding: $spacing-lg;
-        min-width: 180px;
-        box-shadow: $shadow-md;
-        border: 2px dashed $color-border;
-        position: relative;
-        z-index: 1;
+    .dual-images {
+      :global(.animated-image-wrapper) {
+        max-width: 120px;
 
-        &::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          width: 12px;
-          height: 12px;
-          background: $color-accent;
-          border-radius: 50%;
-          transform: translateY(-50%);
-        }
-
-        &.left::before {
-          right: -36px;
-        }
-
-        &.right::before {
-          left: -36px;
-        }
-
-        .year-badge {
-          font-family: 'Childhood', sans-serif;
-          font-size: $font-size-xxl;
-          color: $color-accent;
-          display: block;
-          margin-bottom: $spacing-xs;
-        }
-
-        .timeline-icon {
-          font-size: 32px;
-          display: block;
-          margin: $spacing-sm 0;
-        }
-
-        .location-text {
-          font-family: 'Childhood', sans-serif;
-          font-size: $font-size-lg;
-          color: $color-primary;
-          display: block;
-          margin-bottom: $spacing-xs;
-        }
-
-        .desc-text {
-          font-family: 'Childhood', sans-serif;
-          font-size: $font-size-sm;
-          color: $color-secondary;
+        &.tilt-left,
+        &.tilt-right {
+          transform: none;
         }
       }
     }
   }
 
-  .conclusion-box {
-    margin-top: $spacing-xl;
-    padding: $spacing-xl;
-    background: rgba(201, 168, 124, 0.1);
-    border-radius: $border-radius-lg;
-    border: 2px dashed $color-accent;
+  .connection-arrow {
+    transform: rotate(90deg);
+    margin-top: 0;
+    margin-bottom: -8px;
+  }
+
+  .conclusion-section {
+    padding: 20px 24px;
 
     .conclusion-text {
-      font-family: 'Childhood', sans-serif;
-      font-size: $font-size-lg;
-      color: $color-text-primary;
-      line-height: 2;
-      white-space: pre-line;
+      font-size: 16px;
     }
   }
 }

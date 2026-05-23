@@ -16,7 +16,8 @@ export default {
   copy: {
     patterns: [
       { from: 'src/assets/fonts/', to: 'dist/assets/fonts/' },
-      { from: 'src/assets/music/', to: 'dist/assets/music/' }
+      { from: 'src/assets/music/', to: 'dist/assets/music/' },
+      { from: 'src/assets/images/', to: 'dist/assets/images/' }
     ],
     options: {}
   },
