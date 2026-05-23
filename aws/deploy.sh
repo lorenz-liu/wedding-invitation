@@ -9,6 +9,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMPLATE_FILE="${SCRIPT_DIR}/template.yaml"
+LAMBDA_DIR="${SCRIPT_DIR}/lambda"
+LAMBDA_ZIP="${LAMBDA_DIR}/function.zip"
+LAMBDA_FUNCTION_NAME="${LAMBDA_FUNCTION_NAME:-handle-guest-form-submission}"
 
 AWS_PROFILE="${AWS_PROFILE:-wedding}"
 STACK_NAME="${STACK_NAME:-wedding}"
@@ -92,7 +95,7 @@ create_stack() {
 update_stack() {
   local update_log
   update_log="$(mktemp)"
-  trap 'rm -f "${update_log}"' RETURN
+  trap "rm -f '${update_log}'" RETURN
 
   log "Updating stack '${STACK_NAME}'..."
   if ! aws_cmd cloudformation update-stack \
@@ -139,13 +142,40 @@ deploy_stack() {
 delete_stack() {
   if ! stack_exists; then
     log "Stack '${STACK_NAME}' does not exist. Nothing to delete."
-    exit 0
+    return 0
   fi
 
   log "Deleting stack '${STACK_NAME}'..."
   aws_cmd cloudformation delete-stack --stack-name "${STACK_NAME}"
   wait_for_stack delete
   log "Stack deleted successfully."
+}
+
+build_lambda_package() {
+  log "Building Lambda deployment package..."
+  command -v npm >/dev/null 2>&1 || die "npm not found. Install Node.js to deploy Lambda code."
+  (
+    cd "${LAMBDA_DIR}"
+    if [[ -f package-lock.json ]]; then
+      npm ci --omit=dev --silent
+    else
+      npm install --omit=dev --silent
+    fi
+    rm -f function.zip
+    zip -rq function.zip index.js package.json node_modules
+  )
+}
+
+deploy_lambda_code() {
+  [[ -f "${LAMBDA_DIR}/index.js" ]] || die "Lambda handler not found: ${LAMBDA_DIR}/index.js"
+  build_lambda_package
+  log "Updating Lambda function code (${LAMBDA_FUNCTION_NAME})..."
+  aws_cmd lambda update-function-code \
+    --function-name "${LAMBDA_FUNCTION_NAME}" \
+    --zip-file "fileb://${LAMBDA_ZIP}" \
+    --no-cli-pager >/dev/null
+  aws_cmd lambda wait function-updated --function-name "${LAMBDA_FUNCTION_NAME}"
+  log "Lambda code updated successfully."
 }
 
 main() {
@@ -156,6 +186,7 @@ main() {
   case "${1:-deploy}" in
     deploy)
       deploy_stack
+      deploy_lambda_code
       print_outputs
       ;;
     --delete|delete)

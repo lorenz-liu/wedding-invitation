@@ -67,107 +67,15 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: handle-guest-form-submission
-      Runtime: nodejs18.x
+      Runtime: nodejs20.x
       Handler: index.handler
       Role: !GetAtt LambdaExecutionRole.Arn
       Code:
         ZipFile: |
-          const AWS = require('aws-sdk');
-          const dynamodb = new AWS.DynamoDB.DocumentClient();
-          const sns = new AWS.SNS();
-
-          const SMS_MESSAGE = [
-            '收到啦！我们已悉心记下所有细节。',
-            '',
-            '何其荣幸您将出席我们的婚礼，请放心，我们会为您备好一切。若后续行程有变，或有任何需要，欢迎随时通过微信（LuvGaw）或电话（19800301620）与我们联络。',
-            '',
-            '7月25日，成都·慕上，期待与您相见！',
-            '',
-            '—— 刘兆薰 & 高文珩 敬上'
-          ].join('\n');
-
-          exports.handler = async (event) => {
-            const corsHeaders = {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Headers': 'Content-Type,Authorization',
-              'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-            };
-
-            if (event.httpMethod === 'OPTIONS') {
-              return { statusCode: 200, headers: corsHeaders, body: '' };
-            }
-
-            try {
-              const body = JSON.parse(event.body);
-              const { mainContact, phone, guests, dietaryRestrictions, isDriving, needsShuttle, shuttleLocation, notes } = body;
-
-              if (!phone) {
-                return {
-                  statusCode: 400,
-                  headers: corsHeaders,
-                  body: JSON.stringify({ error: 'Phone number is required' })
-                };
-              }
-
-              const id = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-              const timestamp = new Date().toISOString();
-
-              await dynamodb.put({
-                TableName: process.env.TABLE_NAME,
-                Item: {
-                  id,
-                  phone,
-                  mainContact: mainContact || '',
-                  guests: guests || [],
-                  dietaryRestrictions: dietaryRestrictions || '',
-                  isDriving: isDriving || false,
-                  needsShuttle: needsShuttle || false,
-                  shuttleLocation: shuttleLocation || '',
-                  notes: notes || '',
-                  createdAt: timestamp
-                }
-              }).promise();
-
-              let smsSent = false;
-              try {
-                const phoneNumber = phone.startsWith('+') ? phone : `+86${phone}`;
-                await sns.publish({
-                  Message: SMS_MESSAGE,
-                  PhoneNumber: phoneNumber,
-                  MessageAttributes: {
-                    'AWS.SNS.SMS.SMSType': {
-                      DataType: 'String',
-                      StringValue: 'Transactional'
-                    }
-                  }
-                }).promise();
-                smsSent = true;
-              } catch (smsError) {
-                console.error('SMS send failed:', smsError);
-              }
-
-              return {
-                statusCode: 200,
-                headers: corsHeaders,
-                body: JSON.stringify({
-                  success: true,
-                  id,
-                  smsSent,
-                  message: smsSent ? '感谢您的回复！确认短信已发送。' : '感谢您的回复！'
-                })
-              };
-            } catch (error) {
-              console.error('Error:', error);
-              return {
-                statusCode: 500,
-                headers: corsHeaders,
-                body: JSON.stringify({
-                  error: 'Internal server error',
-                  message: error.message
-                })
-              };
-            }
-          };
+          exports.handler = async () => ({
+            statusCode: 503,
+            body: JSON.stringify({ error: 'Lambda code not deployed yet. Run ./deploy.sh' })
+          });
       Environment:
         Variables:
           TABLE_NAME: wedding-guests

@@ -2,5 +2,7 @@ dist/
 .deploy/
 *.local.*
 node_modules/
+aws/lambda/node_modules/
+aws/lambda/function.zip
 .DS_Store
 .swc
