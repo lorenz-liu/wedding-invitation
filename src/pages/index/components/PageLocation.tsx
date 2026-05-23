@@ -44,9 +44,9 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
             height: 32
           }
         ]}
-        showLocation
-        enableScroll
-        enableZoom
+        enableScroll={false}
+        enableZoom={false}
+        enableRotate={false}
       />
 
       <View className='location-overlay'>
