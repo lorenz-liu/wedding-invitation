@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Input, Textarea, Button } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import Taro from "@tarojs/taro";
-import {
-  DoodleHeart,
-  DoodleFlower,
-  DoodleLine,
-} from "../../../components/DoodleElements";
+import { DoodleHeart, DoodleFlower, DoodleLine } from "../../../components/DoodleElements";
 import { API_ENDPOINT, FORM_SUBMITTED_KEY } from "../../../constants/config";
 import "./PageForm.scss";
 
@@ -87,11 +83,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
     setSubmitted(false);
   };
 
-  const handleGuestChange = (
-    index: number,
-    field: keyof Guest,
-    value: string,
-  ) => {
+  const handleGuestChange = (index: number, field: keyof Guest, value: string) => {
     const newGuests = [...formData.guests];
     newGuests[index] = { ...newGuests[index], [field]: value };
     setFormData((prev) => ({ ...prev, guests: newGuests }));
@@ -135,9 +127,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         Taro.setStorageSync(FORM_SUBMITTED_KEY, true);
         setSubmitted(true);
       } else {
-        throw new Error(
-          response.data.error || response.data.message || "提交失败",
-        );
+        throw new Error(response.data.error || response.data.message || "提交失败");
       }
     } catch (error: any) {
       console.error("Submit error:", error);
@@ -155,11 +145,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
     return (
       <View className="page page-form page-form-thanks">
         <View className="paper-container thanks-container">
-          <AnimatedView
-            animation="fadeInScale"
-            isActive={isActive}
-            duration={800}
-          >
+          <AnimatedView animation="fadeInScale" isActive={isActive} duration={800}>
             <View className="thanks-header">
               <DoodleHeart className="thanks-heart" />
               <Text className="thanks-title">感谢您的回复</Text>
@@ -167,12 +153,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
             </View>
           </AnimatedView>
 
-          <AnimatedView
-            animation="fadeInUp"
-            isActive={isActive}
-            delay={300}
-            duration={600}
-          >
+          <AnimatedView animation="fadeInUp" isActive={isActive} delay={300} duration={600}>
             <View className="thanks-body">
               <Text className="thanks-message">
                 我们已收到您的回函。
@@ -187,12 +168,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
             </View>
           </AnimatedView>
 
-          <AnimatedView
-            animation="fadeIn"
-            isActive={isActive}
-            delay={600}
-            duration={600}
-          >
+          <AnimatedView animation="fadeIn" isActive={isActive} delay={600} duration={600}>
             <View className="thanks-actions">
               <Button className="refill-btn" onClick={handleRefillForm}>
                 重新填写
@@ -233,12 +209,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         </AnimatedView>
 
         {/* Main Contact Section */}
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={isActive}
-          delay={200}
-          duration={600}
-        >
+        <AnimatedView animation="fadeInUp" isActive={isActive} delay={200} duration={600}>
           <View className="form-section contact-section">
             <View className="section-header">
               <View className="section-number">01</View>
@@ -252,9 +223,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
                 <Input
                   className="field-input"
                   value={formData.mainContact}
-                  onInput={(e) =>
-                    handleInputChange("mainContact", e.detail.value)
-                  }
+                  onInput={(e) => handleInputChange("mainContact", e.detail.value)}
                   placeholder="请输入您的姓名"
                 />
                 <View className="field-underline" />
@@ -285,12 +254,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         </AnimatedView>
 
         {/* Guests Section */}
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={isActive}
-          delay={350}
-          duration={600}
-        >
+        <AnimatedView animation="fadeInUp" isActive={isActive} delay={350} duration={600}>
           <View className="form-section guests-section">
             <View className="section-header">
               <View className="section-number">02</View>
@@ -305,26 +269,19 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
                     <Input
                       className="guest-input-name"
                       value={guest.name}
-                      onInput={(e) =>
-                        handleGuestChange(index, "name", e.detail.value)
-                      }
+                      onInput={(e) => handleGuestChange(index, "name", e.detail.value)}
                       placeholder="姓名"
                     />
                     <View className="input-divider" />
                     <Input
                       className="guest-input-relation"
                       value={guest.relation}
-                      onInput={(e) =>
-                        handleGuestChange(index, "relation", e.detail.value)
-                      }
+                      onInput={(e) => handleGuestChange(index, "relation", e.detail.value)}
                       placeholder="TA是您的..."
                     />
                   </View>
                   {formData.guests.length > 1 && (
-                    <View
-                      className="remove-guest-btn"
-                      onClick={() => removeGuest(index)}
-                    >
+                    <View className="remove-guest-btn" onClick={() => removeGuest(index)}>
                       <Text className="remove-icon">×</Text>
                     </View>
                   )}
@@ -339,12 +296,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         </AnimatedView>
 
         {/* Transport Section */}
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={isActive}
-          delay={500}
-          duration={600}
-        >
+        <AnimatedView animation="fadeInUp" isActive={isActive} delay={500} duration={600}>
           <View className="form-section transport-section">
             <View className="section-header">
               <View className="section-number">03</View>
@@ -357,9 +309,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               >
                 <View className="transport-icon">🚗</View>
                 <Text className="transport-label">自驾前往</Text>
-                <View
-                  className={`selection-ring ${formData.isDriving ? "active" : ""}`}
-                >
+                <View className={`selection-ring ${formData.isDriving ? "active" : ""}`}>
                   {formData.isDriving && <View className="selection-dot" />}
                 </View>
               </View>
@@ -369,9 +319,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               >
                 <View className="transport-icon">🚌</View>
                 <Text className="transport-label">需要接驳</Text>
-                <View
-                  className={`selection-ring ${formData.needsShuttle ? "active" : ""}`}
-                >
+                <View className={`selection-ring ${formData.needsShuttle ? "active" : ""}`}>
                   {formData.needsShuttle && <View className="selection-dot" />}
                 </View>
               </View>
@@ -384,9 +332,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
                   <Input
                     className="shuttle-input"
                     value={formData.shuttleLocation}
-                    onInput={(e) =>
-                      handleInputChange("shuttleLocation", e.detail.value)
-                    }
+                    onInput={(e) => handleInputChange("shuttleLocation", e.detail.value)}
                     placeholder="例如：成都东站、双流机场等"
                   />
                 </View>
@@ -396,12 +342,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         </AnimatedView>
 
         {/* Dietary Section */}
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={isActive}
-          delay={650}
-          duration={600}
-        >
+        <AnimatedView animation="fadeInUp" isActive={isActive} delay={650} duration={600}>
           <View className="form-section dietary-section">
             <View className="section-header">
               <View className="section-number">04</View>
@@ -412,9 +353,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
               <Textarea
                 className="text-area"
                 value={formData.dietaryRestrictions}
-                onInput={(e) =>
-                  handleInputChange("dietaryRestrictions", e.detail.value)
-                }
+                onInput={(e) => handleInputChange("dietaryRestrictions", e.detail.value)}
                 placeholder="如有任何饮食限制，请在此告诉我们..."
               />
               <View className="paper-lines">
@@ -427,12 +366,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         </AnimatedView>
 
         {/* Notes Section */}
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={isActive}
-          delay={800}
-          duration={600}
-        >
+        <AnimatedView animation="fadeInUp" isActive={isActive} delay={800} duration={600}>
           <View className="form-section notes-section">
             <View className="section-header">
               <View className="section-number">05</View>
@@ -457,12 +391,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         </AnimatedView>
 
         {/* Submit Section */}
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={isActive}
-          delay={950}
-          duration={600}
-        >
+        <AnimatedView animation="fadeInUp" isActive={isActive} delay={950} duration={600}>
           <View className="submit-section">
             <Button className="submit-btn" onClick={handleSubmit}>
               <DoodleHeart className="btn-heart" />
@@ -476,12 +405,7 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
         </AnimatedView>
 
         {/* Footer */}
-        <AnimatedView
-          animation="fadeIn"
-          isActive={isActive}
-          delay={1100}
-          duration={600}
-        >
+        <AnimatedView animation="fadeIn" isActive={isActive} delay={1100} duration={600}>
           <View className="form-footer">
             <View className="footer-flowers">
               <DoodleFlower className="footer-flower" />

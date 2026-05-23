@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "es6",
-      "es2017",
-      "esnext.asynciterable"
-    ],
+    "lib": ["es6", "es2017", "esnext.asynciterable"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -24,12 +20,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "./src",
-    "./types"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["./src", "./types"],
+  "exclude": ["node_modules", "dist"]
 }
