@@ -18,6 +18,7 @@ export default {
       { from: "src/assets/fonts/", to: "dist/assets/fonts/" },
       { from: "src/assets/music/", to: "dist/assets/music/" },
       { from: "src/assets/images/", to: "dist/assets/images/" },
+      { from: "images/", to: "dist/images/" },
     ],
     options: {},
   },

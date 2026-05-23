@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
+import { toWeappFontSource } from "./weappAsset";
 
-// Font file paths - use require to get the actual path
 const FONT_PATHS = {
   ThinBlack: require("../assets/fonts/thin-black.ttf"),
   Bordered: require("../assets/fonts/bordered.ttf"),
@@ -9,42 +9,34 @@ const FONT_PATHS = {
   HandWritingThin: require("../assets/fonts/hand-writing-thin.ttf"),
 };
 
-// Load font dynamically for WeChat mini program
 export function loadMiniProgramFonts(): void {
   if (process.env.TARO_ENV !== "weapp") return;
 
-  // Load fonts one by one with delay to avoid overwhelming
   const loadFont = (family: string, path: string, delay: number) => {
     setTimeout(() => {
+      const source = toWeappFontSource(path);
+
       Taro.loadFontFace({
         family,
-        source: `url(${path})`,
+        source,
+        global: true,
         success: () => {
           console.log(`Font loaded: ${family}`);
         },
         fail: (err) => {
-          console.warn(`Font load failed: ${family}`, err);
-          // Try alternative loading method
-          wx.loadFontFace({
-            family,
-            source: `url(${path})`,
-            success: () => console.log(`Font loaded (wx): ${family}`),
-            fail: (err: any) => console.warn(`Font load failed (wx): ${family}`, err),
-          });
+          console.warn(`Font load failed: ${family}`, { source, path, err });
         },
       });
     }, delay);
   };
 
-  // Stagger font loading
   let delay = 0;
   for (const [family, path] of Object.entries(FONT_PATHS)) {
     loadFont(family, path, delay);
-    delay += 200; // 200ms delay between each font
+    delay += 300;
   }
 }
 
-// For H5, load via CSS @font-face
 export function loadH5Fonts(): void {
   if (process.env.TARO_ENV !== "h5") return;
 

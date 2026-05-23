@@ -6,21 +6,48 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: $spacing-xl;
+  padding: $spacing-xl 0;
   position: relative;
   overflow: hidden;
 
-  .corner-tl { position: absolute; top: 20px; left: 20px; }
-  .corner-tr { position: absolute; top: 20px; right: 20px; }
-  .corner-bl { position: absolute; bottom: 20px; left: 20px; }
-  .corner-br { position: absolute; bottom: 20px; right: 20px; }
+  .corner-tl { position: absolute; top: 20px; left: 20px; z-index: 2; }
+  .corner-tr { position: absolute; top: 20px; right: 20px; z-index: 2; }
+  .corner-bl { position: absolute; bottom: 20px; left: 20px; z-index: 2; }
+  .corner-br { position: absolute; bottom: 20px; right: 20px; z-index: 2; }
 
   .content-wrapper {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     max-width: 600px;
+    width: 100%;
+    padding: 0 $spacing-xl;
+  }
+
+  .homepage-figure {
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    max-width: 200px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .homepage-figure-niu {
+    left: 0;
+  }
+
+  .homepage-figure-gao {
+    right: 0;
+  }
+
+  .homepage-figure-img {
+    width: 100%;
+    max-width: 200px;
+    display: block;
   }
 
   .names-text {
@@ -80,6 +107,7 @@
   .scroll-hint {
     position: absolute;
     bottom: 80px;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;

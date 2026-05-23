@@ -1,8 +1,12 @@
 import React from "react";
-import { View, Text } from "@tarojs/components";
+import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { DoodleHeart, DoodleLine, DoodleCorner } from "../../../components/DoodleElements";
+import { toWeappLocalPath } from "../../../utils/weappAsset";
 import "./PageHome.scss";
+
+const HOMEPAGE_NIU = require("../../../assets/images/homepage-niu.png");
+const HOMEPAGE_GAO = require("../../../assets/images/homepage-gao.png");
 
 interface PageHomeProps {
   isActive: boolean;
@@ -55,6 +59,22 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           <Text className="scroll-text">向下滑动开启故事</Text>
           <View className="scroll-arrow">↓</View>
         </AnimatedView>
+      </View>
+
+      <View className="homepage-figure homepage-figure-niu">
+        <Image
+          className="homepage-figure-img"
+          src={toWeappLocalPath(HOMEPAGE_NIU)}
+          mode="widthFix"
+        />
+      </View>
+
+      <View className="homepage-figure homepage-figure-gao">
+        <Image
+          className="homepage-figure-img"
+          src={toWeappLocalPath(HOMEPAGE_GAO)}
+          mode="widthFix"
+        />
       </View>
     </View>
   );
