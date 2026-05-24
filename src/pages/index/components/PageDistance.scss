@@ -1,301 +1,309 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .page-distance {
-  min-height: 100vh;
-  max-height: 100vh;
-  padding: 36px 16px 0;
-  background:
-    radial-gradient(circle at 15% 10%, rgba(201, 168, 124, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 90%, rgba(201, 168, 124, 0.08) 0%, transparent 45%),
-    linear-gradient(180deg, #faf8f5 0%, #f0ece4 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+    min-height: 100vh;
+    max-height: 100vh;
+    padding: 36px 16px 0;
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(201, 168, 124, 0.08) 0%,
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at 85% 90%,
+            rgba(201, 168, 124, 0.08) 0%,
+            transparent 45%
+        ),
+        linear-gradient(180deg, #faf8f5 0%, #f0ece4 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 // ---- Header ----
 .distance-header {
-  text-align: center;
-  margin-bottom: 36px;
-  width: 100%;
-  max-width: 600px;
+    text-align: center;
+    margin-bottom: 36px;
+    width: 100%;
+    max-width: 600px;
 
-  .header-years {
-    display: block;
-    font-family: 'Childhood', sans-serif;
-    font-size: 64px;
-    color: $color-primary;
-    letter-spacing: 10px;
-    margin-bottom: 12px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08);
-  }
+    .header-years {
+        display: block;
+        font-family: "Childhood", sans-serif;
+        font-size: 64px;
+        color: $color-primary;
+        letter-spacing: 10px;
+        margin-bottom: 12px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08);
+    }
 
-  .header-subtitle {
-    display: block;
-    font-family: 'HandWritingBold', sans-serif;
-    font-size: 36px;
-    color: $color-primary;
-    letter-spacing: 6px;
-    margin-bottom: 16px;
-  }
+    .header-subtitle {
+        display: block;
+        font-family: "HandWritingBold", sans-serif;
+        font-size: 36px;
+        color: $color-primary;
+        letter-spacing: 6px;
+        margin-bottom: 16px;
+    }
 
-  .header-intro {
-    display: block;
-    font-family: 'Childhood', sans-serif;
-    font-size: 24px;
-    color: $color-text-secondary;
-    line-height: 1.7;
-    max-width: 480px;
-    margin: 0 auto;
-  }
+    .header-intro {
+        display: block;
+        font-family: "Childhood", sans-serif;
+        font-size: 24px;
+        color: $color-text-secondary;
+        line-height: 1.7;
+        max-width: 480px;
+        margin: 0 auto;
+    }
 }
 
 // ---- Centered timeline with alternating sides ----
 .timeline-board {
-  position: relative;
-  width: 100%;
-  max-width: 640px;
-  padding: 24px 0 0;
-  flex: 1; // fill the remaining vertical space so the timeline reaches page bottom
-
-  .timeline-line {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    border-left: 2px dashed $color-primary;
-    transform: translateX(-1px);
-    z-index: 0;
-  }
-
-  .event-row-wrapper {
-    margin-bottom: 56px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  .event-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr; // columns meet exactly at the centerline
-    align-items: start;
-    position: relative;
-    z-index: 1;
-  }
-
-  // Dot is absolutely pinned on the centerline so it never moves and always
-  // sits above the image (even when the image crosses the timeline).
-  .event-marker {
-    position: absolute;
-    left: 50%;
-    top: 14px;
-    transform: translateX(-50%);
-    z-index: 3;
-
-    .event-dot {
-      width: 18px;
-      height: 18px;
-      background: $color-primary;
-      border-radius: 50%;
-      border: 3px solid #faf8f5;
-      box-shadow: 0 0 0 3px rgba(44, 44, 44, 0.15);
-    }
-  }
-
-  // width: 100% forces the container to be EXACTLY the grid column width.
-  // This is critical: with `width: auto`, an oversized container (caused by a
-  // wide caption) gets centered in its column by weapp, breaking alignment.
-  // With width: 100%, the container's edges are pinned to the column edges
-  // (which meet at the centerline), so align-items + padding can reliably
-  // place tag + caption exactly 10px from the centerline.
-  .event-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    will-change: transform;
-    box-sizing: border-box;
-  }
-
-  // 10px padding creates the gap between text content and the centerline.
-  // align-items measures against the content edge (inside the padding).
-  // The image-wrap's inline negative margin already includes +10 compensation
-  // (see PageDistance.tsx) so the user-facing `offset` still equals the
-  // visual crossing distance.
-  .event-row.side-left .event-content {
-    grid-column: 1;
-    grid-row: 1;
-    align-items: flex-end;
-    text-align: right;
-    transform-origin: right top;
-    padding-right: 10px;
-  }
-
-  .event-row.side-right .event-content {
-    grid-column: 2;
-    grid-row: 1;
-    align-items: flex-start;
-    text-align: left;
-    transform-origin: left top;
-    padding-left: 10px;
-  }
-
-  // Year + location tag
-  .event-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 16px;
-    background: rgba(44, 44, 44, 0.08);
-    border: 1px dashed rgba(44, 44, 44, 0.45);
-    border-radius: 22px;
-
-    .tag-year {
-      font-family: 'Childhood', sans-serif;
-      font-size: 26px;
-      color: $color-primary;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .tag-sep {
-      font-size: 20px;
-      color: rgba(44, 44, 44, 0.4);
-    }
-
-    .tag-location {
-      font-family: 'HandWritingBold', sans-serif;
-      font-size: 26px;
-      color: $color-primary;
-      letter-spacing: 2px;
-    }
-  }
-
-  .event-image-wrap {
-    display: block;
-    flex-shrink: 0; // keep the inline width even when it exceeds the column content area
-  }
-
-  // No-bg image — fills wrapper; wrapper width comes from inline style per event
-  .event-img.no-bg {
-    width: 100%;
-    display: block;
-    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
-  }
-
-  // Framed (regular jpg) — polaroid with washi tape; inherits wrapper width
-  .polaroid-wrap {
     position: relative;
     width: 100%;
-    background: #fffefc;
-    padding: 10px 10px 28px;
-    border-radius: 3px;
-    box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.08),
-      0 6px 18px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    max-width: 640px;
+    padding: 24px 0 0;
+    flex: 1; // fill the remaining vertical space so the timeline reaches page bottom
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-3deg);
-      width: 64px;
-      height: 18px;
-      background: rgba(201, 168, 124, 0.55);
-      border-left: 1px dashed rgba(255, 255, 255, 0.6);
-      border-right: 1px dashed rgba(255, 255, 255, 0.6);
+    .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 0;
+        border-left: 2px dashed $color-primary;
+        transform: translateX(-1px);
+        z-index: 0;
     }
 
-    .polaroid-photo {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      background: #f5efe6;
+    .event-row-wrapper {
+        margin-bottom: 56px;
 
-      .event-img {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .event-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr; // columns meet exactly at the centerline
+        align-items: start;
+        position: relative;
+        z-index: 1;
+    }
+
+    // Dot is absolutely pinned on the centerline so it never moves and always
+    // sits above the image (even when the image crosses the timeline).
+    .event-marker {
+        position: absolute;
+        left: 50%;
+        top: 14px;
+        transform: translateX(-50%);
+        z-index: 3;
+
+        .event-dot {
+            width: 18px;
+            height: 18px;
+            background: $color-primary;
+            border-radius: 50%;
+            border: 3px solid #faf8f5;
+            box-shadow: 0 0 0 3px rgba(44, 44, 44, 0.15);
+        }
+    }
+
+    // width: 100% forces the container to be EXACTLY the grid column width.
+    // This is critical: with `width: auto`, an oversized container (caused by a
+    // wide caption) gets centered in its column by weapp, breaking alignment.
+    // With width: 100%, the container's edges are pinned to the column edges
+    // (which meet at the centerline), so align-items + padding can reliably
+    // place tag + caption exactly 10px from the centerline.
+    .event-content {
         width: 100%;
-        height: 100%;
-        display: block;
-      }
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        will-change: transform;
+        box-sizing: border-box;
     }
-  }
 
-  .event-caption {
-    font-family: 'HandWritingThin', sans-serif;
-    font-size: 28px;
-    color: $color-text-primary;
-    line-height: 1.4;
-    letter-spacing: 1px;
-  }
+    // 10px padding creates the gap between text content and the centerline.
+    // align-items measures against the content edge (inside the padding).
+    // The image-wrap's inline negative margin already includes +10 compensation
+    // (see PageDistance.tsx) so the user-facing `offset` still equals the
+    // visual crossing distance.
+    .event-row.side-left .event-content {
+        grid-column: 1;
+        grid-row: 1;
+        align-items: flex-end;
+        text-align: right;
+        transform-origin: right top;
+        padding-right: 30px;
+    }
+
+    .event-row.side-right .event-content {
+        grid-column: 2;
+        grid-row: 1;
+        align-items: flex-start;
+        text-align: left;
+        transform-origin: left top;
+        padding-left: 30px;
+    }
+
+    // Year + location tag
+    .event-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 16px;
+        background: rgba(44, 44, 44, 0.08);
+        border: 1px dashed rgba(44, 44, 44, 0.45);
+        border-radius: 22px;
+
+        .tag-year {
+            font-family: "Childhood", sans-serif;
+            font-size: 26px;
+            color: $color-primary;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .tag-sep {
+            font-size: 20px;
+            color: rgba(44, 44, 44, 0.4);
+        }
+
+        .tag-location {
+            font-family: "HandWritingBold", sans-serif;
+            font-size: 26px;
+            color: $color-primary;
+            letter-spacing: 2px;
+        }
+    }
+
+    .event-image-wrap {
+        display: block;
+        flex-shrink: 0; // keep the inline width even when it exceeds the column content area
+    }
+
+    // No-bg image — fills wrapper; wrapper width comes from inline style per event
+    .event-img.no-bg {
+        width: 100%;
+        display: block;
+        filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
+    }
+
+    // Framed (regular jpg) — polaroid with washi tape; inherits wrapper width
+    .polaroid-wrap {
+        position: relative;
+        width: 100%;
+        background: #fffefc;
+        padding: 10px 10px 28px;
+        border-radius: 3px;
+        box-shadow:
+            0 1px 2px rgba(0, 0, 0, 0.08),
+            0 6px 18px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 64px;
+            height: 18px;
+            background: rgba(201, 168, 124, 0.55);
+            border-left: 1px dashed rgba(255, 255, 255, 0.6);
+            border-right: 1px dashed rgba(255, 255, 255, 0.6);
+        }
+
+        .polaroid-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #f5efe6;
+
+            .event-img {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+        }
+    }
+
+    .event-caption {
+        font-family: "HandWritingThin", sans-serif;
+        font-size: 28px;
+        color: $color-text-primary;
+        line-height: 1.4;
+        letter-spacing: 1px;
+    }
 }
 
 // ---- Responsive ----
 @media (max-width: 480px) {
-  .page-distance {
-    padding: 28px 12px 0;
-  }
-
-  .distance-header {
-    margin-bottom: 28px;
-
-    .header-years {
-      font-size: 50px;
-      letter-spacing: 6px;
+    .page-distance {
+        padding: 28px 12px 0;
     }
 
-    .header-subtitle {
-      font-size: 28px;
-      letter-spacing: 4px;
+    .distance-header {
+        margin-bottom: 28px;
+
+        .header-years {
+            font-size: 50px;
+            letter-spacing: 6px;
+        }
+
+        .header-subtitle {
+            font-size: 28px;
+            letter-spacing: 4px;
+        }
+
+        .header-intro {
+            font-size: 20px;
+        }
     }
 
-    .header-intro {
-      font-size: 20px;
+    .timeline-board {
+        .event-marker .event-dot {
+            width: 16px;
+            height: 16px;
+        }
+
+        .event-row-wrapper {
+            margin-bottom: 44px;
+        }
+
+        .event-tag {
+            gap: 6px;
+            padding: 5px 12px;
+
+            .tag-year,
+            .tag-location {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+
+            .tag-sep {
+                font-size: 16px;
+            }
+        }
+
+        .polaroid-wrap {
+            padding: 8px 8px 22px;
+
+            &::before {
+                width: 50px;
+                height: 14px;
+            }
+        }
+
+        .event-caption {
+            font-size: 22px;
+        }
     }
-  }
-
-  .timeline-board {
-    .event-marker .event-dot {
-      width: 16px;
-      height: 16px;
-    }
-
-    .event-row-wrapper {
-      margin-bottom: 44px;
-    }
-
-    .event-tag {
-      gap: 6px;
-      padding: 5px 12px;
-
-      .tag-year,
-      .tag-location {
-        font-size: 20px;
-        letter-spacing: 1px;
-      }
-
-      .tag-sep {
-        font-size: 16px;
-      }
-    }
-
-    .polaroid-wrap {
-      padding: 8px 8px 22px;
-
-      &::before {
-        width: 50px;
-        height: 14px;
-      }
-    }
-
-    .event-caption {
-      font-size: 22px;
-    }
-  }
 }

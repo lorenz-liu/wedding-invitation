@@ -110,8 +110,8 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
                     // +10 compensates for the 10px padding on .event-content
                     // so the effective visual crossing matches `offset`.
                     ...(evt.side === "left"
-                      ? { marginRight: `-${evt.offset + 10}px` }
-                      : { marginLeft: `-${evt.offset + 10}px` }),
+                      ? { marginRight: `-${evt.offset}px` }
+                      : { marginLeft: `-${evt.offset}px` }),
                   }}
                 >
                   {evt.framed ? (

@@ -32,7 +32,7 @@ const EVENTS: DistanceEvent[] = [
     tilt: 2,
     side: "right",
     imageWidth: "min(200px, 50vw)",
-    offset: 50,
+    offset: 70,
   },
   {
     year: "2023",
@@ -43,7 +43,7 @@ const EVENTS: DistanceEvent[] = [
     tilt: -2,
     side: "left",
     imageWidth: "min(200px, 50vw)",
-    offset: 50,
+    offset: 70,
   },
 ];
 
@@ -99,8 +99,8 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
                     // +10 compensates for the 10px padding on .event-content
                     // so the effective visual crossing matches `offset`.
                     ...(evt.side === "left"
-                      ? { marginRight: `-${evt.offset + 10}px` }
-                      : { marginLeft: `-${evt.offset + 10}px` }),
+                      ? { marginRight: `-${evt.offset}px` }
+                      : { marginLeft: `-${evt.offset}px` }),
                   }}
                 >
                   {evt.framed ? (
