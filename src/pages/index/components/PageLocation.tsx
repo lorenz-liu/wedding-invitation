@@ -10,10 +10,10 @@ interface PageLocationProps {
 }
 
 const VENUE = {
-  latitude: 30.5728,
-  longitude: 104.0668,
-  name: "慕上OnTheMoon",
-  address: "成都市",
+  latitude: 30.457,
+  longitude: 104.071,
+  name: "慕上OnTheMoon·北欧餐厅(成都麓湖店)",
+  address: "四川省成都市双流区华阳街道麓湖中路西段888号13栋附101-104号",
 };
 
 export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
@@ -40,8 +40,6 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
             longitude: VENUE.longitude,
             latitude: VENUE.latitude,
             title: VENUE.name,
-            width: 32,
-            height: 32,
           },
         ]}
         enableScroll={false}
@@ -58,7 +56,12 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
             <Text className="page-title">婚礼地点</Text>
           </AnimatedView>
 
-          <AnimatedView animation="fadeInScale" isActive={isActive} delay={200} duration={600}>
+          <AnimatedView
+            animation="fadeInScale"
+            isActive={isActive}
+            delay={200}
+            duration={600}
+          >
             <View className="location-header">
               <Text className="location-city">成都</Text>
               <Text className="location-dot">·</Text>
@@ -71,24 +74,12 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
         </View>
 
         <View className="overlay-bottom">
-          <AnimatedView animation="fadeInUp" isActive={isActive} delay={400} duration={600}>
-            <View className="transport-info">
-              <View className="transport-item">
-                <Text className="transport-icon">🚗</Text>
-                <Text className="transport-text">
-                  若您自驾出行，请告知我们，我们会提前为您准备车位。
-                </Text>
-              </View>
-              <View className="transport-item">
-                <Text className="transport-icon">🚌</Text>
-                <Text className="transport-text">
-                  若您希望我们提供接驳服务，请在下一页表单中填写。
-                </Text>
-              </View>
-            </View>
-          </AnimatedView>
-
-          <AnimatedView animation="fadeIn" isActive={isActive} delay={550} duration={600}>
+          <AnimatedView
+            animation="fadeIn"
+            isActive={isActive}
+            delay={550}
+            duration={600}
+          >
             <Button className="open-map-btn" onClick={handleOpenMap}>
               打开导航
             </Button>
