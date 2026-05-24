@@ -17,7 +17,6 @@ export const AudioControl: React.FC<AudioControlProps> = ({ isPlaying, onToggle 
           <View className="wave-bar"></View>
         </View>
       </View>
-      <View className="audio-label">{isPlaying ? "音乐开启" : "音乐暂停"}</View>
     </View>
   );
 };

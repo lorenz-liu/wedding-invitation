@@ -6,11 +6,13 @@
   right: 20px;
   z-index: 1000;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 12px;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 50px;
+  border-radius: 50%;
   box-shadow: $shadow-sm;
   backdrop-filter: blur(10px);
 }
@@ -68,11 +70,4 @@
   50% {
     transform: scaleY(1);
   }
-}
-
-.audio-label {
-  font-size: $font-size-xs;
-  color: $color-secondary;
-  margin-top: 4px;
-  font-family: 'HandWritingThin', sans-serif;
 }
