@@ -653,7 +653,7 @@
         display: inline-block;
         max-width: 100%;
         padding-right: 56px;
-        padding-bottom: 6px;
+        padding-bottom: 0;
 
         .credits-signature {
             position: absolute;
@@ -670,12 +670,12 @@
     }
 
     .credits-line-wrap + .credits-en {
-        margin-top: 0;
-        line-height: 1.55;
+        margin-top: -4px;
+        line-height: 1.15;
     }
 
     .credits-line-wrap .credits-line {
-        line-height: 1.55;
+        line-height: 1.15;
     }
 
     .credits-en + .credits-line-wrap {
@@ -683,10 +683,10 @@
     }
 
     .credits-line {
-        font-family: "HandWritingThin", "PingFang SC", sans-serif;
+        font-family: "ThinBlack", "PingFang SC", sans-serif;
         font-size: 21px;
         color: $color-text-secondary;
-        line-height: 1.9;
+        line-height: 1.15;
         letter-spacing: 1px;
         display: block;
         white-space: nowrap;
