@@ -3,7 +3,7 @@ import { toWeappFontSource } from "./weappAsset";
 
 const FONT_PATHS = {
   ThinBlack: require("@assets/fonts/thin-black.ttf"),
-  Bordered: require("@assets/fonts/bordered.ttf"),
+  Main: require("@assets/fonts/main.ttf"),
   Childhood: require("@assets/fonts/childhood.ttf"),
   HandWritingBold: require("@assets/fonts/hand-writing-bold.ttf"),
   HandWritingThin: require("@assets/fonts/hand-writing-thin.ttf"),
@@ -48,8 +48,8 @@ export function loadH5Fonts(): void {
       font-display: swap;
     }
     @font-face {
-      font-family: 'Bordered';
-      src: url('${FONT_PATHS.Bordered}') format('truetype');
+      font-family: 'Main';
+      src: url('${FONT_PATHS.Main}') format('truetype');
       font-display: swap;
     }
     @font-face {
