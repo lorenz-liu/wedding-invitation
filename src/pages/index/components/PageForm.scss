@@ -629,9 +629,18 @@
     }
 }
 
-.form-credits {
+.form-credits-wrap {
+    display: flex;
+    justify-content: center;
     margin-top: $spacing-xl;
     margin-bottom: $spacing-md;
+    width: 100%;
+}
+
+.form-credits {
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
     padding: $spacing-lg $spacing-md;
     background: #ffffff;
     border-radius: $border-radius-lg;
@@ -640,12 +649,13 @@
     text-align: center;
 
     .credits-line {
-        font-family: "ThinBlack", "PingFang SC", sans-serif;
+        font-family: "HandWritingThin", "PingFang SC", sans-serif;
         font-size: 21px;
         color: $color-text-secondary;
         line-height: 1.9;
         letter-spacing: 1px;
         display: block;
+        white-space: nowrap;
 
         & + .credits-line {
             margin-top: 6px;
@@ -653,6 +663,7 @@
 
         &.credits-en {
             margin-top: $spacing-md;
+            white-space: normal;
 
             & + .credits-en {
                 margin-top: 6px;
