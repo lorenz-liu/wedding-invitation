@@ -629,6 +629,38 @@
     }
 }
 
+.form-credits {
+    margin-top: $spacing-xl;
+    margin-bottom: $spacing-md;
+    padding: $spacing-lg $spacing-md;
+    background: #ffffff;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-sm;
+    box-sizing: border-box;
+    text-align: center;
+
+    .credits-line {
+        font-family: "ThinBlack", "PingFang SC", sans-serif;
+        font-size: 21px;
+        color: $color-text-secondary;
+        line-height: 1.9;
+        letter-spacing: 1px;
+        display: block;
+
+        & + .credits-line {
+            margin-top: 6px;
+        }
+
+        &.credits-en {
+            margin-top: $spacing-md;
+
+            & + .credits-en {
+                margin-top: 6px;
+            }
+        }
+    }
+}
+
 // Thank you page
 .page-form-thanks {
     .thanks-container {

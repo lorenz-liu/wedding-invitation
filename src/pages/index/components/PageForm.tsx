@@ -516,6 +516,24 @@ export const PageForm: React.FC<PageFormProps> = ({
             <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
           </View>
         </AnimatedView>
+
+        <AnimatedView
+          animation="fadeIn"
+          isActive={isActive}
+          delay={1200}
+          duration={600}
+        >
+          <View className="form-credits">
+            <Text className="credits-line">视觉与交互设计 by 新娘 高文珩</Text>
+            <Text className="credits-line">代码开发与维护 by 新郎 刘兆薰</Text>
+            <Text className="credits-line credits-en">
+              Graphic & Interactive Design by Wenheng Gao, the Bride
+            </Text>
+            <Text className="credits-line credits-en">
+              Engineered & Maintained by Zhaoxun Liu, the Groom
+            </Text>
+          </View>
+        </AnimatedView>
       </View>
     </ScrollView>
   );
