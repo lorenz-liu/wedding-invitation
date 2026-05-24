@@ -45,7 +45,7 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
           delay={500}
           duration={600}
         >
-          <Text className="arrival-text">抵达多伦多</Text>
+          <Text className="arrival-text">抵达加拿大多伦多</Text>
         </AnimatedView>
 
         <AnimatedView

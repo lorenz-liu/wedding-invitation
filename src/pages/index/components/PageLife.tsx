@@ -43,7 +43,7 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
           duration={800}
         >
           <Text className="life-text">
-            在硕士学业与职场生活中
+            远涉至这片北国的土地
             {"\n"}
             我们相濡以沫
             {"\n"}
