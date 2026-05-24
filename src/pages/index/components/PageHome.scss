@@ -34,14 +34,32 @@
     max-width: 450px;
     z-index: 1;
     pointer-events: none;
+    opacity: 0;
+    transition:
+      opacity 1.2s ease,
+      transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.2s;
+    will-change: transform, opacity;
   }
 
   .homepage-figure-niu {
     left: 0;
+    transform: translateX(-120%);
+
+    &.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .homepage-figure-gao {
     right: 0;
+    transform: translateX(120%);
+
+    &.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .homepage-figure-img {
