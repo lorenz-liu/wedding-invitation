@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text } from "@tarojs/components";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { DoodleHeart, DoodleRing } from "../../../components/DoodleElements";
+import { images } from "../../../utils/assets";
 import "./PageRelationship.scss";
 
 interface PageRelationshipProps {
@@ -9,6 +10,16 @@ interface PageRelationshipProps {
 }
 
 export const PageRelationship: React.FC<PageRelationshipProps> = ({ isActive }) => {
+  const [sanyaIn, setSanyaIn] = useState(false);
+
+  useEffect(() => {
+    if (isActive) {
+      const timer = setTimeout(() => setSanyaIn(true), 600);
+      return () => clearTimeout(timer);
+    }
+    setSanyaIn(false);
+  }, [isActive]);
+
   return (
     <View className="page page-relationship">
       <View className="content-wrapper">
@@ -48,6 +59,14 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({ isActive }) 
             <DoodleHeart className="big-heart" />
           </View>
         </AnimatedView>
+      </View>
+
+      <View className={`sanya-anchor ${sanyaIn ? "animate" : ""}`}>
+        <Image
+          className="sanya-img"
+          src={images.sanyaNoBg}
+          mode="widthFix"
+        />
       </View>
     </View>
   );

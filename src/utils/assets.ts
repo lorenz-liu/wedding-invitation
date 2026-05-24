@@ -19,6 +19,7 @@ export const images = {
   niuKidNoBg: assetPath("images/niu-kid-no-bg.png"),
   gaoKidNoBg: assetPath("images/gao-kid-no-bg.png"),
   togetherKidsNoBg: assetPath("images/together-kids-no-bg.png"),
+  sanyaNoBg: assetPath("images/sanya-no-bg.PNG"),
   seattle4: assetPath("images/seattle-4.jpg"),
   sanya: assetPath("images/sanya.jpg"),
   beijing: assetPath("images/beijing.jpg"),
