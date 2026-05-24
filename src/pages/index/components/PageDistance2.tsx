@@ -16,6 +16,9 @@ interface DistanceEvent {
   framed: boolean;
   tilt: number;
   side: "left" | "right";
+  imageWidth: number;
+  /** How far the image visually crosses the central timeline (px). */
+  offset: number;
 }
 
 const EVENTS: DistanceEvent[] = [
@@ -27,6 +30,8 @@ const EVENTS: DistanceEvent[] = [
     framed: true,
     tilt: 3,
     side: "right",
+    imageWidth: 200,
+    offset: 50,
   },
   {
     year: "2023",
@@ -36,6 +41,8 @@ const EVENTS: DistanceEvent[] = [
     framed: false,
     tilt: -2,
     side: "left",
+    imageWidth: 200,
+    offset: 50,
   },
   {
     year: "2023",
@@ -45,6 +52,8 @@ const EVENTS: DistanceEvent[] = [
     framed: true,
     tilt: 4,
     side: "right",
+    imageWidth: 200,
+    offset: 50,
   },
 ];
 
@@ -94,7 +103,15 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
                   <Text className="tag-location">{evt.location}</Text>
                 </View>
 
-                <View className="event-image-wrap">
+                <View
+                  className="event-image-wrap"
+                  style={{
+                    width: `${evt.imageWidth}px`,
+                    ...(evt.side === "left"
+                      ? { marginRight: `-${evt.offset}px` }
+                      : { marginLeft: `-${evt.offset}px` }),
+                  }}
+                >
                   {evt.framed ? (
                     <View className="polaroid-wrap">
                       <View className="polaroid-photo">
@@ -121,16 +138,6 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
         ))}
       </View>
 
-      <AnimatedView
-        animation="fadeIn"
-        isActive={isActive}
-        delay={600 + EVENTS.length * 220 + 300}
-        duration={600}
-      >
-        <View className="distance-footer">
-          <Text className="footer-text">每一次重逢，都让我们更确信彼此</Text>
-        </View>
-      </AnimatedView>
     </View>
   );
 };

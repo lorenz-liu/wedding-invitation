@@ -16,6 +16,9 @@ interface DistanceEvent {
   framed: boolean;
   tilt: number;
   side: "left" | "right";
+  imageWidth: number;
+  /** How far the image visually crosses the central timeline (px). */
+  offset: number;
 }
 
 const EVENTS: DistanceEvent[] = [
@@ -27,6 +30,8 @@ const EVENTS: DistanceEvent[] = [
     framed: false,
     tilt: -2,
     side: "left",
+    imageWidth: 200,
+    offset: 70,
   },
   {
     year: "2021",
@@ -36,6 +41,8 @@ const EVENTS: DistanceEvent[] = [
     framed: false,
     tilt: 2,
     side: "right",
+    imageWidth: 200,
+    offset: 70,
   },
   {
     year: "2022",
@@ -45,6 +52,8 @@ const EVENTS: DistanceEvent[] = [
     framed: false,
     tilt: -3,
     side: "left",
+    imageWidth: 100,
+    offset: 30,
   },
 ];
 
@@ -56,14 +65,13 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
           <Text className="header-years">2020 — 2022</Text>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInUp" isActive={isActive} delay={200} duration={600}>
-          <Text className="header-subtitle">异国相隔，山海难抵</Text>
-        </AnimatedView>
-
-        <AnimatedView animation="fadeIn" isActive={isActive} delay={400} duration={600}>
-          <Text className="header-intro">
-            被时差与航班丈量的旅程，第一次品尝想念的滋味。
-          </Text>
+        <AnimatedView
+          animation="fadeInUp"
+          isActive={isActive}
+          delay={200}
+          duration={600}
+        >
+          <Text className="header-subtitle">爱隔山海，山海可平</Text>
         </AnimatedView>
       </View>
 
@@ -94,7 +102,15 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
                   <Text className="tag-location">{evt.location}</Text>
                 </View>
 
-                <View className="event-image-wrap">
+                <View
+                  className="event-image-wrap"
+                  style={{
+                    width: `${evt.imageWidth}px`,
+                    ...(evt.side === "left"
+                      ? { marginRight: `-${evt.offset}px` }
+                      : { marginLeft: `-${evt.offset}px` }),
+                  }}
+                >
                   {evt.framed ? (
                     <View className="polaroid-wrap">
                       <View className="polaroid-photo">
@@ -120,17 +136,6 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
           </AnimatedView>
         ))}
       </View>
-
-      <AnimatedView
-        animation="fadeIn"
-        isActive={isActive}
-        delay={600 + EVENTS.length * 220 + 300}
-        duration={600}
-      >
-        <View className="distance-footer">
-          <Text className="footer-text">想念，是另一种形式的陪伴</Text>
-        </View>
-      </AnimatedView>
     </View>
   );
 };

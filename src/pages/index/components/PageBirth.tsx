@@ -45,16 +45,15 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
         </AnimatedView>
 
         <View className="birth-portraits">
-          <View className={`portrait portrait-groom ${groomIn ? "animate" : ""}`}>
+          <View
+            className={`portrait portrait-groom ${groomIn ? "animate" : ""}`}
+          >
             <View className="portrait-frame">
               <Image
                 className="portrait-img"
                 src={images.niuKidNoBg}
                 mode="widthFix"
               />
-              <View className="portrait-heart">
-                <DoodleHeart className="heart-icon" />
-              </View>
             </View>
             <View className="portrait-info">
               <Text className="portrait-role">未来的新郎</Text>
@@ -63,16 +62,15 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
             </View>
           </View>
 
-          <View className={`portrait portrait-bride ${brideIn ? "animate" : ""}`}>
+          <View
+            className={`portrait portrait-bride ${brideIn ? "animate" : ""}`}
+          >
             <View className="portrait-frame">
               <Image
                 className="portrait-img"
                 src={images.gaoKidNoBg}
                 mode="widthFix"
               />
-              <View className="portrait-heart">
-                <DoodleHeart className="heart-icon" />
-              </View>
             </View>
             <View className="portrait-info">
               <Text className="portrait-role">未来的新娘</Text>
@@ -81,15 +79,6 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
             </View>
           </View>
         </View>
-
-        <AnimatedView
-          animation="fadeIn"
-          isActive={isActive}
-          delay={1200}
-          duration={800}
-        >
-          <Text className="doctor-text">命运的安排，从此开始</Text>
-        </AnimatedView>
       </View>
     </View>
   );

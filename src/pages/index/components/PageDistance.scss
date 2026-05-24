@@ -3,7 +3,7 @@
 .page-distance {
   min-height: 100vh;
   max-height: 100vh;
-  padding: 36px 16px 56px;
+  padding: 36px 16px 0;
   background:
     radial-gradient(circle at 15% 10%, rgba(201, 168, 124, 0.08) 0%, transparent 45%),
     radial-gradient(circle at 85% 90%, rgba(201, 168, 124, 0.08) 0%, transparent 45%),
@@ -12,6 +12,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -57,7 +58,8 @@
   position: relative;
   width: 100%;
   max-width: 640px;
-  padding: 24px 0 32px;
+  padding: 24px 0 0;
+  flex: 1; // fill the remaining vertical space so the timeline reaches page bottom
 
   .timeline-line {
     position: absolute;
@@ -86,13 +88,14 @@
     z-index: 1;
   }
 
-  // Center column: just the dot marker
+  // Center column: just the dot marker — must stay above the (possibly crossing) image
   .event-marker {
     grid-column: 2;
     grid-row: 1;
     display: flex;
     justify-content: center;
     padding-top: 14px;
+    z-index: 3;
 
     .event-dot {
       width: 18px;
@@ -164,20 +167,20 @@
 
   .event-image-wrap {
     display: block;
+    max-width: 48vw; // safety net so an event never overflows its column on narrow phones
   }
 
-  // No-bg image — explicit width required for `widthFix` to compute height
+  // No-bg image — fills wrapper; wrapper width comes from inline style per event
   .event-img.no-bg {
-    width: 200px;
-    max-width: 100%;
+    width: 100%;
     display: block;
     filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
   }
 
-  // Framed (regular jpg) — polaroid with washi tape
+  // Framed (regular jpg) — polaroid with washi tape; inherits wrapper width
   .polaroid-wrap {
     position: relative;
-    width: 180px;
+    width: 100%;
     background: #fffefc;
     padding: 10px 10px 28px;
     border-radius: 3px;
@@ -222,24 +225,10 @@
   }
 }
 
-// ---- Footer ----
-.distance-footer {
-  text-align: center;
-  margin-top: 24px;
-  padding-bottom: 24px;
-
-  .footer-text {
-    font-family: 'Childhood', sans-serif;
-    font-size: 26px;
-    color: $color-primary;
-    letter-spacing: 2px;
-  }
-}
-
 // ---- Responsive ----
 @media (max-width: 480px) {
   .page-distance {
-    padding: 28px 12px 48px;
+    padding: 28px 12px 0;
   }
 
   .distance-header {
@@ -289,12 +278,7 @@
       }
     }
 
-    .event-img.no-bg {
-      width: 150px;
-    }
-
     .polaroid-wrap {
-      width: 140px;
       padding: 8px 8px 22px;
 
       &::before {
@@ -306,9 +290,5 @@
     .event-caption {
       font-size: 22px;
     }
-  }
-
-  .distance-footer .footer-text {
-    font-size: 22px;
   }
 }
