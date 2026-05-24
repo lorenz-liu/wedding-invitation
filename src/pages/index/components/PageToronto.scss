@@ -42,20 +42,15 @@
         }
     }
 
-    .plane-icon {
-        font-size: 80px;
-        margin: $spacing-md 0;
-        animation: fly 2s ease-in-out infinite;
+    .toronto-skyline-wrap {
+        width: 100vw;
+        margin-top: $spacing-md;
+        margin-bottom: $spacing-md;
     }
 
-    @keyframes fly {
-        0%,
-        100% {
-            transform: translateY(0) rotate(-5deg);
-        }
-        50% {
-            transform: translateY(-10px) rotate(5deg);
-        }
+    .toronto-skyline-img {
+        width: 100%;
+        display: block;
     }
 
     .arrival-text {

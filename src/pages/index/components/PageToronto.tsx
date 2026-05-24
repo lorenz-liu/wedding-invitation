@@ -31,12 +31,18 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
         </AnimatedView>
 
         <AnimatedView
-          animation="fadeInScale"
+          animation="fadeIn"
           isActive={isActive}
           delay={300}
-          duration={800}
+          duration={1000}
         >
-          <View className="plane-icon">✈️</View>
+          <View className="toronto-skyline-wrap">
+            <Image
+              className="toronto-skyline-img"
+              src={images.torontoSkyline}
+              mode="widthFix"
+            />
+          </View>
         </AnimatedView>
 
         <AnimatedView

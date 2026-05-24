@@ -41,6 +41,7 @@ export default {
       { from: "assets/images/seattle-4.png", to: "dist/assets/images/seattle-4.png" },
       { from: "assets/images/sanya.png", to: "dist/assets/images/sanya.png" },
       { from: "assets/images/toronto-no-bg.png", to: "dist/assets/images/toronto-no-bg.png" },
+      { from: "assets/images/toronto-skyline.png", to: "dist/assets/images/toronto-skyline.png" },
       { from: "assets/images/holding-bawbaw-no-bg.png", to: "dist/assets/images/holding-bawbaw-no-bg.png" },
       { from: "assets/images/bawbaw-full-body-1.png", to: "dist/assets/images/bawbaw-full-body-1.png" },
       { from: "assets/images/bawbaw-full-body-3.png", to: "dist/assets/images/bawbaw-full-body-3.png" },
