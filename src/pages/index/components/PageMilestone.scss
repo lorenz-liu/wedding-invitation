@@ -19,7 +19,7 @@
 
   .year-count {
     font-family: 'Bordered', sans-serif;
-    font-size: 72px;
+    font-size: 88px;
     color: $color-accent;
     margin-bottom: $spacing-md;
     letter-spacing: 16px;
@@ -76,7 +76,7 @@
       content: '◆';
       position: absolute;
       color: $color-accent;
-      font-size: 12px;
+      font-size: 15px;
     }
 
     &::before {
@@ -91,7 +91,7 @@
 
     .date-highlight {
       font-family: 'Bordered', sans-serif;
-      font-size: 32px;
+      font-size: 40px;
       color: $color-accent;
       display: block;
       margin-bottom: $spacing-sm;

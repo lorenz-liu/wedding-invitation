@@ -95,7 +95,7 @@
 
   .form-title {
     font-family: 'Bordered', 'PingFang SC', sans-serif;
-    font-size: 48px;
+    font-size: 60px;
     color: $color-primary;
     letter-spacing: 16px;
     margin-bottom: 12px;
@@ -108,7 +108,7 @@
 
   .form-subtitle {
     font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     color: $color-secondary;
     letter-spacing: 4px;
   }
@@ -138,7 +138,7 @@
     background: $color-accent;
     color: white;
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -149,7 +149,7 @@
 
   .section-title {
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     color: $color-primary;
     letter-spacing: 2px;
     margin-right: 12px;
@@ -157,7 +157,7 @@
 
   .section-desc {
     font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     color: $color-secondary;
     flex: 1;
   }
@@ -184,7 +184,7 @@
   .field-label {
     display: block;
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     color: $color-secondary;
     margin-bottom: 8px;
     letter-spacing: 1px;
@@ -198,7 +198,7 @@
     width: 100%;
     height: 44px;
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     color: $color-primary;
     background: transparent;
     border: none;
@@ -278,7 +278,7 @@
     background: rgba(201, 168, 124, 0.15);
     color: $color-accent;
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 12px;
+    font-size: 15px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -299,7 +299,7 @@
     flex: 1;
     height: 36px;
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     color: $color-primary;
     background: transparent;
     border: none;
@@ -326,7 +326,7 @@
     margin-left: 8px;
 
     .remove-icon {
-      font-size: 20px;
+      font-size: 24px;
       color: rgba(107, 107, 107, 0.5);
       line-height: 1;
     }
@@ -350,13 +350,13 @@
     margin-top: 8px;
 
     .add-icon {
-      font-size: 20px;
+      font-size: 24px;
       color: $color-accent;
     }
 
     .add-text {
       font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
-      font-size: 14px;
+      font-size: 17px;
       color: $color-secondary;
     }
 
@@ -399,13 +399,13 @@
   }
 
   .transport-icon {
-    font-size: 32px;
+    font-size: 40px;
     margin-bottom: 12px;
   }
 
   .transport-label {
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     color: $color-primary;
     margin-bottom: 12px;
   }
@@ -453,7 +453,7 @@
   .shuttle-label {
     display: block;
     font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     color: $color-secondary;
     margin-bottom: 12px;
   }
@@ -462,7 +462,7 @@
     width: 100%;
     height: 44px;
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     color: $color-primary;
     background: rgba(250, 248, 245, 0.8);
     border: 1px solid rgba(201, 168, 124, 0.3);
@@ -487,7 +487,7 @@
     width: 100%;
     min-height: 120px;
     font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 28px;
     color: $color-primary;
     background: transparent;
@@ -550,7 +550,7 @@
 
     .btn-text {
       font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-      font-size: 18px;
+      font-size: 22px;
       color: white;
       letter-spacing: 4px;
     }
@@ -605,7 +605,7 @@
 
   .footer-text {
     font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     color: $color-secondary;
     letter-spacing: 2px;
     margin-bottom: 8px;
@@ -613,7 +613,7 @@
 
   .footer-names {
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     color: $color-primary;
     letter-spacing: 4px;
   }
@@ -637,7 +637,7 @@
 
     .thanks-title {
       font-family: 'Bordered', 'PingFang SC', sans-serif;
-      font-size: 36px;
+      font-size: 44px;
       color: $color-primary;
       letter-spacing: 8px;
       display: block;
@@ -655,7 +655,7 @@
 
     .thanks-message {
       font-family: 'Childhood', 'PingFang SC', sans-serif;
-      font-size: 18px;
+      font-size: 22px;
       color: $color-text-primary;
       line-height: 2;
       display: block;
@@ -665,7 +665,7 @@
 
     .thanks-detail {
       font-family: 'HandWritingThin', 'PingFang SC', sans-serif;
-      font-size: 16px;
+      font-size: 20px;
       color: $color-accent;
       line-height: 2;
       letter-spacing: 2px;
@@ -684,7 +684,7 @@
       border: 2px solid rgba(201, 168, 124, 0.5);
       border-radius: 24px;
       font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-      font-size: 16px;
+      font-size: 20px;
       color: $color-accent;
       letter-spacing: 4px;
 
@@ -707,7 +707,7 @@
 
   .paper-header {
     .form-title {
-      font-size: 36px;
+      font-size: 44px;
       letter-spacing: 12px;
     }
 
@@ -725,7 +725,7 @@
 
   .section-header {
     .section-title {
-      font-size: 18px;
+      font-size: 22px;
     }
 
     .section-desc {
@@ -741,11 +741,11 @@
       padding: 16px 8px;
 
       .transport-icon {
-        font-size: 24px;
+        font-size: 30px;
       }
 
       .transport-label {
-        font-size: 12px;
+        font-size: 15px;
       }
     }
   }

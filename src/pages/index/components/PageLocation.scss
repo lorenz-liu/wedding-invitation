@@ -84,7 +84,7 @@
     .location-city,
     .location-venue {
       font-family: 'Bordered', sans-serif;
-      font-size: 48px;
+      font-size: 60px;
       color: $color-primary;
       letter-spacing: 4px;
       text-shadow: 0 2px 12px rgba(255, 255, 255, 0.9);
@@ -92,7 +92,7 @@
 
     .location-dot {
       font-family: 'ThinBlack', sans-serif;
-      font-size: 36px;
+      font-size: 44px;
       color: $color-accent;
     }
 
@@ -136,7 +136,7 @@
       box-shadow: 0 4px 16px rgba(201, 168, 124, 0.12);
 
       .transport-icon {
-        font-size: 24px;
+        font-size: 30px;
         flex-shrink: 0;
       }
 
@@ -178,7 +178,7 @@
     .location-header {
       .location-city,
       .location-venue {
-        font-size: 36px;
+        font-size: 44px;
       }
 
       .ring-icon-wrapper {

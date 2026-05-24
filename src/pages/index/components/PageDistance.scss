@@ -16,7 +16,7 @@
 
   .years-badge {
     font-family: 'Childhood', 'PingFang SC', sans-serif;
-    font-size: 48px;
+    font-size: 60px;
     color: $color-accent;
     letter-spacing: 6px;
     display: block;
@@ -43,7 +43,7 @@
 
   .intro-text {
     font-family: 'Childhood', 'PingFang SC', sans-serif;
-    font-size: 22px;
+    font-size: 28px;
     color: $color-text-primary;
     letter-spacing: 2px;
     line-height: 1.8;
@@ -81,7 +81,7 @@
 
   .card-year {
     font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     color: $color-accent;
     letter-spacing: 2px;
     margin-bottom: 12px;
@@ -130,7 +130,7 @@
 
     .card-title {
       font-family: 'Childhood', 'PingFang SC', sans-serif;
-      font-size: 16px;
+      font-size: 20px;
       color: $color-text-primary;
       letter-spacing: 1px;
       line-height: 1.5;
@@ -141,7 +141,7 @@
 // Connection Arrow
 .connection-arrow {
   font-family: 'ThinBlack', 'PingFang SC', sans-serif;
-  font-size: 24px;
+  font-size: 30px;
   color: $color-accent;
   opacity: 0.6;
   align-self: center;
@@ -161,7 +161,7 @@
 
   .conclusion-text {
     font-family: 'Childhood', 'PingFang SC', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     color: $color-text-primary;
     line-height: 1.8;
     letter-spacing: 1px;
@@ -176,13 +176,13 @@
 
   .page-header {
     .years-badge {
-      font-size: 36px;
+      font-size: 44px;
     }
   }
 
   .intro-section {
     .intro-text {
-      font-size: 18px;
+      font-size: 22px;
     }
   }
 
@@ -228,7 +228,7 @@
     padding: 20px 24px;
 
     .conclusion-text {
-      font-size: 16px;
+      font-size: 20px;
     }
   }
 }

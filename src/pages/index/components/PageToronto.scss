@@ -22,7 +22,7 @@
 
     .date-year {
       font-family: 'Childhood', sans-serif;
-      font-size: 48px;
+      font-size: 60px;
       color: $color-accent;
       display: block;
       letter-spacing: 4px;
@@ -38,7 +38,7 @@
   }
 
   .plane-icon {
-    font-size: 64px;
+    font-size: 80px;
     margin: $spacing-md 0;
     animation: fly 2s ease-in-out infinite;
   }
@@ -94,7 +94,7 @@
     border: 2px dashed $color-accent;
 
     .pin-icon {
-      font-size: 24px;
+      font-size: 30px;
     }
 
     .city-name {
