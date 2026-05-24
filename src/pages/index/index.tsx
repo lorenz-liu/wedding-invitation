@@ -20,13 +20,22 @@ import { PageForm } from "./components/PageForm";
 import "./index.scss";
 
 const TOTAL_PAGES = 14;
+const FORM_PAGE_INDEX = 13;
+const FORM_SCROLL_TOP_THRESHOLD = 8;
 
 const Index: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const { isPlaying, togglePlay, initAudio } = useBackgroundAudio();
   const touchStartY = React.useRef(0);
+  const formScrollTopRef = React.useRef(0);
   const [audioInitialized, setAudioInitialized] = useState(false);
+
+  useEffect(() => {
+    if (currentPage !== FORM_PAGE_INDEX) {
+      formScrollTopRef.current = 0;
+    }
+  }, [currentPage]);
 
   // Auto-init audio once on component mount
   useEffect(() => {
@@ -74,7 +83,10 @@ const Index: React.FC = () => {
     if (Math.abs(deltaY) > minSwipeDistance) {
       if (deltaY > 0) {
         nextPage();
-      } else {
+      } else if (
+        currentPage !== FORM_PAGE_INDEX ||
+        formScrollTopRef.current <= FORM_SCROLL_TOP_THRESHOLD
+      ) {
         prevPage();
       }
     }
@@ -112,7 +124,14 @@ const Index: React.FC = () => {
       case 12:
         return <PageLocation isActive={isActive} />;
       case 13:
-        return <PageForm isActive={isActive} />;
+        return (
+          <PageForm
+            isActive={isActive}
+            onScrollTopChange={(scrollTop) => {
+              formScrollTopRef.current = scrollTop;
+            }}
+          />
+        );
       default:
         return <PageHome isActive={isActive} />;
     }

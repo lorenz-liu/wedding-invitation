@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Input, Textarea, Button } from "@tarojs/components";
+import { View, Text, Input, Textarea, Button, ScrollView } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import Taro from "@tarojs/taro";
 import {
@@ -41,9 +41,13 @@ const EMPTY_FORM_DATA: FormData = {
 
 interface PageFormProps {
   isActive: boolean;
+  onScrollTopChange?: (scrollTop: number) => void;
 }
 
-export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
+export const PageForm: React.FC<PageFormProps> = ({
+  isActive,
+  onScrollTopChange,
+}) => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM_DATA);
 
@@ -53,6 +57,10 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
       setSubmitted(true);
     }
   }, []);
+
+  useEffect(() => {
+    onScrollTopChange?.(0);
+  }, [submitted, onScrollTopChange]);
 
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -151,9 +159,17 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
     }
   };
 
+  const handleScroll = (e: { detail: { scrollTop: number } }) => {
+    onScrollTopChange?.(e.detail.scrollTop);
+  };
+
   if (submitted) {
     return (
-      <View className="page page-form page-form-thanks">
+      <ScrollView
+        className="page page-form page-form-thanks"
+        scrollY
+        onScroll={handleScroll}
+      >
         <View className="paper-container thanks-container">
           <AnimatedView
             animation="fadeInScale"
@@ -208,12 +224,16 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
             </View>
           </AnimatedView>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 
   return (
-    <View className="page page-form">
+    <ScrollView
+      className="page page-form"
+      scrollY
+      onScroll={handleScroll}
+    >
       <View className="paper-container">
         {/* Paper Header */}
         <AnimatedView animation="fadeInUp" isActive={isActive} duration={800}>
@@ -493,6 +513,6 @@ export const PageForm: React.FC<PageFormProps> = ({ isActive }) => {
           </View>
         </AnimatedView>
       </View>
-    </View>
+    </ScrollView>
   );
 };
