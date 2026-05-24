@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text } from "@tarojs/components";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { DoodleFlower, DoodleLine } from "../../../components/DoodleElements";
+import { images } from "../../../utils/assets";
 import "./PageSchedule.scss";
 
 interface PageScheduleProps {
@@ -47,6 +48,16 @@ const scheduleData: ScheduleItem[] = [
 ];
 
 export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
+  const [moonIn, setMoonIn] = useState(false);
+
+  useEffect(() => {
+    if (isActive) {
+      const timer = setTimeout(() => setMoonIn(true), 50);
+      return () => clearTimeout(timer);
+    }
+    setMoonIn(false);
+  }, [isActive]);
+
   return (
     <View className="page page-schedule">
       <View className="content-wrapper">
@@ -89,6 +100,14 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
             <DoodleFlower className="footer-flower" />
           </View>
         </AnimatedView>
+      </View>
+
+      <View className={`moon-anchor ${moonIn ? "animate" : ""}`}>
+        <Image
+          className="moon-img"
+          src={images.onTheMoon}
+          mode="widthFix"
+        />
       </View>
     </View>
   );

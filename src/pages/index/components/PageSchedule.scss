@@ -1,20 +1,51 @@
 @import '../../../styles/variables.scss';
 
 .page-schedule {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  padding: $spacing-xxl $spacing-xl;
+  padding: $spacing-xxl $spacing-xl 0;
   background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
+  overflow: hidden;
 
   .content-wrapper {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     max-width: 600px;
+    padding-bottom: $spacing-xl;
+  }
+
+  .moon-anchor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 0;
+    pointer-events: none;
+    transform: translateY(105%);
+    opacity: 0;
+    transition:
+      opacity 1.2s ease-out,
+      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 0.3s;
+    will-change: transform, opacity;
+
+    &.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .moon-img {
+      width: 100%;
+      display: block;
+    }
   }
 
   .page-title {
