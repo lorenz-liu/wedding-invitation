@@ -20,6 +20,7 @@
         text-align: center;
         max-width: 500px;
         width: 100%;
+        margin-bottom: 120px;
         // Reserve space at the bottom so the corner images don't cover the text.
         padding-bottom: min(220px, 28vw);
         position: relative;
@@ -115,7 +116,7 @@
     // animations whose endpoints match, so there is no abrupt transform jump.
     .bawbaw-sticker {
         position: absolute;
-        top: min(120px, 12vh);
+        top: min(80px, 8vh);
         left: 55%;
         width: min(300px, 30vw);
         opacity: 0;

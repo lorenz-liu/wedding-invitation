@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Input, Textarea, Button, ScrollView } from "@tarojs/components";
+import {
+  View,
+  Text,
+  Input,
+  Textarea,
+  Button,
+  ScrollView,
+} from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import Taro from "@tarojs/taro";
 import {
@@ -505,11 +512,6 @@ export const PageForm: React.FC<PageFormProps> = ({
           duration={600}
         >
           <View className="form-footer">
-            <View className="footer-flowers">
-              <DoodleFlower className="footer-flower" />
-              <DoodleHeart className="footer-heart" />
-              <DoodleFlower className="footer-flower" />
-            </View>
             <Text className="footer-text">感谢您的回复，期待与您相见</Text>
             <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
           </View>
