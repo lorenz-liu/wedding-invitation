@@ -10,8 +10,8 @@ interface PageLocationProps {
 }
 
 const VENUE = {
-  latitude: 30.457,
-  longitude: 104.071,
+  latitude: 30.4577,
+  longitude: 104.0654,
   name: "慕上OnTheMoon·北欧餐厅(成都麓湖店)",
   address: "四川省成都市双流区华阳街道麓湖中路西段888号13栋附101-104号",
 };

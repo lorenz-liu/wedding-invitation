@@ -133,16 +133,6 @@ const Index: React.FC = () => {
       </View>
 
       <View className="page-container">{renderCurrentPage()}</View>
-
-      {currentPage < TOTAL_PAGES - 1 && (
-        <View className="scroll-hint-global" onClick={nextPage}>
-          <View className="hint-arrow">↓</View>
-        </View>
-      )}
-
-      <View className="page-counter">
-        {currentPage + 1} / {TOTAL_PAGES}
-      </View>
     </View>
   );
 };
