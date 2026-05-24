@@ -1,125 +1,152 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .page-life {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: $spacing-xl;
-  background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
-
-  .content-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    max-width: 500px;
-  }
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: $spacing-xl $spacing-xl 0;
+    background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
+    overflow: hidden;
 
-  .years-text {
-    font-family: 'Childhood', sans-serif;
-    font-size: 60px;
-    color: $color-accent;
-    letter-spacing: 4px;
-    margin-bottom: $spacing-lg;
-  }
-
-  .life-text {
-    font-family: 'Childhood', sans-serif;
-    font-size: $font-size-xl;
-    color: $color-text-primary;
-    line-height: 2;
-    margin-bottom: $spacing-xl;
-    white-space: pre-line;
-  }
-
-  .cat-section {
-    position: relative;
-    margin: $spacing-lg 0;
-
-    .cat-icon {
-      font-size: 100px;
-      animation: catBounce 2s ease-in-out infinite;
+    .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+        // Reserve space at the bottom so the corner images don't cover the text.
+        padding-bottom: min(220px, 28vw);
+        position: relative;
+        z-index: 1;
     }
 
-    @keyframes catBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    .years-text {
+        font-family: "Childhood", sans-serif;
+        font-size: 60px;
+        color: $color-accent;
+        letter-spacing: 4px;
+        margin-bottom: $spacing-lg;
     }
 
-    .cat-name {
-      font-family: 'HandWritingBold', sans-serif;
-      font-size: $font-size-xl;
-      color: $color-accent;
-      display: block;
-      margin-top: $spacing-sm;
-      letter-spacing: 4px;
+    .life-text {
+        font-family: "Childhood", sans-serif;
+        font-size: $font-size-xl;
+        color: $color-text-primary;
+        line-height: 2;
+        margin-bottom: $spacing-xl;
+        white-space: pre-line;
     }
 
-    .flowers-around {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px;
-      height: 200px;
-      pointer-events: none;
+    .cat-desc {
+        font-family: "Childhood", sans-serif;
+        font-size: $font-size-lg;
+        color: $color-text-secondary;
+        line-height: 2;
+        margin: $spacing-xl 0;
+        white-space: pre-line;
+    }
 
-      .flower-1 {
+    .quote-box {
+        margin-top: $spacing-lg;
+        padding: $spacing-md $spacing-xl;
+        background: rgba(201, 168, 124, 0.15);
+        border-radius: $border-radius-lg;
+
+        .quote-text {
+            font-family: "HandWritingThin", sans-serif;
+            font-size: $font-size-lg;
+            color: $color-accent;
+            font-style: italic;
+        }
+    }
+
+    // ---- Corner anchors ----
+    // Shared base
+    .bawbaw-anchor {
         position: absolute;
-        top: -30px;
-        left: 10px;
-        width: 30px;
-        height: 30px;
-        animation: rotateFlower 8s linear infinite;
-      }
+        bottom: 0;
+        opacity: 0;
+        transition:
+            opacity 1.2s ease-out,
+            transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
+        z-index: 2;
+        pointer-events: none;
 
-      .flower-2 {
-        position: absolute;
-        top: 50%;
-        right: -20px;
-        width: 25px;
-        height: 25px;
-        animation: rotateFlower 10s linear infinite reverse;
-      }
-
-      .flower-3 {
-        position: absolute;
-        bottom: -20px;
-        left: 30%;
-        width: 35px;
-        height: 35px;
-        animation: rotateFlower 12s linear infinite;
-      }
-
-      @keyframes rotateFlower {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
+        .bawbaw-anchor-img {
+            width: 100%;
+            display: block;
+            filter: drop-shadow(0 -6px 16px rgba(201, 168, 124, 0.2));
+        }
     }
-  }
 
-  .cat-desc {
-    font-family: 'Childhood', sans-serif;
-    font-size: $font-size-lg;
-    color: $color-text-secondary;
-    line-height: 2;
-    margin: $spacing-xl 0;
-    white-space: pre-line;
-  }
+    // Bottom-left: slide in from the bottom-left corner
+    .bawbaw-anchor-left {
+        left: 0;
+        width: min(400px, 55vw);
+        transform: translate(-30%, 30%);
 
-  .quote-box {
-    margin-top: $spacing-lg;
-    padding: $spacing-md $spacing-xl;
-    background: rgba(201, 168, 124, 0.15);
-    border-radius: $border-radius-lg;
-
-    .quote-text {
-      font-family: 'HandWritingThin', sans-serif;
-      font-size: $font-size-lg;
-      color: $color-accent;
-      font-style: italic;
+        &.animate {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
     }
-  }
+
+    // Bottom-right: slide in from the bottom-right corner
+    .bawbaw-anchor-right {
+        right: 0;
+        width: min(250px, 30vw);
+        transform: translate(30%, 30%);
+        transition-delay: 0.15s;
+
+        &.animate {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+    }
+
+    // ---- Sticker ----
+    // Casually slapped onto the upper-right of the page, with a slight tilt.
+    .bawbaw-sticker {
+        position: absolute;
+        top: min(140px, 18vh);
+        right: min(20px, 5vw);
+        width: min(200px, 25vw);
+        opacity: 0;
+        transform-origin: center center;
+        transition:
+            opacity 0.6s ease-out,
+            transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); // overshoot for a "stick" feel
+        z-index: 3;
+        pointer-events: none;
+        filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.18))
+            drop-shadow(0 0 1px rgba(255, 255, 255, 0.9));
+
+        &.animate {
+            opacity: 1;
+            transform: rotate(-12deg) scale(1);
+            animation: stickerWobble 4s ease-in-out 1s infinite;
+        }
+
+        .bawbaw-sticker-img {
+            width: 100%;
+            display: block;
+        }
+    }
+
+    @keyframes stickerWobble {
+        0%,
+        100% {
+            transform: rotate(-12deg) scale(1);
+        }
+        50% {
+            transform: rotate(-9deg) scale(1.02);
+        }
+    }
 }

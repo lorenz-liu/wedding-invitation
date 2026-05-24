@@ -30,4 +30,7 @@ export const images = {
   shanghai: assetPath("images/shanghai.png"),
   band: assetPath("images/band.png"),
   torontoNoBg: assetPath("images/toronto-no-bg.png"),
+  holdingBawbawNoBg: assetPath("images/holding-bawbaw-no-bg.png"),
+  bawbawFullBody1: assetPath("images/bawbaw-full-body-1.png"),
+  bawbawFullBody3: assetPath("images/bawbaw-full-body-3.png"),
 } as const;
