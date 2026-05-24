@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text } from "@tarojs/components";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { DoodleHeart, DoodleRing } from "../../../components/DoodleElements";
+import { images } from "../../../utils/assets";
 import "./PageToronto.scss";
 
 interface PageTorontoProps {
@@ -9,6 +10,16 @@ interface PageTorontoProps {
 }
 
 export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
+  const [torontoIn, setTorontoIn] = useState(false);
+
+  useEffect(() => {
+    if (isActive) {
+      const timer = setTimeout(() => setTorontoIn(true), 50);
+      return () => clearTimeout(timer);
+    }
+    setTorontoIn(false);
+  }, [isActive]);
+
   return (
     <View className="page page-toronto">
       <View className="content-wrapper">
@@ -19,32 +30,44 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
           </View>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInScale" isActive={isActive} delay={300} duration={800}>
+        <AnimatedView
+          animation="fadeInScale"
+          isActive={isActive}
+          delay={300}
+          duration={800}
+        >
           <View className="plane-icon">✈️</View>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInUp" isActive={isActive} delay={500} duration={600}>
+        <AnimatedView
+          animation="fadeInUp"
+          isActive={isActive}
+          delay={500}
+          duration={600}
+        >
           <Text className="arrival-text">抵达多伦多</Text>
         </AnimatedView>
 
-        <AnimatedView animation="fadeIn" isActive={isActive} delay={700} duration={800}>
+        <AnimatedView
+          animation="fadeIn"
+          isActive={isActive}
+          delay={700}
+          duration={800}
+        >
           <View className="decorations">
             <DoodleHeart className="deco-heart" />
-            <Text className="deco-text">我们的坐标</Text>
+            <Text className="deco-text">我们的坐标 从此永远重合</Text>
             <DoodleRing className="deco-ring" />
           </View>
         </AnimatedView>
+      </View>
 
-        <AnimatedView animation="fadeInUp" isActive={isActive} delay={900} duration={800}>
-          <Text className="forever-text">从此永远重合</Text>
-        </AnimatedView>
-
-        <AnimatedView animation="fadeIn" isActive={isActive} delay={1100} duration={600}>
-          <View className="location-badge">
-            <Text className="pin-icon">📍</Text>
-            <Text className="city-name">Toronto, Canada</Text>
-          </View>
-        </AnimatedView>
+      <View className={`toronto-anchor ${torontoIn ? "animate" : ""}`}>
+        <Image
+          className="toronto-img"
+          src={images.torontoNoBg}
+          mode="widthFix"
+        />
       </View>
     </View>
   );

@@ -40,6 +40,7 @@ export default {
       { from: "assets/images/band.png", to: "dist/assets/images/band.png" },
       { from: "assets/images/seattle-4.png", to: "dist/assets/images/seattle-4.png" },
       { from: "assets/images/sanya.png", to: "dist/assets/images/sanya.png" },
+      { from: "assets/images/toronto-no-bg.png", to: "dist/assets/images/toronto-no-bg.png" },
     ],
     options: {},
   },
