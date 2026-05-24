@@ -48,6 +48,8 @@ export default {
       { from: "assets/images/master-graduation-together.png", to: "dist/assets/images/master-graduation-together.png" },
       { from: "assets/images/hand-holding.png", to: "dist/assets/images/hand-holding.png" },
       { from: "assets/images/onthemoon.png", to: "dist/assets/images/onthemoon.png" },
+      { from: "assets/images/signature-gao.png", to: "dist/assets/images/signature-gao.png" },
+      { from: "assets/images/signature-niu.png", to: "dist/assets/images/signature-niu.png" },
     ],
     options: {},
   },

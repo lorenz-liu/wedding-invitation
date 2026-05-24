@@ -37,4 +37,6 @@ export const images = {
   masterGraduationTogether: assetPath("images/master-graduation-together.png"),
   handHolding: assetPath("images/hand-holding.png"),
   onTheMoon: assetPath("images/onthemoon.png"),
+  signatureGao: assetPath("images/signature-gao.png"),
+  signatureNiu: assetPath("images/signature-niu.png"),
 } as const;

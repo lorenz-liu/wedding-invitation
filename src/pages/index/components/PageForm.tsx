@@ -6,6 +6,7 @@ import {
   Textarea,
   Button,
   ScrollView,
+  Image,
 } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import Taro from "@tarojs/taro";
@@ -15,6 +16,7 @@ import {
   DoodleLine,
 } from "../../../components/DoodleElements";
 import { API_ENDPOINT, FORM_SUBMITTED_KEY } from "../../../constants/config";
+import { images } from "../../../utils/assets";
 import "./PageForm.scss";
 
 interface Guest {
@@ -525,11 +527,29 @@ export const PageForm: React.FC<PageFormProps> = ({
         >
           <View className="form-credits-wrap">
             <View className="form-credits">
-              <Text className="credits-line">视觉与交互设计 by 新娘 高文珩</Text>
-              <Text className="credits-line">代码开发与维护 by 新郎 刘兆薰</Text>
+              <View className="credits-line-wrap">
+                <Text className="credits-line">
+                  视觉与交互设计 by 新娘 高文珩
+                </Text>
+                <Image
+                  className="credits-signature"
+                  src={images.signatureGao}
+                  mode="heightFix"
+                />
+              </View>
               <Text className="credits-line credits-en">
                 Graphic & Interactive Design by Wenheng Gao, the Bride
               </Text>
+              <View className="credits-line-wrap">
+                <Text className="credits-line">
+                  代码开发与维护 by 新郎 刘兆薰
+                </Text>
+                <Image
+                  className="credits-signature"
+                  src={images.signatureNiu}
+                  mode="heightFix"
+                />
+              </View>
               <Text className="credits-line credits-en">
                 Engineered & Maintained by Zhaoxun Liu, the Groom
               </Text>
