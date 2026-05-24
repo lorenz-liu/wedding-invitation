@@ -1,158 +1,182 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .page-home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: $spacing-xl 0;
-  position: relative;
-  overflow: hidden;
-
-  .corner-tl { position: absolute; top: 20px; left: 20px; z-index: 2; }
-  .corner-tr { position: absolute; top: 20px; right: 20px; z-index: 2; }
-  .corner-bl { position: absolute; bottom: 20px; left: 20px; z-index: 2; }
-  .corner-br { position: absolute; bottom: 20px; right: 20px; z-index: 2; }
-
-  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: $spacing-xl 0;
     position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 600px;
-    width: 100%;
-    padding: 0 $spacing-xl;
-  }
+    overflow: hidden;
 
-  .homepage-figure {
-    position: absolute;
-    top: 50px;
-    width: 48%;
-    max-width: 450px;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0;
-    transition:
-      opacity 1.2s ease-out,
-      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: 0.2s;
-    will-change: transform, opacity;
-  }
-
-  .homepage-figure-niu {
-    left: 0;
-    transform: translateX(-120%);
-
-    &.animate {
-      opacity: 1;
-      transform: translateX(0);
+    .corner-tl {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
     }
-  }
-
-  .homepage-figure-gao {
-    right: 0;
-    transform: translateX(120%);
-
-    &.animate {
-      opacity: 1;
-      transform: translateX(0);
+    .corner-tr {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 2;
     }
-  }
-
-  .homepage-figure-img {
-    width: 100%;
-    max-width: 450px;
-    display: block;
-  }
-
-  .names-text {
-    font-family: 'ThinBlack', sans-serif;
-    font-size: 52px;
-    color: $color-primary;
-    letter-spacing: 8px;
-    margin-bottom: $spacing-md;
-  }
-
-  .main-heart {
-    width: 80px;
-    height: 80px;
-    margin: $spacing-md 0;
-    opacity: 0.8;
-  }
-
-  .date-info {
-    margin: $spacing-lg 0;
-
-    .date-text {
-      font-family: 'ThinBlack', sans-serif;
-      font-size: $font-size-md;
-      color: $color-secondary;
-      letter-spacing: 4px;
+    .corner-bl {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        z-index: 2;
     }
-  }
-
-  .divider-line {
-    margin: $spacing-md 0;
-    width: 120px;
-  }
-
-  .invite-title {
-    font-family: 'HandWritingBold', sans-serif;
-    font-size: 38px;
-    color: $color-primary;
-    margin: $spacing-md 0;
-    letter-spacing: 2px;
-  }
-
-  .poem-section {
-    margin-top: $spacing-xl;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-sm;
-
-    .poem-line {
-      font-family: 'ThinBlack', sans-serif;
-      font-size: $font-size-lg;
-      color: $color-text-primary;
-      line-height: 1.8;
-      letter-spacing: 2px;
-    }
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 80px;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-xs;
-
-    .scroll-text {
-      font-family: 'HandWritingThin', sans-serif;
-      font-size: $font-size-sm;
-      color: $color-secondary;
+    .corner-br {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 2;
     }
 
-    .scroll-arrow {
-      font-size: $font-size-lg;
-      color: $color-accent;
-      animation: bounce 2s infinite;
+    .content-wrapper {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        padding: 0 $spacing-xl;
     }
-  }
+
+    .homepage-figure {
+        position: absolute;
+        top: 50px;
+        width: 48%;
+        max-width: 450px;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0;
+        transition:
+            opacity 1.2s ease-out,
+            transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: 0.2s;
+        will-change: transform, opacity;
+    }
+
+    .homepage-figure-niu {
+        left: 0;
+        transform: translateX(-120%);
+
+        &.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .homepage-figure-gao {
+        right: 0;
+        transform: translateX(120%);
+
+        &.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .homepage-figure-img {
+        width: 100%;
+        max-width: 450px;
+        display: block;
+    }
+
+    .names-text {
+        font-family: "ThinBlack", sans-serif;
+        font-size: 52px;
+        color: $color-primary;
+        letter-spacing: 8px;
+        margin-bottom: $spacing-md;
+    }
+
+    .main-heart {
+        width: 80px;
+        height: 80px;
+        margin: $spacing-md 0;
+        opacity: 0.8;
+    }
+
+    .date-info {
+        margin: $spacing-lg 0;
+
+        .date-text {
+            font-family: "ThinBlack", sans-serif;
+            font-size: $font-size-xl;
+            color: $color-secondary;
+            letter-spacing: 4px;
+        }
+    }
+
+    .divider-line {
+        margin: $spacing-md 0;
+        width: 120px;
+    }
+
+    .invite-title {
+        font-family: "HandWritingBold", sans-serif;
+        font-size: 38px;
+        margin: $spacing-md 0;
+        letter-spacing: 2px;
+        color: $color-accent;
+    }
+
+    .poem-section {
+        margin-top: $spacing-xl;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+
+        .poem-line {
+            font-family: "ThinBlack", sans-serif;
+            font-size: $font-size-lg;
+            color: $color-text-primary;
+            line-height: 1.8;
+            letter-spacing: 2px;
+        }
+    }
+
+    .scroll-hint {
+        position: absolute;
+        bottom: 80px;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-xs;
+
+        .scroll-text {
+            font-family: "HandWritingThin", sans-serif;
+            font-size: $font-size-sm;
+            color: $color-secondary;
+        }
+
+        .scroll-arrow {
+            font-size: $font-size-lg;
+            color: $color-accent;
+            animation: bounce 2s infinite;
+        }
+    }
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
 }
