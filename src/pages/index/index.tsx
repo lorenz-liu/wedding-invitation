@@ -12,13 +12,14 @@ import { PageDistance } from "./components/PageDistance";
 import { PageDistance2 } from "./components/PageDistance2";
 import { PageToronto } from "./components/PageToronto";
 import { PageLife } from "./components/PageLife";
+import { PageGraduate } from "./components/PageGraduate";
 import { PageMilestone } from "./components/PageMilestone";
 import { PageSchedule } from "./components/PageSchedule";
 import { PageLocation } from "./components/PageLocation";
 import { PageForm } from "./components/PageForm";
 import "./index.scss";
 
-const TOTAL_PAGES = 13;
+const TOTAL_PAGES = 14;
 
 const Index: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -101,14 +102,16 @@ const Index: React.FC = () => {
       case 7:
         return <PageToronto isActive={isActive} />;
       case 8:
-        return <PageLife isActive={isActive} />;
+        return <PageGraduate isActive={isActive} />;
       case 9:
-        return <PageMilestone isActive={isActive} />;
+        return <PageLife isActive={isActive} />;
       case 10:
-        return <PageSchedule isActive={isActive} />;
+        return <PageMilestone isActive={isActive} />;
       case 11:
-        return <PageLocation isActive={isActive} />;
+        return <PageSchedule isActive={isActive} />;
       case 12:
+        return <PageLocation isActive={isActive} />;
+      case 13:
         return <PageForm isActive={isActive} />;
       default:
         return <PageHome isActive={isActive} />;

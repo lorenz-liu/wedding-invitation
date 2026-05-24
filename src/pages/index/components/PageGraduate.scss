@@ -1,0 +1,116 @@
+@import "../../../styles/variables.scss";
+
+.page-graduate {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: $spacing-xl $spacing-xl 0;
+    background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
+    overflow: hidden;
+
+    .content-wrapper {
+        flex: 1;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 520px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .date-box {
+        margin-bottom: $spacing-lg;
+
+        .date-year {
+            font-family: "Childhood", sans-serif;
+            font-size: 60px;
+            color: $color-accent;
+            display: block;
+            letter-spacing: 4px;
+        }
+
+        .date-day {
+            font-family: "ThinBlack", sans-serif;
+            font-size: $font-size-xl;
+            color: $color-secondary;
+            margin-top: $spacing-xs;
+            letter-spacing: 2px;
+            display: block;
+        }
+    }
+
+    .grad-headline {
+        font-family: "Main", sans-serif;
+        font-size: 52px;
+        color: $color-accent;
+        letter-spacing: 6px;
+        margin-bottom: $spacing-lg;
+        text-shadow: 2px 2px 4px rgba(201, 168, 124, 0.25);
+    }
+
+    .grad-body {
+        margin-top: $spacing-lg;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-sm;
+    }
+
+    .grad-body-text {
+        font-family: "Childhood", sans-serif;
+        font-size: $font-size-lg;
+        color: $color-text-primary;
+        line-height: 1.9;
+        letter-spacing: 2px;
+        display: block;
+    }
+
+    .graduation-anchor {
+        flex-shrink: 0;
+        align-self: center;
+        width: 70vw;
+        margin-top: auto;
+        transform: translateY(105%);
+        opacity: 0;
+        transition:
+            opacity 1.2s ease-out,
+            transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: 0.3s;
+        will-change: transform, opacity;
+        z-index: 0;
+        pointer-events: none;
+
+        &.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .graduation-img {
+            width: 100%;
+            display: block;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .page-graduate {
+        .date-box .date-year {
+            font-size: 48px;
+        }
+
+        .grad-headline {
+            font-size: 40px;
+            letter-spacing: 4px;
+        }
+
+        .grad-body-text {
+            font-size: $font-size-md;
+        }
+    }
+}

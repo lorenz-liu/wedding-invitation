@@ -34,4 +34,5 @@ export const images = {
   holdingBawbawNoBg: assetPath("images/holding-bawbaw-no-bg.png"),
   bawbawFullBody1: assetPath("images/bawbaw-full-body-1.png"),
   bawbawFullBody3: assetPath("images/bawbaw-full-body-3.png"),
+  masterGraduationTogether: assetPath("images/master-graduation-together.png"),
 } as const;
