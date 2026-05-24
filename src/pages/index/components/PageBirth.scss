@@ -8,93 +8,199 @@
   min-height: 100vh;
   padding: $spacing-xl;
   background: linear-gradient(180deg, #f5f0e8 0%, #faf8f5 100%);
+  overflow: hidden;
 
   .content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    max-width: 600px;
+    width: 100%;
+    max-width: 720px;
   }
 
   .year-badge {
     font-family: 'Childhood', sans-serif;
     font-size: 88px;
     color: $color-accent;
-    margin-bottom: $spacing-lg;
+    margin-bottom: $spacing-md;
     text-shadow: 2px 2px 4px rgba(201, 168, 124, 0.2);
   }
 
   .intro-text {
     font-family: 'Childhood', sans-serif;
-    font-size: $font-size-lg;
+    font-size: 28px;
     color: $color-text-secondary;
     line-height: 1.8;
     margin-bottom: $spacing-xl;
-    max-width: 400px;
+    max-width: 520px;
   }
 
-  .birth-cards {
+  // ---- Staggered portrait layout ----
+  .birth-portraits {
+    position: relative;
     display: flex;
-    flex-direction: row;
-    gap: $spacing-xl;
-    margin: $spacing-lg 0;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 640px;
+    margin: $spacing-lg 0 $spacing-xl;
+    gap: $spacing-md;
 
-    @media (max-width: 480px) {
-      flex-direction: column;
-      gap: $spacing-lg;
+    // decorative dashed connector across the middle
+    &::before {
+      content: '';
+      position: absolute;
+      top: 38%;
+      left: 18%;
+      right: 18%;
+      height: 1px;
+      border-top: 1px dashed rgba(201, 168, 124, 0.45);
+      z-index: 0;
+    }
+  }
+
+  .portrait {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    will-change: transform, opacity;
+    transition:
+      opacity 0.9s ease-out,
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  // Groom (left) — higher position, slight left tilt, slides up + in from left
+  .portrait-groom {
+    margin-top: 0;
+    transform: translate(-40px, 50px) rotate(-6deg);
+
+    &.animate {
+      opacity: 1;
+      transform: translate(0, 0) rotate(-4deg);
+    }
+  }
+
+  // Bride (right) — lower position, slight right tilt, slides up + in from right
+  .portrait-bride {
+    margin-top: 80px;
+    transform: translate(40px, 50px) rotate(6deg);
+
+    &.animate {
+      opacity: 1;
+      transform: translate(0, 0) rotate(4deg);
+    }
+  }
+
+  .portrait-frame {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+
+    .portrait-img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 6px 12px rgba(201, 168, 124, 0.25));
     }
 
-    .birth-card {
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: $border-radius-lg;
-      padding: $spacing-xl;
-      min-width: 160px;
-      box-shadow: $shadow-md;
-      border: 2px dashed $color-border;
-      position: relative;
+    .portrait-heart {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      transform: rotate(15deg);
 
-      &.groom {
-        border-color: rgba(201, 168, 124, 0.3);
+      .heart-icon {
+        width: 36px;
+        height: 36px;
+        opacity: 0.85;
       }
+    }
+  }
 
-      &.bride {
-        border-color: rgba(201, 168, 124, 0.5);
-      }
+  .portrait-info {
+    margin-top: $spacing-md;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
 
-      .card-decoration {
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
+    .portrait-role {
+      font-family: 'HandWritingBold', 'Childhood', sans-serif;
+      font-size: 30px;
+      color: $color-primary;
+      letter-spacing: 4px;
+    }
 
-        .card-heart {
-          width: 40px;
-          height: 40px;
-        }
-      }
+    .portrait-divider {
+      width: 44px;
+      height: 1px;
+      background: rgba(201, 168, 124, 0.6);
+    }
 
-      .date-text {
-        font-family: 'Childhood', sans-serif;
-        font-size: $font-size-xxl;
-        color: $color-primary;
-        display: block;
-        margin-bottom: $spacing-sm;
-      }
-
-      .label-text {
-        font-family: 'Childhood', sans-serif;
-        font-size: $font-size-md;
-        color: $color-secondary;
-      }
+    .portrait-date {
+      font-family: 'Childhood', sans-serif;
+      font-size: 38px;
+      color: $color-accent;
+      letter-spacing: 2px;
     }
   }
 
   .doctor-text {
     font-family: 'Childhood', sans-serif;
-    font-size: $font-size-md;
+    font-size: 24px;
     color: $color-accent;
-    margin-top: $spacing-xl;
+    margin-top: $spacing-lg;
     letter-spacing: 2px;
+  }
+}
+
+// ---- Responsive ----
+@media (max-width: 480px) {
+  .page-birth {
+    padding: $spacing-lg $spacing-md;
+
+    .year-badge {
+      font-size: 64px;
+    }
+
+    .birth-portraits {
+      max-width: 360px;
+      gap: $spacing-sm;
+    }
+
+    .portrait-bride {
+      margin-top: 56px;
+    }
+
+    .portrait-frame {
+      max-width: 150px;
+
+      .portrait-heart {
+        top: -6px;
+        right: -6px;
+
+        .heart-icon {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+
+    .portrait-info {
+      margin-top: $spacing-sm;
+
+      .portrait-role {
+        font-size: 24px;
+        letter-spacing: 2px;
+      }
+
+      .portrait-date {
+        font-size: 30px;
+      }
+    }
   }
 }

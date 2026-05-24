@@ -16,6 +16,27 @@
     text-align: center;
   }
 
+  .story-logo {
+    width: 400px;
+    margin-bottom: $spacing-lg;
+    opacity: 0;
+    transform: translateY(-160%);
+    transition:
+      opacity 1.2s ease-out,
+      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+
+    &.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .story-logo-img {
+      width: 100%;
+      display: block;
+    }
+  }
+
   .title-ring {
     width: 100px;
     height: 100px;
@@ -51,7 +72,7 @@
 
     .subtitle-desc {
       font-family: 'ThinBlack', sans-serif;
-      font-size: $font-size-md;
+      font-size: $font-size-lg;
       color: $color-secondary;
       letter-spacing: 2px;
     }

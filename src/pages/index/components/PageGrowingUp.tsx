@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text } from "@tarojs/components";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { DoodleFlower, DoodleLine } from "../../../components/DoodleElements";
+import { images } from "../../../utils/assets";
 import "./PageGrowingUp.scss";
 
 interface PageGrowingUpProps {
@@ -9,14 +10,37 @@ interface PageGrowingUpProps {
 }
 
 export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
+  const [kidsIn, setKidsIn] = useState(false);
+
+  useEffect(() => {
+    if (isActive) {
+      const timer = setTimeout(() => setKidsIn(true), 50);
+      return () => clearTimeout(timer);
+    }
+    setKidsIn(false);
+  }, [isActive]);
+
   return (
     <View className="page page-growing-up">
       <View className="content-wrapper">
-        <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
+        <View className={`kids-hero ${kidsIn ? "animate" : ""}`}>
+          <Image
+            className="kids-hero-img"
+            src={images.togetherKidsNoBg}
+            mode="widthFix"
+          />
+        </View>
+
+        <AnimatedView animation="fadeIn" isActive={isActive} delay={400} duration={600}>
           <Text className="years-text">2001 - 2019</Text>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInUp" isActive={isActive} delay={200} duration={600}>
+        <AnimatedView
+          animation="fadeInUp"
+          isActive={isActive}
+          delay={600}
+          duration={600}
+        >
           <View className="timeline-line">
             <View className="timeline-dot" />
             <DoodleLine className="timeline-doodle" />
@@ -24,7 +48,12 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
           </View>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInUp" isActive={isActive} delay={400} duration={800}>
+        <AnimatedView
+          animation="fadeInUp"
+          isActive={isActive}
+          delay={800}
+          duration={800}
+        >
           <Text className="story-text">
             从懵懂孩提到并肩成长，
             {"\n"}
@@ -36,7 +65,12 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
           </Text>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInScale" isActive={isActive} delay={800} duration={600}>
+        <AnimatedView
+          animation="fadeInScale"
+          isActive={isActive}
+          delay={1100}
+          duration={600}
+        >
           <View className="flowers-row">
             <DoodleFlower className="flower-icon" />
             <DoodleFlower className="flower-icon" />
@@ -44,8 +78,13 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
           </View>
         </AnimatedView>
 
-        <AnimatedView animation="fadeIn" isActive={isActive} delay={1000} duration={600}>
-          <Text className="quote-text">{`"那些一起走过的日子，是青春最美的底色"`}</Text>
+        <AnimatedView
+          animation="fadeIn"
+          isActive={isActive}
+          delay={1300}
+          duration={600}
+        >
+          <Text className="quote-text">{`总角之宴 言笑晏晏 信誓旦旦 不思其反`}</Text>
         </AnimatedView>
       </View>
     </View>

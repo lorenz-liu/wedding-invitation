@@ -17,6 +17,34 @@
     max-width: 500px;
   }
 
+  .kids-hero {
+    width: 280px;
+    margin-bottom: $spacing-lg;
+    opacity: 0;
+    transform: translateY(40px) scale(0.92);
+    transition:
+      opacity 1.1s ease-out,
+      transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+
+    &.animate {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      animation: kidsFloat 5s ease-in-out 1.5s infinite;
+    }
+
+    .kids-hero-img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 10px 20px rgba(201, 168, 124, 0.25));
+    }
+  }
+
+  @keyframes kidsFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1); }
+  }
+
   .years-text {
     font-family: 'Childhood', sans-serif;
     font-size: 60px;
@@ -67,7 +95,6 @@
     font-family: 'HandWritingThin', sans-serif;
     font-size: $font-size-md;
     color: $color-secondary;
-    font-style: italic;
     margin-top: $spacing-lg;
   }
 }
