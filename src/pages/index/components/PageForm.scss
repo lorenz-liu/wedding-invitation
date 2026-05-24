@@ -6,6 +6,13 @@
   box-sizing: border-box;
   padding: 40px 20px;
   background: linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
+
+  // Hide scrollbar on H5
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 }
 
 // Paper Container - Main Card

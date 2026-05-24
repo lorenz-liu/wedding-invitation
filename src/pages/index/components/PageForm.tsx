@@ -168,6 +168,7 @@ export const PageForm: React.FC<PageFormProps> = ({
       <ScrollView
         className="page page-form page-form-thanks"
         scrollY
+        showScrollbar={false}
         onScroll={handleScroll}
       >
         <View className="paper-container thanks-container">
@@ -232,6 +233,7 @@ export const PageForm: React.FC<PageFormProps> = ({
     <ScrollView
       className="page page-form"
       scrollY
+      showScrollbar={false}
       onScroll={handleScroll}
     >
       <View className="paper-container">
