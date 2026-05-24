@@ -32,7 +32,7 @@ const EVENTS: DistanceEvent[] = [
     tilt: 2,
     side: "right",
     imageWidth: "min(200px, 50vw)",
-    offset: 20,
+    offset: 50,
   },
   {
     year: "2023",
@@ -43,7 +43,7 @@ const EVENTS: DistanceEvent[] = [
     tilt: -2,
     side: "left",
     imageWidth: "min(200px, 50vw)",
-    offset: 20,
+    offset: 50,
   },
 ];
 
