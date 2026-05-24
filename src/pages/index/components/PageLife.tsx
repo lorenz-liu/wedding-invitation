@@ -45,7 +45,9 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
           <Text className="life-text">
             在硕士学业与职场生活中
             {"\n"}
-            我们学会了分担与陪伴
+            我们相濡以沫
+            {"\n"}
+            风花雪月 细水长流
           </Text>
         </AnimatedView>
         <AnimatedView
@@ -54,24 +56,13 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
           delay={700}
           duration={800}
         >
-          <Text className="cat-desc">
+          <Text className="life-text">
             家里还有了一名新成员
             {"\n"}
             一只名叫宝宝的小猫
             {"\n"}
-            也让我们的生活因为彼此而变得圆满
+            猫肥家润 岁岁年年
           </Text>
-        </AnimatedView>
-
-        <AnimatedView
-          animation="fadeIn"
-          isActive={isActive}
-          delay={1000}
-          duration={600}
-        >
-          <View className="quote-box">
-            <Text className="quote-text">家就是有你在的地方</Text>
-          </View>
         </AnimatedView>
       </View>
 
@@ -85,7 +76,9 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
       </View>
 
       {/* Bottom-left: holding bawbaw */}
-      <View className={`bawbaw-anchor bawbaw-anchor-left ${leftIn ? "animate" : ""}`}>
+      <View
+        className={`bawbaw-anchor bawbaw-anchor-left ${leftIn ? "animate" : ""}`}
+      >
         <Image
           className="bawbaw-anchor-img"
           src={images.holdingBawbawNoBg}
@@ -94,7 +87,9 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
       </View>
 
       {/* Bottom-right: bawbaw full body */}
-      <View className={`bawbaw-anchor bawbaw-anchor-right ${rightIn ? "animate" : ""}`}>
+      <View
+        className={`bawbaw-anchor bawbaw-anchor-right ${rightIn ? "animate" : ""}`}
+      >
         <Image
           className="bawbaw-anchor-img"
           src={images.bawbawFullBody3}
