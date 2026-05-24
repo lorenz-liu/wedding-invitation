@@ -4,7 +4,7 @@ import { AnimatedView } from "../../../components/AnimatedView";
 import { images } from "../../../utils/assets";
 import "./PageDistance.scss";
 
-interface PageDistanceProps {
+interface PageDistance2Props {
   isActive: boolean;
 }
 
@@ -20,49 +20,49 @@ interface DistanceEvent {
 
 const EVENTS: DistanceEvent[] = [
   {
-    year: "2020",
-    location: "西雅图",
-    caption: "20年的第一场雪",
-    image: images.seattleNoBg,
+    year: "2022",
+    location: "北京",
+    caption: "陪读期末考试",
+    image: images.beijing,
+    framed: true,
+    tilt: 3,
+    side: "right",
+  },
+  {
+    year: "2023",
+    location: "北京",
+    caption: "新郎本科毕业啦！",
+    image: images.niuUndergradNoBg,
     framed: false,
     tilt: -2,
     side: "left",
   },
   {
-    year: "2021",
-    location: "成都",
-    caption: "霍乱时期的爱情",
-    image: images.together2021NoBg,
-    framed: false,
-    tilt: 2,
+    year: "2023",
+    location: "上海",
+    caption: "等待研究生录取结果",
+    image: images.shanghai,
+    framed: true,
+    tilt: 4,
     side: "right",
-  },
-  {
-    year: "2022",
-    location: "旧金山",
-    caption: "新娘本科毕业啦！",
-    image: images.gaoUndergradNoBg,
-    framed: false,
-    tilt: -3,
-    side: "left",
   },
 ];
 
-export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
+export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
   return (
     <View className="page page-distance">
       <View className="distance-header">
         <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
-          <Text className="header-years">2020 — 2022</Text>
+          <Text className="header-years">2022 — 2023</Text>
         </AnimatedView>
 
         <AnimatedView animation="fadeInUp" isActive={isActive} delay={200} duration={600}>
-          <Text className="header-subtitle">异国相隔，山海难抵</Text>
+          <Text className="header-subtitle">归来重逢，并肩同行</Text>
         </AnimatedView>
 
         <AnimatedView animation="fadeIn" isActive={isActive} delay={400} duration={600}>
           <Text className="header-intro">
-            被时差与航班丈量的旅程，第一次品尝想念的滋味。
+            短暂的相聚、漫长的等待，每一次靠近都让心更笃定。
           </Text>
         </AnimatedView>
       </View>
@@ -128,7 +128,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
         duration={600}
       >
         <View className="distance-footer">
-          <Text className="footer-text">想念，是另一种形式的陪伴</Text>
+          <Text className="footer-text">每一次重逢，都让我们更确信彼此</Text>
         </View>
       </AnimatedView>
     </View>

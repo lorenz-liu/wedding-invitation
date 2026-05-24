@@ -9,6 +9,7 @@ import { PageBirth } from "./components/PageBirth";
 import { PageGrowingUp } from "./components/PageGrowingUp";
 import { PageRelationship } from "./components/PageRelationship";
 import { PageDistance } from "./components/PageDistance";
+import { PageDistance2 } from "./components/PageDistance2";
 import { PageToronto } from "./components/PageToronto";
 import { PageLife } from "./components/PageLife";
 import { PageMilestone } from "./components/PageMilestone";
@@ -17,7 +18,7 @@ import { PageLocation } from "./components/PageLocation";
 import { PageForm } from "./components/PageForm";
 import "./index.scss";
 
-const TOTAL_PAGES = 12;
+const TOTAL_PAGES = 13;
 
 const Index: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -96,16 +97,18 @@ const Index: React.FC = () => {
       case 5:
         return <PageDistance isActive={isActive} />;
       case 6:
-        return <PageToronto isActive={isActive} />;
+        return <PageDistance2 isActive={isActive} />;
       case 7:
-        return <PageLife isActive={isActive} />;
+        return <PageToronto isActive={isActive} />;
       case 8:
-        return <PageMilestone isActive={isActive} />;
+        return <PageLife isActive={isActive} />;
       case 9:
-        return <PageSchedule isActive={isActive} />;
+        return <PageMilestone isActive={isActive} />;
       case 10:
-        return <PageLocation isActive={isActive} />;
+        return <PageSchedule isActive={isActive} />;
       case 11:
+        return <PageLocation isActive={isActive} />;
+      case 12:
         return <PageForm isActive={isActive} />;
       default:
         return <PageHome isActive={isActive} />;
