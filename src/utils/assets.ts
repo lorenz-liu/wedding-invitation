@@ -28,4 +28,5 @@ export const images = {
   sanya: assetPath("images/sanya.jpg"),
   beijing: assetPath("images/beijing.jpg"),
   shanghai: assetPath("images/shanghai.jpg"),
+  band: assetPath("images/band.png"),
 } as const;

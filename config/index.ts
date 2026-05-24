@@ -37,6 +37,7 @@ export default {
       { from: "assets/images/niu-undergrad-no-bg.png", to: "dist/assets/images/niu-undergrad-no-bg.png" },
       { from: "assets/images/beijing.jpg", to: "dist/assets/images/beijing.jpg" },
       { from: "assets/images/shanghai.jpg", to: "dist/assets/images/shanghai.jpg" },
+      { from: "assets/images/band.png", to: "dist/assets/images/band.png" },
       { from: "assets/images/seattle-4.jpg", to: "dist/assets/images/seattle-4.jpg" },
       { from: "assets/images/sanya.jpg", to: "dist/assets/images/sanya.jpg" },
     ],

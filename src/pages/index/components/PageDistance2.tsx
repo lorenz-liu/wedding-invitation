@@ -16,7 +16,8 @@ interface DistanceEvent {
   framed: boolean;
   tilt: number;
   side: "left" | "right";
-  imageWidth: number;
+  /** Any valid CSS width value, e.g. "200px" or "min(220px, 30vw)". */
+  imageWidth: string;
   /** How far the image visually crosses the central timeline (px). */
   offset: number;
 }
@@ -25,35 +26,24 @@ const EVENTS: DistanceEvent[] = [
   {
     year: "2022",
     location: "北京",
-    caption: "陪读期末考试",
+    caption: "新郎本科毕业啦！",
     image: images.beijing,
     framed: true,
     tilt: 3,
     side: "right",
-    imageWidth: 200,
-    offset: 50,
+    imageWidth: "min(200px, 50vw)",
+    offset: 70,
   },
   {
     year: "2023",
-    location: "北京",
-    caption: "新郎本科毕业啦！",
-    image: images.niuUndergradNoBg,
-    framed: false,
-    tilt: -2,
-    side: "left",
-    imageWidth: 200,
-    offset: 50,
-  },
-  {
-    year: "2023",
-    location: "上海",
+    location: "成都",
     caption: "等待研究生录取结果",
-    image: images.shanghai,
+    image: images.band,
     framed: true,
     tilt: 4,
-    side: "right",
-    imageWidth: 200,
-    offset: 50,
+    side: "left",
+    imageWidth: "min(200px, 50vw)",
+    offset: 70,
   },
 ];
 
@@ -65,14 +55,13 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
           <Text className="header-years">2022 — 2023</Text>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInUp" isActive={isActive} delay={200} duration={600}>
+        <AnimatedView
+          animation="fadeInUp"
+          isActive={isActive}
+          delay={200}
+          duration={600}
+        >
           <Text className="header-subtitle">归来重逢，并肩同行</Text>
-        </AnimatedView>
-
-        <AnimatedView animation="fadeIn" isActive={isActive} delay={400} duration={600}>
-          <Text className="header-intro">
-            短暂的相聚、漫长的等待，每一次靠近都让心更笃定。
-          </Text>
         </AnimatedView>
       </View>
 
@@ -106,10 +95,12 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
                 <View
                   className="event-image-wrap"
                   style={{
-                    width: `${evt.imageWidth}px`,
+                    width: evt.imageWidth,
+                    // +10 compensates for the 10px padding on .event-content
+                    // so the effective visual crossing matches `offset`.
                     ...(evt.side === "left"
-                      ? { marginRight: `-${evt.offset}px` }
-                      : { marginLeft: `-${evt.offset}px` }),
+                      ? { marginRight: `-${evt.offset + 10}px` }
+                      : { marginLeft: `-${evt.offset + 10}px` }),
                   }}
                 >
                   {evt.framed ? (
@@ -137,7 +128,6 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
           </AnimatedView>
         ))}
       </View>
-
     </View>
   );
 };

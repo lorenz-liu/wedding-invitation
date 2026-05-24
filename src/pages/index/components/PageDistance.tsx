@@ -16,7 +16,8 @@ interface DistanceEvent {
   framed: boolean;
   tilt: number;
   side: "left" | "right";
-  imageWidth: number;
+  /** Any valid CSS width value, e.g. "200px" or "min(220px, 30vw)". */
+  imageWidth: string;
   /** How far the image visually crosses the central timeline (px). */
   offset: number;
 }
@@ -30,7 +31,7 @@ const EVENTS: DistanceEvent[] = [
     framed: false,
     tilt: -2,
     side: "left",
-    imageWidth: 200,
+    imageWidth: "min(200px, 50vw)",
     offset: 70,
   },
   {
@@ -41,7 +42,7 @@ const EVENTS: DistanceEvent[] = [
     framed: false,
     tilt: 2,
     side: "right",
-    imageWidth: 200,
+    imageWidth: "min(200px, 50vw)",
     offset: 70,
   },
   {
@@ -52,7 +53,7 @@ const EVENTS: DistanceEvent[] = [
     framed: false,
     tilt: -3,
     side: "left",
-    imageWidth: 100,
+    imageWidth: "min(100px, 30vw)",
     offset: 30,
   },
 ];
@@ -105,10 +106,12 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
                 <View
                   className="event-image-wrap"
                   style={{
-                    width: `${evt.imageWidth}px`,
+                    width: evt.imageWidth,
+                    // +10 compensates for the 10px padding on .event-content
+                    // so the effective visual crossing matches `offset`.
                     ...(evt.side === "left"
-                      ? { marginRight: `-${evt.offset}px` }
-                      : { marginLeft: `-${evt.offset}px` }),
+                      ? { marginRight: `-${evt.offset + 10}px` }
+                      : { marginLeft: `-${evt.offset + 10}px` }),
                   }}
                 >
                   {evt.framed ? (
