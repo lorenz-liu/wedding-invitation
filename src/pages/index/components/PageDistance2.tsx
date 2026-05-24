@@ -29,10 +29,10 @@ const EVENTS: DistanceEvent[] = [
     caption: "新郎本科毕业啦！",
     image: images.beijing,
     framed: true,
-    tilt: 3,
+    tilt: 2,
     side: "right",
     imageWidth: "min(200px, 50vw)",
-    offset: 70,
+    offset: 20,
   },
   {
     year: "2023",
@@ -40,10 +40,10 @@ const EVENTS: DistanceEvent[] = [
     caption: "等待研究生录取结果",
     image: images.band,
     framed: true,
-    tilt: 4,
+    tilt: -2,
     side: "left",
     imageWidth: "min(200px, 50vw)",
-    offset: 70,
+    offset: 20,
   },
 ];
 
