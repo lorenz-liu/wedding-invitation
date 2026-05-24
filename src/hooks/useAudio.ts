@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Taro from "@tarojs/taro";
+import { resolveAssetPath } from "../utils/assetResolver";
 
 export function useBackgroundAudio() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -7,18 +8,15 @@ export function useBackgroundAudio() {
   const isInitializedRef = useRef(false);
 
   const initAudio = useCallback(() => {
-    // Prevent multiple initialization
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
 
     if (process.env.TARO_ENV === "weapp") {
-      // Use InnerAudioContext for local files in WeChat mini program
       const innerAudioContext = Taro.createInnerAudioContext();
-      innerAudioContext.src = require("@assets/music/our-love.mp3");
+      innerAudioContext.src = resolveAssetPath("music/our-love.mp3");
       innerAudioContext.loop = true;
       innerAudioContext.volume = 0.7;
 
-      // Track actual playing state
       innerAudioContext.onPlay(() => {
         console.log("Audio: onPlay event");
         setIsPlaying(true);
@@ -46,7 +44,6 @@ export function useBackgroundAudio() {
 
       audioRef.current = innerAudioContext;
     } else {
-      // H5: use BackgroundAudioManager
       const bgm = Taro.getBackgroundAudioManager();
       if (bgm) {
         bgm.title = "Our Love";
@@ -55,7 +52,6 @@ export function useBackgroundAudio() {
         bgm.src = require("@assets/music/our-love.mp3");
         bgm.loop = true;
 
-        // Listen for actual state changes
         bgm.onPlay(() => setIsPlaying(true));
         bgm.onPause(() => setIsPlaying(false));
         bgm.onStop(() => setIsPlaying(false));
@@ -75,7 +71,6 @@ export function useBackgroundAudio() {
 
     const audio = audioRef.current;
 
-    // Use isPlaying state to determine action
     if (isPlaying) {
       console.log("Pausing audio...");
       audio.pause?.();

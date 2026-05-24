@@ -29,7 +29,9 @@
     "format:check": "biome format .",
     "lint:biome": "biome lint .",
     "check:biome": "biome check --write .",
-    "check:biome:ci": "biome check ."
+    "check:biome:ci": "biome check .",
+    "upload:cloud-assets": "node scripts/upload-cloud-assets.mjs",
+    "deploy:infra": "cd infra && ./deploy.sh"
   },
   "browserslist": [
     "last 3 versions",

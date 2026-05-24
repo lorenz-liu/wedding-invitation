@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import "./app.scss";
-import { loadMiniProgramFonts, loadH5Fonts } from "./utils/fontLoader";
+import { initWeappCloud } from "./utils/cloudAssets";
+import { loadMiniProgramFonts } from "./utils/fontLoader";
 
 function App({ children }) {
   useEffect(() => {
-    // Load fonts dynamically to avoid WXSS size issues
     if (process.env.TARO_ENV === "weapp") {
+      initWeappCloud();
       loadMiniProgramFonts();
-    } else {
-      loadH5Fonts();
+    } else if (process.env.TARO_ENV === "h5") {
+      // Separate module so weapp builds do not bundle local font files.
+      require("./utils/fontLoader.h5").loadH5Fonts();
     }
   }, []);
 

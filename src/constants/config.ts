@@ -1,6 +1,20 @@
-// Replace with your Lambda Function URL after deploying CloudFormation stack
-// Example: https://xxxxxxxx.lambda-url.us-east-1.on.aws/
-export const API_ENDPOINT =
-  "https://d5knzy6iuti4sa5szdt6jqdrqa0egbly.lambda-url.ca-central-1.on.aws/";
+import { isCloudEnvConfigured } from "./cloud";
+
+/** Cloud function that handles guest RSVP submissions. */
+export const CLOUD_FUNCTION_NAME = "submitGuestForm";
+
+/**
+ * Optional HTTP endpoint for H5 form submission.
+ * Enable HTTP access for the cloud function in CloudBase console, then paste the URL here.
+ */
+export const CLOUD_HTTP_ENDPOINT =
+  "wedding-d8gbgwafs7b3e5340-1306230692.ap-shanghai.app.tcloudbase.com";
 
 export const FORM_SUBMITTED_KEY = "wedding-form-submitted";
+
+export function isFormBackendConfigured(): boolean {
+  if (process.env.TARO_ENV === "weapp") {
+    return isCloudEnvConfigured();
+  }
+  return Boolean(CLOUD_HTTP_ENDPOINT);
+}

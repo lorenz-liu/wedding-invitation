@@ -1,12 +1,13 @@
 import Taro from "@tarojs/taro";
+import { resolveAssetPath } from "./assetResolver";
 import { toWeappFontSource } from "./weappAsset";
 
-const FONT_PATHS = {
-  ThinBlack: require("@assets/fonts/thin-black.ttf"),
-  Main: require("@assets/fonts/main.ttf"),
-  Childhood: require("@assets/fonts/childhood.ttf"),
-  HandWritingBold: require("@assets/fonts/hand-writing-bold.ttf"),
-  HandWritingThin: require("@assets/fonts/hand-writing-thin.ttf"),
+const WEAPP_FONT_FILES: Record<string, string> = {
+  ThinBlack: "fonts/thin-black.ttf",
+  Main: "fonts/main.ttf",
+  Childhood: "fonts/childhood.ttf",
+  HandWritingBold: "fonts/hand-writing-bold.ttf",
+  HandWritingThin: "fonts/hand-writing-thin.ttf",
 };
 
 export function loadMiniProgramFonts(): void {
@@ -31,42 +32,8 @@ export function loadMiniProgramFonts(): void {
   };
 
   let delay = 0;
-  for (const [family, path] of Object.entries(FONT_PATHS)) {
-    loadFont(family, path, delay);
+  for (const [family, relativePath] of Object.entries(WEAPP_FONT_FILES)) {
+    loadFont(family, resolveAssetPath(relativePath), delay);
     delay += 300;
   }
-}
-
-export function loadH5Fonts(): void {
-  if (process.env.TARO_ENV !== "h5") return;
-
-  const style = document.createElement("style");
-  style.textContent = `
-    @font-face {
-      font-family: 'ThinBlack';
-      src: url('${FONT_PATHS.ThinBlack}') format('truetype');
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Main';
-      src: url('${FONT_PATHS.Main}') format('truetype');
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Childhood';
-      src: url('${FONT_PATHS.Childhood}') format('truetype');
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'HandWritingBold';
-      src: url('${FONT_PATHS.HandWritingBold}') format('truetype');
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'HandWritingThin';
-      src: url('${FONT_PATHS.HandWritingThin}') format('truetype');
-      font-display: swap;
-    }
-  `;
-  document.head.appendChild(style);
 }

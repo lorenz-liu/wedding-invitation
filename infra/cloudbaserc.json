@@ -1,0 +1,14 @@
+{
+  "envId": "wedding-d8gbgwafs7b3e5340",
+  "functionRoot": "cloudfunctions",
+  "functions": [
+    {
+      "name": "submitGuestForm",
+      "timeout": 20,
+      "runtime": "Nodejs18.15",
+      "installDependency": true,
+      "handler": "index.main",
+      "ignore": ["node_modules/**", "package-lock.json"]
+    }
+  ]
+}

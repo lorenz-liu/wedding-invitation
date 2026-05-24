@@ -1,15 +1,11 @@
-import { toWeappLocalPath } from "./weappAsset";
-
-/** Root assets directory is copied to `dist/assets/` at build time. */
-const ASSETS_ROOT = "/assets";
+import { resolveAssetPath } from "./assetResolver";
 
 /**
- * Resolve a path under the project `assets/` folder for WeChat / static files.
- * @example assetPath("images/homepage-niu.png") -> "/assets/images/homepage-niu.png"
+ * Resolve a path under the project `assets/` folder.
+ * weapp → cloud storage FileID; h5 → local `/assets/...` path.
  */
 export function assetPath(relativePath: string): string {
-  const normalized = relativePath.replace(/^\/+/, "").replace(/^assets\//, "");
-  return toWeappLocalPath(`${ASSETS_ROOT}/${normalized}`);
+  return resolveAssetPath(relativePath);
 }
 
 export const images = {

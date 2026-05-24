@@ -10,7 +10,7 @@
 - 📖 **Scrollytelling** - 丝滑的滚动叙事体验
 - 🗺️ **腾讯地图** - 内置地图导航
 - 📝 **宾客表单** - 完整的 RSVP 表单系统
-- ☁️ **AWS 后端** - DynamoDB + SNS 短信通知
+- ☁️ **CloudBase 后端** - 云函数 + 云数据库 + 腾讯云短信（可选）
 
 ## 🚀 快速开始
 
@@ -62,8 +62,8 @@ wedding-invitation/
 │   │       └── components/  # 12个故事页面
 │   ├── styles/         # 全局样式
 │   └── utils/          # 工具函数
-├── aws/                # AWS CloudFormation 配置
-│   └── template.yaml   # 基础设施即代码
+├── infra/              # 腾讯云 CloudBase 配置
+│   └── cloudfunctions/ # 云函数（宾客表单提交）
 ├── fonts/              # 字体文件（已复制到 src/assets）
 ├── music/              # 背景音乐（已复制到 src/assets）
 └── types/              # TypeScript 类型定义
@@ -94,41 +94,17 @@ wedding-invitation/
 11. **婚礼地点** - 地图和导航
 12. **宾客表单** - RSVP 表单
 
-## ☁️ AWS 部署
+## ☁️ CloudBase 部署
 
-### 1. 配置 AWS CLI
-
-确保已安装并配置 AWS CLI：
+宾客回函表单通过腾讯云 CloudBase 云函数处理。详见 [infra/README.md](infra/README.md)。
 
 ```bash
-aws configure
+npm i -g @cloudbase/cli
+tcb login
+cd infra && ./deploy.sh
 ```
 
-### 2. 部署 CloudFormation 栈
-
-```bash
-cd aws
-aws cloudformation create-stack \
-  --stack-name wedding-invitation-prod \
-  --template-body file://template.yaml \
-  --parameters ParameterKey=Environment,ParameterValue=prod \
-  --capabilities CAPABILITY_IAM
-```
-
-### 3. 获取 API 端点
-
-部署完成后，获取 Lambda 函数 URL：
-
-```bash
-aws cloudformation describe-stacks \
-  --stack-name wedding-invitation-prod \
-  --query 'Stacks[0].Outputs[?OutputKey==`ApiEndpoint`].OutputValue' \
-  --output text
-```
-
-### 4. 更新前端配置
-
-将获取的 API 端点更新到 `src/pages/index/components/PageForm.tsx` 中的 `API_ENDPOINT` 变量。
+小程序端通过 `Taro.cloud.callFunction` 调用，环境 ID 配置在 `src/constants/cloud.ts`。
 
 ## 🎵 音乐文件说明
 
@@ -147,8 +123,8 @@ aws cloudformation describe-stacks \
 ### 2. 配置域名白名单
 
 在微信公众平台配置以下合法域名：
-- AWS Lambda 函数 URL
 - 腾讯地图 API 域名
+- （H5 表单）CloudBase HTTP 访问域名
 
 ## 🗺️ 腾讯地图配置
 

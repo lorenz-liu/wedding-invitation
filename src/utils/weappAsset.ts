@@ -1,6 +1,12 @@
 export function toWeappLocalPath(path: string): string {
   if (!path) return path;
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  if (
+    path.startsWith("http://") ||
+    path.startsWith("https://") ||
+    path.startsWith("cloud://")
+  ) {
+    return path;
+  }
   return path.startsWith("/") ? path : `/${path}`;
 }
 

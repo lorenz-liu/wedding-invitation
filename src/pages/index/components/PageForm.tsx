@@ -15,7 +15,8 @@ import {
   DoodleFlower,
   DoodleLine,
 } from "../../../components/DoodleElements";
-import { API_ENDPOINT, FORM_SUBMITTED_KEY } from "../../../constants/config";
+import { FORM_SUBMITTED_KEY } from "../../../constants/config";
+import { submitGuestForm } from "../../../utils/submitGuestForm";
 import { images } from "../../../utils/assets";
 import "./PageForm.scss";
 
@@ -135,26 +136,13 @@ export const PageForm: React.FC<PageFormProps> = ({
     Taro.showLoading({ title: "提交中..." });
 
     try {
-      if (API_ENDPOINT.includes("your-lambda-url")) {
-        throw new Error("请先配置 API 地址");
-      }
+      const result = await submitGuestForm(formData);
 
-      const response = await Taro.request({
-        url: API_ENDPOINT,
-        method: "POST",
-        data: formData,
-        header: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.statusCode === 200 && response.data.success) {
+      if (result.success) {
         Taro.setStorageSync(FORM_SUBMITTED_KEY, true);
         setSubmitted(true);
       } else {
-        throw new Error(
-          response.data.error || response.data.message || "提交失败",
-        );
+        throw new Error(result.error || result.message || "提交失败");
       }
     } catch (error: any) {
       console.error("Submit error:", error);

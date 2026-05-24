@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!!**/dist", "!!**/aws/lambda/node_modules", "!!**/aws/lambda/function.zip"]
+    "includes": ["**", "!!**/dist", "!!**/infra/cloudfunctions/**/node_modules"]
   },
   "formatter": {
     "enabled": true,
