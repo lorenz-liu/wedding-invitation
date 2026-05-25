@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
-import { DoodleFlower, DoodleLine } from "../../../components/DoodleElements";
 import { images } from "../../../utils/assets";
 import "./PageSchedule.scss";
 
@@ -63,7 +62,6 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
       <View className="content-wrapper">
         <AnimatedView animation="fadeInUp" isActive={isActive} duration={600}>
           <Text className="page-title">当日安排</Text>
-          <DoodleLine className="title-line" />
         </AnimatedView>
 
         <View className="schedule-list">
@@ -89,25 +87,10 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
             </AnimatedView>
           ))}
         </View>
-
-        <AnimatedView
-          animation="fadeIn"
-          isActive={isActive}
-          delay={600}
-          duration={600}
-        >
-          <View className="decoration-footer">
-            <DoodleFlower className="footer-flower" />
-          </View>
-        </AnimatedView>
       </View>
 
       <View className={`moon-anchor ${moonIn ? "animate" : ""}`}>
-        <Image
-          className="moon-img"
-          src={images.onTheMoon}
-          mode="widthFix"
-        />
+        <Image className="moon-img" src={images.onTheMoon} mode="widthFix" />
       </View>
     </View>
   );

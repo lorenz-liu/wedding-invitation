@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
-import { DoodleHeart, DoodleRing } from "../../../components/DoodleElements";
 import { images } from "../../../utils/assets";
 import "./PageToronto.scss";
 
@@ -61,9 +60,7 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
           duration={800}
         >
           <View className="decorations">
-            <DoodleHeart className="deco-heart" />
             <Text className="deco-text">我们的坐标 从此永远重合</Text>
-            <DoodleRing className="deco-ring" />
           </View>
         </AnimatedView>
       </View>

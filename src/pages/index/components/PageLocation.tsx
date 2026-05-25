@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, Map, Button } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import Taro from "@tarojs/taro";
-import { DoodleRing } from "../../../components/DoodleElements";
 import "./PageLocation.scss";
 
 interface PageLocationProps {
@@ -66,9 +65,6 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
               <Text className="location-city">成都</Text>
               <Text className="location-dot">·</Text>
               <Text className="location-venue">慕上</Text>
-              <View className="ring-icon-wrapper">
-                <DoodleRing className="header-ring" />
-              </View>
             </View>
           </AnimatedView>
         </View>

@@ -10,11 +10,6 @@ import {
 } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import Taro from "@tarojs/taro";
-import {
-  DoodleHeart,
-  DoodleFlower,
-  DoodleLine,
-} from "../../../components/DoodleElements";
 import { FORM_SUBMITTED_KEY } from "../../../constants/config";
 import { submitGuestForm } from "../../../utils/submitGuestForm";
 import { images } from "../../../utils/assets";
@@ -175,9 +170,7 @@ export const PageForm: React.FC<PageFormProps> = ({
             duration={800}
           >
             <View className="thanks-header">
-              <DoodleHeart className="thanks-heart" />
               <Text className="thanks-title">感谢您的回复</Text>
-              <DoodleLine className="title-line" />
             </View>
           </AnimatedView>
 
@@ -213,11 +206,6 @@ export const PageForm: React.FC<PageFormProps> = ({
               </Button>
             </View>
             <View className="form-footer">
-              <View className="footer-flowers">
-                <DoodleFlower className="footer-flower" />
-                <DoodleHeart className="footer-heart" />
-                <DoodleFlower className="footer-flower" />
-              </View>
               <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
             </View>
           </AnimatedView>
@@ -237,16 +225,9 @@ export const PageForm: React.FC<PageFormProps> = ({
         {/* Paper Header */}
         <AnimatedView animation="fadeInUp" isActive={isActive} duration={800}>
           <View className="paper-header">
-            <View className="header-decoration left">
-              <DoodleFlower className="deco-flower" />
-            </View>
             <View className="header-content">
               <Text className="form-title">回函</Text>
-              <DoodleLine className="title-line" />
               <Text className="form-subtitle">诚挚期待您的出席</Text>
-            </View>
-            <View className="header-decoration right">
-              <DoodleFlower className="deco-flower" />
             </View>
           </View>
         </AnimatedView>
@@ -484,13 +465,8 @@ export const PageForm: React.FC<PageFormProps> = ({
         >
           <View className="submit-section">
             <Button className="submit-btn" onClick={handleSubmit}>
-              <DoodleHeart className="btn-heart" />
               <Text className="btn-text">确认提交</Text>
-              <DoodleHeart className="btn-heart" />
             </Button>
-            <View className="submit-decoration">
-              <DoodleLine className="submit-line" />
-            </View>
           </View>
         </AnimatedView>
 

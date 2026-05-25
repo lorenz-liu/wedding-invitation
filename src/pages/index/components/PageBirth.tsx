@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
-import { DoodleHeart } from "../../../components/DoodleElements";
 import { images } from "../../../utils/assets";
 import "./PageBirth.scss";
 

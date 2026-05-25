@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
-import { DoodleFlower, DoodleLine } from "../../../components/DoodleElements";
 import { images } from "../../../utils/assets";
 import "./PageGrowingUp.scss";
 
@@ -31,21 +30,13 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
           />
         </View>
 
-        <AnimatedView animation="fadeIn" isActive={isActive} delay={400} duration={600}>
-          <Text className="years-text">2001 - 2019</Text>
-        </AnimatedView>
-
         <AnimatedView
-          animation="fadeInUp"
+          animation="fadeIn"
           isActive={isActive}
-          delay={600}
+          delay={400}
           duration={600}
         >
-          <View className="timeline-line">
-            <View className="timeline-dot" />
-            <DoodleLine className="timeline-doodle" />
-            <View className="timeline-dot" />
-          </View>
+          <Text className="years-text">2001 - 2019</Text>
         </AnimatedView>
 
         <AnimatedView
@@ -63,19 +54,6 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
             {"\n"}
             也是彼此青春的见证者。
           </Text>
-        </AnimatedView>
-
-        <AnimatedView
-          animation="fadeInScale"
-          isActive={isActive}
-          delay={1100}
-          duration={600}
-        >
-          <View className="flowers-row">
-            <DoodleFlower className="flower-icon" />
-            <DoodleFlower className="flower-icon" />
-            <DoodleFlower className="flower-icon" />
-          </View>
         </AnimatedView>
 
         <AnimatedView

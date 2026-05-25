@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
-import {
-  DoodleHeart,
-  DoodleLine,
-  DoodleCorner,
-} from "../../../components/DoodleElements";
 import { images } from "../../../utils/assets";
 import "./PageHome.scss";
 
@@ -26,11 +21,6 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
 
   return (
     <View className="page page-home">
-      <DoodleCorner position="tl" className="corner-tl" />
-      <DoodleCorner position="tr" className="corner-tr" />
-      <DoodleCorner position="bl" className="corner-bl" />
-      <DoodleCorner position="br" className="corner-br" />
-
       <View className="content-wrapper">
         <AnimatedView
           animation="fadeInUp"
@@ -51,8 +41,6 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
             <Text className="date-text">2026年7月25日 · 礼拜六 · 成都</Text>
           </View>
         </AnimatedView>
-
-        <DoodleLine className="divider-line" />
 
         <AnimatedView
           animation="fadeInUp"

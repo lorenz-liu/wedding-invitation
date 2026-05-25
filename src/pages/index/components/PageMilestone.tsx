@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
-import { DoodleHeart, DoodleRing } from "../../../components/DoodleElements";
 import { images } from "../../../utils/assets";
 import "./PageMilestone.scss";
 
@@ -43,15 +42,12 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
           <Text className="context-text">我们的轨迹始终指向彼此</Text>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInScale" isActive={isActive} delay={400} duration={800}>
-          <View className="milestone-icons">
-            <DoodleHeart className="ms-heart" />
-            <Text className="ms-plus">+</Text>
-            <DoodleRing className="ms-ring" />
-          </View>
-        </AnimatedView>
-
-        <AnimatedView animation="fadeInUp" isActive={isActive} delay={600} duration={600}>
+        <AnimatedView
+          animation="fadeInUp"
+          isActive={isActive}
+          delay={600}
+          duration={600}
+        >
           <Text className="poetry-text">
             当所有的经纬度最终重合
             {"\n"}
@@ -59,7 +55,12 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
           </Text>
         </AnimatedView>
 
-        <AnimatedView animation="fadeInScale" isActive={isActive} delay={800} duration={800}>
+        <AnimatedView
+          animation="fadeInScale"
+          isActive={isActive}
+          delay={800}
+          duration={800}
+        >
           <View className="wedding-date-box">
             <Text className="date-highlight">2026年7月25日</Text>
             <Text className="we-text">我们共同铭刻</Text>
