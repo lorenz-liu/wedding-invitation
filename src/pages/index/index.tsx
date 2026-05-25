@@ -137,8 +137,21 @@ const Index: React.FC = () => {
     }
   };
 
+  const handleTouchMove = (e: any) => {
+    // Block page rubber-band; form page scrolls inside its own ScrollView.
+    if (currentPage !== FORM_PAGE_INDEX) {
+      e.stopPropagation?.();
+    }
+  };
+
   return (
-    <View className="index" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+    <View
+      className="index"
+      catchMove
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <AudioControl isPlaying={isPlaying} onToggle={togglePlay} />
 
       <View className="page-indicator">

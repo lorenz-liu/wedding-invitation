@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text, Image, ScrollView } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { images } from "../../../utils/assets";
 import "./PageDistance.scss";
@@ -60,7 +60,8 @@ const EVENTS: DistanceEvent[] = [
 
 export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
   return (
-    <View className="page page-distance">
+    <ScrollView className="page-distance-scroll" scrollY enhanced showScrollbar={false}>
+      <View className="page page-distance">
       <View className="distance-header">
         <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
           <Text className="header-years">2020 — 2022</Text>
@@ -139,6 +140,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
           </AnimatedView>
         ))}
       </View>
-    </View>
+      </View>
+    </ScrollView>
   );
 };

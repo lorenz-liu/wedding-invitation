@@ -1,8 +1,10 @@
 import Taro from "@tarojs/taro";
 
+const DOWNLOAD_TIMEOUT_MS = 120_000;
+
 /**
- * WeChat mini program fonts/audio work best from a local temp path.
- * Download remote HTTPS assets before passing to loadFontFace / InnerAudioContext.
+ * Download remote HTTPS assets to a local temp path for loadFontFace / InnerAudioContext.
+ * Required on real devices — direct HTTPS URLs often fail for fonts.
  */
 export async function resolveWeappMediaPath(url: string): Promise<string> {
   if (!url || process.env.TARO_ENV !== "weapp") return url;
@@ -11,8 +13,12 @@ export async function resolveWeappMediaPath(url: string): Promise<string> {
   const cached = mediaPathCache.get(url);
   if (cached) return cached;
 
-  const response = await Taro.downloadFile({ url });
-  if (response.statusCode >= 400) {
+  const response = await Taro.downloadFile({
+    url,
+    timeout: DOWNLOAD_TIMEOUT_MS,
+  });
+
+  if (response.statusCode >= 400 || !response.tempFilePath) {
     throw new Error(`Failed to download ${url}: HTTP ${response.statusCode}`);
   }
 
