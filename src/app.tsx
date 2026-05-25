@@ -1,15 +1,21 @@
+import { useLaunch } from "@tarojs/taro";
 import { useEffect } from "react";
 import "./app.scss";
-import { initWeappCloud } from "./utils/cloudAssets";
 import { loadMiniProgramFonts } from "./utils/fontLoader";
 
 function App({ children }) {
-  useEffect(() => {
+  useLaunch(async () => {
     if (process.env.TARO_ENV === "weapp") {
-      initWeappCloud();
-      loadMiniProgramFonts();
-    } else if (process.env.TARO_ENV === "h5") {
-      // Separate module so weapp builds do not bundle local font files.
+      try {
+        await loadMiniProgramFonts();
+      } catch (error) {
+        console.error("[cdn] Failed to load fonts:", error);
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (process.env.TARO_ENV === "h5") {
       require("./utils/fontLoader.h5").loadH5Fonts();
     }
   }, []);

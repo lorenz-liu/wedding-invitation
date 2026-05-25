@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { DoodleRing, DoodleLine } from "../../../components/DoodleElements";
 import { images } from "../../../utils/assets";

@@ -1,9 +1,5 @@
 import Taro from "@tarojs/taro";
-import {
-  CLOUD_FUNCTION_NAME,
-  CLOUD_HTTP_ENDPOINT,
-  isFormBackendConfigured,
-} from "../constants/config";
+import { getGuestFormApiUrl, isFormBackendConfigured } from "../constants/config";
 
 export interface GuestFormPayload {
   mainContact: string;
@@ -29,30 +25,26 @@ export async function submitGuestForm(
   formData: GuestFormPayload,
 ): Promise<GuestFormResult> {
   if (!isFormBackendConfigured()) {
-    throw new Error("请先部署 CloudBase 云函数 submitGuestForm");
-  }
-
-  if (process.env.TARO_ENV === "weapp") {
-    const response = await Taro.cloud.callFunction({
-      name: CLOUD_FUNCTION_NAME,
-      data: formData,
-    });
-
-    return (response.result || {}) as GuestFormResult;
-  }
-
-  if (!CLOUD_HTTP_ENDPOINT) {
-    throw new Error("H5 尚未配置 CLOUD_HTTP_ENDPOINT");
+    throw new Error("请先部署 Cloudflare Worker 并配置 CLOUDFLARE_PUBLIC_BASE_URL");
   }
 
   const response = await Taro.request({
-    url: CLOUD_HTTP_ENDPOINT,
+    url: getGuestFormApiUrl(),
     method: "POST",
     data: formData,
     header: {
       "Content-Type": "application/json",
     },
   });
+
+  if (response.statusCode >= 400) {
+    const data = response.data as GuestFormResult;
+    return {
+      success: false,
+      error: data?.error || `HTTP ${response.statusCode}`,
+      message: data?.message,
+    };
+  }
 
   return response.data as GuestFormResult;
 }

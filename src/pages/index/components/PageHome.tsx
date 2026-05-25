@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import {
   DoodleHeart,
@@ -39,15 +39,6 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           isActive={isActive}
         >
           <Text className="names-text">刘兆薰 & 高文珩</Text>
-        </AnimatedView>
-
-        <AnimatedView
-          animation="fadeInScale"
-          delay={300}
-          duration={600}
-          isActive={isActive}
-        >
-          <DoodleHeart className="main-heart" />
         </AnimatedView>
 
         <AnimatedView

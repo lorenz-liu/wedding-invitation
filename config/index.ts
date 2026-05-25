@@ -8,7 +8,7 @@ function getBuildType(): string | undefined {
   return process.env.TARO_ENV;
 }
 
-// WeChat mini program loads assets from cloud storage; H5 keeps local copies.
+// Weapp uses Cloudflare CDN; H5 copies local assets when CDN is not configured.
 const assetCopyPatterns =
   getBuildType() === "weapp" ? [] : require("../scripts/asset-copy-patterns");
 

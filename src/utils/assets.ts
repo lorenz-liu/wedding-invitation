@@ -2,7 +2,7 @@ import { resolveAssetPath } from "./assetResolver";
 
 /**
  * Resolve a path under the project `assets/` folder.
- * weapp → cloud storage FileID; h5 → local `/assets/...` path.
+ * weapp → Cloudflare CDN URL; h5 → local `/assets/...` when CDN not configured.
  */
 export function assetPath(relativePath: string): string {
   return resolveAssetPath(relativePath);

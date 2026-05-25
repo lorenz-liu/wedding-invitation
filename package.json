@@ -30,8 +30,9 @@
     "lint:biome": "biome lint .",
     "check:biome": "biome check --write .",
     "check:biome:ci": "biome check .",
-    "upload:cloud-assets": "node scripts/upload-cloud-assets.mjs",
-    "deploy:infra": "cd infra && ./deploy.sh"
+    "upload:r2-assets": "node scripts/upload-r2-assets.mjs",
+    "deploy:cloudflare": "cd infra/cloudflare && pnpm install && pnpm run deploy",
+    "db:migrate": "cd infra/cloudflare && wrangler d1 execute wedding-guests --remote --file=schema.sql"
   },
   "browserslist": [
     "last 3 versions",

@@ -1,6 +1,5 @@
 {
   "miniprogramRoot": "dist/",
-  "cloudfunctionRoot": "infra/cloudfunctions/",
   "projectname": "wedding-invitation",
   "description": "Wedding electronic invitation",
   "appid": "wxe5d02726a25a9470",

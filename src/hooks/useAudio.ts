@@ -7,76 +7,47 @@ export function useBackgroundAudio() {
   const audioRef = useRef<any>(null);
   const isInitializedRef = useRef(false);
 
-  const initAudio = useCallback(() => {
+  const initAudio = useCallback(async () => {
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
 
     if (process.env.TARO_ENV === "weapp") {
+      const audioSrc = resolveAssetPath("music/our-love.mp3");
+
       const innerAudioContext = Taro.createInnerAudioContext();
-      innerAudioContext.src = resolveAssetPath("music/our-love.mp3");
+      innerAudioContext.src = audioSrc;
       innerAudioContext.loop = true;
       innerAudioContext.volume = 0.7;
 
-      innerAudioContext.onPlay(() => {
-        console.log("Audio: onPlay event");
-        setIsPlaying(true);
-      });
-
-      innerAudioContext.onPause(() => {
-        console.log("Audio: onPause event");
-        setIsPlaying(false);
-      });
-
-      innerAudioContext.onStop(() => {
-        console.log("Audio: onStop event");
-        setIsPlaying(false);
-      });
-
+      innerAudioContext.onPlay(() => setIsPlaying(true));
+      innerAudioContext.onPause(() => setIsPlaying(false));
+      innerAudioContext.onStop(() => setIsPlaying(false));
       innerAudioContext.onError((err) => {
         console.error("Audio error:", err);
         setIsPlaying(false);
       });
-
       innerAudioContext.onCanplay(() => {
-        console.log("Audio: can play");
         innerAudioContext.play();
       });
 
       audioRef.current = innerAudioContext;
-    } else {
-      const bgm = Taro.getBackgroundAudioManager();
-      if (bgm) {
-        bgm.title = "Our Love";
-        bgm.epname = "Wedding Invitation";
-        bgm.singer = "Wedding";
-        bgm.src = require("@assets/music/our-love.mp3");
-        bgm.loop = true;
+      return;
+    }
 
-        bgm.onPlay(() => setIsPlaying(true));
-        bgm.onPause(() => setIsPlaying(false));
-        bgm.onStop(() => setIsPlaying(false));
-
-        bgm.play();
-        audioRef.current = bgm;
-        setIsPlaying(true);
-      }
+    if (process.env.TARO_ENV === "h5") {
+      require("./useAudio.h5").initH5BackgroundAudio({
+        setIsPlaying,
+        audioRef,
+      });
     }
   }, []);
 
   const togglePlay = useCallback(() => {
-    if (!audioRef.current) {
-      console.log("No audio instance available");
-      return;
-    }
-
-    const audio = audioRef.current;
-
+    if (!audioRef.current) return;
     if (isPlaying) {
-      console.log("Pausing audio...");
-      audio.pause?.();
+      audioRef.current.pause?.();
     } else {
-      console.log("Playing audio...");
-      audio.play?.();
+      audioRef.current.play?.();
     }
   }, [isPlaying]);
 

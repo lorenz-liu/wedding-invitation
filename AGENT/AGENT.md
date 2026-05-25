@@ -10,7 +10,7 @@
 
 前端：使用Taro（使用React + TypeScript + pnpm管理包），自由选择你认为最合适的动效库。默认字体：think-black。地图组件使用腾讯地图API，地点marker设置在成都慕上OnTheMoon。整个应用需要随时有一个背景音乐（our-love.mp3），该音乐在用户进入应用则开始循环播放。
 
-后端：使用腾讯云 CloudBase（云函数 + 云数据库；可选腾讯云短信确认），配置位于 `infra/`
+后端：使用 Cloudflare（Workers + D1 + R2 CDN；可选腾讯云短信），配置位于 `infra/cloudflare/`
 
 ### 开发原则
 

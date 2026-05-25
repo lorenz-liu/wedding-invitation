@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!!**/dist", "!!**/infra/cloudfunctions/**/node_modules"]
+    "includes": ["**", "!!**/dist", "!!**/infra/cloudflare/node_modules"]
   },
   "formatter": {
     "enabled": true,

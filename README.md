@@ -10,7 +10,7 @@
 - 📖 **Scrollytelling** - 丝滑的滚动叙事体验
 - 🗺️ **腾讯地图** - 内置地图导航
 - 📝 **宾客表单** - 完整的 RSVP 表单系统
-- ☁️ **CloudBase 后端** - 云函数 + 云数据库 + 腾讯云短信（可选）
+- ☁️ **Cloudflare 后端** - Workers API + D1 数据库 + R2 CDN（可选腾讯云短信）
 
 ## 🚀 快速开始
 
@@ -50,69 +50,30 @@ pnpm build:h5
 ```
 wedding-invitation/
 ├── src/
-│   ├── assets/           # 静态资源（字体、音乐、图片）
 │   ├── components/       # 可复用组件
-│   │   ├── AudioControl/    # 音乐控制按钮
-│   │   └── DoodleElements/  # 手绘装饰元素
-│   ├── hooks/          # 自定义 Hooks
-│   │   ├── useAudio.ts      # 背景音乐管理
-│   │   └── useScrollPage.ts # 页面滚动控制
-│   ├── pages/          # 页面组件
-│   │   └── index/
-│   │       └── components/  # 12个故事页面
-│   ├── styles/         # 全局样式
-│   └── utils/          # 工具函数
-├── infra/              # 腾讯云 CloudBase 配置
-│   └── cloudfunctions/ # 云函数（宾客表单提交）
-├── fonts/              # 字体文件（已复制到 src/assets）
-├── music/              # 背景音乐（已复制到 src/assets）
-└── types/              # TypeScript 类型定义
+│   ├── hooks/            # 自定义 Hooks
+│   ├── pages/            # 页面组件
+│   ├── constants/        # Cloudflare 等配置
+│   └── utils/            # 工具函数
+├── infra/cloudflare/     # Cloudflare Worker + D1 + R2
+├── assets/               # 静态资源（上传至 R2）
+└── scripts/              # R2 上传脚本等
 ```
 
-## 🎨 字体说明
+## ☁️ Cloudflare 部署
 
-本项目使用以下自定义字体：
-
-- **thin-black** - 主要正文和标题
-- **bordered** - "我们的故事"等大标题
-- **childhood** - 时间线故事文字
-- **hand-writing-bold** - 强调文字和邀请语
-- **hand-writing-thin** - 日程安排说明文字
-
-## 📄 页面内容
-
-1. **首页** - 新人姓名、日期、邀请语
-2. **我们的故事** - 章节标题页
-3. **2001年** - 新郎新娘出生
-4. **2001-2019** - 青梅竹马时光
-5. **2019年7月25日** - 确定关系
-6. **2019-2023** - 跨越距离
-7. **2023年10月14日** - 多伦多团聚
-8. **2023-2026** - 共同生活
-9. **七年里程碑** - 婚礼日期
-10. **当日安排** - 时间表
-11. **婚礼地点** - 地图和导航
-12. **宾客表单** - RSVP 表单
-
-## ☁️ CloudBase 部署
-
-宾客回函表单通过腾讯云 CloudBase 云函数处理。详见 [infra/README.md](infra/README.md)。
+宾客回函、静态资源 CDN 均运行在 Cloudflare。详见 [infra/cloudflare/SETUP.md](infra/cloudflare/SETUP.md)。
 
 ```bash
-npm i -g @cloudbase/cli
-tcb login
-cd infra && ./deploy.sh
+# 1. 部署 Worker（API + CDN 代理）
+pnpm deploy:cloudflare
+
+# 2. 上传 assets/ 到 R2
+pnpm upload:r2-assets
+
+# 3. 配置 src/constants/cloudflare.ts 中的 CLOUDFLARE_PUBLIC_BASE_URL
+pnpm build:weapp
 ```
-
-小程序端通过 `Taro.cloud.callFunction` 调用，环境 ID 配置在 `src/constants/cloud.ts`。
-
-## 🎵 音乐文件说明
-
-背景音乐文件 `our-love.mp3` 已放置在 `src/assets/music/` 目录中。
-
-对于微信小程序，由于分包大小限制，建议：
-1. 使用微信云存储托管音乐文件
-2. 在 `app.tsx` 中更新为云存储 URL
 
 ## 📱 微信小程序配置
 
@@ -122,35 +83,13 @@ cd infra && ./deploy.sh
 
 ### 2. 配置域名白名单
 
-在微信公众平台配置以下合法域名：
-- 腾讯地图 API 域名
-- （H5 表单）CloudBase HTTP 访问域名
+在微信公众平台配置 Cloudflare Worker 域名（request + downloadFile 合法域名），以及腾讯地图 API 域名。
 
 ## 🗺️ 腾讯地图配置
 
 1. 在 [腾讯位置服务](https://lbs.qq.com/) 申请开发者密钥
 2. 在 `.env` 文件中配置 `TENCENT_MAP_KEY`
 3. 在微信公众平台配置地图域名白名单
-
-## 🔧 开发注意事项
-
-### 字体加载
-
-首次加载时字体可能闪烁，这是正常现象。字体文件较大（总计约 50MB），在生产环境建议使用：
-- 字体子集化
-- CDN 托管
-- 渐进式加载
-
-### 音频自动播放
-
-由于浏览器和微信的限制，音频需要在用户交互后才能自动播放。请确保在首次点击或触摸后音乐开始播放。
-
-### 样式适配
-
-项目使用 viewport 单位适配不同屏幕，关键断点：
-- 移动端：< 480px
-- 平板：480px - 768px
-- 桌面：> 768px
 
 ## 📄 开源协议
 
@@ -159,7 +98,3 @@ MIT License
 ## 👨‍💻 开发者
 
 为刘兆薰 & 高文珩 的婚礼精心制作
-
----
-
-有任何问题或建议，欢迎提交 Issue 或 Pull Request！

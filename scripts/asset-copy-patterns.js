@@ -1,4 +1,4 @@
-/** Asset copy patterns used for H5 builds (weapp uses cloud storage instead). */
+/** Asset copy patterns used for H5 local dev fallback. */
 module.exports = [
   { from: "assets/fonts/", to: "dist/assets/fonts/" },
   { from: "assets/music/", to: "dist/assets/music/" },
