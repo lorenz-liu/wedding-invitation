@@ -127,7 +127,11 @@ async function handleGuestForm(request: Request, env: Env): Promise<Response> {
   );
 }
 
-async function handleAssetRequest(pathname: string, env: Env, request: Request): Promise<Response> {
+async function handleAssetRequest(
+  pathname: string,
+  env: Env,
+  request: Request,
+): Promise<Response> {
   const key = pathname.replace(/^\/+/, "");
   if (!key.startsWith("assets/")) {
     return new Response("Not Found", { status: 404, headers: corsHeaders(env, request) });
@@ -143,6 +147,13 @@ async function handleAssetRequest(pathname: string, env: Env, request: Request):
   headers.set("Cache-Control", "public, max-age=31536000, immutable");
   if (object.etag) {
     headers.set("ETag", object.etag);
+  }
+  if (object.size) {
+    headers.set("Content-Length", String(object.size));
+  }
+
+  if (request.method === "HEAD") {
+    return new Response(null, { headers });
   }
 
   return new Response(object.body, { headers });
@@ -174,7 +185,10 @@ export default {
       }
     }
 
-    if (request.method === "GET" && url.pathname.startsWith("/assets/")) {
+    if (
+      (request.method === "GET" || request.method === "HEAD") &&
+      url.pathname.startsWith("/assets/")
+    ) {
       return handleAssetRequest(url.pathname, env, request);
     }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Taro from "@tarojs/taro";
 import { resolveAssetPath } from "../utils/assetResolver";
+import { resolveWeappMediaPath } from "../utils/weappMedia";
 
 export function useBackgroundAudio() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -12,7 +13,8 @@ export function useBackgroundAudio() {
     isInitializedRef.current = true;
 
     if (process.env.TARO_ENV === "weapp") {
-      const audioSrc = resolveAssetPath("music/our-love.mp3");
+      const audioUrl = resolveAssetPath("music/our-love.mp3");
+      const audioSrc = await resolveWeappMediaPath(audioUrl);
 
       const innerAudioContext = Taro.createInnerAudioContext();
       innerAudioContext.src = audioSrc;

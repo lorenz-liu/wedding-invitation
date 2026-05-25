@@ -1,5 +1,6 @@
 import Taro from "@tarojs/taro";
 import { resolveAssetPath } from "./assetResolver";
+import { resolveWeappMediaPath } from "./weappMedia";
 
 const WEAPP_FONT_FILES: Record<string, string> = {
   ThinBlack: "fonts/thin-black.ttf",
@@ -16,17 +17,24 @@ export async function loadMiniProgramFonts(): Promise<void> {
   for (const [family, relativePath] of Object.entries(WEAPP_FONT_FILES)) {
     const fontUrl = resolveAssetPath(relativePath);
 
+    let localPath = fontUrl;
+    try {
+      localPath = await resolveWeappMediaPath(fontUrl);
+    } catch (error) {
+      console.error(`[cdn] Font download failed: ${family}`, fontUrl, error);
+    }
+
     const currentDelay = delay;
     setTimeout(() => {
       Taro.loadFontFace({
         family,
-        source: `url("${fontUrl}")`,
+        source: `url("${localPath}")`,
         global: true,
         success: () => {
           console.log(`Font loaded: ${family}`);
         },
         fail: (err) => {
-          console.warn(`Font load failed: ${family}`, { fontUrl, err });
+          console.warn(`Font load failed: ${family}`, { fontUrl, localPath, err });
         },
       });
     }, currentDelay);

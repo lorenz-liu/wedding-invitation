@@ -63,7 +63,9 @@ function main() {
     process.exit(0);
   }
 
-  console.log(`Uploading ${files.length} files to R2 bucket "${BUCKET}"...\n`);
+  console.log(`Uploading ${files.length} files to remote R2 bucket "${BUCKET}"...\n`);
+
+  const wranglerCwd = path.join(ROOT, "infra/cloudflare");
 
   for (const filePath of files) {
     const relative = path.relative(ASSETS_DIR, filePath).split(path.sep).join("/");
@@ -73,8 +75,8 @@ function main() {
     console.log(`→ ${objectKey}`);
 
     execSync(
-      `wrangler r2 object put "${BUCKET}/${objectKey}" --file="${filePath}" --content-type="${contentType}"`,
-      { stdio: "inherit", cwd: ROOT },
+      `wrangler r2 object put "${BUCKET}/${objectKey}" --file="${filePath}" --content-type="${contentType}" --remote`,
+      { stdio: "inherit", cwd: wranglerCwd },
     );
   }
 
