@@ -143,8 +143,16 @@ async function handleAssetRequest(
   }
 
   const headers = new Headers(corsHeaders(env, request));
-  headers.set("Content-Type", object.httpMetadata?.contentType || guessContentType(key));
+  const contentType = object.httpMetadata?.contentType || guessContentType(key);
+  headers.set("Content-Type", contentType);
   headers.set("Cache-Control", "public, max-age=31536000, immutable");
+  headers.set("Access-Control-Allow-Origin", "*");
+  headers.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+
+  // WeChat loadFontFace requires downloadable font resources with correct CORS.
+  if (contentType.startsWith("font/")) {
+    headers.set("Content-Disposition", `attachment; filename="${key.split("/").pop()}"`);
+  }
   if (object.etag) {
     headers.set("ETag", object.etag);
   }

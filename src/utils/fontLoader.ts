@@ -1,8 +1,7 @@
 import Taro from "@tarojs/taro";
 import { resolveAssetPath } from "./assetResolver";
-import { resolveWeappMediaPath } from "./weappMedia";
 
-/** Load order: most-used families first on slow mobile networks. */
+/** Load order: most-used families first. */
 const WEAPP_FONT_FILES: [string, string][] = [
   ["ThinBlack", "fonts/thin-black.ttf"],
   ["Main", "fonts/main.ttf"],
@@ -11,19 +10,21 @@ const WEAPP_FONT_FILES: [string, string][] = [
   ["Childhood", "fonts/childhood.ttf"],
 ];
 
-function fontFaceSource(localPath: string): string {
-  if (localPath.startsWith("wxfile://") || localPath.startsWith("http://usr/")) {
-    return localPath;
+/**
+ * WeChat loadFontFace only accepts HTTPS URLs (or Data URL), not wxfile:// temp paths.
+ * @see https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html
+ */
+function loadFontFaceAsync(family: string, httpsUrl: string): Promise<void> {
+  if (!httpsUrl.startsWith("https://")) {
+    return Promise.reject(new Error(`Font must use HTTPS URL, got: ${httpsUrl}`));
   }
-  return `url("${localPath}")`;
-}
 
-function loadFontFaceAsync(family: string, localPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
     Taro.loadFontFace({
       family,
-      source: fontFaceSource(localPath),
+      source: `url("${httpsUrl}")`,
       global: true,
+      scopes: ["webview", "native"],
       success: () => {
         console.log(`[font] Loaded: ${family}`);
         resolve();
@@ -42,8 +43,7 @@ export async function loadMiniProgramFonts(): Promise<void> {
     const fontUrl = resolveAssetPath(relativePath);
 
     try {
-      const localPath = await resolveWeappMediaPath(fontUrl);
-      await loadFontFaceAsync(family, localPath);
+      await loadFontFaceAsync(family, fontUrl);
     } catch (error) {
       console.error(`[font] Failed: ${family}`, { fontUrl, error });
     }
