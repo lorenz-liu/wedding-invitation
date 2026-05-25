@@ -246,9 +246,7 @@ export const PageForm: React.FC<PageFormProps> = ({
             </View>
             <View className="input-group">
               <View className="form-field required">
-                <Text className="field-label">
-                  姓名 <Text className="required-mark">*</Text>
-                </Text>
+                <Text className="field-label">姓名</Text>
                 <Input
                   className="field-input"
                   value={formData.mainContact}
