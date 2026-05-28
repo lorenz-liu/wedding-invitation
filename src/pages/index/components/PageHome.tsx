@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
+import Taro from "@tarojs/taro";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { images } from "../../../utils/assets";
 import "./PageHome.scss";
@@ -10,14 +11,32 @@ interface PageHomeProps {
 
 export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
   const [figuresIn, setFiguresIn] = useState(false);
+  const [contentTop, setContentTop] = useState<number | null>(null);
+
+  const updateContentTop = useCallback(() => {
+    Taro.createSelectorQuery()
+      .select(".homepage-glasses-left")
+      .boundingClientRect()
+      .exec((res) => {
+        const rect = res?.[0];
+        if (!rect || !("height" in rect) || !rect.height) return;
+
+        const topOffsetVh = Taro.getSystemInfoSync().windowHeight * 0.15;
+        setContentTop(topOffsetVh + rect.height * 0.5);
+      });
+  }, []);
 
   useEffect(() => {
     if (isActive) {
       const timer = setTimeout(() => setFiguresIn(true), 50);
-      return () => clearTimeout(timer);
+      const measureTimer = setTimeout(updateContentTop, 120);
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(measureTimer);
+      };
     }
     setFiguresIn(false);
-  }, [isActive]);
+  }, [isActive, updateContentTop]);
 
   const imageLayerClass = `homepage-images-layer ${figuresIn ? "animate" : ""}`;
 
@@ -29,6 +48,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
             className="homepage-glasses-img"
             src={images.homepageGlassesLeft}
             mode="widthFix"
+            onLoad={updateContentTop}
           />
         </View>
 
@@ -57,7 +77,10 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
         </View>
       </View>
 
-      <View className="content-wrapper">
+      <View
+        className="content-wrapper"
+        style={contentTop != null ? { top: `${contentTop}px` } : undefined}
+      >
         <AnimatedView
           animation="fadeInUp"
           delay={0}
