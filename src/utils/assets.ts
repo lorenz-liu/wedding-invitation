@@ -42,6 +42,7 @@ export const images = {
   paw2: assetPath("images/paw-2.png"),
   masterGraduationTogether: assetPath("images/master-graduation-together.png"),
   handHolding: assetPath("images/hand-holding.png"),
+  art: assetPath("images/art.png"),
   onTheMoon: assetPath("images/onthemoon.png"),
   signatureGao: assetPath("images/signature-gao.png"),
   signatureNiu: assetPath("images/signature-niu.png"),

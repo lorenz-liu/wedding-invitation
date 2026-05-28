@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { images } from "../../../utils/assets";
@@ -9,8 +9,22 @@ interface PageMilestoneProps {
 }
 
 export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
+  const [artIn, setArtIn] = useState(false);
+
+  useEffect(() => {
+    if (isActive) {
+      const timer = setTimeout(() => setArtIn(true), 50);
+      return () => clearTimeout(timer);
+    }
+    setArtIn(false);
+  }, [isActive]);
+
   return (
     <View className="page page-milestone">
+      <View className={`art-anchor ${artIn ? "animate" : ""}`}>
+        <Image className="art-img" src={images.art} mode="widthFix" />
+      </View>
+
       <AnimatedView animation="fadeIn" isActive={isActive} duration={800}>
         <View className="hand-holding-anchor">
           <Image
@@ -50,7 +64,8 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
         >
           <Text className="poetry-text">
             当所有的经纬度最终重合
-            {"\n"}
+          </Text>
+          <Text className="poetry-text">
             便成为里程碑
           </Text>
         </AnimatedView>
