@@ -9,25 +9,47 @@ interface PageBirthProps {
 }
 
 export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
-  const [groomIn, setGroomIn] = useState(false);
-  const [brideIn, setBrideIn] = useState(false);
+  const [imagesIn, setImagesIn] = useState(false);
 
   useEffect(() => {
     if (isActive) {
-      const t1 = setTimeout(() => setGroomIn(true), 350);
-      const t2 = setTimeout(() => setBrideIn(true), 750);
-      return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-      };
+      const timer = setTimeout(() => setImagesIn(true), 50);
+      return () => clearTimeout(timer);
     }
-    setGroomIn(false);
-    setBrideIn(false);
+    setImagesIn(false);
   }, [isActive]);
+
+  const layerClass = `birth-images-layer ${imagesIn ? "animate" : ""}`;
 
   return (
     <View className="page page-birth">
-      <View className="content-wrapper">
+      <View className={layerClass}>
+        <Image
+          className="birth-corner corner-tl"
+          src={images.babyGaoLeft}
+          mode="widthFix"
+        />
+
+        <View className="kid-cluster corner-tr gao-kid-cluster">
+          <Text className="kid-label-top">未来的新娘</Text>
+          <Image className="kid-photo" src={images.gaoKidNoBg} mode="widthFix" />
+          <Text className="kid-label-bottom">6月19日</Text>
+        </View>
+
+        <View className="kid-cluster corner-bl niu-kid-cluster">
+          <Text className="kid-label-top">未来的新郎</Text>
+          <Image className="kid-photo" src={images.niuKidNoBg} mode="widthFix" />
+          <Text className="kid-label-bottom">1月6日</Text>
+        </View>
+
+        <Image
+          className="birth-corner corner-br"
+          src={images.babyNiuRight}
+          mode="widthFix"
+        />
+      </View>
+
+      <View className="birth-title-center">
         <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
           <Text className="year-badge">2001年</Text>
         </AnimatedView>
@@ -42,42 +64,6 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
             同一个医生，接出了两个注定相遇的灵魂
           </Text>
         </AnimatedView>
-
-        <View className="birth-portraits">
-          <View
-            className={`portrait portrait-groom ${groomIn ? "animate" : ""}`}
-          >
-            <View className="portrait-frame">
-              <Image
-                className="portrait-img"
-                src={images.niuKidNoBg}
-                mode="widthFix"
-              />
-            </View>
-            <View className="portrait-info">
-              <Text className="portrait-role">未来的新郎</Text>
-              <View className="portrait-divider" />
-              <Text className="portrait-date">1月6日</Text>
-            </View>
-          </View>
-
-          <View
-            className={`portrait portrait-bride ${brideIn ? "animate" : ""}`}
-          >
-            <View className="portrait-frame">
-              <Image
-                className="portrait-img"
-                src={images.gaoKidNoBg}
-                mode="widthFix"
-              />
-            </View>
-            <View className="portrait-info">
-              <Text className="portrait-role">未来的新娘</Text>
-              <View className="portrait-divider" />
-              <Text className="portrait-date">6月19日</Text>
-            </View>
-          </View>
-        </View>
       </View>
     </View>
   );

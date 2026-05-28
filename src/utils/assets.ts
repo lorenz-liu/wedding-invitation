@@ -15,6 +15,8 @@ export const images = {
   homepageGlassesRight: assetPath("images/homepage-glasses-right.png"),
   storyIcon: assetPath("images/story-icon.png"),
   logoNoBg: assetPath("images/logo-no-bg.png"),
+  babyGaoLeft: assetPath("images/baby-gao-left.png"),
+  babyNiuRight: assetPath("images/baby-niu-right.png"),
   niuKidNoBg: assetPath("images/niu-kid-no-bg.png"),
   gaoKidNoBg: assetPath("images/gao-kid-no-bg.png"),
   togetherKidsNoBg: assetPath("images/together-kids-no-bg.png"),
