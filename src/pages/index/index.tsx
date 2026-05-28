@@ -17,14 +17,38 @@ import { PageMilestone } from "./components/PageMilestone";
 import { PageSchedule } from "./components/PageSchedule";
 import { PageLocation } from "./components/PageLocation";
 import { PageForm } from "./components/PageForm";
+import { RESUME_LAST_PAGE_ENABLED, RESUME_LAST_PAGE_KEY } from "../../constants/config";
 import "./index.scss";
 
 const TOTAL_PAGES = 14;
 const FORM_PAGE_INDEX = 13;
 const FORM_SCROLL_TOP_THRESHOLD = 8;
 
+function readSavedPageIndex(): number {
+  if (!RESUME_LAST_PAGE_ENABLED) return 0;
+  try {
+    const saved = Taro.getStorageSync(RESUME_LAST_PAGE_KEY);
+    const index = Number(saved);
+    if (Number.isInteger(index) && index >= 0 && index < TOTAL_PAGES) {
+      return index;
+    }
+  } catch {
+    // ignore
+  }
+  return 0;
+}
+
+function persistPageIndex(pageIndex: number): void {
+  if (!RESUME_LAST_PAGE_ENABLED) return;
+  try {
+    Taro.setStorageSync(RESUME_LAST_PAGE_KEY, pageIndex);
+  } catch {
+    // ignore
+  }
+}
+
 const Index: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(readSavedPageIndex);
   const [isAnimating, setIsAnimating] = useState(false);
   const { isPlaying, togglePlay, initAudio } = useBackgroundAudio();
   const touchStartY = React.useRef(0);
@@ -53,10 +77,11 @@ const Index: React.FC = () => {
       if (pageIndex >= 0 && pageIndex < TOTAL_PAGES && !isAnimating) {
         setIsAnimating(true);
         setCurrentPage(pageIndex);
+        persistPageIndex(pageIndex);
         setTimeout(() => setIsAnimating(false), 600);
       }
     },
-    [isAnimating]
+    [isAnimating],
   );
 
   const nextPage = useCallback(() => {
