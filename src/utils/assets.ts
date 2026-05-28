@@ -13,6 +13,7 @@ export const images = {
   homepageGao: assetPath("images/homepage-gao.png"),
   homepageGlassesLeft: assetPath("images/homepage-glasses-left.png"),
   homepageGlassesRight: assetPath("images/homepage-glasses-right.png"),
+  storyIcon: assetPath("images/story-icon.png"),
   logoNoBg: assetPath("images/logo-no-bg.png"),
   niuKidNoBg: assetPath("images/niu-kid-no-bg.png"),
   gaoKidNoBg: assetPath("images/gao-kid-no-bg.png"),

@@ -7,6 +7,7 @@ module.exports = [
   { from: "assets/images/homepage-glasses-left.png", to: "dist/assets/images/homepage-glasses-left.png" },
   { from: "assets/images/homepage-glasses-right.png", to: "dist/assets/images/homepage-glasses-right.png" },
   { from: "assets/images/logo-no-bg.png", to: "dist/assets/images/logo-no-bg.png" },
+  { from: "assets/images/story-icon.png", to: "dist/assets/images/story-icon.png" },
   { from: "assets/images/niu-kid-no-bg.png", to: "dist/assets/images/niu-kid-no-bg.png" },
   { from: "assets/images/gao-kid-no-bg.png", to: "dist/assets/images/gao-kid-no-bg.png" },
   { from: "assets/images/together-kids-no-bg.png", to: "dist/assets/images/together-kids-no-bg.png" },

@@ -25,7 +25,7 @@ export const PageStoryTitle: React.FC<PageStoryTitleProps> = ({ isActive }) => {
         <View className={`story-logo ${logoIn ? "animate" : ""}`}>
           <Image
             className="story-logo-img"
-            src={images.logoNoBg}
+            src={images.storyIcon}
             mode="widthFix"
           />
         </View>

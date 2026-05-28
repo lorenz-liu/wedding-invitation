@@ -48,7 +48,6 @@
         font-size: 68px;
         color: $color-primary;
         letter-spacing: 12px;
-        margin-bottom: $spacing-md;
     }
 
     .title-line {
@@ -56,11 +55,11 @@
         margin: $spacing-md 0;
     }
 
-    .subtitle-section {
-        margin-top: $spacing-xl;
+    .subtitle-section { 
         display: flex;
         flex-direction: column;
         gap: $spacing-sm;
+        margin-top: $spacing-sm;
 
         .subtitle-text {
             font-family: "HandWritingBold", sans-serif;
