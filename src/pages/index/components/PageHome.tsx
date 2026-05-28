@@ -11,6 +11,7 @@ interface PageHomeProps {
 
 export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
   const [figuresIn, setFiguresIn] = useState(false);
+  const [glassesIn, setGlassesIn] = useState(false);
   const [contentTop, setContentTop] = useState<number | null>(null);
 
   const updateContentTop = useCallback(() => {
@@ -28,22 +29,25 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
 
   useEffect(() => {
     if (isActive) {
-      const timer = setTimeout(() => setFiguresIn(true), 50);
+      const figuresTimer = setTimeout(() => setFiguresIn(true), 50);
+      const glassesTimer = setTimeout(() => setGlassesIn(true), 380);
       const measureTimer = setTimeout(updateContentTop, 120);
       return () => {
-        clearTimeout(timer);
+        clearTimeout(figuresTimer);
+        clearTimeout(glassesTimer);
         clearTimeout(measureTimer);
       };
     }
     setFiguresIn(false);
+    setGlassesIn(false);
   }, [isActive, updateContentTop]);
-
-  const imageLayerClass = `homepage-images-layer ${figuresIn ? "animate" : ""}`;
 
   return (
     <View className="page page-home">
-      <View className={imageLayerClass}>
-        <View className="homepage-glasses homepage-glasses-left">
+      <View className="homepage-images-layer">
+        <View
+          className={`homepage-glasses homepage-glasses-left ${glassesIn ? "animate" : ""}`}
+        >
           <Image
             className="homepage-glasses-img"
             src={images.homepageGlassesLeft}
@@ -52,7 +56,9 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           />
         </View>
 
-        <View className="homepage-glasses homepage-glasses-right">
+        <View
+          className={`homepage-glasses homepage-glasses-right ${glassesIn ? "animate" : ""}`}
+        >
           <Image
             className="homepage-glasses-img"
             src={images.homepageGlassesRight}
@@ -60,7 +66,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           />
         </View>
 
-        <View className="homepage-figure homepage-figure-niu">
+        <View className={`homepage-figure homepage-figure-niu ${figuresIn ? "animate" : ""}`}>
           <Image
             className="homepage-figure-img"
             src={images.homepageNiu}
@@ -68,7 +74,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           />
         </View>
 
-        <View className="homepage-figure homepage-figure-gao">
+        <View className={`homepage-figure homepage-figure-gao ${figuresIn ? "animate" : ""}`}>
           <Image
             className="homepage-figure-img"
             src={images.homepageGao}
