@@ -19,8 +19,44 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
     setFiguresIn(false);
   }, [isActive]);
 
+  const imageLayerClass = `homepage-images-layer ${figuresIn ? "animate" : ""}`;
+
   return (
     <View className="page page-home">
+      <View className={imageLayerClass}>
+        <View className="homepage-glasses homepage-glasses-left">
+          <Image
+            className="homepage-glasses-img"
+            src={images.homepageGlassesLeft}
+            mode="widthFix"
+          />
+        </View>
+
+        <View className="homepage-glasses homepage-glasses-right">
+          <Image
+            className="homepage-glasses-img"
+            src={images.homepageGlassesRight}
+            mode="widthFix"
+          />
+        </View>
+
+        <View className="homepage-figure homepage-figure-niu">
+          <Image
+            className="homepage-figure-img"
+            src={images.homepageNiu}
+            mode="widthFix"
+          />
+        </View>
+
+        <View className="homepage-figure homepage-figure-gao">
+          <Image
+            className="homepage-figure-img"
+            src={images.homepageGao}
+            mode="widthFix"
+          />
+        </View>
+      </View>
+
       <View className="content-wrapper">
         <AnimatedView
           animation="fadeInUp"
@@ -63,26 +99,6 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
             <Text className="poem-line">能够莅临现场</Text>
           </View>
         </AnimatedView>
-      </View>
-
-      <View
-        className={`homepage-figure homepage-figure-niu ${figuresIn ? "animate" : ""}`}
-      >
-        <Image
-          className="homepage-figure-img"
-          src={images.homepageNiu}
-          mode="widthFix"
-        />
-      </View>
-
-      <View
-        className={`homepage-figure homepage-figure-gao ${figuresIn ? "animate" : ""}`}
-      >
-        <Image
-          className="homepage-figure-img"
-          src={images.homepageGao}
-          mode="widthFix"
-        />
       </View>
     </View>
   );

@@ -4,6 +4,8 @@ module.exports = [
   { from: "assets/music/", to: "dist/assets/music/" },
   { from: "assets/images/homepage-niu.png", to: "dist/assets/images/homepage-niu.png" },
   { from: "assets/images/homepage-gao.png", to: "dist/assets/images/homepage-gao.png" },
+  { from: "assets/images/homepage-glasses-left.png", to: "dist/assets/images/homepage-glasses-left.png" },
+  { from: "assets/images/homepage-glasses-right.png", to: "dist/assets/images/homepage-glasses-right.png" },
   { from: "assets/images/logo-no-bg.png", to: "dist/assets/images/logo-no-bg.png" },
   { from: "assets/images/niu-kid-no-bg.png", to: "dist/assets/images/niu-kid-no-bg.png" },
   { from: "assets/images/gao-kid-no-bg.png", to: "dist/assets/images/gao-kid-no-bg.png" },

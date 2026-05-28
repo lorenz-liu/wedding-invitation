@@ -11,6 +11,8 @@ export function assetPath(relativePath: string): string {
 export const images = {
   homepageNiu: assetPath("images/homepage-niu.png"),
   homepageGao: assetPath("images/homepage-gao.png"),
+  homepageGlassesLeft: assetPath("images/homepage-glasses-left.png"),
+  homepageGlassesRight: assetPath("images/homepage-glasses-right.png"),
   logoNoBg: assetPath("images/logo-no-bg.png"),
   niuKidNoBg: assetPath("images/niu-kid-no-bg.png"),
   gaoKidNoBg: assetPath("images/gao-kid-no-bg.png"),
