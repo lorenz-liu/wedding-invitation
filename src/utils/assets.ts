@@ -19,6 +19,7 @@ export const images = {
   babyNiuRight: assetPath("images/baby-niu-right.png"),
   niuKidNoBg: assetPath("images/niu-kid-no-bg.png"),
   gaoKidNoBg: assetPath("images/gao-kid-no-bg.png"),
+  childhoodGif: assetPath("images/childhood.gif"),
   togetherKidsNoBg: assetPath("images/together-kids-no-bg.png"),
   sanyaNoBg: assetPath("images/sanya-no-bg.png"),
   seattleNoBg: assetPath("images/seattle-no-bg.png"),

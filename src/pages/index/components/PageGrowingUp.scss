@@ -1,100 +1,104 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .page-growing-up {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: $spacing-xl;
-  background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
 
-  .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 500px;
-  }
-
-  .kids-hero {
-    width: 280px;
-    margin-bottom: $spacing-lg;
-    opacity: 0;
-    transform: translateY(40px) scale(0.92);
-    transition:
-      opacity 1.1s ease-out,
-      transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform, opacity;
-
-    &.animate {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      animation: kidsFloat 5s ease-in-out 1.5s infinite;
+    .top-content-container {
+        position: absolute;
+        top: 5vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: min(90vw, 520px);
+        text-align: center;
+        box-sizing: border-box;
     }
 
-    .kids-hero-img {
-      width: 100%;
-      display: block;
-      filter: drop-shadow(0 10px 20px rgba(201, 168, 124, 0.25));
-    }
-  }
+    .childhood-gif-wrap {
+        width: 100%;
+        opacity: 0;
+        transform: translateX(-120%);
+        transition:
+            opacity 1s ease-out,
+            transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
 
-  @keyframes kidsFloat {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-8px) scale(1); }
-  }
-
-  .years-text {
-    font-family: 'Childhood', sans-serif;
-    font-size: 60px;
-    color: $color-accent;
-    margin-bottom: $spacing-md;
-    letter-spacing: 4px;
-  }
-
-  .timeline-line {
-    display: flex;
-    align-items: center;
-    gap: $spacing-sm;
-    margin: $spacing-md 0;
-
-    .timeline-dot {
-      width: 8px;
-      height: 8px;
-      background: $color-accent;
-      border-radius: 50%;
+        &.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
-    .timeline-doodle {
-      width: 80px;
+    .childhood-gif {
+        width: 100%;
+        display: block;
+        margin-bottom: $spacing-lg;
     }
-  }
 
-  .story-text {
-    font-family: 'Childhood', sans-serif;
-    font-size: $font-size-xl;
-    color: $color-text-primary;
-    line-height: 2.2;
-    margin: $spacing-lg 0;
-    white-space: pre-line;
-  }
-
-  .flowers-row {
-    display: flex;
-    gap: $spacing-md;
-    margin: $spacing-lg 0;
-
-    .flower-icon {
-      width: 40px;
-      height: 40px;
+    .text-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
-  }
 
-  .quote-text {
-    font-family: 'HandWritingThin', sans-serif;
-    font-size: $font-size-md;
-    color: $color-secondary;
-    margin-top: $spacing-lg;
-  }
+    .years-text {
+        font-family: "Childhood", sans-serif;
+        font-size: 60px;
+        color: $color-accent;
+        margin-bottom: $spacing-md;
+        letter-spacing: 4px;
+    }
+
+    .story-text {
+        font-family: "Childhood", sans-serif;
+        font-size: $font-size-xl;
+        color: $color-text-primary;
+        line-height: 2.2;
+        margin: $spacing-lg 0;
+        white-space: pre-line;
+    }
+
+    .quote-text {
+        font-family: "HandWritingThin", sans-serif;
+        font-size: $font-size-md;
+        color: $color-secondary;
+        margin-top: $spacing-lg;
+    }
+
+    .bottom-hero {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 55vw;
+        z-index: 1;
+        opacity: 0;
+        transition:
+            opacity 1.1s ease-out,
+            transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
+
+        &.animate {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .bottom-hero-img {
+            width: 100%;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(201, 168, 124, 0.25));
+        }
+    }
+
+    .bottom-hero:not(.animate) {
+        transform: translateX(-50%) translateY(24px);
+    }
 }

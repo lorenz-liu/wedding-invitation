@@ -12,6 +12,7 @@ module.exports = [
   { from: "assets/images/baby-gao-left.png", to: "dist/assets/images/baby-gao-left.png" },
   { from: "assets/images/baby-niu-right.png", to: "dist/assets/images/baby-niu-right.png" },
   { from: "assets/images/gao-kid-no-bg.png", to: "dist/assets/images/gao-kid-no-bg.png" },
+  { from: "assets/images/childhood.gif", to: "dist/assets/images/childhood.gif" },
   { from: "assets/images/together-kids-no-bg.png", to: "dist/assets/images/together-kids-no-bg.png" },
   { from: "assets/images/sanya-no-bg.png", to: "dist/assets/images/sanya-no-bg.png" },
   { from: "assets/images/seattle-no-bg.png", to: "dist/assets/images/seattle-no-bg.png" },
