@@ -21,8 +21,8 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
         const rect = res?.[0];
         if (!rect || !("height" in rect) || !rect.height) return;
 
-        const topOffsetVh = Taro.getSystemInfoSync().windowHeight * 0.15;
-        setContentTop(topOffsetVh + rect.height * 0.5);
+        const topOffsetVh = Taro.getSystemInfoSync().windowHeight * 0.1;
+        setContentTop(topOffsetVh + rect.height * 0.32);
       });
   }, []);
 
