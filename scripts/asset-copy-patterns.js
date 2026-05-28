@@ -24,6 +24,7 @@ module.exports = [
   { from: "assets/images/band.png", to: "dist/assets/images/band.png" },
   { from: "assets/images/seattle-4.png", to: "dist/assets/images/seattle-4.png" },
   { from: "assets/images/sanya.png", to: "dist/assets/images/sanya.png" },
+  { from: "assets/images/toronto-landmark.png", to: "dist/assets/images/toronto-landmark.png" },
   { from: "assets/images/toronto-no-bg.png", to: "dist/assets/images/toronto-no-bg.png" },
   { from: "assets/images/toronto-skyline.png", to: "dist/assets/images/toronto-skyline.png" },
   { from: "assets/images/holding-bawbaw-no-bg.png", to: "dist/assets/images/holding-bawbaw-no-bg.png" },

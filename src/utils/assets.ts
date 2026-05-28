@@ -31,6 +31,7 @@ export const images = {
   beijing: assetPath("images/beijing.png"),
   shanghai: assetPath("images/shanghai.png"),
   band: assetPath("images/band.png"),
+  torontoLandmark: assetPath("images/toronto-landmark.png"),
   torontoNoBg: assetPath("images/toronto-no-bg.png"),
   torontoSkyline: assetPath("images/toronto-skyline.png"),
   holdingBawbawNoBg: assetPath("images/holding-bawbaw-no-bg.png"),

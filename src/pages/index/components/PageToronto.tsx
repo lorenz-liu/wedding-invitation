@@ -10,18 +10,31 @@ interface PageTorontoProps {
 }
 
 export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
+  const [landmarkIn, setLandmarkIn] = useState(false);
   const [torontoIn, setTorontoIn] = useState(false);
 
   useEffect(() => {
     if (isActive) {
-      const timer = setTimeout(() => setTorontoIn(true), 50);
+      const timer = setTimeout(() => {
+        setLandmarkIn(true);
+        setTorontoIn(true);
+      }, 50);
       return () => clearTimeout(timer);
     }
+    setLandmarkIn(false);
     setTorontoIn(false);
   }, [isActive]);
 
   return (
     <View className="page page-toronto">
+      <View className={`toronto-landmark ${landmarkIn ? "animate" : ""}`}>
+        <Image
+          className="toronto-landmark-img"
+          src={images.torontoLandmark}
+          mode="heightFix"
+        />
+      </View>
+
       <View className="content-wrapper">
         <View className="date-box">
           <YearTitle>2023年</YearTitle>
@@ -29,24 +42,9 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
         </View>
 
         <AnimatedView
-          animation="fadeIn"
-          isActive={isActive}
-          delay={300}
-          duration={1000}
-        >
-          <View className="toronto-skyline-wrap">
-            <Image
-              className="toronto-skyline-img"
-              src={images.torontoSkyline}
-              mode="widthFix"
-            />
-          </View>
-        </AnimatedView>
-
-        <AnimatedView
           animation="fadeInUp"
           isActive={isActive}
-          delay={500}
+          delay={300}
           duration={600}
         >
           <Text className="arrival-text">抵达加拿大多伦多</Text>
@@ -55,7 +53,7 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
         <AnimatedView
           animation="fadeIn"
           isActive={isActive}
-          delay={700}
+          delay={500}
           duration={800}
         >
           <View className="decorations">

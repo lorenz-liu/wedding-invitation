@@ -2,28 +2,54 @@
 
 .page-toronto {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     min-height: 100vh;
-    padding: $spacing-xl $spacing-xl 0;
+    padding: 0;
     background: linear-gradient(180deg, #ece5d8 0%, #faf8f5 100%);
     overflow: hidden;
 
+    .toronto-landmark {
+        position: absolute;
+        top: 5vh;
+        left: -10px;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateX(-8%);
+        transition:
+            opacity 1.2s ease-out,
+            transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
+
+        &.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toronto-landmark-img {
+            display: block;
+            height: min(900px, 75vh);
+            width: auto;
+        }
+    }
+
     .content-wrapper {
-        flex: 1;
+        position: relative;
+        z-index: 2;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        text-align: center;
-        max-width: 500px;
+        align-items: flex-end;
+        text-align: right;
         width: 100%;
+        padding: 5vh 5vh 0 0;
+        box-sizing: border-box;
     }
 
     .date-box {
-        margin-bottom: $spacing-lg;
+        margin-bottom: $spacing-xxl;
+
+        .year-title {
+            text-align: right;
+        }
 
         .date-day {
             font-family: "ThinBlack", sans-serif;
@@ -34,76 +60,29 @@
         }
     }
 
-    .toronto-skyline-wrap {
-        width: 100vw;
-        margin-top: $spacing-md;
-        margin-bottom: $spacing-md;
-    }
-
-    .toronto-skyline-img {
-        width: 100%;
-        display: block;
-    }
-
     .arrival-text {
         font-family: "Childhood", sans-serif;
         font-size: $font-size-xxl;
         color: $color-primary;
         margin: $spacing-md 0;
+        margin-top: $spacing-xl;
         letter-spacing: 4px;
     }
 
     .decorations {
         display: flex;
+        justify-content: flex-end;
         align-items: center;
-        gap: $spacing-md;
         margin: $spacing-lg 0;
 
-        .deco-heart,
-        .deco-ring {
-            width: 40px;
-            height: 40px;
-        }
-
         .deco-text {
-            font-family: "HandWritingBold", sans-serif;
+            font-family: "Childhood", sans-serif;
             font-size: $font-size-xl;
             color: $color-accent;
             letter-spacing: 2px;
         }
     }
 
-    .forever-text {
-        font-family: "Childhood", sans-serif;
-        font-size: $font-size-xl;
-        color: $color-primary;
-        margin: $spacing-md 0;
-        letter-spacing: 4px;
-    }
-
-    .location-badge {
-        display: flex;
-        align-items: center;
-        gap: $spacing-sm;
-        margin-top: $spacing-xl;
-        padding: $spacing-md $spacing-lg;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: $border-radius-xl;
-        border: 2px dashed $color-accent;
-
-        .pin-icon {
-            font-size: 30px;
-        }
-
-        .city-name {
-            font-family: "ThinBlack", sans-serif;
-            font-size: $font-size-md;
-            color: $color-primary;
-            letter-spacing: 1px;
-        }
-    }
-
-    // Toronto skyline image — pinned flush to the bottom of the screen.
     .toronto-anchor {
         position: absolute;
         bottom: 0;
