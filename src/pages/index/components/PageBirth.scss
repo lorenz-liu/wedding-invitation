@@ -16,10 +16,10 @@
     .birth-corner,
     .kid-cluster {
         position: absolute;
-        width: 35vw;
     }
 
     .birth-corner {
+        width: 40vw;
         display: block;
         opacity: 0;
         transition: opacity 1s ease-out;
@@ -32,13 +32,13 @@
     }
 
     .corner-tr {
-        top: 5vh;
-        right: 30px;
+        top: 10vh;
+        right: 100px;
     }
 
     .corner-bl {
-        bottom: 5vh;
-        left: 30px;
+        bottom: 10vh;
+        left: 100px;
     }
 
     .corner-br {
@@ -47,6 +47,7 @@
     }
 
     .kid-cluster {
+        width: 35vw;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -62,7 +63,7 @@
 
         .kid-label-top {
             font-family: "HandWritingBold", "Childhood", sans-serif;
-            font-size: 30px;
+            font-size: 48px;
             letter-spacing: 4px;
             margin-bottom: $spacing-sm;
             color: $color-primary;
@@ -72,7 +73,7 @@
 
         .kid-label-bottom {
             font-family: "Childhood", sans-serif;
-            font-size: 38px;
+            font-size: 48px;
             margin-top: $spacing-sm;
             color: $color-accent;
             letter-spacing: 2px;
