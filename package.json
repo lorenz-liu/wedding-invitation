@@ -31,6 +31,7 @@
     "check:biome": "biome check --write .",
     "check:biome:ci": "biome check .",
     "upload:r2-assets": "node scripts/upload-r2-assets.mjs",
+    "upload:r2-file": "node scripts/upload-r2-file.mjs",
     "deploy:cloudflare": "cd infra/cloudflare && pnpm install && pnpm run deploy",
     "db:migrate": "cd infra/cloudflare && wrangler d1 execute wedding-guests --remote --file=schema.sql"
   },
