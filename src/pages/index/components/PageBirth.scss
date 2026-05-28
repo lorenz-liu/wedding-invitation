@@ -22,13 +22,16 @@
         width: 40vw;
         display: block;
         opacity: 0;
-        transition: opacity 1s ease-out;
-        will-change: opacity;
+        transition:
+            opacity 1s ease-out,
+            transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
     }
 
     .corner-tl {
         top: 5vh;
         left: 30px;
+        transform: translateX(-120%);
     }
 
     .corner-tr {
@@ -44,6 +47,7 @@
     .corner-br {
         bottom: 5vh;
         right: 30px;
+        transform: translateX(120%);
     }
 
     .kid-cluster {
@@ -52,8 +56,10 @@
         flex-direction: column;
         align-items: center;
         opacity: 0;
-        transition: opacity 1s ease-out 0.12s;
-        will-change: opacity;
+        transition:
+            opacity 1s ease-out 0.12s,
+            transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
+        will-change: transform, opacity;
 
         .kid-photo {
             width: 100%;
@@ -83,19 +89,34 @@
     }
 
     .corner-tr.gao-kid-cluster {
-        transform: rotate(-8deg);
+        transform: translateY(-80%) rotate(-8deg);
         transform-origin: center center;
     }
 
     .corner-bl.niu-kid-cluster {
-        transform: rotate(8deg);
+        transform: translateY(80%) rotate(8deg);
         transform-origin: center center;
     }
 
     .birth-images-layer.animate {
-        .birth-corner,
-        .kid-cluster {
+        .corner-tl {
             opacity: 1;
+            transform: translateX(0);
+        }
+
+        .corner-br {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .corner-tr.gao-kid-cluster {
+            opacity: 1;
+            transform: translateY(0) rotate(-8deg);
+        }
+
+        .corner-bl.niu-kid-cluster {
+            opacity: 1;
+            transform: translateY(0) rotate(8deg);
         }
     }
 
