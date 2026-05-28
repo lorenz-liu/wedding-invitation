@@ -22,9 +22,47 @@
         box-sizing: border-box;
     }
 
+    .bawbaw-hero-row {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        margin-bottom: $spacing-lg;
+    }
+
+    .paw-track {
+        display: flex;
+        align-items: flex-end;
+        align-self: stretch;
+        gap: 30px;
+        margin-right: $spacing-md;
+
+        .paw-item {
+            height: 20%;
+            opacity: 0;
+            transition: opacity 0.55s ease-out;
+            will-change: opacity;
+
+            @for $i from 1 through 6 {
+                &:nth-child(#{$i}) {
+                    transition-delay: #{($i - 1) * 0.15}s;
+                }
+            }
+        }
+
+        &.animate .paw-item {
+            opacity: 1;
+        }
+
+        .paw-img {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
+    }
+
     .bawbaw-hero {
         width: 30vw;
-        margin-bottom: $spacing-lg;
+        flex-shrink: 0;
         opacity: 0;
         transform: translate(25%, -110%);
         transition:

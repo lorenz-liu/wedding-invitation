@@ -9,22 +9,35 @@ interface PageLifeProps {
   isActive: boolean;
 }
 
+const PAWS = [
+  { src: images.paw1, offset: 0 },
+  { src: images.paw2, offset: 5 },
+  { src: images.paw1, offset: 0 },
+  { src: images.paw2, offset: 5 },
+  { src: images.paw1, offset: 0 },
+  { src: images.paw2, offset: 5 },
+] as const;
+
 export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
   const [leftIn, setLeftIn] = useState(false);
   const [rightIn, setRightIn] = useState(false);
   const [heroIn, setHeroIn] = useState(false);
+  const [pawsIn, setPawsIn] = useState(false);
 
   useEffect(() => {
     if (isActive) {
-      const t0 = setTimeout(() => setHeroIn(true), 50);
-      const t1 = setTimeout(() => setLeftIn(true), 50);
-      const t2 = setTimeout(() => setRightIn(true), 250);
+      const t0 = setTimeout(() => setPawsIn(true), 50);
+      const t1 = setTimeout(() => setHeroIn(true), 50);
+      const t2 = setTimeout(() => setLeftIn(true), 50);
+      const t3 = setTimeout(() => setRightIn(true), 250);
       return () => {
         clearTimeout(t0);
         clearTimeout(t1);
         clearTimeout(t2);
+        clearTimeout(t3);
       };
     }
+    setPawsIn(false);
     setHeroIn(false);
     setLeftIn(false);
     setRightIn(false);
@@ -33,12 +46,26 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
   return (
     <View className="page page-life">
       <View className="life-content-container">
-        <View className={`bawbaw-hero ${heroIn ? "animate" : ""}`}>
-          <Image
-            className="bawbaw-hero-img"
-            src={images.bawbawFullBody1}
-            mode="widthFix"
-          />
+        <View className="bawbaw-hero-row">
+          <View className={`paw-track ${pawsIn ? "animate" : ""}`}>
+            {PAWS.map((paw, index) => (
+              <View
+                key={index}
+                className="paw-item"
+                style={{ transform: `translateY(-${paw.offset}px)` }}
+              >
+                <Image className="paw-img" src={paw.src} mode="heightFix" />
+              </View>
+            ))}
+          </View>
+
+          <View className={`bawbaw-hero ${heroIn ? "animate" : ""}`}>
+            <Image
+              className="bawbaw-hero-img"
+              src={images.bawbawFullBody1}
+              mode="widthFix"
+            />
+          </View>
         </View>
 
         <View className="life-text-block">

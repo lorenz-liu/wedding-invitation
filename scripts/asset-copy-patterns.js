@@ -31,6 +31,8 @@ module.exports = [
   { from: "assets/images/holding-bawbaw-no-bg.png", to: "dist/assets/images/holding-bawbaw-no-bg.png" },
   { from: "assets/images/bawbaw-full-body-1.png", to: "dist/assets/images/bawbaw-full-body-1.png" },
   { from: "assets/images/bawbaw-full-body-3.png", to: "dist/assets/images/bawbaw-full-body-3.png" },
+  { from: "assets/images/paw-1.png", to: "dist/assets/images/paw-1.png" },
+  { from: "assets/images/paw-2.png", to: "dist/assets/images/paw-2.png" },
   { from: "assets/images/master-graduation-together.png", to: "dist/assets/images/master-graduation-together.png" },
   { from: "assets/images/hand-holding.png", to: "dist/assets/images/hand-holding.png" },
   { from: "assets/images/onthemoon.png", to: "dist/assets/images/onthemoon.png" },

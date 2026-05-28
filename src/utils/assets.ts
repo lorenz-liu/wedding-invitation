@@ -38,6 +38,8 @@ export const images = {
   holdingBawbawNoBg: assetPath("images/holding-bawbaw-no-bg.png"),
   bawbawFullBody1: assetPath("images/bawbaw-full-body-1.png"),
   bawbawFullBody3: assetPath("images/bawbaw-full-body-3.png"),
+  paw1: assetPath("images/paw-1.png"),
+  paw2: assetPath("images/paw-2.png"),
   masterGraduationTogether: assetPath("images/master-graduation-together.png"),
   handHolding: assetPath("images/hand-holding.png"),
   onTheMoon: assetPath("images/onthemoon.png"),
