@@ -60,7 +60,7 @@ const EVENTS: DistanceEvent[] = [
 
 export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
   return (
-    <ScrollView className="page-distance-scroll" scrollY enhanced showScrollbar={false}>
+    
       <View className="page page-distance">
       <View className="distance-header">
         <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
@@ -140,7 +140,6 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
           </AnimatedView>
         ))}
       </View>
-      </View>
-    </ScrollView>
+      </View> 
   );
 };
