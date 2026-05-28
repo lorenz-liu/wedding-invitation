@@ -137,12 +137,8 @@
         pointer-events: none;
     }
 
-    .year-badge {
-        font-family: "Childhood", sans-serif;
-        font-size: 120px;
-        color: $color-accent;
+    .birth-year-title {
         margin-bottom: $spacing-md;
-        text-shadow: 2px 2px 4px rgba(201, 168, 124, 0.2);
     }
 
     .intro-text {
@@ -156,10 +152,6 @@
 
 @media (max-width: 480px) {
     .page-birth {
-        .year-badge {
-            font-size: 76px;
-        }
-
         .intro-text {
             font-size: 28px;
         }

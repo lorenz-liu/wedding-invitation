@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { YearTitle } from "../../../components/YearTitle";
 import { images } from "../../../utils/assets";
 import "./PageGraduate.scss";
 
@@ -22,12 +23,10 @@ export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => {
   return (
     <View className="page page-graduate">
       <View className="content-wrapper">
-        <AnimatedView animation="fadeInUp" isActive={isActive} duration={600}>
-          <View className="date-box">
-            <Text className="date-year">2025年</Text>
-            <Text className="date-day">6月6日</Text>
-          </View>
-        </AnimatedView>
+        <View className="date-box">
+          <YearTitle>2025年</YearTitle>
+          <Text className="date-day">6月6日</Text>
+        </View>
 
         <AnimatedView
           animation="fadeInUp"

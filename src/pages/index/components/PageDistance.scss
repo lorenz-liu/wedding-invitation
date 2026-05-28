@@ -34,14 +34,8 @@
     width: 100%;
     max-width: 600px;
 
-    .header-years {
-        display: block;
-        font-family: "Childhood", sans-serif;
-        font-size: 64px;
-        color: $color-primary;
-        letter-spacing: 10px;
+    .year-title {
         margin-bottom: 12px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08);
     }
 
     .header-subtitle {
@@ -255,11 +249,6 @@
 
     .distance-header {
         margin-bottom: 28px;
-
-        .header-years {
-            font-size: 50px;
-            letter-spacing: 6px;
-        }
 
         .header-subtitle {
             font-size: 28px;

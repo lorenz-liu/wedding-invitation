@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { YearTitle } from "../../../components/YearTitle";
 import { images } from "../../../utils/assets";
 import "./PageLife.scss";
 
@@ -32,9 +33,7 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
   return (
     <View className="page page-life">
       <View className="content-wrapper">
-        <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
-          <Text className="years-text">2023 - 2026</Text>
-        </AnimatedView>
+        <YearTitle>2023 - 2026</YearTitle>
 
         <AnimatedView
           animation="fadeInUp"

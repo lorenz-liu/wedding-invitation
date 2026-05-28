@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { YearTitle } from "../../../components/YearTitle";
 import { images } from "../../../utils/assets";
 import "./PageDistance.scss";
 
@@ -51,9 +52,7 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
   return (
     <View className="page page-distance">
       <View className="distance-header">
-        <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
-          <Text className="header-years">2022 — 2023</Text>
-        </AnimatedView>
+        <YearTitle>2022 — 2023</YearTitle>
 
         <AnimatedView
           animation="fadeInUp"

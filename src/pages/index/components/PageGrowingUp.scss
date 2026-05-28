@@ -47,14 +47,10 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-    }
 
-    .years-text {
-        font-family: "Childhood", sans-serif;
-        font-size: 60px;
-        color: $color-accent;
-        margin-bottom: $spacing-md;
-        letter-spacing: 4px;
+        .year-title {
+            margin-bottom: $spacing-md;
+        }
     }
 
     .story-text {

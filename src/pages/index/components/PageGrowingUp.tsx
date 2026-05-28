@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { YearTitle } from "../../../components/YearTitle";
 import { images } from "../../../utils/assets";
 import "./PageGrowingUp.scss";
 
@@ -31,7 +32,7 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
         </View>
 
         <View className="text-block">
-          <Text className="years-text">2001 - 2019</Text>
+          <YearTitle>2001 - 2019</YearTitle>
 
           <AnimatedView
             animation="fadeInUp"

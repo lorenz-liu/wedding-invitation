@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { YearTitle } from "../../../components/YearTitle";
 import { images } from "../../../utils/assets";
 import "./PageRelationship.scss";
 
@@ -24,16 +25,10 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
   return (
     <View className="page page-relationship">
       <View className="content-wrapper">
-        <AnimatedView
-          animation="fadeInScale"
-          isActive={isActive}
-          duration={600}
-        >
-          <View className="special-date">
-            <Text className="date-number">2019</Text>
-            <Text className="date-month-day">7月25日</Text>
-          </View>
-        </AnimatedView>
+        <View className="special-date">
+          <YearTitle>2019</YearTitle>
+          <Text className="date-month-day">7月25日</Text>
+        </View>
 
         <AnimatedView
           animation="fadeInUp"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { YearTitle } from "../../../components/YearTitle";
 import { images } from "../../../utils/assets";
 import "./PageBirth.scss";
 
@@ -50,9 +51,7 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
       </View>
 
       <View className="birth-title-center">
-        <AnimatedView animation="fadeIn" isActive={isActive} duration={600}>
-          <Text className="year-badge">2001年</Text>
-        </AnimatedView>
+        <YearTitle className="birth-year-title">2001年</YearTitle>
 
         <AnimatedView
           animation="fadeInUp"

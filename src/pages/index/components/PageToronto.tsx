@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { YearTitle } from "../../../components/YearTitle";
 import { images } from "../../../utils/assets";
 import "./PageToronto.scss";
 
@@ -22,12 +23,10 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
   return (
     <View className="page page-toronto">
       <View className="content-wrapper">
-        <AnimatedView animation="fadeInUp" isActive={isActive} duration={600}>
-          <View className="date-box">
-            <Text className="date-year">2023年</Text>
-            <Text className="date-day">10月14日</Text>
-          </View>
-        </AnimatedView>
+        <View className="date-box">
+          <YearTitle>2023年</YearTitle>
+          <Text className="date-day">10月14日</Text>
+        </View>
 
         <AnimatedView
           animation="fadeIn"
