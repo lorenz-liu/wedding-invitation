@@ -58,7 +58,7 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
       </View>
 
       <View className={`sanya-anchor ${sanyaIn ? "animate" : ""}`}>
-        <Image className="sanya-img" src={images.sanyaNoBg} mode="widthFix" />
+        <Image className="sanya-img" src={images.togetherFlower} mode="widthFix" />
       </View>
     </View>
   );

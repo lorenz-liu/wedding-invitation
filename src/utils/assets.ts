@@ -21,6 +21,7 @@ export const images = {
   gaoKidNoBg: assetPath("images/gao-kid-no-bg.png"),
   childhoodGif: assetPath("images/childhood.gif"),
   togetherKidsNoBg: assetPath("images/together-kids-no-bg.png"),
+  togetherFlower: assetPath("images/together-flower.png"),
   sanyaNoBg: assetPath("images/sanya-no-bg.png"),
   seattleNoBg: assetPath("images/seattle-no-bg.png"),
   together2021NoBg: assetPath("images/together-2021-no-bg.png"),

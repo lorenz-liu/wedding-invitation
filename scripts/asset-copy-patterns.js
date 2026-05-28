@@ -14,6 +14,7 @@ module.exports = [
   { from: "assets/images/gao-kid-no-bg.png", to: "dist/assets/images/gao-kid-no-bg.png" },
   { from: "assets/images/childhood.gif", to: "dist/assets/images/childhood.gif" },
   { from: "assets/images/together-kids-no-bg.png", to: "dist/assets/images/together-kids-no-bg.png" },
+  { from: "assets/images/together-flower.png", to: "dist/assets/images/together-flower.png" },
   { from: "assets/images/sanya-no-bg.png", to: "dist/assets/images/sanya-no-bg.png" },
   { from: "assets/images/seattle-no-bg.png", to: "dist/assets/images/seattle-no-bg.png" },
   { from: "assets/images/together-2021-no-bg.png", to: "dist/assets/images/together-2021-no-bg.png" },
