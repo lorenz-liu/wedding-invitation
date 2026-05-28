@@ -2,33 +2,58 @@
 
 .page-life {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     min-height: 100vh;
-    padding: $spacing-xl $spacing-xl 0;
+    padding: 0;
     background: linear-gradient(180deg, #faf8f5 0%, #f5efe6 100%);
     overflow: hidden;
 
-    .content-wrapper {
-        flex: 1;
+    .life-content-container {
+        position: absolute;
+        top: 5vh;
+        right: 5vh;
+        z-index: 1;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        max-width: 500px;
-        width: 100%;
-        margin-bottom: 120px;
-        // Reserve space at the bottom so the corner images don't cover the text.
+        align-items: flex-end;
+        justify-content: flex-start;
+        text-align: right;
+        max-width: calc(100% - 5vh);
         padding-bottom: min(220px, 28vw);
-        position: relative;
-        z-index: 1;
+        box-sizing: border-box;
+    }
+
+    .bawbaw-hero {
+        width: 30vw;
+        margin-bottom: $spacing-lg;
+        opacity: 0;
+        transform: translate(25%, -110%);
+        transition:
+            opacity 1s ease-out,
+            transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
+
+        &.animate {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        .bawbaw-hero-img {
+            width: 100%;
+            display: block;
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.18));
+        }
+    }
+
+    .life-text-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
     }
 
     .year-title {
         margin-bottom: $spacing-lg;
+        text-align: right;
     }
 
     .life-text {
@@ -40,30 +65,7 @@
         white-space: pre-line;
     }
 
-    .cat-desc {
-        font-family: "Childhood", sans-serif;
-        font-size: $font-size-lg;
-        color: $color-text-secondary;
-        line-height: 2;
-        margin: $spacing-xl 0;
-        white-space: pre-line;
-    }
-
-    .quote-box {
-        margin-top: $spacing-lg;
-        padding: $spacing-md $spacing-xl;
-        background: rgba(201, 168, 124, 0.15);
-        border-radius: $border-radius-lg;
-
-        .quote-text {
-            font-family: "HandWritingThin", sans-serif;
-            font-size: $font-size-lg;
-            color: $color-accent;
-        }
-    }
-
     // ---- Corner anchors ----
-    // Shared base
     .bawbaw-anchor {
         position: absolute;
         bottom: 0;
@@ -82,7 +84,6 @@
         }
     }
 
-    // Bottom-left: slide in from the bottom-left corner
     .bawbaw-anchor-left {
         left: 0;
         width: min(600px, 65vw);
@@ -94,7 +95,6 @@
         }
     }
 
-    // Bottom-right: slide in from the bottom-right corner
     .bawbaw-anchor-right {
         right: 0;
         width: min(250px, 30vw);
@@ -104,63 +104,6 @@
         &.animate {
             transform: translate(0, 0);
             opacity: 1;
-        }
-    }
-
-    // ---- Sticker ----
-    // Horizontally centered. Entry and idle sway are two chained keyframe
-    // animations whose endpoints match, so there is no abrupt transform jump.
-    .bawbaw-sticker {
-        position: absolute;
-        top: min(80px, 8vh);
-        left: 55%;
-        width: min(300px, 30vw);
-        opacity: 0;
-        transform: translate(-50%, -80px) rotate(-10deg) scale(0.5);
-        transform-origin: center center;
-        z-index: 3;
-        pointer-events: none;
-        filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.18))
-            drop-shadow(0 0 1px rgba(255, 255, 255, 0.9));
-
-        &.animate {
-            animation:
-                stickerEntry 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-                stickerSway 5s ease-in-out 1.2s infinite;
-        }
-
-        .bawbaw-sticker-img {
-            width: 100%;
-            display: block;
-        }
-    }
-
-    // Lands with a slight left tilt (-6deg) so the sway can continue naturally.
-    @keyframes stickerEntry {
-        0% {
-            opacity: 0;
-            transform: translate(-50%, -80px) rotate(-10deg) scale(0.5);
-        }
-        55% {
-            opacity: 1;
-            transform: translate(-50%, 10px) rotate(4deg) scale(1.05);
-        }
-        78% {
-            transform: translate(-50%, -4px) rotate(-8deg) scale(1);
-        }
-        100% {
-            opacity: 1;
-            transform: translate(-50%, 0) rotate(-6deg) scale(1);
-        }
-    }
-
-    @keyframes stickerSway {
-        0%,
-        100% {
-            transform: translate(-50%, 0) rotate(-6deg) scale(1);
-        }
-        50% {
-            transform: translate(-50%, 0) rotate(6deg) scale(1);
         }
     }
 }
