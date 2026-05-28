@@ -7,6 +7,12 @@
 export const CLOUDFLARE_PUBLIC_BASE_URL =
   "https://wedding-invitation.lorenz-uid.workers.dev";
 
+/**
+ * Bump this when you upload new images/fonts to R2 so clients fetch fresh files.
+ * Example: "20260525" or "2"
+ */
+export const ASSETS_CACHE_VERSION = "1";
+
 export function isCloudflareConfigured(): boolean {
   return (
     Boolean(CLOUDFLARE_PUBLIC_BASE_URL) &&
@@ -16,7 +22,9 @@ export function isCloudflareConfigured(): boolean {
 
 export function cloudflareAssetUrl(relativePath: string): string {
   const normalized = relativePath.replace(/^\/+/, "").replace(/^assets\//, "");
-  return `${CLOUDFLARE_PUBLIC_BASE_URL.replace(/\/$/, "")}/assets/${normalized}`;
+  const base = `${CLOUDFLARE_PUBLIC_BASE_URL.replace(/\/$/, "")}/assets/${normalized}`;
+  if (!ASSETS_CACHE_VERSION) return base;
+  return `${base}?v=${encodeURIComponent(ASSETS_CACHE_VERSION)}`;
 }
 
 export function guestFormApiUrl(): string {
