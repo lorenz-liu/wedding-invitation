@@ -13,7 +13,7 @@
 
     .hand-holding-anchor {
         position: absolute;
-        top: 12vh;
+        top: 5vh;
         left: 0;
         width: 100vw;
         z-index: 1;
@@ -51,7 +51,7 @@
 
     .context-text {
         font-family: "ThinBlack", sans-serif;
-        font-size: $font-size-lg;
+        font-size: 30px;
         color: $color-secondary;
         line-height: 1.8;
         display: block;
@@ -77,14 +77,22 @@
         }
     }
 
+    .poetry-block {
+        margin: $spacing-lg 0;
+    }
+
     .poetry-text {
-        font-family: "HandWritingBold", sans-serif;
+        font-family: "Main", sans-serif;
         font-size: $font-size-xl;
         color: $color-primary;
-        line-height: 2;
-        margin: $spacing-lg 0;
-        white-space: pre-line;
+        line-height: 1.5;
+        margin: 0;
+        display: block;
         letter-spacing: 2px;
+
+        & + .poetry-text {
+            margin-top: 4px;
+        }
     }
 
     .wedding-date-box {
@@ -115,8 +123,8 @@
         }
 
         .date-highlight {
-            font-family: "Main", sans-serif;
-            font-size: 40px;
+            font-family: "ThinBlack", sans-serif;
+            font-size: 50px;
             color: $color-accent;
             display: block;
             margin-bottom: $spacing-sm;
@@ -124,8 +132,8 @@
         }
 
         .we-text {
-            font-family: "HandWritingThin", sans-serif;
-            font-size: $font-size-md;
+            font-family: "ThinBlack", sans-serif;
+            font-size: 30px;
             color: $color-secondary;
             letter-spacing: 2px;
         }

@@ -61,6 +61,7 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
           isActive={isActive}
           delay={600}
           duration={600}
+          className="poetry-block"
         >
           <Text className="poetry-text">
             当所有的经纬度最终重合
