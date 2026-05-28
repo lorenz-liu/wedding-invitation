@@ -18,6 +18,7 @@
 
     .story-logo {
         width: min(800px, 70vw);
+        margin-bottom: $spacing-lg;
         opacity: 0;
         transform: translateY(-160%);
         transition:
@@ -70,7 +71,7 @@
 
         .subtitle-desc {
             font-family: "ThinBlack", sans-serif;
-            font-size: $font-size-lg;
+            font-size: $font-size-xl;
             color: $color-secondary;
             letter-spacing: 2px;
         }
