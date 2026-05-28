@@ -32,13 +32,13 @@
     }
 
     .corner-tr {
-        top: 10vh;
-        right: 100px;
+        top: 8vh;
+        right: 80px;
     }
 
     .corner-bl {
-        bottom: 10vh;
-        left: 100px;
+        bottom: 8vh;
+        left: 90px;
     }
 
     .corner-br {
@@ -82,6 +82,16 @@
         }
     }
 
+    .corner-tr.gao-kid-cluster {
+        transform: rotate(-8deg);
+        transform-origin: center center;
+    }
+
+    .corner-bl.niu-kid-cluster {
+        transform: rotate(8deg);
+        transform-origin: center center;
+    }
+
     .birth-images-layer.animate {
         .birth-corner,
         .kid-cluster {
@@ -92,8 +102,9 @@
     .birth-title-center {
         position: absolute;
         left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        top: 45%;
+        transform: translate(-50%, -50%) rotate(4deg);
+        transform-origin: center center;
         z-index: 2;
         display: flex;
         flex-direction: column;
@@ -107,7 +118,7 @@
 
     .year-badge {
         font-family: "Childhood", sans-serif;
-        font-size: 88px;
+        font-size: 120px;
         color: $color-accent;
         margin-bottom: $spacing-md;
         text-shadow: 2px 2px 4px rgba(201, 168, 124, 0.2);
@@ -115,7 +126,7 @@
 
     .intro-text {
         font-family: "Childhood", sans-serif;
-        font-size: 28px;
+        font-size: 54px;
         color: $color-text-secondary;
         line-height: 1.8;
         letter-spacing: 2px;
@@ -125,11 +136,11 @@
 @media (max-width: 480px) {
     .page-birth {
         .year-badge {
-            font-size: 64px;
+            font-size: 76px;
         }
 
         .intro-text {
-            font-size: 22px;
+            font-size: 28px;
         }
 
         .kid-cluster {
