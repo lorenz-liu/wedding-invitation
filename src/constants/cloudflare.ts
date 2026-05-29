@@ -11,7 +11,7 @@ export const CLOUDFLARE_PUBLIC_BASE_URL =
  * Bump this when you upload new images/fonts to R2 so clients fetch fresh files.
  * Example: "20260525" or "2"
  */
-export const ASSETS_CACHE_VERSION = "202605282159";
+export const ASSETS_CACHE_VERSION = "202605282230";
 
 export function isCloudflareConfigured(): boolean {
   return (
