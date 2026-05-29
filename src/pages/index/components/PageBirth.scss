@@ -89,6 +89,7 @@
     }
 
     .corner-tr.gao-kid-cluster {
+        width: 38.5vw;
         transform: translateY(-80%) rotate(-8deg);
         transform-origin: center center;
     }
@@ -124,7 +125,7 @@
         position: absolute;
         left: 50%;
         top: 45%;
-        transform: translate(-50%, -50%) rotate(4deg);
+        transform: translate(-50%, -50%) rotate(0deg);
         transform-origin: center center;
         z-index: 2;
         display: flex;
