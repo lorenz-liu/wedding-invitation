@@ -35,12 +35,12 @@
     }
 
     .corner-tr {
-        top: 8vh;
+        top: 5vh;
         right: 80px;
     }
 
     .corner-bl {
-        bottom: 8vh;
+        bottom: 5vh;
         left: 90px;
     }
 
@@ -68,7 +68,7 @@
         }
 
         .kid-label-top {
-            font-family: "HandWritingBold", "Childhood", sans-serif;
+            font-family: "Main", sans-serif;
             font-size: 48px;
             letter-spacing: 4px;
             margin-bottom: $spacing-sm;
@@ -89,7 +89,7 @@
     }
 
     .corner-tr.gao-kid-cluster {
-        width: 38.5vw;
+        width: 28.5vw;
         transform: translateY(-80%) rotate(-8deg);
         transform-origin: center center;
     }
