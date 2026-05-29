@@ -13,6 +13,8 @@ interface ScheduleItem {
   title: string;
   subtitle: string;
   description: string;
+  image: string;
+  imageOffset: "left" | "right";
 }
 
 const scheduleData: ScheduleItem[] = [
@@ -22,6 +24,8 @@ const scheduleData: ScheduleItem[] = [
     subtitle: "扉启迎宾，静候光临",
     description:
       "您可以以这个时间点规划抵达时间，于入口处签到后我们会有专人引导您进入会场。",
+    image: images.agendaWelcome,
+    imageOffset: "left",
   },
   {
     time: "17:00",
@@ -29,6 +33,8 @@ const scheduleData: ScheduleItem[] = [
     subtitle: "花门轻启，盟誓此夕",
     description:
       "婚礼仪式将于麓月礼堂内开始。我们没有着装要求，请您以舒适度为主安排服饰。",
+    image: images.agendaCeremony,
+    imageOffset: "right",
   },
   {
     time: "18:30",
@@ -36,6 +42,8 @@ const scheduleData: ScheduleItem[] = [
     subtitle: "佳肴盈席，共叙情谊",
     description:
       "请您在该电子请柬最后一页告知我们您的特殊饮食需求，比如食物过敏等。",
+    image: images.agendaDinner,
+    imageOffset: "left",
   },
   {
     time: "20:00",
@@ -43,6 +51,8 @@ const scheduleData: ScheduleItem[] = [
     subtitle: "欢聚尽兴，杯盏余音",
     description:
       "在晚宴结束后，我们准备了餐后甜点和酒水供您消遣，让这一天在轻松愉悦中画上完美的句号。",
+    image: images.agendaParty,
+    imageOffset: "right",
   },
 ];
 
@@ -74,10 +84,21 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
               duration={600}
               className="schedule-item"
             >
-              <View
-                className={`time-badge ${index % 2 === 0 ? "left" : "right"}`}
-              >
-                <Text className="time-text">{item.time}</Text>
+              <View className="time-column">
+                <View
+                  className={`time-badge ${index % 2 === 0 ? "left" : "right"}`}
+                >
+                  <Text className="time-text">{item.time}</Text>
+                </View>
+                <View
+                  className={`agenda-img-wrap offset-${item.imageOffset}`}
+                >
+                  <Image
+                    className="agenda-img"
+                    src={item.image}
+                    mode="widthFix"
+                  />
+                </View>
               </View>
               <View className="schedule-card">
                 <Text className="event-title">{item.title}</Text>

@@ -37,6 +37,10 @@ module.exports = [
   { from: "assets/images/hand-holding.png", to: "dist/assets/images/hand-holding.png" },
   { from: "assets/images/art.png", to: "dist/assets/images/art.png" },
   { from: "assets/images/onthemoon.png", to: "dist/assets/images/onthemoon.png" },
+  { from: "assets/images/agenda-welcome.png", to: "dist/assets/images/agenda-welcome.png" },
+  { from: "assets/images/agenda-ceremony.png", to: "dist/assets/images/agenda-ceremony.png" },
+  { from: "assets/images/agenda-dinner.png", to: "dist/assets/images/agenda-dinner.png" },
+  { from: "assets/images/agenda-party.png", to: "dist/assets/images/agenda-party.png" },
   { from: "assets/images/signature-gao.png", to: "dist/assets/images/signature-gao.png" },
   { from: "assets/images/signature-niu.png", to: "dist/assets/images/signature-niu.png" },
 ];

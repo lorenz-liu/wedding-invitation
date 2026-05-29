@@ -44,6 +44,10 @@ export const images = {
   handHolding: assetPath("images/hand-holding.png"),
   art: assetPath("images/art.png"),
   onTheMoon: assetPath("images/onthemoon.png"),
+  agendaWelcome: assetPath("images/agenda-welcome.png"),
+  agendaCeremony: assetPath("images/agenda-ceremony.png"),
+  agendaDinner: assetPath("images/agenda-dinner.png"),
+  agendaParty: assetPath("images/agenda-party.png"),
   signatureGao: assetPath("images/signature-gao.png"),
   signatureNiu: assetPath("images/signature-niu.png"),
 } as const;
