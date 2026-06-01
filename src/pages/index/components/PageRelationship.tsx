@@ -46,13 +46,13 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
           duration={800}
         >
           <Text className="story-content">
-            我们正式确定了彼此的心意。
+            我们正式确定了彼此的心意
             {"\n"}
-            从青梅竹马到一生伴侣，
+            从青梅竹马到一生伴侣
             {"\n"}
-            我们的故事，
+            我们的故事
             {"\n"}
-            由此写下新的篇章。
+            由此写下新的篇章
           </Text>
         </AnimatedView>
       </View>

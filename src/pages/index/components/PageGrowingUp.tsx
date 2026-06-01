@@ -41,13 +41,13 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
             duration={800}
           >
             <Text className="story-text">
-              从懵懂孩提到并肩成长，
+              从懵懂孩提到并肩成长
               {"\n"}
-              命运的轨迹早已悄然重合，
+              命运的轨迹早已悄然重合
               {"\n"}
-              最好的朋友，
+              最好的朋友
               {"\n"}
-              也是彼此青春的见证者。
+              也是彼此青春的见证者
             </Text>
           </AnimatedView>
         </View>

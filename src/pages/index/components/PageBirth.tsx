@@ -60,7 +60,9 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
           duration={600}
         >
           <Text className="intro-text">
-            同一个医生，接出了两个注定相遇的灵魂
+            同一个医生
+            {'\n'}
+            接出了两个注定相遇的灵魂
           </Text>
         </AnimatedView>
       </View>
