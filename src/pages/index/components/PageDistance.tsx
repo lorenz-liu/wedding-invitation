@@ -99,7 +99,6 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
               >
                 <View className="event-tag">
                   <Text className="tag-year">{evt.year}</Text>
-                  <Text className="tag-sep">·</Text>
                   <Text className="tag-location">{evt.location}</Text>
                 </View>
 

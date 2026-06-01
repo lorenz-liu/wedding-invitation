@@ -78,7 +78,7 @@
     }
 
     .event-row-wrapper {
-        margin-bottom: 56px;
+        margin-bottom: 32px;
 
         &:last-child {
             margin-bottom: 0;
@@ -162,20 +162,20 @@
 
         .tag-year {
             font-family: "Main", sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             color: $color-primary;
             font-weight: bold;
             letter-spacing: 1px;
         }
 
         .tag-sep {
-            font-size: 20px;
+            font-size: 22px;
             color: rgba(44, 44, 44, 0.4);
         }
 
         .tag-location {
             font-family: "Main", sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             color: $color-primary;
             letter-spacing: 2px;
         }
@@ -234,7 +234,7 @@
 
     .event-caption {
         font-family: "Main", sans-serif;
-        font-size: 25px;
+        font-size: 22px;
         color: $color-text-primary;
         line-height: 1.4;
         letter-spacing: 1px;
