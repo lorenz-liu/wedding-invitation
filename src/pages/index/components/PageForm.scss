@@ -511,7 +511,7 @@
         z-index: 2;
 
         &::placeholder {
-            color: rgba(107, 107, 107, 0.4);
+            color: $color-accent;
         }
     }
 
@@ -528,6 +528,11 @@
         height: 35px;
         border-bottom: 1px solid rgba(201, 168, 124, 0.15);
     }
+}
+
+// WeChat Textarea uses placeholderClass, not ::placeholder
+.notes-textarea-placeholder {
+    color: $color-accent;
 }
 
 // Submit Section
