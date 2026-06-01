@@ -139,7 +139,7 @@
     }
 
     .invite-title {
-        font-family: "HandWritingBold", sans-serif;
+        font-family: "Main", sans-serif;
         font-size: 40px;
         margin: $spacing-md 0;
         letter-spacing: 2px;
@@ -171,7 +171,7 @@
         gap: $spacing-xs;
 
         .scroll-text {
-            font-family: "HandWritingThin", sans-serif;
+            font-family: "Main", sans-serif;
             font-size: $font-size-sm;
             color: $color-secondary;
         }

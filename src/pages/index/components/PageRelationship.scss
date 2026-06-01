@@ -66,14 +66,14 @@
     }
 
     .plus-sign {
-      font-family: 'Childhood', sans-serif;
+      font-family: 'Main', sans-serif;
       font-size: $font-size-xxl;
       color: $color-accent;
     }
   }
 
   .story-title {
-    font-family: 'HandWritingBold', sans-serif;
+    font-family: 'Main', sans-serif;
     font-size: $font-size-xxl;
     color: $color-primary;
     margin: $spacing-md 0;
@@ -81,7 +81,7 @@
   }
 
   .story-content {
-    font-family: 'Childhood', sans-serif;
+    font-family: 'Main', sans-serif;
     font-size: $font-size-lg;
     color: $color-text-primary;
     line-height: 2.2;
