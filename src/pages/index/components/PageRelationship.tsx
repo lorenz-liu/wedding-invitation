@@ -31,6 +31,7 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
         </View>
 
         <AnimatedView
+          className="story-title-wrap"
           animation="fadeInUp"
           isActive={isActive}
           delay={500}
@@ -40,6 +41,7 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
         </AnimatedView>
 
         <AnimatedView
+          className="story-content-wrap"
           animation="fadeIn"
           isActive={isActive}
           delay={700}

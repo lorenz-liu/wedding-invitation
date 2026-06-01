@@ -76,8 +76,15 @@
     font-family: 'Main', sans-serif;
     font-size: $font-size-xxl;
     color: $color-primary;
-    margin-bottom: 400px;
     letter-spacing: 4px;
+  }
+
+  .story-title-wrap {
+    margin-bottom: $spacing-md;
+  }
+
+  .story-content-wrap {
+    margin-top: 0;
   }
 
   .story-content {
@@ -85,7 +92,7 @@
     font-size: $font-size-lg;
     color: $color-text-primary;
     line-height: 2.2;
-    margin: $spacing-lg 0;
+    margin: 0;
     white-space: pre-line;
   }
 
