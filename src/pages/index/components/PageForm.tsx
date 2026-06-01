@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -25,7 +25,6 @@ interface FormData {
   phone: string;
   wechatId: string;
   guests: Guest[];
-  dietaryRestrictions: string;
   isDriving: boolean;
   needsShuttle: boolean;
   shuttleLocation: string;
@@ -37,7 +36,6 @@ const EMPTY_FORM_DATA: FormData = {
   phone: "",
   wechatId: "",
   guests: [{ name: "", relation: "" }],
-  dietaryRestrictions: "",
   isDriving: false,
   needsShuttle: false,
   shuttleLocation: "",
@@ -49,12 +47,64 @@ interface PageFormProps {
   onScrollTopChange?: (scrollTop: number) => void;
 }
 
+interface CreditFooterProps {
+  signatureReveal: boolean;
+}
+
+function CreditFooter({ signatureReveal }: CreditFooterProps) {
+  const wrapClass = signatureReveal
+    ? "credits-signature-wrap credits-signature-wrap--reveal"
+    : "credits-signature-wrap";
+
+  return (
+    <View>
+      <View className="form-footer">
+        <Text className="footer-text">感谢您的回复，期待与您相见</Text>
+        <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
+      </View>
+
+      <View className="form-credits-wrap">
+        <View className="form-credits">
+          <View className="credits-line-wrap">
+            <Text className="credits-line">平面与交互设计 by 新娘 高文珩</Text>
+            <View className={wrapClass} style={{ animationDelay: "0ms" }}>
+              <Image
+                className="credits-signature"
+                src={images.signatureGao}
+                mode="heightFix"
+              />
+            </View>
+          </View>
+          <Text className="credits-line credits-en">
+            Graphic & Interactive Design by Wenheng Gao, the Bride
+          </Text>
+          <View className="credits-line-wrap">
+            <Text className="credits-line">代码开发与维护 by 新郎 刘兆薰</Text>
+            <View className={wrapClass} style={{ animationDelay: "280ms" }}>
+              <Image
+                className="credits-signature"
+                src={images.signatureNiu}
+                mode="heightFix"
+              />
+            </View>
+          </View>
+          <Text className="credits-line credits-en">
+            Engineered & Maintained by Zhaoxun Liu, the Groom
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
 export const PageForm: React.FC<PageFormProps> = ({
   isActive,
   onScrollTopChange,
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM_DATA);
+  const [signatureReveal, setSignatureReveal] = useState(false);
+  const signatureRevealStartedRef = useRef(false);
 
   useEffect(() => {
     const alreadySubmitted = Taro.getStorageSync(FORM_SUBMITTED_KEY);
@@ -67,61 +117,16 @@ export const PageForm: React.FC<PageFormProps> = ({
     onScrollTopChange?.(0);
   }, [submitted, onScrollTopChange]);
 
-  function CreditFooter() {
-    return (
-      <View>
-<AnimatedView
-      animation="fadeIn"
-      isActive={isActive}
-      delay={1100}
-      duration={600}
-    >
-      <View className="form-footer">
-        <Text className="footer-text">感谢您的回复，期待与您相见</Text>
-        <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
-      </View>
-    </AnimatedView>
-
-    <AnimatedView
-      animation="fadeIn"
-      isActive={isActive}
-      delay={1200}
-      duration={600}
-    >
-      <View className="form-credits-wrap">
-        <View className="form-credits">
-          <View className="credits-line-wrap">
-            <Text className="credits-line">
-              平面与交互设计 by 新娘 高文珩
-            </Text>
-            <Image
-              className="credits-signature"
-              src={images.signatureGao}
-              mode="heightFix"
-            />
-          </View>
-          <Text className="credits-line credits-en">
-            Graphic & Interactive Design by Wenheng Gao, the Bride
-          </Text>
-          <View className="credits-line-wrap">
-            <Text className="credits-line">
-              代码开发与维护 by 新郎 刘兆薰
-            </Text>
-            <Image
-              className="credits-signature"
-              src={images.signatureNiu}
-              mode="heightFix"
-            />
-          </View>
-          <Text className="credits-line credits-en">
-            Engineered & Maintained by Zhaoxun Liu, the Groom
-          </Text>
-        </View>
-      </View>
-    </AnimatedView>
-      </View>
-    )
-  }
+  useEffect(() => {
+    if (!isActive) {
+      signatureRevealStartedRef.current = false;
+      setSignatureReveal(false);
+      return;
+    }
+    if (signatureRevealStartedRef.current) return;
+    signatureRevealStartedRef.current = true;
+    setSignatureReveal(true);
+  }, [isActive]);
 
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -261,8 +266,8 @@ export const PageForm: React.FC<PageFormProps> = ({
                 重新填写
               </Button>
             </View>
-            <CreditFooter />
           </AnimatedView>
+          <CreditFooter signatureReveal={signatureReveal} />
         </View>
       </ScrollView>
     );
@@ -446,47 +451,16 @@ export const PageForm: React.FC<PageFormProps> = ({
           </View>
         </AnimatedView>
 
-        {/* Dietary Section */}
+        {/* Notes Section */}
         <AnimatedView
           animation="fadeInUp"
           isActive={isActive}
           delay={650}
           duration={600}
         >
-          <View className="form-section dietary-section">
-            <View className="section-header">
-              <View className="section-number">04</View>
-              <Text className="section-title">饮食偏好</Text>
-              <Text className="section-desc">过敏/忌口/素食等</Text>
-            </View>
-            <View className="text-area-wrapper">
-              <Textarea
-                className="text-area"
-                value={formData.dietaryRestrictions}
-                onInput={(e) =>
-                  handleInputChange("dietaryRestrictions", e.detail.value)
-                }
-                placeholder="如有任何饮食限制，请在此告诉我们..."
-              />
-              <View className="paper-lines">
-                <View className="paper-line" />
-                <View className="paper-line" />
-                <View className="paper-line" />
-              </View>
-            </View>
-          </View>
-        </AnimatedView>
-
-        {/* Notes Section */}
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={isActive}
-          delay={800}
-          duration={600}
-        >
           <View className="form-section notes-section">
             <View className="section-header">
-              <View className="section-number">05</View>
+              <View className="section-number">04</View>
               <Text className="section-title">其他留言</Text>
               <Text className="section-desc">任何想说的话</Text>
             </View>
@@ -511,7 +485,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         <AnimatedView
           animation="fadeInUp"
           isActive={isActive}
-          delay={950}
+          delay={800}
           duration={600}
         >
           <View className="submit-section">
@@ -520,7 +494,7 @@ export const PageForm: React.FC<PageFormProps> = ({
             </Button>
           </View>
         </AnimatedView>
-        <CreditFooter />
+        <CreditFooter signatureReveal={signatureReveal} />
       </View>
     </ScrollView>
   );

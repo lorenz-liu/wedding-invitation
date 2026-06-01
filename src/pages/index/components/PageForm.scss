@@ -479,8 +479,7 @@
     }
 }
 
-// Text Area Sections (Dietary & Notes)
-.dietary-section,
+// Text Area Section (Notes)
 .notes-section {
     .text-area-wrapper {
         position: relative;
@@ -655,14 +654,28 @@
         padding-right: 56px;
         padding-bottom: 0;
 
-        .credits-signature {
+        .credits-signature-wrap {
             position: absolute;
             right: -6px;
             bottom: -12px;
+            display: inline-block;
+            width: max-content;
             height: 44px;
-            width: auto;
             z-index: 1;
             pointer-events: none;
+            overflow: hidden;
+            clip-path: inset(0 100% 0 0);
+
+            &--reveal {
+                animation: creditsSignatureWipe 1s
+                    cubic-bezier(0.33, 1, 0.68, 1) forwards;
+            }
+        }
+
+        .credits-signature {
+            display: block;
+            height: 44px;
+            width: auto;
             opacity: 0.92;
             transform: rotate(-4deg);
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
@@ -694,6 +707,15 @@
         &.credits-en {
             white-space: normal;
         }
+    }
+}
+
+@keyframes creditsSignatureWipe {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
     }
 }
 

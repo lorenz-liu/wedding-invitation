@@ -6,7 +6,6 @@ export interface GuestFormPayload {
   phone: string;
   wechatId: string;
   guests: Array<{ name: string; relation: string }>;
-  dietaryRestrictions: string;
   isDriving: boolean;
   needsShuttle: boolean;
   shuttleLocation: string;
