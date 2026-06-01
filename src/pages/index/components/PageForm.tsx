@@ -275,6 +275,7 @@ export const PageForm: React.FC<PageFormProps> = ({
       showScrollbar={false}
       onScroll={handleScroll}
     >
+      <View className="form-scroll-inner">
       <View className="paper-container">
         {/* Paper Header */}
         <AnimatedView animation="fadeInUp" isActive={isActive} duration={800}>
@@ -490,6 +491,7 @@ export const PageForm: React.FC<PageFormProps> = ({
           </View>
         </AnimatedView>
         <CreditFooter signatureReveal={signatureReveal} />
+      </View>
       </View>
     </ScrollView>
   );
