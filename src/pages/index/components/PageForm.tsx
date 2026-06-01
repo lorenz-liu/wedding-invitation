@@ -218,12 +218,7 @@ export const PageForm: React.FC<PageFormProps> = ({
 
   if (submitted) {
     return (
-      <ScrollView
-        className="page page-form page-form-thanks"
-        scrollY
-        showScrollbar={false}
-        onScroll={handleScroll}
-      >
+      <View className="page page-form page-form-thanks">
         <View className="paper-container thanks-container">
           <AnimatedView
             animation="fadeInScale"
@@ -269,7 +264,7 @@ export const PageForm: React.FC<PageFormProps> = ({
           </AnimatedView>
           <CreditFooter signatureReveal={signatureReveal} />
         </View>
-      </ScrollView>
+      </View>
     );
   }
 

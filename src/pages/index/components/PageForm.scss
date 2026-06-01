@@ -712,11 +712,18 @@
     }
 }
 
-// Thank you page
+// Thank you page (plain View, not ScrollView)
 .page-form-thanks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
     .thanks-container {
         text-align: center;
         padding: 64px 32px;
+        margin: auto;
     }
 
     .thanks-header {
