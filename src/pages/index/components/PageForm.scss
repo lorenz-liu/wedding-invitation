@@ -615,8 +615,7 @@
         font-size: 21px;
         color: $color-secondary;
         letter-spacing: 2px;
-        margin-top: 20px;
-        margin-bottom: 8px;
+        margin: $spacing-md;
     }
 
     .footer-names {
@@ -624,15 +623,13 @@
         font-size: 25px;
         color: $color-primary;
         letter-spacing: 4px;
-        margin-top: 8px;
     }
 }
 
 .form-credits-wrap {
     display: flex;
     justify-content: center;
-    margin-top: $spacing-xl;
-    margin-bottom: $spacing-md;
+    margin-top: $spacing-md;
     width: 100%;
 }
 
@@ -640,10 +637,6 @@
     display: inline-block;
     width: auto;
     max-width: 100%;
-    padding: $spacing-lg $spacing-md;
-    background: #ffffff;
-    border-radius: $border-radius-lg;
-    box-shadow: $shadow-sm;
     box-sizing: border-box;
     text-align: center;
 
