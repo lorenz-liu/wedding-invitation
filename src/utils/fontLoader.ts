@@ -5,6 +5,7 @@ import { resolveAssetPath } from "./assetResolver";
 const WEAPP_FONT_FILES: [string, string][] = [
   ["ThinBlack", "fonts/thin-black.ttf"],
   ["Main", "fonts/main.ttf"],
+  ["Childhood", "fonts/childhood.ttf"],
 ];
 
 /**

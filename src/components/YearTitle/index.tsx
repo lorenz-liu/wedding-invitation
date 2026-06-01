@@ -7,7 +7,7 @@ export interface YearTitleProps {
   className?: string;
 }
 
-/** Shared year heading — Main font, accent color, no animation. */
+/** Shared year heading — Childhood font, accent color, no animation. */
 export const YearTitle: React.FC<YearTitleProps> = ({
   children,
   className = "",

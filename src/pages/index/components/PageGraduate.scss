@@ -39,7 +39,7 @@
 
     .grad-headline {
         font-family: "Main", sans-serif;
-        font-size: 52px;
+        font-size: 280px;
         color: $color-accent;
         letter-spacing: 6px;
         margin-bottom: $spacing-lg;
@@ -55,8 +55,8 @@
     }
 
     .grad-body-text {
-        font-family: "Main", sans-serif;
-        font-size: $font-size-lg;
+        font-family: "ThinBlack", sans-serif;
+        font-size: $font-size-xl;
         color: $color-text-primary;
         line-height: 1.9;
         letter-spacing: 2px;
@@ -95,10 +95,6 @@
         .grad-headline {
             font-size: 40px;
             letter-spacing: 4px;
-        }
-
-        .grad-body-text {
-            font-size: $font-size-md;
         }
     }
 }

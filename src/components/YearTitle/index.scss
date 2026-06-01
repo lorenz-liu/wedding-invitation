@@ -2,11 +2,12 @@
 
 .year-title {
     display: block;
-    font-family: "Main", sans-serif;
+    font-family: "Childhood", sans-serif;
     font-size: 120px;
     color: $color-accent;
     text-shadow: 2px 2px 4px rgba(201, 168, 124, 0.2);
     text-align: center;
+    letter-spacing: 8px;
 }
 
 @media (max-width: 480px) {
