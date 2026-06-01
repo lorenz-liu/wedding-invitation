@@ -57,7 +57,11 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
           duration={800}
         >
           <View className="decorations">
-            <Text className="deco-text">我们的坐标 从此永远重合</Text>
+            <Text className="deco-text">
+              我们的坐标
+              {'\n'}
+              从此永远重合
+            </Text>
           </View>
         </AnimatedView>
       </View>
