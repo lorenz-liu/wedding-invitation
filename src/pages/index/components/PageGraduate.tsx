@@ -44,8 +44,15 @@ export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => {
           duration={700}
         >
           <View className="grad-body">
-            <Text className="grad-body-text">拨穗礼毕 学生时代至此圆满落款</Text>
-            <Text className="grad-body-text">翻开职场波澜万丈的下一章</Text>
+            <Text className="grad-body-text">
+              学生时代至此圆满落款
+              {'\n'}
+              正式进入职场
+              {'\n'}
+              一路走过来
+              {'\n'}
+              我们学会了分担与陪伴 
+            </Text>
           </View>
         </AnimatedView>
       </View>

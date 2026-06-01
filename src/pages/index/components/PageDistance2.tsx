@@ -38,7 +38,7 @@ const EVENTS: DistanceEvent[] = [
   {
     year: "2023",
     location: "成都",
-    caption: "等待研究生录取结果",
+    caption: "和朋友们组建了乐队",
     image: images.band,
     framed: true,
     tilt: -2,

@@ -27,7 +27,7 @@ const EVENTS: DistanceEvent[] = [
   {
     year: "2020",
     location: "西雅图",
-    caption: "20年的第一场雪",
+    caption: "20年西雅图的第一场雪",
     image: images.seattleNoBg,
     framed: false,
     tilt: -2,
@@ -38,7 +38,7 @@ const EVENTS: DistanceEvent[] = [
   {
     year: "2021",
     location: "成都",
-    caption: "霍乱时期的爱情",
+    caption: "21年成都的短暂团聚",
     image: images.together2021NoBg,
     framed: false,
     tilt: 2,
@@ -49,7 +49,7 @@ const EVENTS: DistanceEvent[] = [
   {
     year: "2022",
     location: "旧金山",
-    caption: "新娘本科毕业啦！",
+    caption: "新娘在伯克利本科毕业啦！",
     image: images.gaoUndergradNoBg,
     framed: false,
     tilt: -3,

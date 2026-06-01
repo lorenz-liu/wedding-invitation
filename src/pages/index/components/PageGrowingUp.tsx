@@ -50,15 +50,6 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
               也是彼此青春的见证者。
             </Text>
           </AnimatedView>
-
-          <AnimatedView
-            animation="fadeIn"
-            isActive={isActive}
-            delay={1300}
-            duration={600}
-          >
-            <Text className="quote-text">{`总角之宴 言笑晏晏 信誓旦旦 不思其反`}</Text>
-          </AnimatedView>
         </View>
       </View>
 

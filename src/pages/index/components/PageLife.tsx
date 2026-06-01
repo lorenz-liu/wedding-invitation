@@ -81,8 +81,6 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
               远涉至这片北国的土地
               {"\n"}
               我们相濡以沫
-              {"\n"}
-              风花雪月 细水长流
             </Text>
           </AnimatedView>
           <AnimatedView
@@ -92,11 +90,11 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
             duration={800}
           >
             <Text className="life-text">
-              家里还有了一名新成员
+              家里还有一只名叫宝宝的小猫
               {"\n"}
-              一只名叫宝宝的小猫
+              是我们在这个城市里最暖的陪伴
               {"\n"}
-              猫肥家润 岁岁年年
+              也让我们的生活因此而更加圆满
             </Text>
           </AnimatedView>
         </View>
