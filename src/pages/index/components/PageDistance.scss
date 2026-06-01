@@ -162,7 +162,7 @@
 
         .tag-year {
             font-family: "Main", sans-serif;
-            font-size: 26px;
+            font-size: 20px;
             color: $color-primary;
             font-weight: bold;
             letter-spacing: 1px;
@@ -175,7 +175,7 @@
 
         .tag-location {
             font-family: "Main", sans-serif;
-            font-size: 26px;
+            font-size: 20px;
             color: $color-primary;
             letter-spacing: 2px;
         }
@@ -234,68 +234,10 @@
 
     .event-caption {
         font-family: "Main", sans-serif;
-        font-size: 28px;
+        font-size: 25px;
         color: $color-text-primary;
         line-height: 1.4;
         letter-spacing: 1px;
     }
 }
 
-// ---- Responsive ----
-@media (max-width: 480px) {
-    .page-distance {
-        padding: 28px 12px 0;
-    }
-
-    .distance-header {
-        margin-bottom: 28px;
-
-        .header-subtitle {
-            font-size: 28px;
-            letter-spacing: 4px;
-        }
-
-        .header-intro {
-            font-size: 20px;
-        }
-    }
-
-    .timeline-board {
-        .event-marker .event-dot {
-            width: 16px;
-            height: 16px;
-        }
-
-        .event-row-wrapper {
-            margin-bottom: 44px;
-        }
-
-        .event-tag {
-            gap: 6px;
-            padding: 5px 12px;
-
-            .tag-year,
-            .tag-location {
-                font-size: 20px;
-                letter-spacing: 1px;
-            }
-
-            .tag-sep {
-                font-size: 16px;
-            }
-        }
-
-        .polaroid-wrap {
-            padding: 8px 8px 22px;
-
-            &::before {
-                width: 50px;
-                height: 14px;
-            }
-        }
-
-        .event-caption {
-            font-size: 22px;
-        }
-    }
-}

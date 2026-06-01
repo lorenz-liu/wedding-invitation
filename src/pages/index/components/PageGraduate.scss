@@ -39,7 +39,7 @@
 
     .grad-headline {
         font-family: "Main", sans-serif;
-        font-size: 280px;
+        font-size: 50px;
         color: $color-accent;
         letter-spacing: 6px;
         margin-bottom: $spacing-lg;
@@ -90,11 +90,3 @@
     }
 }
 
-@media (max-width: 480px) {
-    .page-graduate {
-        .grad-headline {
-            font-size: 40px;
-            letter-spacing: 4px;
-        }
-    }
-}

@@ -34,7 +34,7 @@ export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => {
           delay={250}
           duration={700}
         >
-          <Text className="grad-headline">硕士毕业啦！</Text>
+          <Text className="grad-headline">硕士毕业！</Text>
         </AnimatedView>
 
         <AnimatedView

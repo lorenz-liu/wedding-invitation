@@ -177,22 +177,3 @@
     }
 }
 
-@media (max-width: 768px) {
-    .page-location {
-        .location-header {
-            .location-city,
-            .location-venue {
-                font-size: 44px;
-            }
-
-            .ring-icon-wrapper {
-                right: -36px;
-
-                .header-ring {
-                    width: 32px;
-                    height: 32px;
-                }
-            }
-        }
-    }
-}

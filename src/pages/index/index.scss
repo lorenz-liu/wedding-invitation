@@ -44,16 +44,3 @@
   }
 }
 
-@media (max-width: 480px) {
-  .index {
-    .page-indicator {
-      right: 12px;
-      gap: 8px;
-
-      .indicator-dot {
-        width: 6px;
-        height: 6px;
-      }
-    }
-  }
-}
