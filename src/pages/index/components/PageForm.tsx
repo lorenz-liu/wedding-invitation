@@ -458,14 +458,13 @@ export const PageForm: React.FC<PageFormProps> = ({
             <View className="section-header">
               <View className="section-number">04</View>
               <Text className="section-title">其他留言</Text>
-              <Text className="section-desc">任何想说的话</Text>
             </View>
             <View className="text-area-wrapper">
               <Textarea
                 className="text-area"
                 value={formData.notes}
                 onInput={(e) => handleInputChange("notes", e.detail.value)}
-                placeholder="任何想对我们说的悄悄话..."
+                placeholder="任何想对我们说的悄悄话"
               />
               <View className="paper-lines">
                 <View className="paper-line" />
