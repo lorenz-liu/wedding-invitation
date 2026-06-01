@@ -70,7 +70,12 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
   return (
     <View className="page page-schedule">
       <View className="content-wrapper">
-        <AnimatedView animation="fadeInUp" isActive={isActive} duration={600}>
+        <AnimatedView
+          animation="fadeInUp"
+          isActive={isActive}
+          duration={600}
+          className="schedule-title-wrap"
+        >
           <Text className="page-title">当日安排</Text>
         </AnimatedView>
 

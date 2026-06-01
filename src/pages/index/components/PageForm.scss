@@ -96,8 +96,8 @@
     }
 
     .form-title {
-        font-family: "Main", "PingFang SC", sans-serif;
-        font-size: 75px;
+        font-family: "ThinBlack", "PingFang SC", sans-serif;
+        font-size: 60px;
         color: $color-primary;
         letter-spacing: 16px;
         margin-bottom: 12px;
@@ -109,7 +109,7 @@
     }
 
     .form-subtitle {
-        font-family: "Main", "PingFang SC", sans-serif;
+        font-family: "ThinBlack", "PingFang SC", sans-serif;
         font-size: 25px;
         color: $color-secondary;
         letter-spacing: 4px;
@@ -158,9 +158,9 @@
     }
 
     .section-desc {
-        font-family: "Main", "PingFang SC", sans-serif;
+        font-family: "ThinBlack", "PingFang SC", sans-serif;
         font-size: 21px;
-        color: $color-secondary;
+        color: $color-accent;
         flex: 1;
     }
 }
@@ -359,7 +359,7 @@
         }
 
         .add-text {
-            font-family: "Main", "PingFang SC", sans-serif;
+            font-family: "ThinBlack", "PingFang SC", sans-serif;
             font-size: 21px;
             color: $color-secondary;
         }

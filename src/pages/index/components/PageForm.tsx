@@ -293,7 +293,6 @@ export const PageForm: React.FC<PageFormProps> = ({
             <View className="section-header">
               <View className="section-number">02</View>
               <Text className="section-title">同行宾客</Text>
-              <Text className="section-desc">包括自己在内的所有赴宴人员</Text>
             </View>
             <View className="guests-list">
               {formData.guests.map((guest, index) => (
@@ -354,7 +353,7 @@ export const PageForm: React.FC<PageFormProps> = ({
                 onClick={handleDrivingToggle}
               >
                 <View className="transport-icon">🚗</View>
-                <Text className="transport-label">自驾前往</Text>
+                <Text className="transport-label">自行前往</Text>
                 <View
                   className={`selection-ring ${formData.isDriving ? "active" : ""}`}
                 >

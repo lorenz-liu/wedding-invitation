@@ -48,17 +48,21 @@
     }
   }
 
+  .schedule-title-wrap {
+    margin-bottom: $spacing-xl;
+  }
+
   .page-title {
     font-family: 'ThinBlack', sans-serif;
     font-size: 50px;
     color: $color-primary;
     letter-spacing: 8px;
-    margin-bottom: $spacing-sm;
+    margin-bottom: 0;
   }
 
   .title-line {
     width: 120px;
-    margin-bottom: $spacing-xl;
+    margin-bottom: $spacing-xxl;
   }
 
   .schedule-list {
