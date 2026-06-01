@@ -67,6 +67,62 @@ export const PageForm: React.FC<PageFormProps> = ({
     onScrollTopChange?.(0);
   }, [submitted, onScrollTopChange]);
 
+  function CreditFooter() {
+    return (
+      <View>
+<AnimatedView
+      animation="fadeIn"
+      isActive={isActive}
+      delay={1100}
+      duration={600}
+    >
+      <View className="form-footer">
+        <Text className="footer-text">感谢您的回复，期待与您相见</Text>
+        <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
+      </View>
+    </AnimatedView>
+
+    <AnimatedView
+      animation="fadeIn"
+      isActive={isActive}
+      delay={1200}
+      duration={600}
+    >
+      <View className="form-credits-wrap">
+        <View className="form-credits">
+          <View className="credits-line-wrap">
+            <Text className="credits-line">
+              平面与交互设计 by 新娘 高文珩
+            </Text>
+            <Image
+              className="credits-signature"
+              src={images.signatureGao}
+              mode="heightFix"
+            />
+          </View>
+          <Text className="credits-line credits-en">
+            Graphic & Interactive Design by Wenheng Gao, the Bride
+          </Text>
+          <View className="credits-line-wrap">
+            <Text className="credits-line">
+              代码开发与维护 by 新郎 刘兆薰
+            </Text>
+            <Image
+              className="credits-signature"
+              src={images.signatureNiu}
+              mode="heightFix"
+            />
+          </View>
+          <Text className="credits-line credits-en">
+            Engineered & Maintained by Zhaoxun Liu, the Groom
+          </Text>
+        </View>
+      </View>
+    </AnimatedView>
+      </View>
+    )
+  }
+
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -205,9 +261,7 @@ export const PageForm: React.FC<PageFormProps> = ({
                 重新填写
               </Button>
             </View>
-            <View className="form-footer">
-              <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
-            </View>
+            <CreditFooter />
           </AnimatedView>
         </View>
       </ScrollView>
@@ -466,57 +520,7 @@ export const PageForm: React.FC<PageFormProps> = ({
             </Button>
           </View>
         </AnimatedView>
-
-        {/* Footer */}
-        <AnimatedView
-          animation="fadeIn"
-          isActive={isActive}
-          delay={1100}
-          duration={600}
-        >
-          <View className="form-footer">
-            <Text className="footer-text">感谢您的回复，期待与您相见</Text>
-            <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
-          </View>
-        </AnimatedView>
-
-        <AnimatedView
-          animation="fadeIn"
-          isActive={isActive}
-          delay={1200}
-          duration={600}
-        >
-          <View className="form-credits-wrap">
-            <View className="form-credits">
-              <View className="credits-line-wrap">
-                <Text className="credits-line">
-                  视觉与交互设计 by 新娘 高文珩
-                </Text>
-                <Image
-                  className="credits-signature"
-                  src={images.signatureGao}
-                  mode="heightFix"
-                />
-              </View>
-              <Text className="credits-line credits-en">
-                Graphic & Interactive Design by Wenheng Gao, the Bride
-              </Text>
-              <View className="credits-line-wrap">
-                <Text className="credits-line">
-                  代码开发与维护 by 新郎 刘兆薰
-                </Text>
-                <Image
-                  className="credits-signature"
-                  src={images.signatureNiu}
-                  mode="heightFix"
-                />
-              </View>
-              <Text className="credits-line credits-en">
-                Engineered & Maintained by Zhaoxun Liu, the Groom
-              </Text>
-            </View>
-          </View>
-        </AnimatedView>
+        <CreditFooter />
       </View>
     </ScrollView>
   );
