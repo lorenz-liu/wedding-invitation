@@ -22,7 +22,7 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
       longitude: VENUE.longitude,
       name: VENUE.name,
       address: VENUE.address,
-      scale: 18,
+      scale: 16,
     });
   };
 
@@ -32,7 +32,7 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
         className="map-fullscreen"
         longitude={VENUE.longitude}
         latitude={VENUE.latitude}
-        scale={15}
+        scale={16}
         markers={[
           {
             id: 1,
