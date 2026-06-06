@@ -53,7 +53,7 @@
 
         .date-day {
             font-family: "Main", sans-serif;
-            font-size: $font-size-xl;
+            font-size: 5.5vw;
             color: $color-secondary;
             margin-top: $spacing-xs;
             letter-spacing: 2px;
@@ -62,7 +62,7 @@
 
     .arrival-text {
         font-family: "ThinBlack", sans-serif;
-        font-size: $font-size-xxl;
+        font-size: 6vw;
         color: $color-primary;
         margin: $spacing-md 0;
         margin-top: $spacing-xl;
@@ -77,7 +77,7 @@
 
         .deco-text {
             font-family: "Main", sans-serif;
-            font-size: $font-size-xl;
+            font-size: 5.5vw;
             color: $color-accent;
             letter-spacing: 2px;
         }

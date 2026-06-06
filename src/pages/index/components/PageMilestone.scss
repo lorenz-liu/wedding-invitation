@@ -45,7 +45,7 @@
 
     .year-count {
         font-family: "Main", sans-serif;
-        font-size: 70px;
+        font-size: 9.3vw;
         color: $color-accent;
         letter-spacing: 16px;
         text-shadow: 3px 3px 6px rgba(201, 168, 124, 0.3);
@@ -53,7 +53,7 @@
 
     .context-text {
         font-family: "ThinBlack", sans-serif;
-        font-size: 30px;
+        font-size: 5vw;
         color: $color-secondary;
         line-height: 1.8;
         display: block;
@@ -71,12 +71,6 @@
             width: 50px;
             height: 50px;
         }
-
-        .ms-plus {
-            font-family: "Main", sans-serif;
-            font-size: $font-size-xxl;
-            color: $color-accent;
-        }
     }
 
     .poetry-block {
@@ -85,7 +79,7 @@
 
     .poetry-text {
         font-family: "Main", sans-serif;
-        font-size: $font-size-xl;
+        font-size: 5vw;
         color: $color-primary;
         line-height: 1.5;
         margin: 0;
@@ -111,7 +105,7 @@
             content: "◆";
             position: absolute;
             color: $color-accent;
-            font-size: 15px;
+            font-size: 2vw;
         }
 
         &::before {
@@ -126,7 +120,7 @@
 
         .date-highlight {
             font-family: "ThinBlack", sans-serif;
-            font-size: 50px;
+            font-size: 6.61vw;
             color: $color-accent;
             display: block;
             margin-bottom: $spacing-sm;
@@ -135,7 +129,7 @@
 
         .we-text {
             font-family: "ThinBlack", sans-serif;
-            font-size: 30px;
+            font-size: 4vw;
             color: $color-secondary;
             letter-spacing: 2px;
         }

@@ -41,7 +41,7 @@
     .header-subtitle {
         display: block;
         font-family: "ThinBlack", sans-serif;
-        font-size: 36px;
+        font-size: 4.76vw;
         color: $color-primary;
         letter-spacing: 6px;
         margin-bottom: 16px;
@@ -50,7 +50,7 @@
     .header-intro {
         display: block;
         font-family: "Main", sans-serif;
-        font-size: 24px;
+        font-size: 3.18vw;
         color: $color-text-secondary;
         line-height: 1.7;
         max-width: 480px;
@@ -162,20 +162,20 @@
 
         .tag-year {
             font-family: "Main", sans-serif;
-            font-size: 22px;
+            font-size: 2.91vw;
             color: $color-primary;
             font-weight: bold;
             letter-spacing: 1px;
         }
 
         .tag-sep {
-            font-size: 22px;
+            font-size: 2.91vw;
             color: rgba(44, 44, 44, 0.4);
         }
 
         .tag-location {
             font-family: "Main", sans-serif;
-            font-size: 22px;
+            font-size: 2.91vw;
             color: $color-primary;
             letter-spacing: 2px;
         }
@@ -234,7 +234,7 @@
 
     .event-caption {
         font-family: "Main", sans-serif;
-        font-size: 28px;
+        font-size: 3.7vw;
         color: $color-text-primary;
         line-height: 1.4;
         letter-spacing: 1px;

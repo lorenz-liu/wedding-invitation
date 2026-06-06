@@ -20,7 +20,7 @@ export const ALIYUN_FC_BASE_URL = "REPLACE_AFTER_FC_DEPLOY";
 /**
  * Bump when you upload new images/fonts to OSS so clients fetch fresh files.
  */
-export const ASSETS_CACHE_VERSION = "1";
+export const ASSETS_CACHE_VERSION = "202606060103";
 
 export function isAliyunConfigured(): boolean {
   return (
