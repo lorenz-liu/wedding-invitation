@@ -192,18 +192,46 @@ https://wedding-asset.oss-cn-chengdu.aliyuncs.com/assets/images/homepage-niu.png
 
 ```bash
 pnpm install
-
-# 首次：把 OAuth 凭证同步给 Serverless Devs（部署前若 token 过期可重跑）
-pnpm s:config
-
 pnpm deploy:aliyun
 ```
 
-`deploy:aliyun` 使用项目内的 `@serverless-devs/s`（`pnpm exec s`），无需全局安装 `s`。
+`deploy:aliyun` 会：
 
-若仍提示 `Not found access: default`，先执行 `pnpm s:config`。
+1. 打包 `infra/aliyun/fc` 为 zip
+2. 上传到 `oss://wedding-asset/deploy/fc/wedding-invitation-api.zip`
+3. 通过 FC OpenAPI 创建/更新函数与 HTTP 触发器
 
-等价于在 `infra/aliyun` 下执行 `pnpm exec s deploy -y`。
+仅上传代码包（不调用 FC API）：
+
+```bash
+pnpm deploy:aliyun -- --upload-only
+```
+
+#### OAuth 与 FC 的已知限制（重要）
+
+`aliyun configure --mode OAuth` 对 **OSS、Tablestore** 正常，但 **Function Compute OpenAPI 目前不支持 OAuth STS**，会报错：
+
+```
+AccessDenied: missing parameter SecurityToken
+```
+
+这是阿里云已知问题：[aliyun-cli#1271](https://github.com/aliyun/aliyun-cli/issues/1271)。  
+因此 **`pnpm deploy:aliyun:s`（Serverless Devs）在 OAuth 下也会失败**（常见为 `GET /tempBucketToken failed with 500`，根因同样是 FC + OAuth）。
+
+任选一种方式完成 FC 部署：
+
+| 方式 | 说明 |
+|------|------|
+| **RAM AccessKey profile** | 创建仅有 FC/OSS 部署权限的 RAM 用户，`aliyun configure --mode AK --profile wedding-fc`，然后 `pnpm deploy:aliyun -- --profile wedding-fc` |
+| **CloudShell** | 在 [CloudShell](https://shell.aliyun.com/) 中 clone 项目并执行 `pnpm deploy:aliyun` |
+| **控制台手动** | 先 `pnpm deploy:aliyun -- --upload-only`，再在 FC 控制台创建函数，代码来源选 OSS：`wedding-asset` / `deploy/fc/wedding-invitation-api.zip` |
+
+旧版 Serverless Devs 路径（需 AK，OAuth 不可用）：
+
+```bash
+pnpm s:config
+pnpm deploy:aliyun:s
+```
 
 部署完成后：FC 控制台 → 函数 **`wedding-invitation-api`** → **触发器** → 复制 **公网访问地址**，形如：
 
@@ -385,6 +413,8 @@ API 说明与故障排查见 [aliyun/SETUP.md](./aliyun/SETUP.md)。
 |------|--------|
 | 浏览器打开 OSS URL 出现 XML `AccessDenied` / bucket acl | 桶 ACL 设为公共读；关闭「阻止公共访问」；必要时加 Bucket 策略；重新 `pnpm upload:oss-assets` |
 | 脚本报凭据错误 | 是否已 `aliyun configure --mode OAuth --profile wedding`；`aliyun sts GetCallerIdentity --profile wedding` |
+| FC 部署 `missing parameter SecurityToken` | OAuth 不支持 FC API；改用 RAM AK profile、CloudShell 或控制台手动部署（见上文 §6） |
+| FC 部署 `tempBucketToken 500` | Serverless Devs + OAuth 的同一问题；改用 `pnpm deploy:aliyun` + AK profile |
 | 图片/字体 403 或加载失败 | OSS 公共读、CORS、微信 downloadFile 合法域名 |
 | 资源仍是旧版 | 是否 bump `ASSETS_CACHE_VERSION` 并重新 `build:weapp` |
 | 表单提交失败 | `ALIYUN_FC_BASE_URL`、FC RAM 角色、微信 request 合法域名 |
