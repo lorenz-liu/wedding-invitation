@@ -15,7 +15,7 @@ export const ALIYUN_OSS_BASE_URL =
  * Function Compute HTTP trigger base URL (no trailing slash).
  * Replace after `pnpm deploy:aliyun`.
  */
-export const ALIYUN_FC_BASE_URL = "REPLACE_AFTER_FC_DEPLOY";
+export const ALIYUN_FC_BASE_URL = "https://weddingtion-api-psnzcgebbh.cn-chengdu.fcapp.run";
 
 /**
  * Bump when you upload new images/fonts to OSS so clients fetch fresh files.
