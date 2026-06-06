@@ -1,8 +1,13 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import Taro, { useReady } from "@tarojs/taro";
+import { AssetLoadingScreen } from "../../components/AssetLoadingScreen";
 import { AudioControl } from "../../components/AudioControl";
 import { useBackgroundAudio } from "../../hooks/useAudio";
+import {
+  preloadAllAssets,
+  type AssetLoadProgress,
+} from "../../utils/assetPreloader";
 import { PageHome } from "./components/PageHome";
 import { PageStoryTitle } from "./components/PageStoryTitle";
 import { PageBirth } from "./components/PageBirth";
@@ -48,6 +53,11 @@ function persistPageIndex(pageIndex: number): void {
 }
 
 const Index: React.FC = () => {
+  const [assetsReady, setAssetsReady] = useState(false);
+  const [progress, setProgress] = useState<AssetLoadProgress | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const preloadStartedRef = useRef(false);
+
   const [currentPage, setCurrentPage] = useState(readSavedPageIndex);
   const [isAnimating, setIsAnimating] = useState(false);
   const { isPlaying, togglePlay, initAudio } = useBackgroundAudio();
@@ -55,22 +65,44 @@ const Index: React.FC = () => {
   const formScrollTopRef = React.useRef(0);
   const [audioInitialized, setAudioInitialized] = useState(false);
 
+  const startPreload = useCallback(async () => {
+    setError(null);
+    setProgress(null);
+    setAssetsReady(false);
+
+    try {
+      await preloadAllAssets((next) => setProgress(next));
+      setAssetsReady(true);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "资源加载失败，请检查网络后重试";
+      console.error("[assets] Preload failed:", err);
+      setError(message);
+    }
+  }, []);
+
+  useReady(() => {
+    if (preloadStartedRef.current) return;
+    preloadStartedRef.current = true;
+    void startPreload();
+  });
+
   useEffect(() => {
     if (currentPage !== FORM_PAGE_INDEX) {
       formScrollTopRef.current = 0;
     }
   }, [currentPage]);
 
-  // Auto-init audio once on component mount
+  // Auto-init audio after assets are preloaded
   useEffect(() => {
-    if (!audioInitialized) {
-      const timer = setTimeout(() => {
-        initAudio();
-        setAudioInitialized(true);
-      }, 800);
-      return () => clearTimeout(timer);
-    }
-  }, [initAudio, audioInitialized]);
+    if (!assetsReady || audioInitialized) return;
+
+    const timer = setTimeout(() => {
+      initAudio();
+      setAudioInitialized(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [assetsReady, initAudio, audioInitialized]);
 
   const goToPage = useCallback(
     (pageIndex: number) => {
@@ -168,6 +200,18 @@ const Index: React.FC = () => {
       e.stopPropagation?.();
     }
   };
+
+  if (!assetsReady) {
+    return (
+      <AssetLoadingScreen
+        progress={progress}
+        error={error}
+        onRetry={() => {
+          void startPreload();
+        }}
+      />
+    );
+  }
 
   return (
     <View
