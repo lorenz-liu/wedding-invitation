@@ -115,9 +115,16 @@
         }
 
         .agenda-img {
-          width: 72px;
           display: block;
         }
+      }
+
+      &:nth-child(-n + 2) .agenda-img {
+        width: 10vw;
+      }
+
+      &:nth-child(n + 3) .agenda-img {
+        width: 13vw;
       }
 
       .schedule-card {
