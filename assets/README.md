@@ -11,7 +11,7 @@ assets/
 
 ## Upload to Aliyun OSS
 
-Recommended: run in **CloudShell**, or locally after `aliyun configure --mode OAuth` (no long-lived AccessKey). See [infra/aliyun/SETUP.md](../infra/aliyun/SETUP.md).
+Recommended: run in **CloudShell**, or locally after `aliyun configure --mode OAuth` (no long-lived AccessKey). See [infra/README.md](../infra/README.md).
 
 ```bash
 pnpm upload:oss-assets

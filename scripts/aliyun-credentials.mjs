@@ -33,6 +33,6 @@ export function aliyunAuthHelpText() {
     "  2. Local: aliyun configure --mode OAuth",
     "  3. Cloud SSO: aliyun configure --mode CloudSSO",
     "  4. Optional: export ALIBABA_CLOUD_ACCESS_KEY_ID / ALIBABA_CLOUD_ACCESS_KEY_SECRET",
-    "See infra/aliyun/SETUP.md",
+    "See infra/README.md",
   ].join("\n");
 }

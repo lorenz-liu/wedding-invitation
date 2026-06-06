@@ -10,7 +10,7 @@
 
 前端：使用Taro（使用React + TypeScript + pnpm管理包），自由选择你认为最合适的动效库。默认字体：think-black。地图组件使用腾讯地图API，地点marker设置在成都慕上OnTheMoon。整个应用需要随时有一个背景音乐（our-love.mp3），该音乐在用户进入应用则开始循环播放。
 
-后端：使用阿里云（函数计算 + Tablestore + OSS；可选阿里云短信），配置位于 `infra/aliyun/`
+后端：使用阿里云（函数计算 + Tablestore + OSS；可选阿里云短信），部署文档见 `infra/README.md`
 
 ### 开发原则
 

@@ -55,14 +55,14 @@ wedding-invitation/
 │   ├── pages/            # 页面组件
 │   ├── constants/        # 阿里云等配置
 │   └── utils/            # 工具函数
-├── infra/aliyun/         # 函数计算 + Tablestore + OSS
+├── infra/                # 阿里云部署文档与 FC 代码
 ├── assets/               # 静态资源（上传至 OSS）
 └── scripts/              # OSS 上传脚本等
 ```
 
 ## ☁️ 阿里云部署
 
-宾客回函、静态资源 CDN 均运行在阿里云（cn-chengdu）。详见 [infra/aliyun/SETUP.md](infra/aliyun/SETUP.md)。
+宾客回函、静态资源 CDN 均运行在阿里云（cn-chengdu）。详见 [infra/README.md](infra/README.md)。
 
 ```bash
 # 1. 创建 Tablestore 表
