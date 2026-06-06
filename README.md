@@ -10,7 +10,7 @@
 - 📖 **Scrollytelling** - 丝滑的滚动叙事体验
 - 🗺️ **腾讯地图** - 内置地图导航
 - 📝 **宾客表单** - 完整的 RSVP 表单系统
-- ☁️ **阿里云后端** - 函数计算 API + Tablestore + OSS CDN（可选阿里云短信）
+- ☁️ **阿里云后端** - 函数计算 API + Tablestore + OSS CDN
 
 ## 🚀 快速开始
 

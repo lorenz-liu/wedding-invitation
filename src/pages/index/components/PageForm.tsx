@@ -237,11 +237,7 @@ export const PageForm: React.FC<PageFormProps> = ({
             duration={600}
           >
             <View className="thanks-body">
-              <Text className="thanks-message">
-                我们已收到您的回函。
-                {"\n"}
-                如有填写手机号，确认短信将发送至您的手机。
-              </Text>
+              <Text className="thanks-message">我们已收到您的回函。</Text>
               <Text className="thanks-detail">
                 2026年7月25日 · 成都
                 {"\n"}

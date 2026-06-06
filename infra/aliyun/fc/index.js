@@ -2,7 +2,6 @@
 
 const { sendJson, sendText, sendOptions } = require("./lib/cors");
 const { insertGuest } = require("./lib/tablestore");
-const { sendSms } = require("./lib/sms");
 
 function readJsonBody(req) {
   if (!req.body) return null;
@@ -60,19 +59,13 @@ async function handleGuestForm(req, resp, originHeader) {
     return;
   }
 
-  let smsSent = false;
-  if (normalizedPhone) {
-    smsSent = await sendSms(normalizedPhone);
-  }
-
   sendJson(
     resp,
     200,
     {
       success: true,
       id,
-      smsSent,
-      message: smsSent ? "感谢您的回复！确认短信已发送。" : "感谢您的回复！",
+      message: "感谢您的回复！",
     },
     originHeader,
   );

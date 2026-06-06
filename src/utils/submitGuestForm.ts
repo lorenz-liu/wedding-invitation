@@ -15,7 +15,6 @@ export interface GuestFormPayload {
 export interface GuestFormResult {
   success: boolean;
   id?: string;
-  smsSent?: boolean;
   message?: string;
   error?: string;
 }

@@ -7,7 +7,7 @@ infra/
 └── aliyun/
     ├── s.yaml          # Serverless Devs 部署配置（FC 3.0）
     ├── SETUP.md        # 补充说明（详细 API / 故障排查）
-    └── fc/             # 函数计算源码（宾客表单 API + 短信）
+    └── fc/             # 函数计算源码（宾客表单 API）
 ```
 
 项目根目录的脚本负责 Tablestore 建表与 OSS 上传：
@@ -30,7 +30,6 @@ infra/
 | 宾客表单 API | 函数计算 FC 3.0 | 函数名 `wedding-invitation-api` |
 | 数据库 | 表格存储 Tablestore | 实例 `wedding`，表 `guests` |
 | 静态资源 CDN | 对象存储 OSS | 桶 `wedding-asset`（公共读） |
-| 短信（可选） | 短信服务 SMS | 签名 + 模板 CODE |
 
 固定 endpoint / URL：
 
@@ -74,7 +73,7 @@ aliyun sts GetCallerIdentity --profile wedding
 | 云 SSO | `aliyun configure --mode CloudSSO` |
 | FC 运行时 | 为函数绑定 **RAM 角色**，不在环境变量写 AccessKey |
 
-当前身份需具备：Tablestore 读写、OSS 桶读写、FC 部署、SMS 发送（若启用短信）。
+当前身份需具备：Tablestore 读写、OSS 桶读写、FC 部署权限。
 
 ### `--profile` 参数
 
@@ -185,18 +184,7 @@ https://wedding-asset.oss-cn-chengdu.aliyuncs.com/assets/images/homepage-niu.png
 
 上传完成后，将 `src/constants/aliyun.ts` 中的 `ASSETS_CACHE_VERSION` 加 1（例如 `"1"` → `"2"`），再重新构建小程序。
 
-### 6. 配置短信（可选）
-
-1. [短信控制台](https://dysms.console.aliyun.com/) 创建签名与模板  
-2. 模板需包含变量 `${content}`（文案见 `infra/aliyun/fc/lib/sms.js` 的 `SMS_MESSAGE`）  
-3. 部署 FC 前 export：
-
-```bash
-export SMS_SIGN_NAME="你的签名"
-export SMS_TEMPLATE_CODE="SMS_xxxxxx"
-```
-
-### 7. 部署函数计算
+### 6. 部署函数计算
 
 ```bash
 pnpm deploy:aliyun
@@ -215,7 +203,6 @@ https://wedding-invitation-api-xxxxx.cn-chengdu.fcapp.run
 FC 控制台 → 函数 → **配置** → **权限** → 绑定 RAM 角色（可信实体：函数计算），策略需包含：
 
 - Tablestore 读写（实例 `wedding`）
-- SMS 发送（若启用短信）
 
 **不要**在环境变量配置 `ALIBABA_CLOUD_ACCESS_KEY_ID` / `ALIBABA_CLOUD_ACCESS_KEY_SECRET`。
 
@@ -226,8 +213,6 @@ FC 控制台 → 函数 → **配置** → **权限** → 绑定 RAM 角色（�
 | `TABLESTORE_INSTANCE` | `wedding` |
 | `TABLESTORE_ENDPOINT` | `https://wedding.cn-chengdu.ots.aliyuncs.com` |
 | `TABLESTORE_TABLE` | `guests` |
-| `SMS_SIGN_NAME` | 可选 |
-| `SMS_TEMPLATE_CODE` | 可选 |
 
 验证 API：
 
@@ -240,7 +225,7 @@ curl -X POST https://YOUR-FC-URL.cn-chengdu.fcapp.run/api/guest-form \
   -d '{"mainContact":"测试","guests":[]}'
 ```
 
-### 8. 配置小程序
+### 7. 配置小程序
 
 编辑 `src/constants/aliyun.ts`：
 
@@ -360,14 +345,10 @@ OSS_BUCKET=wedding-asset pnpm upload:oss-file images/foo.png
 修改 `infra/aliyun/fc/` 下代码后：
 
 ```bash
-# 若改了短信相关配置：
-export SMS_SIGN_NAME="..."
-export SMS_TEMPLATE_CODE="..."
-
 pnpm deploy:aliyun
 ```
 
-仅改 FC 环境变量（如 SMS）时，也可在 FC 控制台直接修改，无需重新部署代码。
+仅改 FC 环境变量时，也可在 FC 控制台直接修改，无需重新部署代码。
 
 API 说明与故障排查见 [aliyun/SETUP.md](./aliyun/SETUP.md)。
 
@@ -395,7 +376,6 @@ API 说明与故障排查见 [aliyun/SETUP.md](./aliyun/SETUP.md)。
 | 资源仍是旧版 | 是否 bump `ASSETS_CACHE_VERSION` 并重新 `build:weapp` |
 | 表单提交失败 | `ALIYUN_FC_BASE_URL`、FC RAM 角色、微信 request 合法域名 |
 | Tablestore 写入失败 | 表 `guests` 是否存在；FC 角色是否有 OTS 权限 |
-| 短信未发送 | 签名/模板是否审核通过；FC 环境变量 `SMS_*`；RAM 是否有 SMS 权限 |
 
 ---
 
@@ -406,5 +386,4 @@ API 说明与故障排查见 [aliyun/SETUP.md](./aliyun/SETUP.md)。
 | `infra/aliyun/s.yaml` | FC 函数名、region、HTTP 触发器、环境变量模板 |
 | `infra/aliyun/fc/index.js` | 路由：`/health`、`/api/guest-form` |
 | `infra/aliyun/fc/lib/tablestore.js` | 写入宾客数据到 `guests` 表 |
-| `infra/aliyun/fc/lib/sms.js` | 阿里云短信发送 |
 | `src/constants/aliyun.ts` | 小程序侧 OSS / FC URL 与资源缓存版本 |

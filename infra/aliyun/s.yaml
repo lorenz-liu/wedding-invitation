@@ -21,8 +21,6 @@ resources:
         TABLESTORE_INSTANCE: wedding
         TABLESTORE_ENDPOINT: https://wedding.cn-chengdu.ots.aliyuncs.com
         TABLESTORE_TABLE: guests
-        SMS_SIGN_NAME: ${env(SMS_SIGN_NAME)}
-        SMS_TEMPLATE_CODE: ${env(SMS_TEMPLATE_CODE)}
       triggers:
         - triggerName: httpTrigger
           triggerType: http

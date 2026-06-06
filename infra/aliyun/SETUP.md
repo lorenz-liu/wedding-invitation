@@ -35,8 +35,7 @@
 {
   "success": true,
   "id": "1710000000000-abc123",
-  "smsSent": true,
-  "message": "感谢您的回复！确认短信已发送。"
+  "message": "感谢您的回复！"
 }
 ```
 
@@ -58,18 +57,6 @@
 | `shuttle_location` | shuttle 地点 |
 | `notes` | 备注 |
 | `created_at` | ISO 时间戳 |
-
----
-
-## 短信模板
-
-默认模板变量为 `${content}`，正文见 `fc/lib/sms.js` 中的 `SMS_MESSAGE`。
-
-若模板使用其他变量名，在 FC 环境变量设置 `SMS_TEMPLATE_PARAM`，例如：
-
-```json
-{"content":"自定义全文"}
-```
 
 ---
 
