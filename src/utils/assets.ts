@@ -2,7 +2,7 @@ import { resolveAssetPath } from "./assetResolver";
 
 /**
  * Resolve a path under the project `assets/` folder.
- * weapp → Cloudflare CDN URL; h5 → local `/assets/...` when CDN not configured.
+ * weapp → Aliyun OSS HTTPS URL; h5 → local `/assets/...` when not configured.
  */
 export function assetPath(relativePath: string): string {
   return resolveAssetPath(relativePath);

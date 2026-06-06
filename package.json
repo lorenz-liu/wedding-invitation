@@ -30,10 +30,10 @@
     "lint:biome": "biome lint .",
     "check:biome": "biome check --write .",
     "check:biome:ci": "biome check .",
-    "upload:r2-assets": "node scripts/upload-r2-assets.mjs",
-    "upload:r2-file": "node scripts/upload-r2-file.mjs",
-    "deploy:cloudflare": "cd infra/cloudflare && pnpm install && pnpm run deploy",
-    "db:migrate": "cd infra/cloudflare && wrangler d1 execute wedding-guests --remote --file=schema.sql"
+    "upload:oss-assets": "node scripts/upload-oss-assets.mjs",
+    "upload:oss-file": "node scripts/upload-oss-file.mjs",
+    "deploy:aliyun": "cd infra/aliyun/fc && npm install && cd .. && s deploy -y",
+    "db:init-tablestore": "node scripts/init-tablestore.mjs"
   },
   "browserslist": [
     "last 3 versions",
@@ -94,6 +94,9 @@
     "react-refresh": "^0.14.0",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.1",
+    "ali-oss": "^6.23.0",
+    "@alicloud/credentials": "^2.4.2",
+    "tablestore": "^5.6.0",
     "style-loader": "^4.0.0",
     "stylelint": "^16.3.1",
     "typescript": "^5.4.5",

@@ -9,17 +9,23 @@ assets/
 └── music/     # .mp3 and other audio
 ```
 
-## Upload to Cloudflare R2
+## Upload to Aliyun OSS
 
-After deploying the Worker:
+Recommended: run in **CloudShell**, or locally after `aliyun configure --mode OAuth` (no long-lived AccessKey). See [infra/aliyun/SETUP.md](../infra/aliyun/SETUP.md).
 
 ```bash
-pnpm upload:r2-assets
+pnpm upload:oss-assets
 ```
 
-Assets are served at `https://YOUR_WORKER_URL/assets/...`.
+Assets are served at `https://wedding-asset.oss-cn-chengdu.aliyuncs.com/assets/...`.
 
-Set `CLOUDFLARE_PUBLIC_BASE_URL` in `src/constants/cloudflare.ts`, then rebuild.
+Set `ASSETS_CACHE_VERSION` in `src/constants/aliyun.ts`, then rebuild.
+
+Single file:
+
+```bash
+pnpm upload:oss-file images/homepage-niu.png
+```
 
 ## Usage in code
 

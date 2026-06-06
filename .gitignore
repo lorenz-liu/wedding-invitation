@@ -2,7 +2,6 @@ dist/
 .deploy/
 *.local.*
 node_modules/
-cloudfunctions/**/node_modules/
-infra/cloudflare/node_modules/
+infra/aliyun/fc/node_modules/
 .DS_Store
 .swc

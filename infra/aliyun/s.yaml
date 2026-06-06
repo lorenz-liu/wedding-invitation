@@ -1,0 +1,34 @@
+edition: 3.0.0
+name: wedding-invitation
+access: default
+
+vars:
+  region: cn-chengdu
+
+resources:
+  wedding-api:
+    component: fc3
+    props:
+      region: ${vars.region}
+      functionName: wedding-invitation-api
+      description: Wedding invitation guest form API
+      runtime: nodejs20
+      handler: index.handler
+      code: ./fc
+      memorySize: 512
+      timeout: 60
+      environmentVariables:
+        TABLESTORE_INSTANCE: wedding
+        TABLESTORE_ENDPOINT: https://wedding.cn-chengdu.ots.aliyuncs.com
+        TABLESTORE_TABLE: guests
+        SMS_SIGN_NAME: ${env(SMS_SIGN_NAME)}
+        SMS_TEMPLATE_CODE: ${env(SMS_TEMPLATE_CODE)}
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          triggerConfig:
+            authType: anonymous
+            methods:
+              - GET
+              - POST
+              - OPTIONS

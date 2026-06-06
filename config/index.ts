@@ -8,7 +8,7 @@ function getBuildType(): string | undefined {
   return process.env.TARO_ENV;
 }
 
-// Weapp uses Cloudflare CDN; H5 copies local assets when CDN is not configured.
+// Weapp uses Aliyun OSS; H5 copies local assets when FC URL is not configured.
 const assetCopyPatterns =
   getBuildType() === "weapp" ? [] : require("../scripts/asset-copy-patterns");
 

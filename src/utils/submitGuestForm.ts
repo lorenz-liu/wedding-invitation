@@ -24,7 +24,7 @@ export async function submitGuestForm(
   formData: GuestFormPayload,
 ): Promise<GuestFormResult> {
   if (!isFormBackendConfigured()) {
-    throw new Error("请先部署 Cloudflare Worker 并配置 CLOUDFLARE_PUBLIC_BASE_URL");
+    throw new Error("请先部署阿里云函数计算并配置 ALIYUN_FC_BASE_URL");
   }
 
   const response = await Taro.request({

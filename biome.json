@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!!**/dist", "!!**/infra/cloudflare/node_modules"]
+    "includes": ["**", "!!**/dist", "!!**/infra/aliyun/fc/node_modules"]
   },
   "formatter": {
     "enabled": true,

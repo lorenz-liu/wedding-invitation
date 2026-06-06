@@ -1,8 +1,8 @@
 import {
-  cloudflareAssetUrl,
+  aliyunAssetUrl,
   guestFormApiUrl,
-  isCloudflareConfigured,
-} from "./cloudflare";
+  isAliyunConfigured,
+} from "./aliyun";
 
 export const FORM_SUBMITTED_KEY = "wedding-form-submitted";
 
@@ -11,7 +11,7 @@ export const RESUME_LAST_PAGE_KEY = "wedding-last-page-index";
 export const RESUME_LAST_PAGE_ENABLED = true;
 
 export function isFormBackendConfigured(): boolean {
-  return isCloudflareConfigured();
+  return isAliyunConfigured();
 }
 
 export function getGuestFormApiUrl(): string {
@@ -19,5 +19,5 @@ export function getGuestFormApiUrl(): string {
 }
 
 export function getCdnAssetUrl(relativePath: string): string {
-  return cloudflareAssetUrl(relativePath);
+  return aliyunAssetUrl(relativePath);
 }

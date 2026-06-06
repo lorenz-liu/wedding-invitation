@@ -10,7 +10,7 @@
 - 📖 **Scrollytelling** - 丝滑的滚动叙事体验
 - 🗺️ **腾讯地图** - 内置地图导航
 - 📝 **宾客表单** - 完整的 RSVP 表单系统
-- ☁️ **Cloudflare 后端** - Workers API + D1 数据库 + R2 CDN（可选腾讯云短信）
+- ☁️ **阿里云后端** - 函数计算 API + Tablestore + OSS CDN（可选阿里云短信）
 
 ## 🚀 快速开始
 
@@ -53,25 +53,28 @@ wedding-invitation/
 │   ├── components/       # 可复用组件
 │   ├── hooks/            # 自定义 Hooks
 │   ├── pages/            # 页面组件
-│   ├── constants/        # Cloudflare 等配置
+│   ├── constants/        # 阿里云等配置
 │   └── utils/            # 工具函数
-├── infra/cloudflare/     # Cloudflare Worker + D1 + R2
-├── assets/               # 静态资源（上传至 R2）
-└── scripts/              # R2 上传脚本等
+├── infra/aliyun/         # 函数计算 + Tablestore + OSS
+├── assets/               # 静态资源（上传至 OSS）
+└── scripts/              # OSS 上传脚本等
 ```
 
-## ☁️ Cloudflare 部署
+## ☁️ 阿里云部署
 
-宾客回函、静态资源 CDN 均运行在 Cloudflare。详见 [infra/cloudflare/SETUP.md](infra/cloudflare/SETUP.md)。
+宾客回函、静态资源 CDN 均运行在阿里云（cn-chengdu）。详见 [infra/aliyun/SETUP.md](infra/aliyun/SETUP.md)。
 
 ```bash
-# 1. 部署 Worker（API + CDN 代理）
-pnpm deploy:cloudflare
+# 1. 创建 Tablestore 表
+pnpm db:init-tablestore
 
-# 2. 上传 assets/ 到 R2
-pnpm upload:r2-assets
+# 2. 上传 assets/ 到 OSS
+pnpm upload:oss-assets
 
-# 3. 配置 src/constants/cloudflare.ts 中的 CLOUDFLARE_PUBLIC_BASE_URL
+# 3. 部署函数计算
+pnpm deploy:aliyun
+
+# 4. 配置 src/constants/aliyun.ts 中的 ALIYUN_FC_BASE_URL
 pnpm build:weapp
 ```
 
@@ -83,7 +86,7 @@ pnpm build:weapp
 
 ### 2. 配置域名白名单
 
-在微信公众平台配置 Cloudflare Worker 域名（request + downloadFile 合法域名），以及腾讯地图 API 域名。
+在微信公众平台配置函数计算域名（request）与 OSS 域名（downloadFile 合法域名），以及腾讯地图 API 域名。
 
 ## 🗺️ 腾讯地图配置
 
