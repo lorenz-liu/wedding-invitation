@@ -102,8 +102,12 @@ pnpm upload:oss-file -- --profile wedding images/foo.png
 ```bash
 pnpm install
 
-npm i -g @serverless-devs/s
-s config add    # 选择 Alibaba Cloud，与 OAuth 同一账号
+npm i -g @alicloud/cli   # 可选，也可只用 brew 等方式安装 aliyun
+aliyun configure --mode OAuth --profile wedding
+
+# 首次部署前：同步 OAuth → Serverless Devs
+pnpm s:config
+s config add    # 若不用 OAuth，也可交互式配置 AccessKey
 ```
 
 ### 2. 验证登录（本地）
@@ -187,10 +191,19 @@ https://wedding-asset.oss-cn-chengdu.aliyuncs.com/assets/images/homepage-niu.png
 ### 6. 部署函数计算
 
 ```bash
+pnpm install
+
+# 首次：把 OAuth 凭证同步给 Serverless Devs（部署前若 token 过期可重跑）
+pnpm s:config
+
 pnpm deploy:aliyun
 ```
 
-等价于在 `infra/aliyun` 下执行 `s deploy -y`。
+`deploy:aliyun` 使用项目内的 `@serverless-devs/s`（`pnpm exec s`），无需全局安装 `s`。
+
+若仍提示 `Not found access: default`，先执行 `pnpm s:config`。
+
+等价于在 `infra/aliyun` 下执行 `pnpm exec s deploy -y`。
 
 部署完成后：FC 控制台 → 函数 **`wedding-invitation-api`** → **触发器** → 复制 **公网访问地址**，形如：
 

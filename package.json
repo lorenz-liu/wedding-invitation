@@ -32,7 +32,8 @@
     "check:biome:ci": "biome check .",
     "upload:oss-assets": "node scripts/upload-oss-assets.mjs",
     "upload:oss-file": "node scripts/upload-oss-file.mjs",
-    "deploy:aliyun": "cd infra/aliyun/fc && npm install && cd .. && s deploy -y",
+    "deploy:aliyun": "npm install --prefix infra/aliyun/fc && cd infra/aliyun && pnpm exec s deploy -y",
+    "s:config": "node scripts/sync-s-config.mjs",
     "db:init-tablestore": "node scripts/init-tablestore.mjs"
   },
   "browserslist": [
@@ -73,6 +74,7 @@
     "@babel/preset-react": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
     "@biomejs/biome": "2.4.15",
+    "@serverless-devs/s": "^3.1.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@tarojs/cli": "4.2.0",
     "@tarojs/plugin-html": "^4.2.0",
