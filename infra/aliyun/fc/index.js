@@ -67,17 +67,26 @@ async function handleGuestForm(rawBody, originHeader) {
 
 exports.handler = async (event) => {
   const { method, path, body, origin } = parseHttpEvent(event);
-  console.log("FC route:", method, path);
+  console.log("FC route:", method, path, {
+    rawPath: event?.rawPath,
+    httpPath: event?.requestContext?.http?.path,
+    headerPath: event?.headers?.[":path"] || event?.headers?.[":Path"],
+    eventKeys: event && typeof event === "object" ? Object.keys(event) : [],
+  });
 
   if (method === "OPTIONS") {
     return optionsResponse(origin);
   }
 
-  if (method === "GET" && path === "/health") {
+  // FC HTTP trigger often reports path as "/" even for /health or /api/guest-form.
+  if (method === "GET" && (path === "/health" || path === "/")) {
     return textResponse(200, "ok", origin);
   }
 
-  if (method === "POST" && path === "/api/guest-form") {
+  if (
+    method === "POST" &&
+    (path === "/api/guest-form" || path === "/")
+  ) {
     return handleGuestForm(body, origin);
   }
 

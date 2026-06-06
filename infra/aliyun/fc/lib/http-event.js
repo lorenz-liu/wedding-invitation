@@ -33,6 +33,18 @@ function normalizePath(path) {
   return normalized;
 }
 
+function pathFromUri(uri) {
+  if (!uri) return null;
+  try {
+    if (/^https?:\/\//i.test(uri)) {
+      return normalizePath(new URL(uri).pathname);
+    }
+  } catch {
+    // fall through to normalizePath
+  }
+  return normalizePath(uri);
+}
+
 function resolveMethod(event, fallbackMethod) {
   return (
     event?.requestContext?.http?.method ||
@@ -42,19 +54,43 @@ function resolveMethod(event, fallbackMethod) {
   ).toUpperCase();
 }
 
-function resolvePath(event) {
-  return normalizePath(
-    event?.requestContext?.http?.path ||
-      event?.rawPath ||
-      event?.path ||
-      "/",
-  );
+function resolvePath(event, headers = {}) {
+  const candidates = [
+    event?.rawPath,
+    headers[":path"],
+    headers["x-forwarded-path"],
+    headers["x-original-uri"] ? pathFromUri(headers["x-original-uri"]) : null,
+    headers["x-fc-request-path"],
+    event?.requestContext?.http?.path,
+    event?.path,
+    event?.url ? pathFromUri(event.url) : null,
+    event?.requestURI ? pathFromUri(event.requestURI) : null,
+  ]
+    .filter(Boolean)
+    .map((value) => normalizePath(value));
+
+  const unique = [...new Set(candidates)];
+  unique.sort((a, b) => b.length - a.length);
+  return unique[0] || "/";
+}
+
+function coerceEvent(event) {
+  if (typeof event === "string") {
+    try {
+      return JSON.parse(event);
+    } catch {
+      return {};
+    }
+  }
+  return event;
 }
 
 /**
  * Normalize FC 3.0 HTTP trigger events and legacy console test payloads.
  */
-function parseHttpEvent(event) {
+function parseHttpEvent(rawEvent) {
+  const event = coerceEvent(rawEvent);
+
   if (!event || typeof event !== "object") {
     return {
       method: "GET",
@@ -69,18 +105,24 @@ function parseHttpEvent(event) {
     const headers = normalizeHeaders(event.headers);
     return {
       method: resolveMethod(event),
-      path: resolvePath(event),
+      path: resolvePath(event, headers),
       body: decodeBody(event.body, event.isBase64Encoded),
       headers,
       origin: headers.origin || "*",
     };
   }
 
-  if (event.method || event.path) {
+  if (
+    event.method ||
+    event.path ||
+    event.url ||
+    event.clientIP ||
+    event.queries
+  ) {
     const headers = normalizeHeaders(event.headers);
     return {
       method: resolveMethod(event),
-      path: resolvePath(event),
+      path: resolvePath(event, headers),
       body: decodeBody(event.body, event.isBase64Encoded),
       headers,
       origin: headers.origin || "*",
