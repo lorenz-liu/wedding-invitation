@@ -319,7 +319,7 @@ export const PageForm: React.FC<PageFormProps> = ({
                   type="number"
                   value={formData.phone}
                   onInput={(e) => handleInputChange("phone", e.detail.value)}
-                  placeholder="选填，用于接收确认短信"
+                  placeholder="选填，便于我们与您联系"
                 />
                 <View className="field-underline" />
               </View>
