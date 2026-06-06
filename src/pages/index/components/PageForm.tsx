@@ -464,7 +464,7 @@ export const PageForm: React.FC<PageFormProps> = ({
                 className="text-area"
                 value={formData.notes}
                 onInput={(e) => handleInputChange("notes", e.detail.value)}
-                placeholder="任何想对我们说的悄悄话"
+                placeholder="任何想对我们说的话"
                 placeholderStyle="color: #c9a87c"
                 placeholderClass="notes-textarea-placeholder"
               />

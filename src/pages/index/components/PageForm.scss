@@ -108,7 +108,7 @@
 
     .form-title {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 60px;
+        font-size: 8vw;
         color: $color-primary;
         letter-spacing: 16px;
         margin-bottom: 12px;
@@ -121,7 +121,7 @@
 
     .form-subtitle {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 25px;
+        font-size: 3.3vw;
         color: $color-secondary;
         letter-spacing: 4px;
     }
@@ -151,7 +151,7 @@
         background: $color-accent;
         color: white;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 21px;
+        font-size: 2.78vw;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -162,7 +162,7 @@
 
     .section-title {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 30px;
+        font-size: 4vw;
         color: $color-primary;
         letter-spacing: 2px;
         margin-right: 12px;
@@ -170,7 +170,7 @@
 
     .section-desc {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 21px;
+        font-size: 2.78vw;
         color: $color-accent;
         flex: 1;
     }
@@ -197,7 +197,7 @@
     .field-label {
         display: block;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 21px;
+        font-size: 3.5vw;
         color: $color-secondary;
         margin-bottom: 8px;
         letter-spacing: 1px;
@@ -211,7 +211,7 @@
         width: 100%;
         height: 44px;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 25px;
+        font-size: 3.3vw;
         color: $color-primary;
         background: transparent;
         border: none;
@@ -293,7 +293,7 @@
         background: rgba(201, 168, 124, 0.15);
         color: $color-accent;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 19px;
+        font-size: 2.51vw;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -314,7 +314,7 @@
         flex: 1;
         height: 36px;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 22px;
+        font-size: 2.91vw;
         color: $color-primary;
         background: transparent;
         border: none;
@@ -341,7 +341,7 @@
         margin-left: 8px;
 
         .remove-icon {
-            font-size: 30px;
+            font-size: 4vw;
             color: rgba(107, 107, 107, 0.5);
             line-height: 1;
         }
@@ -365,13 +365,13 @@
         margin-top: 8px;
 
         .add-icon {
-            font-size: 30px;
+            font-size: 4vw;
             color: $color-accent;
         }
 
         .add-text {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 21px;
+            font-size: 2.78vw;
             color: $color-secondary;
         }
 
@@ -414,13 +414,13 @@
     }
 
     .transport-icon {
-        font-size: 50px;
+        font-size: 6.62vw;
         margin-bottom: 12px;
     }
 
     .transport-label {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 21px;
+        font-size: 3.5vw;
         color: $color-primary;
         margin-bottom: 12px;
     }
@@ -468,7 +468,7 @@
     .shuttle-label {
         display: block;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 21px;
+        font-size: 2.78vw;
         color: $color-secondary;
         margin-bottom: 12px;
     }
@@ -477,7 +477,7 @@
         width: 100%;
         height: 44px;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 22px;
+        font-size: 2.91vw;
         color: $color-primary;
         background: rgba(250, 248, 245, 0.8);
         border: 1px solid rgba(201, 168, 124, 0.3);
@@ -501,7 +501,7 @@
         width: 100%;
         min-height: 120px;
         font-family: "Main", "PingFang SC", sans-serif;
-        font-size: 25px;
+        font-size: 3.3vw;
         line-height: 35px;
         color: $color-primary;
         background: transparent;
@@ -573,7 +573,7 @@
 
         .btn-text {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 28px;
+            font-size: 3.7vw;
             color: white;
             letter-spacing: 4px;
         }
@@ -628,7 +628,7 @@
 
     .footer-text {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 21px;
+        font-size: 2.78vw;
         color: $color-secondary;
         letter-spacing: 2px;
         margin: $spacing-md;
@@ -636,7 +636,7 @@
 
     .footer-names {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 25px;
+        font-size: 3.3vw;
         color: $color-primary;
         letter-spacing: 4px;
     }
@@ -706,7 +706,7 @@
 
     .credits-line {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 21px;
+        font-size: 2.8vw;
         color: $color-text-secondary;
         line-height: 1.15;
         letter-spacing: 1px;
@@ -756,7 +756,7 @@
 
         .thanks-title {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 55px;
+            font-size: 7.27vw;
             color: $color-primary;
             letter-spacing: 8px;
             display: block;
@@ -774,7 +774,7 @@
 
         .thanks-message {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 28px;
+            font-size: 3.7vw;
             color: $color-text-primary;
             line-height: 2;
             display: block;
@@ -784,7 +784,7 @@
 
         .thanks-detail {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 25px;
+            font-size: 3.3vw;
             color: $color-accent;
             line-height: 2;
             letter-spacing: 2px;
@@ -803,7 +803,7 @@
             border: 2px solid rgba(201, 168, 124, 0.5);
             border-radius: 24px;
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 25px;
+            font-size: 3.3vw;
             color: $color-accent;
             letter-spacing: 4px;
 

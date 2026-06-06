@@ -54,7 +54,7 @@
 
   .page-title {
     font-family: 'ThinBlack', sans-serif;
-    font-size: 50px;
+    font-size: 6.61vw;
     color: $color-primary;
     letter-spacing: 8px;
     margin-bottom: 0;
@@ -95,7 +95,7 @@
 
         .time-text {
           font-family: 'ThinBlack', sans-serif;
-          font-size: 30px;
+          font-size: 4.2vw;
           color: white;
           letter-spacing: 1px;
         }
@@ -130,7 +130,7 @@
 
         .event-title {
           font-family: 'ThinBlack', sans-serif;
-          font-size: 30px;
+          font-size: 4.5vw;
           color: $color-primary;
           display: block;
           margin-bottom: $spacing-xs;
@@ -138,7 +138,7 @@
 
         .event-subtitle {
           font-family: 'Main', sans-serif;
-          font-size: 22px;
+          font-size: 3.2vw;
           color: $color-accent;
           display: block;
           margin-bottom: $spacing-sm;
@@ -147,7 +147,7 @@
 
         .event-desc {
           font-family: 'ThinBlack', sans-serif;
-          font-size: 22px;
+          font-size: 3.1vw;
           color: $color-secondary;
           line-height: 1.6;
         }
