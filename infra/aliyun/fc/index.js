@@ -1,28 +1,25 @@
 "use strict";
 
-const { sendJson, sendText, sendOptions } = require("./lib/cors");
+const { jsonResponse, textResponse, optionsResponse } = require("./lib/cors");
+const { parseHttpEvent } = require("./lib/http-event");
 const { insertGuest } = require("./lib/tablestore");
 
-function readJsonBody(req) {
-  if (!req.body) return null;
-  const raw = Buffer.isBuffer(req.body) ? req.body.toString("utf8") : String(req.body);
-  if (!raw) return null;
-  return JSON.parse(raw);
+function readJsonBody(rawBody) {
+  if (!rawBody) return null;
+  return JSON.parse(rawBody);
 }
 
-async function handleGuestForm(req, resp, originHeader) {
+async function handleGuestForm(rawBody, originHeader) {
   let body;
   try {
-    body = readJsonBody(req);
+    body = readJsonBody(rawBody);
   } catch {
-    sendJson(resp, 400, { success: false, error: "Invalid JSON body" }, originHeader);
-    return;
+    return jsonResponse(400, { success: false, error: "Invalid JSON body" }, originHeader);
   }
 
   const mainContact = body?.mainContact ? String(body.mainContact).trim() : "";
   if (!mainContact) {
-    sendJson(resp, 400, { success: false, error: "Name is required" }, originHeader);
-    return;
+    return jsonResponse(400, { success: false, error: "Name is required" }, originHeader);
   }
 
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
@@ -46,8 +43,7 @@ async function handleGuestForm(req, resp, originHeader) {
     });
   } catch (error) {
     console.error("insertGuest error:", error);
-    sendJson(
-      resp,
+    return jsonResponse(
       500,
       {
         success: false,
@@ -56,11 +52,9 @@ async function handleGuestForm(req, resp, originHeader) {
       },
       originHeader,
     );
-    return;
   }
 
-  sendJson(
-    resp,
+  return jsonResponse(
     200,
     {
       success: true,
@@ -71,37 +65,20 @@ async function handleGuestForm(req, resp, originHeader) {
   );
 }
 
-exports.handler = (req, resp, context) => {
-  const originHeader = req.headers?.origin || req.headers?.Origin || "*";
-  const method = (req.method || "GET").toUpperCase();
-  const path = req.path || "/";
+exports.handler = async (event) => {
+  const { method, path, body, origin } = parseHttpEvent(event);
 
   if (method === "OPTIONS") {
-    sendOptions(resp, originHeader);
-    return;
+    return optionsResponse(origin);
   }
 
   if (method === "GET" && path === "/health") {
-    sendText(resp, 200, "ok", originHeader);
-    return;
+    return textResponse(200, "ok", origin);
   }
 
   if (method === "POST" && path === "/api/guest-form") {
-    handleGuestForm(req, resp, originHeader).catch((error) => {
-      console.error("handleGuestForm error:", error);
-      sendJson(
-        resp,
-        500,
-        {
-          success: false,
-          error: "Internal server error",
-          message: error instanceof Error ? error.message : String(error),
-        },
-        originHeader,
-      );
-    });
-    return;
+    return handleGuestForm(body, origin);
   }
 
-  sendJson(resp, 404, { success: false, error: "Not Found" }, originHeader);
+  return jsonResponse(404, { success: false, error: "Not Found" }, origin);
 };

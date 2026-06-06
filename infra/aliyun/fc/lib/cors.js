@@ -9,30 +9,36 @@ function corsHeaders(originHeader) {
   };
 }
 
-function sendJson(resp, status, body, originHeader) {
-  resp.setStatusCode(status);
-  resp.setHeader("Content-Type", "application/json; charset=utf-8");
-  for (const [key, value] of Object.entries(corsHeaders(originHeader))) {
-    resp.setHeader(key, value);
-  }
-  resp.send(JSON.stringify(body));
+function buildResponse(status, headers, body) {
+  return {
+    statusCode: status,
+    headers,
+    isBase64Encoded: false,
+    body,
+  };
 }
 
-function sendText(resp, status, text, originHeader) {
-  resp.setStatusCode(status);
-  resp.setHeader("Content-Type", "text/plain; charset=utf-8");
-  for (const [key, value] of Object.entries(corsHeaders(originHeader))) {
-    resp.setHeader(key, value);
-  }
-  resp.send(text);
+function jsonResponse(status, payload, originHeader) {
+  return buildResponse(status, {
+    "Content-Type": "application/json; charset=utf-8",
+    ...corsHeaders(originHeader),
+  }, JSON.stringify(payload));
 }
 
-function sendOptions(resp, originHeader) {
-  resp.setStatusCode(204);
-  for (const [key, value] of Object.entries(corsHeaders(originHeader))) {
-    resp.setHeader(key, value);
-  }
-  resp.send("");
+function textResponse(status, text, originHeader) {
+  return buildResponse(status, {
+    "Content-Type": "text/plain; charset=utf-8",
+    ...corsHeaders(originHeader),
+  }, text);
 }
 
-module.exports = { corsHeaders, sendJson, sendText, sendOptions };
+function optionsResponse(originHeader) {
+  return buildResponse(204, corsHeaders(originHeader), "");
+}
+
+module.exports = {
+  corsHeaders,
+  jsonResponse,
+  textResponse,
+  optionsResponse,
+};
