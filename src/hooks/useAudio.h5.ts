@@ -1,5 +1,6 @@
 import Taro from "@tarojs/taro";
 import type { MutableRefObject } from "react";
+import { getMusicUrl } from "../utils/assets";
 
 interface InitH5AudioOptions {
   setIsPlaying: (playing: boolean) => void;
@@ -16,7 +17,7 @@ export function initH5BackgroundAudio({
   bgm.title = "Our Love";
   bgm.epname = "Wedding Invitation";
   bgm.singer = "Wedding";
-  bgm.src = require("@assets/music/our-love.mp3");
+  bgm.src = getMusicUrl();
   bgm.loop = true;
 
   bgm.onPlay(() => setIsPlaying(true));

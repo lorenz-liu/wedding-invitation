@@ -1,12 +1,19 @@
 import { resolveAssetPath } from "./assetResolver";
 
 /**
- * Resolve a path under the project `assets/` folder.
- * weapp → Aliyun OSS HTTPS URL; h5 → local `/assets/...` when not configured.
+ * Resolve a path under the project `assets/` folder to Aliyun OSS HTTPS URL.
  */
 export function assetPath(relativePath: string): string {
   return resolveAssetPath(relativePath);
 }
+
+export const FONT_ASSETS = [
+  { family: "ThinBlack", path: "fonts/thin-black.ttf" },
+  { family: "Main", path: "fonts/main.ttf" },
+  { family: "Childhood", path: "fonts/childhood.ttf" },
+] as const;
+
+export const MUSIC_ASSET = "music/our-love.mp3";
 
 export const images = {
   homepageNiu: assetPath("images/homepage-niu.png"),
@@ -51,3 +58,19 @@ export const images = {
   signatureGao: assetPath("images/signature-gao.png"),
   signatureNiu: assetPath("images/signature-niu.png"),
 } as const;
+
+/** Unique OSS image URLs used across the app. */
+export function getAllImageUrls(): string[] {
+  return [...new Set(Object.values(images))];
+}
+
+export function getFontUrls(): { family: string; url: string }[] {
+  return FONT_ASSETS.map(({ family, path }) => ({
+    family,
+    url: assetPath(path),
+  }));
+}
+
+export function getMusicUrl(): string {
+  return assetPath(MUSIC_ASSET);
+}

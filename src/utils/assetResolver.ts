@@ -1,19 +1,9 @@
-import { aliyunAssetUrl, isOssConfigured } from "../constants/aliyun";
-import { toWeappLocalPath } from "./weappAsset";
-
-const LOCAL_ASSETS_ROOT = "/assets";
+import { aliyunAssetUrl } from "../constants/aliyun";
 
 /**
- * Resolve a path under `assets/` for the current Taro target.
- * - Production weapp: Aliyun OSS HTTPS URL
- * - H5 dev fallback: local `/assets/...` copied at build time
+ * Resolve a path under `assets/` to Aliyun OSS HTTPS URL.
  */
 export function resolveAssetPath(relativePath: string): string {
   const normalized = relativePath.replace(/^\/+/, "").replace(/^assets\//, "");
-
-  if (isOssConfigured()) {
-    return aliyunAssetUrl(normalized);
-  }
-
-  return toWeappLocalPath(`${LOCAL_ASSETS_ROOT}/${normalized}`);
+  return aliyunAssetUrl(normalized);
 }

@@ -1,0 +1,64 @@
+@import '../../styles/variables.scss';
+
+.asset-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
+}
+
+.asset-loading-card {
+  width: 72vw;
+  max-width: 320px;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.asset-loading-title {
+  display: block;
+  font-family: 'ThinBlack', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.12em;
+  color: $color-text-primary;
+  margin-bottom: 20px;
+}
+
+.asset-loading-subtitle {
+  display: block;
+  font-size: 14px;
+  color: $color-text-secondary;
+  margin-bottom: 16px;
+}
+
+.asset-loading-bar {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.asset-loading-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: $color-accent;
+  transition: width 0.2s ease;
+}
+
+.asset-loading-error {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #b45309;
+  margin-bottom: 20px;
+}
+
+.asset-loading-retry {
+  font-size: 14px !important;
+  background: $color-accent !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+}
