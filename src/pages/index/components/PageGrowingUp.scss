@@ -55,18 +55,11 @@
 
     .story-text {
         font-family: "ThinBlack", sans-serif;
-        font-size: $font-size-xl;
+        font-size: 4.2vw;
         color: $color-text-primary;
         line-height: 2.2;
         margin: $spacing-lg 0;
         white-space: pre-line;
-    }
-
-    .quote-text {
-        font-family: "Main", sans-serif;
-        font-size: $font-size-md;
-        color: $color-secondary;
-        margin-top: $spacing-lg;
     }
 
     .bottom-hero {

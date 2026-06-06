@@ -109,7 +109,7 @@
 
     .names-text {
         font-family: "ThinBlack", sans-serif;
-        font-size: 63px;
+        font-size: 8.3vw;
         color: $color-primary;
         letter-spacing: 8px;
         margin-bottom: $spacing-md;
@@ -127,7 +127,7 @@
 
         .date-text {
             font-family: "ThinBlack", sans-serif;
-            font-size: 30px;
+            font-size: 3.8vw;
             color: $color-secondary;
             letter-spacing: 4px;
         }
@@ -140,7 +140,7 @@
 
     .invite-title {
         font-family: "Main", sans-serif;
-        font-size: 34px;
+        font-size: 4.5vw;
         margin: $spacing-md 0;
         letter-spacing: 2px;
         color: $color-accent;
@@ -154,32 +154,10 @@
 
         .poem-line {
             font-family: "ThinBlack", sans-serif;
-            font-size: 28px;
+            font-size: 4vw;
             color: $color-text-primary;
             line-height: 1.8;
             letter-spacing: 2px;
-        }
-    }
-
-    .scroll-hint {
-        position: absolute;
-        bottom: 80px;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: $spacing-xs;
-
-        .scroll-text {
-            font-family: "Main", sans-serif;
-            font-size: $font-size-sm;
-            color: $color-secondary;
-        }
-
-        .scroll-arrow {
-            font-size: $font-size-lg;
-            color: $color-accent;
-            animation: bounce 2s infinite;
         }
     }
 }

@@ -69,8 +69,7 @@
 
         .kid-label-top {
             font-family: "Main", sans-serif;
-            font-size: 48px;
-            letter-spacing: 4px;
+            font-size: 5vw;
             margin-bottom: $spacing-sm;
             color: $color-primary;
             text-align: center;
@@ -79,7 +78,7 @@
 
         .kid-label-bottom {
             font-family: "Main", sans-serif;
-            font-size: 48px;
+            font-size: 5vw;
             margin-top: $spacing-sm;
             color: $color-accent;
             letter-spacing: 2px;
@@ -145,7 +144,7 @@
 
     .intro-text {
         font-family: "ThinBlack", sans-serif;
-        font-size: 54px;
+        font-size: 5.29vw;
         color: $color-text-secondary;
         line-height: 1.8;
         letter-spacing: 2px;
