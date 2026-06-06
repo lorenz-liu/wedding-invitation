@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import { Countdown } from "../../../components/Countdown";
 import { images } from "../../../utils/assets";
 import "./PageMilestone.scss";
 
@@ -80,6 +81,7 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
           <View className="wedding-date-box">
             <Text className="date-highlight">2026年7月25日</Text>
             <Text className="we-text">我们共同铭刻</Text>
+            <Countdown isActive={isActive} />
           </View>
         </AnimatedView>
       </View>

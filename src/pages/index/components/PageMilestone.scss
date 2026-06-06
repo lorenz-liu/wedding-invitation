@@ -99,6 +99,9 @@
         box-shadow: $shadow-lg;
         border: 3px double $color-accent;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         &::before,
         &::after {
