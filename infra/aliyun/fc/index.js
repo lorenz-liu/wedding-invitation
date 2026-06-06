@@ -67,6 +67,7 @@ async function handleGuestForm(rawBody, originHeader) {
 
 exports.handler = async (event) => {
   const { method, path, body, origin } = parseHttpEvent(event);
+  console.log("FC route:", method, path);
 
   if (method === "OPTIONS") {
     return optionsResponse(origin);
@@ -80,5 +81,6 @@ exports.handler = async (event) => {
     return handleGuestForm(body, origin);
   }
 
+  console.warn("FC route not found:", method, path);
   return jsonResponse(404, { success: false, error: "Not Found" }, origin);
 };

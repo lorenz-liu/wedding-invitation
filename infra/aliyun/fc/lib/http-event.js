@@ -16,26 +16,71 @@ function decodeBody(body, isBase64Encoded) {
   return Buffer.isBuffer(body) ? body.toString("utf8") : String(body);
 }
 
+function normalizePath(path) {
+  if (!path) return "/";
+  let normalized = String(path).split("?")[0];
+  try {
+    normalized = decodeURIComponent(normalized);
+  } catch {
+    // keep raw path when not URI-encoded
+  }
+  if (!normalized.startsWith("/")) {
+    normalized = `/${normalized}`;
+  }
+  if (normalized.length > 1 && normalized.endsWith("/")) {
+    normalized = normalized.slice(0, -1);
+  }
+  return normalized;
+}
+
+function resolveMethod(event, fallbackMethod) {
+  return (
+    event?.requestContext?.http?.method ||
+    event?.method ||
+    fallbackMethod ||
+    "GET"
+  ).toUpperCase();
+}
+
+function resolvePath(event) {
+  return normalizePath(
+    event?.requestContext?.http?.path ||
+      event?.rawPath ||
+      event?.path ||
+      "/",
+  );
+}
+
 /**
  * Normalize FC 3.0 HTTP trigger events and legacy console test payloads.
  */
 function parseHttpEvent(event) {
-  if (event?.requestContext?.http) {
+  if (!event || typeof event !== "object") {
+    return {
+      method: "GET",
+      path: "/",
+      body: "",
+      headers: {},
+      origin: "*",
+    };
+  }
+
+  if (event.requestContext?.http || event.version === "v1" || event.rawPath) {
     const headers = normalizeHeaders(event.headers);
     return {
-      method: (event.requestContext.http.method || "GET").toUpperCase(),
-      path: event.requestContext.http.path || event.rawPath || "/",
+      method: resolveMethod(event),
+      path: resolvePath(event),
       body: decodeBody(event.body, event.isBase64Encoded),
       headers,
       origin: headers.origin || "*",
     };
   }
 
-  if (event?.method || event?.path) {
+  if (event.method || event.path) {
     const headers = normalizeHeaders(event.headers);
     return {
-      method: (event.method || "GET").toUpperCase(),
-      path: event.path || "/",
+      method: resolveMethod(event),
+      path: resolvePath(event),
       body: decodeBody(event.body, event.isBase64Encoded),
       headers,
       origin: headers.origin || "*",
