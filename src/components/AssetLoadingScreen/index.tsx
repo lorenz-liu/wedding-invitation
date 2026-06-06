@@ -1,13 +1,34 @@
-import React from "react";
-import { View, Text, Button } from "@tarojs/components";
-import type { AssetLoadProgress } from "../utils/assetPreloader";
+import React, { useMemo } from "react";
+import { View } from "@tarojs/components";
+import { getAllImageUrls, getFontUrls } from "../../utils/assets";
+import type { AssetLoadProgress } from "../../utils/assetPreloader";
 import "./index.scss";
 
-const PHASE_LABEL: Record<AssetLoadProgress["phase"], string> = {
-  images: "图片",
-  fonts: "字体",
-  audio: "音乐",
-};
+const SEGMENT_COUNT = 22;
+
+const IMAGE_TOTAL = getAllImageUrls().length;
+const FONT_TOTAL = getFontUrls().length;
+const PRELOAD_TOTAL = IMAGE_TOTAL + FONT_TOTAL + 1;
+
+function filledSegmentCount(progress: AssetLoadProgress | null): number {
+  if (!progress || progress.total <= 0) return 0;
+
+  let loaded = 0;
+  switch (progress.phase) {
+    case "images":
+      loaded = progress.loaded;
+      break;
+    case "fonts":
+      loaded = IMAGE_TOTAL + progress.loaded;
+      break;
+    case "audio":
+      loaded = IMAGE_TOTAL + FONT_TOTAL + progress.loaded;
+      break;
+  }
+
+  const ratio = Math.min(1, loaded / PRELOAD_TOTAL);
+  return Math.round(ratio * SEGMENT_COUNT);
+}
 
 interface AssetLoadingScreenProps {
   progress: AssetLoadProgress | null;
@@ -20,37 +41,27 @@ export const AssetLoadingScreen: React.FC<AssetLoadingScreenProps> = ({
   error,
   onRetry,
 }) => {
-  const percent =
-    progress && progress.total > 0
-      ? Math.min(100, Math.round((progress.loaded / progress.total) * 100))
-      : 0;
+  const filledCount = useMemo(
+    () => (error ? 0 : filledSegmentCount(progress)),
+    [progress, error],
+  );
 
   return (
-    <View className="asset-loading-screen">
-      <View className="asset-loading-card">
-        <Text className="asset-loading-title">婚礼请柬</Text>
-        {error ? (
-          <>
-            <Text className="asset-loading-error">{error}</Text>
-            <Button className="asset-loading-retry" onClick={onRetry}>
-              重试
-            </Button>
-          </>
-        ) : (
-          <>
-            <Text className="asset-loading-subtitle">
-              {progress
-                ? `正在加载${PHASE_LABEL[progress.phase]}… ${progress.loaded}/${progress.total}`
-                : "正在准备资源…"}
-            </Text>
-            <View className="asset-loading-bar">
-              <View
-                className="asset-loading-bar-fill"
-                style={{ width: `${percent}%` }}
-              />
-            </View>
-          </>
-        )}
+    <View
+      className="asset-loading-screen"
+      onClick={error ? onRetry : undefined}
+    >
+      <View className="asset-loading-bar-track">
+        <View className="asset-loading-bar-segments">
+          {Array.from({ length: SEGMENT_COUNT }).map((_, index) => (
+            <View
+              key={index}
+              className={`asset-loading-segment${
+                index < filledCount ? " asset-loading-segment--filled" : ""
+              }`}
+            />
+          ))}
+        </View>
       </View>
     </View>
   );
