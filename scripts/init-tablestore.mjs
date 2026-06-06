@@ -15,8 +15,16 @@
 import TableStore from "tablestore";
 import {
   aliyunAuthHelpText,
+  parseAliyunArgs,
   resolveAliyunCredentials,
 } from "./aliyun-credentials.mjs";
+
+const { profile, args } = parseAliyunArgs();
+if (args.length > 0) {
+  console.error(`Unknown argument(s): ${args.join(" ")}`);
+  console.error("Usage: pnpm db:init-tablestore [-- --profile wedding]");
+  process.exit(1);
+}
 
 const endpoint =
   process.env.TABLESTORE_ENDPOINT || "https://wedding.cn-chengdu.ots.aliyuncs.com";
@@ -59,13 +67,14 @@ function createTable(client) {
 async function main() {
   console.log(`Tablestore instance: ${instancename}`);
   console.log(`Endpoint: ${endpoint}`);
-  console.log(`Table: ${tableName}\n`);
+  console.log(`Table: ${tableName}`);
+  console.log(`Aliyun profile: ${profile}\n`);
 
   let credentials;
   try {
-    credentials = await resolveAliyunCredentials();
+    credentials = await resolveAliyunCredentials({ profile });
   } catch (error) {
-    console.error(aliyunAuthHelpText());
+    console.error(aliyunAuthHelpText(profile));
     throw error;
   }
 

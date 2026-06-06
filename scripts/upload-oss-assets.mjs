@@ -16,6 +16,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   aliyunAuthHelpText,
+  parseAliyunArgs,
   resolveAliyunCredentials,
 } from "./aliyun-credentials.mjs";
 
@@ -24,6 +25,11 @@ const ROOT = path.resolve(__dirname, "..");
 const ASSETS_DIR = path.join(ROOT, "assets");
 const REGION = process.env.OSS_REGION || "oss-cn-chengdu";
 const BUCKET = process.env.OSS_BUCKET || "wedding-asset";
+
+/** Each object must be public-read for WeChat mini-program CDN access. */
+const OSS_PUT_OPTIONS = {
+  headers: { "x-oss-object-acl": "public-read" },
+};
 
 const MIME_TYPES = {
   ".png": "image/png",
@@ -58,12 +64,12 @@ function contentTypeFor(filePath) {
   return MIME_TYPES[ext] || "application/octet-stream";
 }
 
-async function getOssClient() {
+async function getOssClient(profile) {
   let credentials;
   try {
-    credentials = await resolveAliyunCredentials();
+    credentials = await resolveAliyunCredentials({ profile });
   } catch (error) {
-    console.error(aliyunAuthHelpText());
+    console.error(aliyunAuthHelpText(profile));
     throw error;
   }
 
@@ -84,6 +90,13 @@ async function getOssClient() {
 }
 
 async function main() {
+  const { profile, args } = parseAliyunArgs();
+  if (args.length > 0) {
+    console.error(`Unknown argument(s): ${args.join(" ")}`);
+    console.error("Usage: pnpm upload:oss-assets [-- --profile wedding]");
+    process.exit(1);
+  }
+
   if (!fs.existsSync(ASSETS_DIR)) {
     console.error(`Missing assets directory: ${ASSETS_DIR}`);
     process.exit(1);
@@ -95,7 +108,8 @@ async function main() {
     process.exit(0);
   }
 
-  const client = await getOssClient();
+  const client = await getOssClient(profile);
+  console.log(`Aliyun profile: ${profile}`);
   console.log(`Uploading ${files.length} files to oss://${BUCKET}/ ...\n`);
 
   for (const filePath of files) {
@@ -105,7 +119,10 @@ async function main() {
 
     console.log(`→ ${objectKey}`);
     await client.put(objectKey, filePath, {
-      headers: { "Content-Type": contentType },
+      headers: {
+        "Content-Type": contentType,
+        ...OSS_PUT_OPTIONS.headers,
+      },
     });
   }
 

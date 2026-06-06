@@ -53,8 +53,12 @@ infra/
 ```bash
 npm i -g @alicloud/cli
 aliyun configure --mode OAuth --profile wedding
-export ALIBABA_CLOUD_PROFILE=wedding   # 每个终端执行一次，或写入 ~/.zshrc
 ```
+
+脚本**默认使用 profile `wedding`**，无需 `export ALIBABA_CLOUD_PROFILE`。  
+也可显式指定：`pnpm db:init-tablestore -- --profile wedding`（pnpm 需在 `--` 后传参）。
+
+本地脚本通过 `aliyun configure get` 读取 OAuth 临时 STS 凭证（需已安装 `aliyun` CLI）。
 
 验证：
 
@@ -72,6 +76,22 @@ aliyun sts GetCallerIdentity --profile wedding
 
 当前身份需具备：Tablestore 读写、OSS 桶读写、FC 部署、SMS 发送（若启用短信）。
 
+### `--profile` 参数
+
+| 优先级 | 方式 |
+|--------|------|
+| 1 | 命令行 `--profile NAME` |
+| 2 | 环境变量 `ALIBABA_CLOUD_PROFILE`（可选） |
+| 3 | 本项目默认 **`wedding`** |
+
+示例（pnpm 需在 `--` 后传脚本参数）：
+
+```bash
+pnpm db:init-tablestore
+pnpm upload:oss-assets -- --profile wedding
+pnpm upload:oss-file -- --profile wedding images/foo.png
+```
+
 ---
 
 ## 一次性初始化（首次部署）
@@ -87,10 +107,9 @@ npm i -g @serverless-devs/s
 s config add    # 选择 Alibaba Cloud，与 OAuth 同一账号
 ```
 
-### 2. 登录（本地）
+### 2. 验证登录（本地）
 
 ```bash
-export ALIBABA_CLOUD_PROFILE=wedding
 aliyun sts GetCallerIdentity --profile wedding
 ```
 
@@ -98,6 +117,7 @@ aliyun sts GetCallerIdentity --profile wedding
 
 ```bash
 pnpm db:init-tablestore
+# 或显式：pnpm db:init-tablestore -- --profile wedding
 ```
 
 创建宽表 `guests`，主键 `id` (STRING)。表已存在时会跳过。
@@ -113,6 +133,41 @@ OSS 控制台 → 桶 **`wedding-asset`** → **数据安全** → **跨域设�
 | Allow-Headers | `*` |
 
 微信小程序 `loadFontFace` 加载字体依赖此项。
+
+### 4.1 开启桶公共读（必做，否则浏览器 / 小程序会 AccessDenied）
+
+OSS 控制台 → 桶 **`wedding-asset`** → **权限控制**：
+
+1. **阻止公共访问**：若已开启，需**关闭**（否则无法公共读）
+2. **读写权限（Bucket ACL）**：设为 **公共读**（或「公共读，私有写」）
+
+若 ACL 仍无法匿名访问，在 **Bucket 授权策略** 添加（允许匿名 `GetObject`）：
+
+```json
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": ["*"],
+      "Action": ["oss:GetObject"],
+      "Resource": ["acs:oss:*:*:wedding-asset/*"]
+    }
+  ]
+}
+```
+
+保存后，用浏览器无痕窗口访问验证（应直接看到图片，而不是 XML 报错）：
+
+```
+https://wedding-asset.oss-cn-chengdu.aliyuncs.com/assets/images/homepage-niu.png
+```
+
+若之前已上传过文件，控制台改 ACL 后需**重新上传**（脚本会为每个对象设置 `public-read`）：
+
+```bash
+pnpm upload:oss-assets
+```
 
 ### 5. 上传全部静态资源
 
@@ -215,11 +270,9 @@ pnpm build:weapp
 适合改一两张图、替换某个字体：
 
 ```bash
-export ALIBABA_CLOUD_PROFILE=wedding
-
-# path 相对于 assets/，不要带 assets/ 前缀
+# path 相对于 assets/，不要带 assets/ 前缀（默认 profile: wedding）
 pnpm upload:oss-file images/homepage-niu.png
-pnpm upload:oss-file fonts/thin-black.ttf
+pnpm upload:oss-file -- --profile wedding fonts/thin-black.ttf
 ```
 
 ### 更新全部资源
@@ -227,8 +280,8 @@ pnpm upload:oss-file fonts/thin-black.ttf
 适合大批量变更或首次同步后全量刷新：
 
 ```bash
-export ALIBABA_CLOUD_PROFILE=wedding
 pnpm upload:oss-assets
+# 或：pnpm upload:oss-assets -- --profile wedding
 ```
 
 脚本会遍历 `assets/` 下所有文件，上传到 `oss://wedding-asset/assets/<相对路径>`。  
@@ -282,7 +335,6 @@ OSS_BUCKET=wedding-asset pnpm upload:oss-file images/foo.png
 2. 上传资源到新桶：
 
    ```bash
-   export ALIBABA_CLOUD_PROFILE=wedding
    OSS_BUCKET=wedding-asset-v2 pnpm upload:oss-assets
    ```
 
@@ -308,7 +360,6 @@ OSS_BUCKET=wedding-asset pnpm upload:oss-file images/foo.png
 修改 `infra/aliyun/fc/` 下代码后：
 
 ```bash
-export ALIBABA_CLOUD_PROFILE=wedding
 # 若改了短信相关配置：
 export SMS_SIGN_NAME="..."
 export SMS_TEMPLATE_CODE="..."
@@ -338,7 +389,8 @@ API 说明与故障排查见 [aliyun/SETUP.md](./aliyun/SETUP.md)。
 
 | 现象 | 检查项 |
 |------|--------|
-| 脚本报凭据错误 | `export ALIBABA_CLOUD_PROFILE=wedding`；`aliyun sts GetCallerIdentity --profile wedding` |
+| 浏览器打开 OSS URL 出现 XML `AccessDenied` / bucket acl | 桶 ACL 设为公共读；关闭「阻止公共访问」；必要时加 Bucket 策略；重新 `pnpm upload:oss-assets` |
+| 脚本报凭据错误 | 是否已 `aliyun configure --mode OAuth --profile wedding`；`aliyun sts GetCallerIdentity --profile wedding` |
 | 图片/字体 403 或加载失败 | OSS 公共读、CORS、微信 downloadFile 合法域名 |
 | 资源仍是旧版 | 是否 bump `ASSETS_CACHE_VERSION` 并重新 `build:weapp` |
 | 表单提交失败 | `ALIYUN_FC_BASE_URL`、FC RAM 角色、微信 request 合法域名 |

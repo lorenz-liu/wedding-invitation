@@ -10,6 +10,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   aliyunAuthHelpText,
+  parseAliyunArgs,
   resolveAliyunCredentials,
 } from "./aliyun-credentials.mjs";
 
@@ -18,6 +19,8 @@ const ROOT = path.resolve(__dirname, "..");
 const ASSETS_DIR = path.join(ROOT, "assets");
 const REGION = process.env.OSS_REGION || "oss-cn-chengdu";
 const BUCKET = process.env.OSS_BUCKET || "wedding-asset";
+
+const OSS_PUBLIC_READ_HEADER = { "x-oss-object-acl": "public-read" };
 
 const MIME_TYPES = {
   ".png": "image/png",
@@ -34,20 +37,25 @@ const MIME_TYPES = {
 };
 
 function usage() {
-  console.error("Usage: pnpm upload:oss-file <path-under-assets/>");
-  console.error("Example: pnpm upload:oss-file images/toronto-landmark.png");
+  console.error("Usage: pnpm upload:oss-file [-- --profile wedding] <path-under-assets/>");
+  console.error("Example: pnpm upload:oss-file -- --profile wedding images/toronto-landmark.png");
   process.exit(1);
 }
 
 async function main() {
-  const relativeArg = process.argv[2];
+  const { profile, args } = parseAliyunArgs();
+  const relativeArg = args[0];
   if (!relativeArg) usage();
+  if (args.length > 1) {
+    console.error(`Unknown argument(s): ${args.slice(1).join(" ")}`);
+    usage();
+  }
 
   let credentials;
   try {
-    credentials = await resolveAliyunCredentials();
+    credentials = await resolveAliyunCredentials({ profile });
   } catch (error) {
-    console.error(aliyunAuthHelpText());
+    console.error(aliyunAuthHelpText(profile));
     throw error;
   }
 
@@ -78,11 +86,15 @@ async function main() {
 
   const client = new OSS(ossOptions);
 
+  console.log(`Aliyun profile: ${profile}`);
   console.log(`Uploading ${filePath}`);
   console.log(`→ oss://${BUCKET}/${objectKey} (${contentType})\n`);
 
   await client.put(objectKey, filePath, {
-    headers: { "Content-Type": contentType },
+    headers: {
+      "Content-Type": contentType,
+      ...OSS_PUBLIC_READ_HEADER,
+    },
   });
 
   console.log("\nDone. Bump ASSETS_CACHE_VERSION in src/constants/aliyun.ts if needed.");

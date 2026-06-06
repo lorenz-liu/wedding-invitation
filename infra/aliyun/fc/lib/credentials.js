@@ -1,6 +1,7 @@
 "use strict";
 
-const Credential = require("@alicloud/credentials").default;
+const credentialModule = require("@alicloud/credentials");
+const Credential = credentialModule.default || credentialModule;
 
 async function resolveAliyunCredentials() {
   const accessKeyId = process.env.ALIBABA_CLOUD_ACCESS_KEY_ID;
