@@ -453,14 +453,14 @@ export const PageForm: React.FC<PageFormProps> = ({
           <View className="form-section notes-section">
             <View className="section-header">
               <View className="section-number">04</View>
-              <Text className="section-title">其他留言</Text>
+              <Text className="section-title">留言</Text>
             </View>
             <View className="text-area-wrapper">
               <Textarea
                 className="text-area"
                 value={formData.notes}
                 onInput={(e) => handleInputChange("notes", e.detail.value)}
-                placeholder="任何想对我们说的话"
+                placeholder="在此处留下您想送上的祝福，或是需要我们特别留意的事项，例如饮食过敏等。"
                 placeholderStyle="color: #c9a87c"
                 placeholderClass="notes-textarea-placeholder"
               />

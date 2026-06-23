@@ -28,7 +28,7 @@ const EVENTS: DistanceEvent[] = [
     year: "2022",
     location: "北京",
     caption: "新郎本科毕业啦！",
-    image: images.beijing,
+    image: images.niuUndergradNoBg,
     framed: true,
     tilt: 2,
     side: "right",
