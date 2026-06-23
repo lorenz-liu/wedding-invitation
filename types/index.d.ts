@@ -11,6 +11,13 @@ declare module "*.ttf";
 declare module "*.woff";
 declare module "*.woff2";
 
+declare namespace NodeJS {
+  interface ProcessEnv {
+    /** When "true", static assets load from local assets/ instead of OSS. */
+    TARO_APP_DEV?: string;
+  }
+}
+
 // Taro declarations
 declare const wx: any;
 

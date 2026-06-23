@@ -5,6 +5,7 @@ import {
   getMusicUrl,
 } from "./assets";
 import { resolveWeappMediaPath } from "./weappMedia";
+import { toWeappFontSource } from "./weappAsset";
 
 export type AssetLoadPhase = "images" | "fonts" | "audio";
 
@@ -18,15 +19,18 @@ type ProgressCallback = (progress: AssetLoadProgress) => void;
 
 const IMAGE_CONCURRENCY = 6;
 
-function loadWeappFont(family: string, httpsUrl: string): Promise<void> {
-  if (!httpsUrl.startsWith("https://")) {
-    return Promise.reject(new Error(`Font must use HTTPS URL, got: ${httpsUrl}`));
+function loadWeappFont(family: string, url: string): Promise<void> {
+  const isRemote = url.startsWith("http://") || url.startsWith("https://");
+  if (isRemote && !url.startsWith("https://")) {
+    return Promise.reject(new Error(`Font must use HTTPS URL, got: ${url}`));
   }
+
+  const source = isRemote ? `url("${url}")` : toWeappFontSource(url);
 
   return new Promise((resolve, reject) => {
     Taro.loadFontFace({
       family,
-      source: `url("${httpsUrl}")`,
+      source,
       global: true,
       scopes: ["webview", "native"],
       success: () => resolve(),
@@ -175,7 +179,7 @@ async function preloadH5Assets(onProgress?: ProgressCallback): Promise<void> {
 }
 
 /**
- * Preload all Aliyun OSS assets (images, fonts, music).
+ * Preload all static assets (images, fonts, music).
  * Rejects if any asset fails — the app must not start until this succeeds.
  */
 export async function preloadAllAssets(

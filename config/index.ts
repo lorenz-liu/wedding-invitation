@@ -8,9 +8,17 @@ function getBuildType(): string | undefined {
   return process.env.TARO_ENV;
 }
 
-// Weapp uses Aliyun OSS; H5 copies local assets when FC URL is not configured.
-const assetCopyPatterns =
-  getBuildType() === "weapp" ? [] : require("../scripts/asset-copy-patterns");
+function useLocalAssets(): boolean {
+  return process.env.TARO_APP_DEV === "true";
+}
+
+// Dev (TARO_APP_DEV=true): copy assets/ for all platforms.
+// Production weapp: OSS only; production H5: keep legacy local copy fallback.
+const assetCopyPatterns = useLocalAssets()
+  ? require("../scripts/asset-copy-patterns")
+  : getBuildType() === "weapp"
+    ? []
+    : require("../scripts/asset-copy-patterns");
 
 export default {
   projectName: "wedding-invitation",
@@ -24,7 +32,9 @@ export default {
   sourceRoot: "src",
   outputRoot: "dist",
   plugins: ["@tarojs/plugin-html"],
-  defineConstants: {},
+  defineConstants: {
+    TARO_APP_DEV: JSON.stringify(process.env.TARO_APP_DEV ?? "false"),
+  },
   alias: {
     "@assets": path.resolve(__dirname, "..", "assets"),
   },

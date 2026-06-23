@@ -19,16 +19,7 @@ interface ScheduleItem {
 
 const scheduleData: ScheduleItem[] = [
   {
-    time: "15:00",
-    title: "宾客入席",
-    subtitle: "扉启迎宾，静候光临",
-    description:
-      "您可以以这个时间点规划抵达时间，于入口处签到后我们会有专人引导您进入会场。",
-    image: images.agendaWelcome,
-    imageOffset: "left",
-  },
-  {
-    time: "17:00",
+    time: "17:25",
     title: "典礼开始",
     subtitle: "花门轻启，盟誓此夕",
     description:
@@ -46,7 +37,7 @@ const scheduleData: ScheduleItem[] = [
     imageOffset: "left",
   },
   {
-    time: "20:00",
+    time: "21:00",
     title: "欢聚时光",
     subtitle: "欢聚尽兴，杯盏余音",
     description:

@@ -54,7 +54,7 @@
 
   .page-title {
     font-family: 'ThinBlack', sans-serif;
-    font-size: 6.61vw;
+    font-size: 7.5vw;
     color: $color-primary;
     letter-spacing: 8px;
     margin-bottom: 0;
@@ -68,7 +68,7 @@
   .schedule-list {
     display: flex;
     flex-direction: column;
-    gap: $spacing-lg;
+    gap: $spacing-xl;
     width: 100%;
 
     .schedule-item {
@@ -88,14 +88,14 @@
         padding: $spacing-sm $spacing-md;
         background: $color-accent;
         border-radius: $border-radius-sm;
-        min-width: 88px;
+        min-width: 96px;
         text-align: center;
         position: relative;
         z-index: 1;
 
         .time-text {
           font-family: 'ThinBlack', sans-serif;
-          font-size: 4.2vw;
+          font-size: 4.9vw;
           color: white;
           letter-spacing: 1px;
         }
@@ -119,25 +119,25 @@
         }
       }
 
-      &:nth-child(-n + 2) .agenda-img {
-        width: 10vw;
+      &:nth-child(1) .agenda-img {
+        width: 11vw;
       }
 
-      &:nth-child(n + 3) .agenda-img {
-        width: 13vw;
+      &:nth-child(n + 2) .agenda-img {
+        width: 14vw;
       }
 
       .schedule-card {
         flex: 1;
         background: rgba(255, 255, 255, 0.9);
         border-radius: $border-radius-md;
-        padding: $spacing-md;
+        padding: $spacing-lg;
         border-left: 3px solid $color-accent;
         box-shadow: $shadow-sm;
 
         .event-title {
           font-family: 'ThinBlack', sans-serif;
-          font-size: 4.5vw;
+          font-size: 5.2vw;
           color: $color-primary;
           display: block;
           margin-bottom: $spacing-xs;
@@ -145,7 +145,7 @@
 
         .event-subtitle {
           font-family: 'Main', sans-serif;
-          font-size: 3.2vw;
+          font-size: 3.7vw;
           color: $color-accent;
           display: block;
           margin-bottom: $spacing-sm;
@@ -154,7 +154,7 @@
 
         .event-desc {
           font-family: 'ThinBlack', sans-serif;
-          font-size: 3.1vw;
+          font-size: 3.6vw;
           color: $color-secondary;
           line-height: 1.6;
         }

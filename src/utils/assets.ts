@@ -1,7 +1,8 @@
 import { resolveAssetPath } from "./assetResolver";
 
 /**
- * Resolve a path under the project `assets/` folder to Aliyun OSS HTTPS URL.
+ * Resolve a path under the project `assets/` folder.
+ * Dev uses local `/assets/...`; production uses Aliyun OSS.
  */
 export function assetPath(relativePath: string): string {
   return resolveAssetPath(relativePath);
