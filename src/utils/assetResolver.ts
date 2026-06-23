@@ -21,3 +21,15 @@ export function resolveAssetPath(relativePath: string): string {
   }
   return aliyunAssetUrl(normalizeAssetPath(relativePath));
 }
+
+/**
+ * Font files on WeChat mini programs cannot be read from the code package
+ * (loadFontFace / FileSystemManager only support HTTPS or temp/data URLs).
+ * In weapp dev, keep images local but load fonts from OSS.
+ */
+export function resolveFontAssetPath(relativePath: string): string {
+  if (isDev() && process.env.TARO_ENV === "weapp") {
+    return aliyunAssetUrl(normalizeAssetPath(relativePath));
+  }
+  return resolveAssetPath(relativePath);
+}

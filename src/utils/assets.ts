@@ -1,4 +1,4 @@
-import { resolveAssetPath } from "./assetResolver";
+import { resolveAssetPath, resolveFontAssetPath } from "./assetResolver";
 
 /**
  * Resolve a path under the project `assets/` folder.
@@ -60,7 +60,7 @@ export const images = {
   signatureNiu: assetPath("images/signature-niu.png"),
 } as const;
 
-/** Unique OSS image URLs used across the app. */
+/** Unique image URLs used across the app. */
 export function getAllImageUrls(): string[] {
   return [...new Set(Object.values(images))];
 }
@@ -68,7 +68,7 @@ export function getAllImageUrls(): string[] {
 export function getFontUrls(): { family: string; url: string }[] {
   return FONT_ASSETS.map(({ family, path }) => ({
     family,
-    url: assetPath(path),
+    url: resolveFontAssetPath(path),
   }));
 }
 

@@ -5,7 +5,7 @@ import {
   getMusicUrl,
 } from "./assets";
 import { resolveWeappMediaPath } from "./weappMedia";
-import { toWeappFontSource } from "./weappAsset";
+import { toWeappFontSourceAsync } from "./weappAsset";
 
 export type AssetLoadPhase = "images" | "fonts" | "audio";
 
@@ -19,13 +19,8 @@ type ProgressCallback = (progress: AssetLoadProgress) => void;
 
 const IMAGE_CONCURRENCY = 6;
 
-function loadWeappFont(family: string, url: string): Promise<void> {
-  const isRemote = url.startsWith("http://") || url.startsWith("https://");
-  if (isRemote && !url.startsWith("https://")) {
-    return Promise.reject(new Error(`Font must use HTTPS URL, got: ${url}`));
-  }
-
-  const source = isRemote ? `url("${url}")` : toWeappFontSource(url);
+async function loadWeappFont(family: string, url: string): Promise<void> {
+  const source = await toWeappFontSourceAsync(url);
 
   return new Promise((resolve, reject) => {
     Taro.loadFontFace({
