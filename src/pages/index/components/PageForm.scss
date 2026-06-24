@@ -1,5 +1,23 @@
 @import "../../../styles/variables.scss";
 
+$form-font-scale: 1.3;
+
+@function form-fs($vw) {
+    @return $vw * $form-font-scale * 1vw;
+}
+
+@mixin form-input-value {
+    font-family: "ThinBlack", "PingFang SC", sans-serif;
+    color: $color-primary;
+}
+
+@mixin form-input-placeholder {
+    &::placeholder {
+        color: $color-accent;
+        font-family: "Main", "PingFang SC", sans-serif;
+    }
+}
+
 .page-form {
     height: 100vh;
     width: 100%;
@@ -108,7 +126,7 @@
 
     .form-title {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 8vw;
+        font-size: form-fs(8);
         color: $color-primary;
         letter-spacing: 16px;
         margin-bottom: 12px;
@@ -121,7 +139,7 @@
 
     .form-subtitle {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 3.3vw;
+        font-size: form-fs(3.3);
         color: $color-secondary;
         letter-spacing: 4px;
     }
@@ -151,7 +169,7 @@
         background: $color-accent;
         color: white;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.78vw;
+        font-size: form-fs(2.78);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -162,7 +180,7 @@
 
     .section-title {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 4vw;
+        font-size: form-fs(4);
         color: $color-primary;
         letter-spacing: 2px;
         margin-right: 12px;
@@ -170,7 +188,7 @@
 
     .section-desc {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.78vw;
+        font-size: form-fs(2.78);
         color: $color-accent;
         flex: 1;
     }
@@ -197,7 +215,7 @@
     .field-label {
         display: block;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 3.5vw;
+        font-size: form-fs(3.5);
         color: $color-secondary;
         margin-bottom: 8px;
         letter-spacing: 1px;
@@ -210,16 +228,13 @@
     .field-input {
         width: 100%;
         height: 44px;
-        font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 3.3vw;
-        color: $color-primary;
+        @include form-input-value;
+        font-size: form-fs(3.3);
         background: transparent;
         border: none;
         padding: 0 4px;
 
-        &::placeholder {
-            color: rgba(107, 107, 107, 0.4);
-        }
+        @include form-input-placeholder;
     }
 
     .field-underline {
@@ -293,7 +308,7 @@
         background: rgba(201, 168, 124, 0.15);
         color: $color-accent;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.51vw;
+        font-size: form-fs(2.51);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -313,16 +328,13 @@
     .guest-input-relation {
         flex: 1;
         height: 36px;
-        font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.91vw;
-        color: $color-primary;
+        @include form-input-value;
+        font-size: form-fs(2.91);
         background: transparent;
         border: none;
         padding: 0 8px;
 
-        &::placeholder {
-            color: rgba(107, 107, 107, 0.4);
-        }
+        @include form-input-placeholder;
     }
 
     .input-divider {
@@ -341,7 +353,7 @@
         margin-left: 8px;
 
         .remove-icon {
-            font-size: 4vw;
+            font-size: form-fs(4);
             color: rgba(107, 107, 107, 0.5);
             line-height: 1;
         }
@@ -365,13 +377,13 @@
         margin-top: 8px;
 
         .add-icon {
-            font-size: 4vw;
+            font-size: form-fs(4);
             color: $color-accent;
         }
 
         .add-text {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 2.78vw;
+            font-size: form-fs(2.78);
             color: $color-secondary;
         }
 
@@ -414,13 +426,13 @@
     }
 
     .transport-icon {
-        font-size: 6.62vw;
+        font-size: form-fs(6.62);
         margin-bottom: 12px;
     }
 
     .transport-label {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 3.5vw;
+        font-size: form-fs(3.5);
         color: $color-primary;
         margin-bottom: 12px;
     }
@@ -468,7 +480,7 @@
     .shuttle-label {
         display: block;
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.78vw;
+        font-size: form-fs(2.78);
         color: $color-secondary;
         margin-bottom: 12px;
     }
@@ -476,17 +488,14 @@
     .shuttle-input {
         width: 100%;
         height: 44px;
-        font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.91vw;
-        color: $color-primary;
+        @include form-input-value;
+        font-size: form-fs(2.91);
         background: rgba(250, 248, 245, 0.8);
         border: 1px solid rgba(201, 168, 124, 0.3);
         border-radius: 8px;
         padding: 0 16px;
 
-        &::placeholder {
-            color: rgba(107, 107, 107, 0.4);
-        }
+        @include form-input-placeholder;
     }
 }
 
@@ -497,22 +506,40 @@
         padding: 0 8px;
     }
 
-    .text-area {
+    // WeChat textarea ignores placeholder-class fonts; use overlay instead
+    .text-area-placeholder {
+        position: absolute;
+        top: 0;
+        left: 8px;
+        right: 8px;
+        padding: 8px 16px;
+        box-sizing: border-box;
+        z-index: 3;
+        pointer-events: none;
+        font-family: "Main", "PingFang SC", sans-serif;
+        color: $color-accent;
+        font-size: form-fs(3.3);
+        line-height: 45.5px;
+    }
+
+    // H5: className sits on taro-textarea-core; styles must target inner textarea
+    taro-textarea-core.text-area {
+        width: 100%;
+        display: block;
+    }
+
+    .text-area,
+    taro-textarea-core.text-area .taro-textarea {
         width: 100%;
         min-height: 120px;
-        font-family: "Main", "PingFang SC", sans-serif;
-        font-size: 3.3vw;
-        line-height: 35px;
-        color: $color-primary;
+        @include form-input-value;
+        font-size: form-fs(3.3);
+        line-height: 45.5px;
         background: transparent;
         border: none;
         padding: 8px 16px;
         position: relative;
         z-index: 2;
-
-        &::placeholder {
-            color: $color-accent;
-        }
     }
 
     .paper-lines {
@@ -525,21 +552,17 @@
     }
 
     .paper-line {
-        height: 35px;
+        height: 45.5px;
         border-bottom: 1px solid rgba(201, 168, 124, 0.15);
     }
-}
-
-// WeChat Textarea uses placeholderClass, not ::placeholder
-.notes-textarea-placeholder {
-    color: $color-accent;
 }
 
 // Submit Section
 .submit-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    width: 100%;
     margin-top: 48px;
     position: relative;
     z-index: 1;
@@ -547,19 +570,24 @@
     .submit-btn {
         display: flex;
         align-items: center;
-        gap: 12px;
-        height: 56px;
-        padding: 0 48px;
+        justify-content: center;
+        width: 100%;
+        height: 96px;
+        padding: 0;
         background: linear-gradient(
             135deg,
             $color-accent 0%,
             darken($color-accent, 8%) 100%
         );
         border: none;
-        border-radius: 28px;
+        border-radius: 48px;
         box-shadow:
             0 4px 12px rgba(201, 168, 124, 0.4),
             0 2px 4px rgba(201, 168, 124, 0.3);
+
+        &::after {
+            border: none;
+        }
 
         .btn-heart {
             width: 20px;
@@ -573,7 +601,7 @@
 
         .btn-text {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 3.7vw;
+            font-size: form-fs(3.7);
             color: white;
             letter-spacing: 4px;
         }
@@ -628,7 +656,7 @@
 
     .footer-text {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.78vw;
+        font-size: form-fs(2.78);
         color: $color-secondary;
         letter-spacing: 2px;
         margin: $spacing-md;
@@ -636,7 +664,7 @@
 
     .footer-names {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 3.3vw;
+        font-size: form-fs(3.3);
         color: $color-primary;
         letter-spacing: 4px;
     }
@@ -706,7 +734,7 @@
 
     .credits-line {
         font-family: "ThinBlack", "PingFang SC", sans-serif;
-        font-size: 2.8vw;
+        font-size: form-fs(2.8);
         color: $color-text-secondary;
         line-height: 1.15;
         letter-spacing: 1px;
@@ -756,7 +784,7 @@
 
         .thanks-title {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 7.27vw;
+            font-size: form-fs(7.27);
             color: $color-primary;
             letter-spacing: 8px;
             display: block;
@@ -774,7 +802,7 @@
 
         .thanks-message {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 3.7vw;
+            font-size: form-fs(3.7);
             color: $color-text-primary;
             line-height: 2;
             display: block;
@@ -784,7 +812,7 @@
 
         .thanks-detail {
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 3.3vw;
+            font-size: form-fs(3.3);
             color: $color-accent;
             line-height: 2;
             letter-spacing: 2px;
@@ -803,7 +831,7 @@
             border: 2px solid rgba(201, 168, 124, 0.5);
             border-radius: 24px;
             font-family: "ThinBlack", "PingFang SC", sans-serif;
-            font-size: 3.3vw;
+            font-size: form-fs(3.3);
             color: $color-accent;
             letter-spacing: 4px;
 

@@ -45,8 +45,11 @@ function pathFromUri(uri) {
   return normalizePath(uri);
 }
 
-function resolveMethod(event, fallbackMethod) {
+function resolveMethod(event, headers = {}, fallbackMethod) {
   return (
+    headers[":method"] ||
+    headers["x-fc-http-method"] ||
+    headers["x-http-method"] ||
     event?.requestContext?.http?.method ||
     event?.method ||
     fallbackMethod ||
@@ -101,12 +104,14 @@ function parseHttpEvent(rawEvent) {
     };
   }
 
+  const headers = normalizeHeaders(event.headers);
+  const body = decodeBody(event.body, event.isBase64Encoded);
+
   if (event.requestContext?.http || event.version === "v1" || event.rawPath) {
-    const headers = normalizeHeaders(event.headers);
     return {
-      method: resolveMethod(event),
+      method: resolveMethod(event, headers),
       path: resolvePath(event, headers),
-      body: decodeBody(event.body, event.isBase64Encoded),
+      body,
       headers,
       origin: headers.origin || "*",
     };
@@ -119,22 +124,21 @@ function parseHttpEvent(rawEvent) {
     event.clientIP ||
     event.queries
   ) {
-    const headers = normalizeHeaders(event.headers);
     return {
-      method: resolveMethod(event),
+      method: resolveMethod(event, headers),
       path: resolvePath(event, headers),
-      body: decodeBody(event.body, event.isBase64Encoded),
+      body,
       headers,
       origin: headers.origin || "*",
     };
   }
 
   return {
-    method: "GET",
-    path: "/",
-    body: "",
-    headers: {},
-    origin: "*",
+    method: resolveMethod(event, headers),
+    path: resolvePath(event, headers),
+    body,
+    headers,
+    origin: headers.origin || "*",
   };
 }
 

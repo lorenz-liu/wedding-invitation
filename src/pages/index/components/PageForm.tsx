@@ -20,6 +20,16 @@ import { submitGuestForm } from "../../../utils/submitGuestForm";
 import { images } from "../../../utils/assets";
 import "./PageForm.scss";
 
+const FORM_PLACEHOLDER_CLASS = "form-field-placeholder";
+const FORM_PLACEHOLDER_STYLE = "color: #c9a87c";
+const FORM_INPUT_STYLE = {
+  color: "#2c2c2c",
+} as const;
+const FORM_TEXTAREA_STYLE =
+  "color: #2c2c2c";
+const NOTES_PLACEHOLDER =
+  "在此处留下您想送上的祝福，或是需要我们特别留意的事项，例如饮食过敏等。";
+
 interface Guest {
   name: string;
   relation: string;
@@ -302,7 +312,7 @@ function PageFormContent({
         >
           <View className="form-section contact-section">
             <View className="section-header">
-              <View className="section-number">01</View>
+              <View className="section-number">1</View>
               <Text className="section-title">联系人信息</Text>
             </View>
             <View className="input-group">
@@ -310,11 +320,15 @@ function PageFormContent({
                 <Text className="field-label">姓名</Text>
                 <Input
                   className="field-input"
+                  style={FORM_INPUT_STYLE}
+                  nativeProps={{ style: FORM_INPUT_STYLE }}
                   value={formData.mainContact}
                   onInput={(e) =>
                     handleInputChange("mainContact", e.detail.value)
                   }
                   placeholder="请输入您的姓名"
+                  placeholderClass={FORM_PLACEHOLDER_CLASS}
+                  placeholderStyle={FORM_PLACEHOLDER_STYLE}
                 />
                 <View className="field-underline" />
               </View>
@@ -322,10 +336,14 @@ function PageFormContent({
                 <Text className="field-label">手机号码</Text>
                 <Input
                   className="field-input"
+                  style={FORM_INPUT_STYLE}
+                  nativeProps={{ style: FORM_INPUT_STYLE }}
                   type="number"
                   value={formData.phone}
                   onInput={(e) => handleInputChange("phone", e.detail.value)}
                   placeholder="选填，便于我们与您联系"
+                  placeholderClass={FORM_PLACEHOLDER_CLASS}
+                  placeholderStyle={FORM_PLACEHOLDER_STYLE}
                 />
                 <View className="field-underline" />
               </View>
@@ -333,9 +351,13 @@ function PageFormContent({
                 <Text className="field-label">微信号</Text>
                 <Input
                   className="field-input"
+                  style={FORM_INPUT_STYLE}
+                  nativeProps={{ style: FORM_INPUT_STYLE }}
                   value={formData.wechatId}
                   onInput={(e) => handleInputChange("wechatId", e.detail.value)}
                   placeholder="选填，便于我们与您联系"
+                  placeholderClass={FORM_PLACEHOLDER_CLASS}
+                  placeholderStyle={FORM_PLACEHOLDER_STYLE}
                 />
                 <View className="field-underline" />
               </View>
@@ -352,7 +374,7 @@ function PageFormContent({
         >
           <View className="form-section guests-section">
             <View className="section-header">
-              <View className="section-number">02</View>
+              <View className="section-number">2</View>
               <Text className="section-title">同行宾客</Text>
             </View>
             <View className="guests-list">
@@ -362,20 +384,28 @@ function PageFormContent({
                   <View className="guest-inputs">
                     <Input
                       className="guest-input-name"
+                      style={FORM_INPUT_STYLE}
+                      nativeProps={{ style: FORM_INPUT_STYLE }}
                       value={guest.name}
                       onInput={(e) =>
                         handleGuestChange(index, "name", e.detail.value)
                       }
                       placeholder="姓名"
+                      placeholderClass={FORM_PLACEHOLDER_CLASS}
+                      placeholderStyle={FORM_PLACEHOLDER_STYLE}
                     />
                     <View className="input-divider" />
                     <Input
                       className="guest-input-relation"
+                      style={FORM_INPUT_STYLE}
+                      nativeProps={{ style: FORM_INPUT_STYLE }}
                       value={guest.relation}
                       onInput={(e) =>
                         handleGuestChange(index, "relation", e.detail.value)
                       }
                       placeholder="TA是您的..."
+                      placeholderClass={FORM_PLACEHOLDER_CLASS}
+                      placeholderStyle={FORM_PLACEHOLDER_STYLE}
                     />
                   </View>
                   {formData.guests.length > 1 && (
@@ -405,7 +435,7 @@ function PageFormContent({
         >
           <View className="form-section transport-section">
             <View className="section-header">
-              <View className="section-number">03</View>
+              <View className="section-number">3</View>
               <Text className="section-title">出行方式</Text>
             </View>
             <View className="transport-options">
@@ -441,11 +471,15 @@ function PageFormContent({
                   <Text className="shuttle-label">请填写希望接驳的地点：</Text>
                   <Input
                     className="shuttle-input"
+                    style={FORM_INPUT_STYLE}
+                    nativeProps={{ style: FORM_INPUT_STYLE }}
                     value={formData.shuttleLocation}
                     onInput={(e) =>
                       handleInputChange("shuttleLocation", e.detail.value)
                     }
                     placeholder="例如：成都东站、双流机场等"
+                    placeholderClass={FORM_PLACEHOLDER_CLASS}
+                    placeholderStyle={FORM_PLACEHOLDER_STYLE}
                   />
                 </View>
               </AnimatedView>
@@ -462,17 +496,21 @@ function PageFormContent({
         >
           <View className="form-section notes-section">
             <View className="section-header">
-              <View className="section-number">04</View>
+              <View className="section-number">4</View>
               <Text className="section-title">留言</Text>
             </View>
             <View className="text-area-wrapper">
+              {!formData.notes && (
+                <Text className="text-area-placeholder">{NOTES_PLACEHOLDER}</Text>
+              )}
               <Textarea
                 className="text-area"
+                style={FORM_TEXTAREA_STYLE}
+                nativeProps={{ style: FORM_TEXTAREA_STYLE }}
                 value={formData.notes}
+                maxlength={500}
                 onInput={(e) => handleInputChange("notes", e.detail.value)}
-                placeholder="在此处留下您想送上的祝福，或是需要我们特别留意的事项，例如饮食过敏等。"
-                placeholderStyle="color: #c9a87c"
-                placeholderClass="notes-textarea-placeholder"
+                placeholder=""
               />
               <View className="paper-lines">
                 <View className="paper-line" />

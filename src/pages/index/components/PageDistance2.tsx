@@ -4,6 +4,7 @@ import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
 import { PageReadyGate, uniqueImageUrls, usePageAnimationsReady } from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
+import { getTimelineLineStyle } from "./distanceTimeline";
 import "./PageDistance.scss";
 
 interface PageDistance2Props {
@@ -69,7 +70,10 @@ function PageDistance2Content() {
         </AnimatedView>
       </View>
 
-      <View className="timeline-board">
+      <View
+        className={`timeline-board ${animationsReady ? "timeline-ready" : ""}`}
+        style={getTimelineLineStyle(EVENTS.length)}
+      >
         <View className="timeline-line" />
 
         {EVENTS.map((evt, idx) => (

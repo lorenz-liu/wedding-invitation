@@ -73,8 +73,14 @@
         bottom: 0;
         width: 0;
         border-left: 2px dashed $color-primary;
-        transform: translateX(-1px);
+        transform: translateX(-1px) scaleY(0);
+        transform-origin: top center;
         z-index: 0;
+    }
+
+    &.timeline-ready .timeline-line {
+        animation: timelineLineReveal var(--timeline-line-duration, 1240ms)
+            ease-out var(--timeline-line-delay, 600ms) forwards;
     }
 
     .event-row-wrapper {
@@ -238,6 +244,15 @@
         color: $color-text-primary;
         line-height: 1.4;
         letter-spacing: 1px;
+    }
+}
+
+@keyframes timelineLineReveal {
+    from {
+        transform: translateX(-1px) scaleY(0);
+    }
+    to {
+        transform: translateX(-1px) scaleY(1);
     }
 }
 

@@ -19,6 +19,41 @@ export interface GuestFormResult {
   error?: string;
 }
 
+function parseGuestFormResult(
+  data: unknown,
+  statusCode: number,
+): GuestFormResult {
+  let payload = data;
+
+  if (typeof payload === "string") {
+    const trimmed = payload.trim();
+    if (trimmed === "ok") {
+      return {
+        success: false,
+        error:
+          "后端 API 未正确部署，请重新执行 pnpm deploy:aliyun 更新函数计算",
+      };
+    }
+    try {
+      payload = JSON.parse(trimmed);
+    } catch {
+      return {
+        success: false,
+        error: `服务器返回异常（HTTP ${statusCode}）`,
+      };
+    }
+  }
+
+  if (!payload || typeof payload !== "object") {
+    return {
+      success: false,
+      error: `服务器返回异常（HTTP ${statusCode}）`,
+    };
+  }
+
+  return payload as GuestFormResult;
+}
+
 export async function submitGuestForm(
   formData: GuestFormPayload,
 ): Promise<GuestFormResult> {
@@ -35,14 +70,15 @@ export async function submitGuestForm(
     },
   });
 
+  const result = parseGuestFormResult(response.data, response.statusCode);
+
   if (response.statusCode >= 400) {
-    const data = response.data as GuestFormResult;
     return {
       success: false,
-      error: data?.error || `HTTP ${response.statusCode}`,
-      message: data?.message,
+      error: result.error || `HTTP ${response.statusCode}`,
+      message: result.message,
     };
   }
 
-  return response.data as GuestFormResult;
+  return result;
 }

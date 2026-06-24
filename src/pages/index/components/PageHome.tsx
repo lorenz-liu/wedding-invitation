@@ -36,7 +36,7 @@ function PageHomeContent() {
         if (!rect || !("height" in rect) || !rect.height) return;
 
         const topOffsetVh = Taro.getSystemInfoSync().windowHeight * 0.1;
-        setContentTop(topOffsetVh + rect.height * 0.32);
+        setContentTop(topOffsetVh + rect.height * 0.22);
       });
   }, []);
 
@@ -116,7 +116,8 @@ function PageHomeContent() {
           isActive={animationsReady}
         >
           <View className="date-info">
-            <Text className="date-text">2026年7月25日 · 礼拜六 · 成都</Text>
+            <Text className="date-text">2026年7月25日</Text>
+            <Text className="date-text">礼拜六 · 成都</Text>
           </View>
         </AnimatedView>
 

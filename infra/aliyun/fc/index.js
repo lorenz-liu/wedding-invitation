@@ -9,6 +9,22 @@ function readJsonBody(rawBody) {
   return JSON.parse(rawBody);
 }
 
+function isGuestFormBody(rawBody) {
+  if (!rawBody || typeof rawBody !== "string") return false;
+  const trimmed = rawBody.trim();
+  if (!trimmed.startsWith("{")) return false;
+  try {
+    const parsed = readJsonBody(trimmed);
+    return (
+      parsed &&
+      typeof parsed === "object" &&
+      Object.prototype.hasOwnProperty.call(parsed, "mainContact")
+    );
+  } catch {
+    return false;
+  }
+}
+
 async function handleGuestForm(rawBody, originHeader) {
   let body;
   try {
@@ -78,8 +94,12 @@ exports.handler = async (event) => {
     return optionsResponse(origin);
   }
 
-  // FC HTTP trigger often reports path as "/" even for /health or /api/guest-form.
-  if (method === "GET" && (path === "/health" || path === "/")) {
+  // FC gateway may report POST as GET with path "/"; trust JSON body first.
+  if (isGuestFormBody(body)) {
+    return handleGuestForm(body, origin);
+  }
+
+  if (method === "GET" && path === "/health") {
     return textResponse(200, "ok", origin);
   }
 

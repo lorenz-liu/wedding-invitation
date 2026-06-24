@@ -12,3 +12,9 @@ page {
   height: 100%;
   overflow: hidden;
 }
+
+// WeChat Input/Textarea placeholder-class must be in global wxss
+.form-field-placeholder {
+  color: $color-accent;
+  font-family: 'Main', 'PingFang SC', sans-serif;
+}
