@@ -36,7 +36,7 @@ function PageHomeContent() {
         if (!rect || !("height" in rect) || !rect.height) return;
 
         const topOffsetVh = Taro.getSystemInfoSync().windowHeight * 0.1;
-        setContentTop(topOffsetVh + rect.height * 0.22);
+        setContentTop(topOffsetVh);
       });
   }, []);
 

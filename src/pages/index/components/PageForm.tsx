@@ -80,7 +80,6 @@ function CreditFooter({ signatureReveal }: CreditFooterProps) {
   return (
     <View>
       <View className="form-footer">
-        <Text className="footer-text">感谢您的回复，期待与您相见</Text>
         <Text className="footer-names">刘兆薰 & 高文珩 敬邀</Text>
       </View>
 
@@ -259,7 +258,7 @@ function PageFormContent({
               delay={250}
               duration={800}
             >
-              <Text className="thanks-title">感谢您的回复</Text>
+              <Text className="thanks-title">我们已收到您的回函</Text>
             </AnimatedView>
           </View>
 
@@ -270,7 +269,7 @@ function PageFormContent({
             duration={600}
           >
             <View className="thanks-body">
-              <Text className="thanks-message">我们已收到您的回函。</Text>
+              <Text className="thanks-message">感谢您花时间填写</Text>
               <Text className="thanks-detail">
                 2026年7月25日 · 成都
                 {"\n"}

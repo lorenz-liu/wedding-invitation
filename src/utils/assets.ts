@@ -11,6 +11,7 @@ export function assetPath(relativePath: string): string {
 export const FONT_ASSETS = [
   { family: "ThinBlack", path: "fonts/thin-black.ttf" },
   { family: "Main", path: "fonts/main.ttf" },
+  { family: "Bold", path: "fonts/bold.ttf" },
   { family: "Childhood", path: "fonts/childhood.ttf" },
 ] as const;
 
