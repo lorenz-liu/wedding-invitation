@@ -77,15 +77,56 @@ function resolvePath(event, headers = {}) {
   return unique[0] || "/";
 }
 
-function coerceEvent(event) {
+function coerceEvent(rawEvent) {
+  let event = rawEvent;
+
+  if (Buffer.isBuffer(event)) {
+    event = event.toString("utf8");
+  }
+
   if (typeof event === "string") {
+    const trimmed = event.trim();
+    if (!trimmed) return {};
     try {
-      return JSON.parse(event);
+      event = JSON.parse(trimmed);
     } catch {
       return {};
     }
   }
+
+  if (!event || typeof event !== "object") {
+    return {};
+  }
+
+  if (typeof event.payload === "string") {
+    try {
+      const nested = JSON.parse(event.payload);
+      if (nested && typeof nested === "object") {
+        return nested;
+      }
+    } catch {
+      // keep original event
+    }
+  }
+
+  if (event.payload && typeof event.payload === "object") {
+    return event.payload;
+  }
+
   return event;
+}
+
+function extractRawBody(event) {
+  const encoded = event?.isBase64Encoded ?? event?.IsBase64Encoded ?? false;
+  const candidates = [event?.body, event?.Body, event?.data, event?.payload];
+
+  for (const candidate of candidates) {
+    if (candidate === undefined || candidate === null) continue;
+    const decoded = decodeBody(candidate, encoded);
+    if (decoded) return decoded;
+  }
+
+  return "";
 }
 
 /**
@@ -105,9 +146,9 @@ function parseHttpEvent(rawEvent) {
   }
 
   const headers = normalizeHeaders(event.headers);
-  const body = decodeBody(event.body, event.isBase64Encoded);
+  const body = extractRawBody(event);
 
-  if (event.requestContext?.http || event.version === "v1" || event.rawPath) {
+  if (event.requestContext?.http || event.rawPath) {
     return {
       method: resolveMethod(event, headers),
       path: resolvePath(event, headers),

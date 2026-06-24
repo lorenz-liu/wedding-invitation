@@ -1,0 +1,18 @@
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ots:PutRow",
+        "ots:GetRow",
+        "ots:UpdateRow",
+        "ots:BatchWriteRow"
+      ],
+      "Resource": [
+        "acs:ots:cn-chengdu:*:instance/wedding",
+        "acs:ots:cn-chengdu:*:instance/wedding/table/guests"
+      ]
+    }
+  ]
+}

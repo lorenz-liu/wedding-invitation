@@ -81,12 +81,26 @@ async function handleGuestForm(rawBody, originHeader) {
   );
 }
 
+function isGuestFormRoute(method, path) {
+  return (
+    method === "POST" &&
+    (path === "/api/guest-form" ||
+      path === "/" ||
+      path.endsWith("/api/guest-form"))
+  );
+}
+
+function isHealthRoute(method, path) {
+  return method === "GET" && (path === "/health" || path.endsWith("/health"));
+}
+
 exports.handler = async (event) => {
-  const { method, path, body, origin } = parseHttpEvent(event);
+  const { method, path, body, origin, headers } = parseHttpEvent(event);
   console.log("FC route:", method, path, {
     rawPath: event?.rawPath,
     httpPath: event?.requestContext?.http?.path,
     headerPath: event?.headers?.[":path"] || event?.headers?.[":Path"],
+    bodyLength: body?.length || 0,
     eventKeys: event && typeof event === "object" ? Object.keys(event) : [],
   });
 
@@ -94,22 +108,37 @@ exports.handler = async (event) => {
     return optionsResponse(origin);
   }
 
-  // FC gateway may report POST as GET with path "/"; trust JSON body first.
   if (isGuestFormBody(body)) {
     return handleGuestForm(body, origin);
   }
 
-  if (method === "GET" && path === "/health") {
+  if (isHealthRoute(method, path)) {
     return textResponse(200, "ok", origin);
   }
 
+  const contentType = String(headers["content-type"] || "").toLowerCase();
   if (
     method === "POST" &&
-    (path === "/api/guest-form" || path === "/")
+    contentType.includes("application/json") &&
+    body
   ) {
     return handleGuestForm(body, origin);
   }
 
+  if (isGuestFormRoute(method, path)) {
+    return handleGuestForm(body, origin);
+  }
+
   console.warn("FC route not found:", method, path);
-  return jsonResponse(404, { success: false, error: "Not Found" }, origin);
+  return jsonResponse(
+    404,
+    {
+      success: false,
+      error: "Not Found",
+      method,
+      path,
+      bodyLength: body?.length || 0,
+    },
+    origin,
+  );
 };
