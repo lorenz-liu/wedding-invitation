@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, ScrollView } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import { PageReadyGate, uniqueImageUrls, usePageAnimationsReady } from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageDistance.scss";
 
@@ -59,16 +60,19 @@ const EVENTS: DistanceEvent[] = [
   },
 ];
 
-export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls(EVENTS.map((event) => event.image));
+
+function PageDistanceContent() {
+  const animationsReady = usePageAnimationsReady();
+
   return (
-    
       <View className="page page-distance">
       <View className="distance-header">
         <YearTitle>2020 — 2022</YearTitle>
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={200}
           duration={600}
         >
@@ -83,7 +87,7 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
           <AnimatedView
             key={`${evt.year}-${evt.location}-${idx}`}
             animation={evt.side === "left" ? "fadeInLeft" : "fadeInRight"}
-            isActive={isActive}
+            isActive={animationsReady}
             delay={600 + idx * 220}
             duration={800}
             className="event-row-wrapper"
@@ -138,6 +142,12 @@ export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => {
           </AnimatedView>
         ))}
       </View>
-      </View> 
+      </View>
   );
-};
+}
+
+export const PageDistance: React.FC<PageDistanceProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageDistanceContent />
+  </PageReadyGate>
+);

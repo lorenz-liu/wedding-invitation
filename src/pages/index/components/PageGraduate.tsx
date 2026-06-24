@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageGraduate.scss";
 
@@ -9,16 +14,19 @@ interface PageGraduateProps {
   isActive: boolean;
 }
 
-export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([images.masterGraduationTogether]);
+
+function PageGraduateContent() {
+  const animationsReady = usePageAnimationsReady();
   const [photoIn, setPhotoIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => setPhotoIn(true), 50);
       return () => clearTimeout(timer);
     }
     setPhotoIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-graduate">
@@ -30,7 +38,7 @@ export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={250}
           duration={700}
         >
@@ -39,7 +47,7 @@ export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={450}
           duration={700}
         >
@@ -66,4 +74,10 @@ export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageGraduate: React.FC<PageGraduateProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageGraduateContent />
+  </PageReadyGate>
+);

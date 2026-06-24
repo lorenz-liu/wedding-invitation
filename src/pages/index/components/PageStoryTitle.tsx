@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageStoryTitle.scss";
 
@@ -8,16 +13,19 @@ interface PageStoryTitleProps {
   isActive: boolean;
 }
 
-export const PageStoryTitle: React.FC<PageStoryTitleProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([images.storyIcon]);
+
+function PageStoryTitleContent() {
+  const animationsReady = usePageAnimationsReady();
   const [logoIn, setLogoIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => setLogoIn(true), 50);
       return () => clearTimeout(timer);
     }
     setLogoIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-story-title">
@@ -32,7 +40,7 @@ export const PageStoryTitle: React.FC<PageStoryTitleProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={300}
           duration={800}
         >
@@ -41,7 +49,7 @@ export const PageStoryTitle: React.FC<PageStoryTitleProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeIn"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={800}
           duration={800}
         >
@@ -52,4 +60,10 @@ export const PageStoryTitle: React.FC<PageStoryTitleProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageStoryTitle: React.FC<PageStoryTitleProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageStoryTitleContent />
+  </PageReadyGate>
+);

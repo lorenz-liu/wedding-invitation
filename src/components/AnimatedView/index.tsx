@@ -27,9 +27,8 @@ export const AnimatedView: React.FC<AnimatedViewProps> = ({
         setShouldAnimate(true);
       }, delay);
       return () => clearTimeout(timer);
-    } else {
-      setShouldAnimate(false);
     }
+    setShouldAnimate(false);
   }, [isActive, delay]);
 
   return (

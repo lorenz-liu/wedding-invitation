@@ -9,6 +9,11 @@ import {
   Image,
 } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import Taro from "@tarojs/taro";
 import { FORM_SUBMITTED_KEY } from "../../../constants/config";
 import { submitGuestForm } from "../../../utils/submitGuestForm";
@@ -46,6 +51,11 @@ interface PageFormProps {
   isActive: boolean;
   onScrollTopChange?: (scrollTop: number) => void;
 }
+
+const PAGE_IMAGES = uniqueImageUrls([
+  images.signatureGao,
+  images.signatureNiu,
+]);
 
 interface CreditFooterProps {
   signatureReveal: boolean;
@@ -97,10 +107,10 @@ function CreditFooter({ signatureReveal }: CreditFooterProps) {
   );
 }
 
-export const PageForm: React.FC<PageFormProps> = ({
-  isActive,
+function PageFormContent({
   onScrollTopChange,
-}) => {
+}: Pick<PageFormProps, "onScrollTopChange">) {
+  const animationsReady = usePageAnimationsReady();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM_DATA);
   const [signatureReveal, setSignatureReveal] = useState(false);
@@ -118,7 +128,7 @@ export const PageForm: React.FC<PageFormProps> = ({
   }, [submitted, onScrollTopChange]);
 
   useEffect(() => {
-    if (!isActive) {
+    if (!animationsReady) {
       signatureRevealStartedRef.current = false;
       setSignatureReveal(false);
       return;
@@ -126,7 +136,7 @@ export const PageForm: React.FC<PageFormProps> = ({
     if (signatureRevealStartedRef.current) return;
     signatureRevealStartedRef.current = true;
     setSignatureReveal(true);
-  }, [isActive]);
+  }, [animationsReady]);
 
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -222,7 +232,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         <View className="paper-container thanks-container">
           <AnimatedView
             animation="fadeInScale"
-            isActive={isActive}
+            isActive={animationsReady}
             duration={800}
           >
             <View className="thanks-header">
@@ -232,7 +242,7 @@ export const PageForm: React.FC<PageFormProps> = ({
 
           <AnimatedView
             animation="fadeInUp"
-            isActive={isActive}
+            isActive={animationsReady}
             delay={300}
             duration={600}
           >
@@ -248,7 +258,7 @@ export const PageForm: React.FC<PageFormProps> = ({
 
           <AnimatedView
             animation="fadeIn"
-            isActive={isActive}
+            isActive={animationsReady}
             delay={600}
             duration={600}
           >
@@ -274,7 +284,7 @@ export const PageForm: React.FC<PageFormProps> = ({
       <View className="form-scroll-inner">
       <View className="paper-container">
         {/* Paper Header */}
-        <AnimatedView animation="fadeInUp" isActive={isActive} duration={800}>
+        <AnimatedView animation="fadeInUp" isActive={animationsReady} duration={800}>
           <View className="paper-header">
             <View className="header-content">
               <Text className="form-title">回函</Text>
@@ -286,7 +296,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         {/* Main Contact Section */}
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={200}
           duration={600}
         >
@@ -336,7 +346,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         {/* Guests Section */}
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={350}
           duration={600}
         >
@@ -389,7 +399,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         {/* Transport Section */}
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={500}
           duration={600}
         >
@@ -446,7 +456,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         {/* Notes Section */}
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={650}
           duration={600}
         >
@@ -477,7 +487,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         {/* Submit Section */}
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={800}
           duration={600}
         >
@@ -492,4 +502,13 @@ export const PageForm: React.FC<PageFormProps> = ({
       </View>
     </ScrollView>
   );
-};
+}
+
+export const PageForm: React.FC<PageFormProps> = ({
+  isActive,
+  onScrollTopChange,
+}) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageFormContent onScrollTopChange={onScrollTopChange} />
+  </PageReadyGate>
+);

@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { Countdown } from "../../../components/Countdown";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageMilestone.scss";
 
@@ -9,16 +14,19 @@ interface PageMilestoneProps {
   isActive: boolean;
 }
 
-export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([images.art, images.handHolding]);
+
+function PageMilestoneContent() {
+  const animationsReady = usePageAnimationsReady();
   const [artIn, setArtIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => setArtIn(true), 50);
       return () => clearTimeout(timer);
     }
     setArtIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-milestone">
@@ -26,7 +34,7 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
         <Image className="art-img" src={images.art} mode="widthFix" />
       </View>
 
-      <AnimatedView animation="fadeIn" isActive={isActive} duration={800}>
+      <AnimatedView animation="fadeIn" isActive={animationsReady} duration={800}>
         <View className="hand-holding-anchor">
           <Image
             className="hand-holding-img"
@@ -39,7 +47,7 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
       <View className="content-wrapper">
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           duration={600}
           className="milestone-year-block"
         >
@@ -48,7 +56,7 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeIn"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={200}
           duration={600}
           className="milestone-context-block"
@@ -59,7 +67,7 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={600}
           duration={600}
           className="poetry-block"
@@ -74,17 +82,23 @@ export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInScale"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={800}
           duration={800}
         >
           <View className="wedding-date-box">
             <Text className="date-highlight">2026年7月25日</Text>
             <Text className="we-text">我们共同铭刻</Text>
-            <Countdown isActive={isActive} />
+            <Countdown isActive={animationsReady} />
           </View>
         </AnimatedView>
       </View>
     </View>
   );
-};
+}
+
+export const PageMilestone: React.FC<PageMilestoneProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageMilestoneContent />
+  </PageReadyGate>
+);

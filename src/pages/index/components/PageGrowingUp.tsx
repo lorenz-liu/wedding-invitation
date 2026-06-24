@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageGrowingUp.scss";
 
@@ -9,16 +14,22 @@ interface PageGrowingUpProps {
   isActive: boolean;
 }
 
-export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([
+  images.childhoodGif,
+  images.togetherKidsNoBg,
+]);
+
+function PageGrowingUpContent() {
+  const animationsReady = usePageAnimationsReady();
   const [bottomIn, setBottomIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => setBottomIn(true), 50);
       return () => clearTimeout(timer);
     }
     setBottomIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-growing-up">
@@ -36,7 +47,7 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
 
           <AnimatedView
             animation="fadeInUp"
-            isActive={isActive}
+            isActive={animationsReady}
             delay={800}
             duration={800}
           >
@@ -62,4 +73,10 @@ export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageGrowingUp: React.FC<PageGrowingUpProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageGrowingUpContent />
+  </PageReadyGate>
+);

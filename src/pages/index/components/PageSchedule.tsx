@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageSchedule.scss";
 
@@ -47,23 +52,29 @@ const scheduleData: ScheduleItem[] = [
   },
 ];
 
-export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([
+  ...scheduleData.map((item) => item.image),
+  images.onTheMoon,
+]);
+
+function PageScheduleContent() {
+  const animationsReady = usePageAnimationsReady();
   const [moonIn, setMoonIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => setMoonIn(true), 50);
       return () => clearTimeout(timer);
     }
     setMoonIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-schedule">
       <View className="content-wrapper">
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           duration={600}
           className="schedule-title-wrap"
         >
@@ -75,7 +86,7 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
             <AnimatedView
               key={item.time}
               animation={index % 2 === 0 ? "fadeInLeft" : "fadeInRight"}
-              isActive={isActive}
+              isActive={animationsReady}
               delay={100 + index * 100}
               duration={600}
               className="schedule-item"
@@ -111,4 +122,10 @@ export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageSchedule: React.FC<PageScheduleProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageScheduleContent />
+  </PageReadyGate>
+);

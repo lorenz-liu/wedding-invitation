@@ -1,12 +1,18 @@
 import React from "react";
 import { View, Text, Map, Button } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
+import {
+  PageReadyGate,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import Taro from "@tarojs/taro";
 import "./PageLocation.scss";
 
 interface PageLocationProps {
   isActive: boolean;
 }
+
+const PAGE_IMAGES: string[] = [];
 
 const VENUE = {
   latitude: 30.4577,
@@ -15,7 +21,9 @@ const VENUE = {
   address: "四川省成都市双流区华阳街道麓湖中路西段888号13栋附101-104号",
 };
 
-export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
+function PageLocationContent() {
+  const animationsReady = usePageAnimationsReady();
+
   const handleOpenMap = () => {
     Taro.openLocation({
       latitude: VENUE.latitude,
@@ -51,13 +59,13 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
         <View className="overlay-gradient overlay-gradient-bottom" />
 
         <View className="overlay-top">
-          <AnimatedView animation="fadeInUp" isActive={isActive} duration={600}>
+          <AnimatedView animation="fadeInUp" isActive={animationsReady} duration={600}>
             <Text className="page-title">婚礼地点</Text>
           </AnimatedView>
 
           <AnimatedView
             animation="fadeInScale"
-            isActive={isActive}
+            isActive={animationsReady}
             delay={200}
             duration={600}
           >
@@ -72,7 +80,7 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
         <View className="overlay-bottom">
           <AnimatedView
             animation="fadeIn"
-            isActive={isActive}
+            isActive={animationsReady}
             delay={550}
             duration={600}
           >
@@ -84,4 +92,10 @@ export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageLocation: React.FC<PageLocationProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageLocationContent />
+  </PageReadyGate>
+);

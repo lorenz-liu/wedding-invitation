@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageBirth.scss";
 
@@ -9,16 +14,24 @@ interface PageBirthProps {
   isActive: boolean;
 }
 
-export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([
+  images.babyGaoLeft,
+  images.gaoKidNoBg,
+  images.niuKidNoBg,
+  images.babyNiuRight,
+]);
+
+function PageBirthContent() {
+  const animationsReady = usePageAnimationsReady();
   const [imagesIn, setImagesIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => setImagesIn(true), 50);
       return () => clearTimeout(timer);
     }
     setImagesIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   const layerClass = `birth-images-layer ${imagesIn ? "animate" : ""}`;
 
@@ -55,7 +68,7 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={200}
           duration={600}
         >
@@ -68,4 +81,10 @@ export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageBirth: React.FC<PageBirthProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageBirthContent />
+  </PageReadyGate>
+);

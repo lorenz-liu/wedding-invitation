@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageLife.scss";
 
@@ -18,14 +23,23 @@ const PAWS = [
   { src: images.paw2, offset: 5 },
 ] as const;
 
-export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([
+  images.paw1,
+  images.paw2,
+  images.bawbawFullBody1,
+  images.holdingBawbawNoBg,
+  images.bawbawFullBody3,
+]);
+
+function PageLifeContent() {
+  const animationsReady = usePageAnimationsReady();
   const [leftIn, setLeftIn] = useState(false);
   const [rightIn, setRightIn] = useState(false);
   const [heroIn, setHeroIn] = useState(false);
   const [pawsIn, setPawsIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const t0 = setTimeout(() => setPawsIn(true), 50);
       const t1 = setTimeout(() => setHeroIn(true), 50);
       const t2 = setTimeout(() => setLeftIn(true), 50);
@@ -41,7 +55,7 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
     setHeroIn(false);
     setLeftIn(false);
     setRightIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-life">
@@ -73,7 +87,7 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
 
           <AnimatedView
             animation="fadeInUp"
-            isActive={isActive}
+            isActive={animationsReady}
             delay={200}
             duration={800}
           >
@@ -85,7 +99,7 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
           </AnimatedView>
           <AnimatedView
             animation="fadeInUp"
-            isActive={isActive}
+            isActive={animationsReady}
             delay={700}
             duration={800}
           >
@@ -121,4 +135,10 @@ export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageLife: React.FC<PageLifeProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageLifeContent />
+  </PageReadyGate>
+);

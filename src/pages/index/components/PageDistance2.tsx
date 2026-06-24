@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import { PageReadyGate, uniqueImageUrls, usePageAnimationsReady } from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageDistance.scss";
 
@@ -48,7 +49,11 @@ const EVENTS: DistanceEvent[] = [
   },
 ];
 
-export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls(EVENTS.map((event) => event.image));
+
+function PageDistance2Content() {
+  const animationsReady = usePageAnimationsReady();
+
   return (
     <View className="page page-distance">
       <View className="distance-header">
@@ -56,7 +61,7 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={200}
           duration={600}
         >
@@ -71,7 +76,7 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
           <AnimatedView
             key={`${evt.year}-${evt.location}-${idx}`}
             animation={evt.side === "left" ? "fadeInLeft" : "fadeInRight"}
-            isActive={isActive}
+            isActive={animationsReady}
             delay={600 + idx * 220}
             duration={800}
             className="event-row-wrapper"
@@ -129,4 +134,10 @@ export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageDistance2: React.FC<PageDistance2Props> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageDistance2Content />
+  </PageReadyGate>
+);

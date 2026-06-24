@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageRelationship.scss";
 
@@ -9,18 +14,19 @@ interface PageRelationshipProps {
   isActive: boolean;
 }
 
-export const PageRelationship: React.FC<PageRelationshipProps> = ({
-  isActive,
-}) => {
+const PAGE_IMAGES = uniqueImageUrls([images.togetherFlower]);
+
+function PageRelationshipContent() {
+  const animationsReady = usePageAnimationsReady();
   const [sanyaIn, setSanyaIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => setSanyaIn(true), 600);
       return () => clearTimeout(timer);
     }
     setSanyaIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-relationship">
@@ -33,7 +39,7 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
         <AnimatedView
           className="story-title-wrap"
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={500}
           duration={800}
         >
@@ -43,7 +49,7 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
         <AnimatedView
           className="story-content-wrap"
           animation="fadeIn"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={700}
           duration={800}
         >
@@ -64,4 +70,12 @@ export const PageRelationship: React.FC<PageRelationshipProps> = ({
       </View>
     </View>
   );
-};
+}
+
+export const PageRelationship: React.FC<PageRelationshipProps> = ({
+  isActive,
+}) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageRelationshipContent />
+  </PageReadyGate>
+);

@@ -2,6 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { AnimatedView } from "../../../components/AnimatedView";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageHome.scss";
 
@@ -9,7 +14,15 @@ interface PageHomeProps {
   isActive: boolean;
 }
 
-export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([
+  images.homepageGlassesLeft,
+  images.homepageGlassesRight,
+  images.homepageNiu,
+  images.homepageGao,
+]);
+
+function PageHomeContent() {
+  const animationsReady = usePageAnimationsReady();
   const [figuresIn, setFiguresIn] = useState(false);
   const [glassesIn, setGlassesIn] = useState(false);
   const [contentTop, setContentTop] = useState<number | null>(null);
@@ -28,7 +41,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
   }, []);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const figuresTimer = setTimeout(() => setFiguresIn(true), 50);
       const glassesTimer = setTimeout(() => setGlassesIn(true), 380);
       const measureTimer = setTimeout(updateContentTop, 120);
@@ -40,7 +53,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
     }
     setFiguresIn(false);
     setGlassesIn(false);
-  }, [isActive, updateContentTop]);
+  }, [animationsReady, updateContentTop]);
 
   return (
     <View className="page page-home">
@@ -91,7 +104,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           animation="fadeInUp"
           delay={0}
           duration={800}
-          isActive={isActive}
+          isActive={animationsReady}
         >
           <Text className="names-text">刘兆薰 & 高文珩</Text>
         </AnimatedView>
@@ -100,7 +113,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           animation="fadeInUp"
           delay={500}
           duration={600}
-          isActive={isActive}
+          isActive={animationsReady}
         >
           <View className="date-info">
             <Text className="date-text">2026年7月25日 · 礼拜六 · 成都</Text>
@@ -111,7 +124,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           animation="fadeInUp"
           delay={700}
           duration={600}
-          isActive={isActive}
+          isActive={animationsReady}
         >
           <Text className="invite-title">诚挚邀请您见证我们的婚礼</Text>
         </AnimatedView>
@@ -120,7 +133,7 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
           animation="fadeIn"
           delay={900}
           duration={800}
-          isActive={isActive}
+          isActive={animationsReady}
         >
           <View className="poem-section">
             <Text className="poem-line">我们期待</Text>
@@ -131,4 +144,10 @@ export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageHome: React.FC<PageHomeProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageHomeContent />
+  </PageReadyGate>
+);

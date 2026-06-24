@@ -18,6 +18,21 @@
     overflow: hidden;
   }
 
+  .asset-warmup {
+    position: fixed;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .asset-warmup-img {
+    width: 1px;
+    height: 1px;
+  }
+
   .page-indicator {
     position: fixed;
     right: 20px;

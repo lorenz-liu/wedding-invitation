@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import { YearTitle } from "../../../components/YearTitle";
+import {
+  PageReadyGate,
+  uniqueImageUrls,
+  usePageAnimationsReady,
+} from "../../../components/PageReadyGate";
 import { images } from "../../../utils/assets";
 import "./PageToronto.scss";
 
@@ -9,12 +14,18 @@ interface PageTorontoProps {
   isActive: boolean;
 }
 
-export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
+const PAGE_IMAGES = uniqueImageUrls([
+  images.torontoLandmark,
+  images.torontoNoBg,
+]);
+
+function PageTorontoContent() {
+  const animationsReady = usePageAnimationsReady();
   const [landmarkIn, setLandmarkIn] = useState(false);
   const [torontoIn, setTorontoIn] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    if (animationsReady) {
       const timer = setTimeout(() => {
         setLandmarkIn(true);
         setTorontoIn(true);
@@ -23,7 +34,7 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
     }
     setLandmarkIn(false);
     setTorontoIn(false);
-  }, [isActive]);
+  }, [animationsReady]);
 
   return (
     <View className="page page-toronto">
@@ -43,7 +54,7 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeInUp"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={300}
           duration={600}
         >
@@ -52,7 +63,7 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
 
         <AnimatedView
           animation="fadeIn"
-          isActive={isActive}
+          isActive={animationsReady}
           delay={500}
           duration={800}
         >
@@ -75,4 +86,10 @@ export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => {
       </View>
     </View>
   );
-};
+}
+
+export const PageToronto: React.FC<PageTorontoProps> = ({ isActive }) => (
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageTorontoContent />
+  </PageReadyGate>
+);

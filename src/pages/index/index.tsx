@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { View } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import Taro, { useReady } from "@tarojs/taro";
 import { AssetLoadingScreen } from "../../components/AssetLoadingScreen";
 import { AudioControl } from "../../components/AudioControl";
@@ -8,6 +8,7 @@ import {
   preloadAllAssets,
   type AssetLoadProgress,
 } from "../../utils/assetPreloader";
+import { getAllImageUrls } from "../../utils/assets";
 import { PageHome } from "./components/PageHome";
 import { PageStoryTitle } from "./components/PageStoryTitle";
 import { PageBirth } from "./components/PageBirth";
@@ -149,9 +150,8 @@ const Index: React.FC = () => {
     }
   };
 
-  // Render current page only (simpler, more reliable)
   const renderCurrentPage = () => {
-    const isActive = true; // Always active for current page
+    const isActive = true;
 
     switch (currentPage) {
       case 0:
@@ -229,6 +229,18 @@ const Index: React.FC = () => {
             key={index}
             className={`indicator-dot ${currentPage === index ? "active" : ""}`}
             onClick={() => goToPage(index)}
+          />
+        ))}
+      </View>
+
+      <View className="asset-warmup" aria-hidden>
+        {getAllImageUrls().map((url) => (
+          <Image
+            key={url}
+            className="asset-warmup-img"
+            src={url}
+            mode="aspectFill"
+            lazyLoad={false}
           />
         ))}
       </View>
