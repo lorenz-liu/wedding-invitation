@@ -776,6 +776,13 @@ $form-font-scale: 1.3;
     .thanks-header {
         margin-bottom: 40px;
 
+        .thanks-logo {
+            display: block;
+            width: 40vw;
+            max-width: 220px;
+            margin: 0 auto 32px;
+        }
+
         .thanks-heart {
             width: 64px;
             height: 64px;

@@ -65,6 +65,7 @@ interface PageFormProps {
 const PAGE_IMAGES = uniqueImageUrls([
   images.signatureGao,
   images.signatureNiu,
+  images.logoNoBg,
 ]);
 
 interface CreditFooterProps {
@@ -240,15 +241,27 @@ function PageFormContent({
     return (
       <View className="page page-form page-form-thanks">
         <View className="paper-container thanks-container">
-          <AnimatedView
-            animation="fadeInScale"
-            isActive={animationsReady}
-            duration={800}
-          >
-            <View className="thanks-header">
+          <View className="thanks-header">
+            <AnimatedView
+              animation="fadeIn"
+              isActive={animationsReady}
+              duration={800}
+            >
+              <Image
+                className="thanks-logo"
+                src={images.logoNoBg}
+                mode="widthFix"
+              />
+            </AnimatedView>
+            <AnimatedView
+              animation="fadeIn"
+              isActive={animationsReady}
+              delay={250}
+              duration={800}
+            >
               <Text className="thanks-title">感谢您的回复</Text>
-            </View>
-          </AnimatedView>
+            </AnimatedView>
+          </View>
 
           <AnimatedView
             animation="fadeInUp"
@@ -272,9 +285,9 @@ function PageFormContent({
             delay={600}
             duration={600}
           >
-            <View className="thanks-actions">
-              <Button className="refill-btn" onClick={handleRefillForm}>
-                重新填写
+            <View className="submit-section">
+              <Button className="submit-btn" onClick={handleRefillForm}>
+                <Text className="btn-text">重新填写</Text>
               </Button>
             </View>
           </AnimatedView>
