@@ -17,7 +17,7 @@ export const FONT_ASSETS = [
 ] as const;
 
 export const MUSIC_ASSET = "music/our-love.mp3";
-export const MUSIC_PRELOAD_BYTES = 8_733_393;
+export const MUSIC_PRELOAD_BYTES = 3_493_438;
 
 /** Preloaded at startup — only images referenced in pages/components. */
 export const images = {
