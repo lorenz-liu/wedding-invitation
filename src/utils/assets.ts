@@ -8,6 +8,7 @@ export function assetPath(relativePath: string): string {
   return resolveAssetPath(relativePath);
 }
 
+/** Preloaded at startup — only fonts referenced in app styles. */
 export const FONT_ASSETS = [
   { family: "ThinBlack", path: "fonts/thin-black.ttf" },
   { family: "Main", path: "fonts/main.ttf" },
@@ -17,6 +18,7 @@ export const FONT_ASSETS = [
 
 export const MUSIC_ASSET = "music/our-love.mp3";
 
+/** Preloaded at startup — only images referenced in pages/components. */
 export const images = {
   homepageNiu: assetPath("images/homepage-niu.png"),
   homepageGao: assetPath("images/homepage-gao.png"),
@@ -31,19 +33,13 @@ export const images = {
   childhoodGif: assetPath("images/childhood.gif"),
   togetherKidsNoBg: assetPath("images/together-kids-no-bg.png"),
   togetherFlower: assetPath("images/together-flower.png"),
-  sanyaNoBg: assetPath("images/sanya-no-bg.png"),
   seattleNoBg: assetPath("images/seattle-no-bg.png"),
   together2021NoBg: assetPath("images/together-2021-no-bg.png"),
   gaoUndergradNoBg: assetPath("images/gao-undergrad-no-bg.png"),
   niuUndergradNoBg: assetPath("images/niu-undergrad-no-bg.png"),
-  seattle4: assetPath("images/seattle-4.png"),
-  sanya: assetPath("images/sanya.png"),
-  beijing: assetPath("images/beijing.png"),
-  shanghai: assetPath("images/shanghai.png"),
   band: assetPath("images/band.png"),
   torontoLandmark: assetPath("images/toronto-landmark.png"),
   torontoNoBg: assetPath("images/toronto-no-bg.png"),
-  torontoSkyline: assetPath("images/toronto-skyline.png"),
   holdingBawbawNoBg: assetPath("images/holding-bawbaw-no-bg.png"),
   bawbawFullBody1: assetPath("images/bawbaw-full-body-1.png"),
   bawbawFullBody3: assetPath("images/bawbaw-full-body-3.png"),
@@ -53,7 +49,6 @@ export const images = {
   handHolding: assetPath("images/hand-holding.png"),
   art: assetPath("images/art.png"),
   onTheMoon: assetPath("images/onthemoon.png"),
-  agendaWelcome: assetPath("images/agenda-welcome.png"),
   agendaCeremony: assetPath("images/agenda-ceremony.png"),
   agendaDinner: assetPath("images/agenda-dinner.png"),
   agendaParty: assetPath("images/agenda-party.png"),
@@ -61,7 +56,7 @@ export const images = {
   signatureNiu: assetPath("images/signature-niu.png"),
 } as const;
 
-/** Unique image URLs used across the app. */
+/** Unique image URLs preloaded before entering the app. */
 export function getAllImageUrls(): string[] {
   return [...new Set(Object.values(images))];
 }
