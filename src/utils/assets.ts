@@ -10,7 +10,6 @@ export function assetPath(relativePath: string): string {
 
 /** Preloaded at startup — only fonts referenced in app styles. */
 export const FONT_ASSETS = [
-  { family: "ThinBlack", path: "fonts/thin-black.ttf", bytes: 1_899_584 },
   { family: "Main", path: "fonts/main.ttf", bytes: 7_427_360 },
   { family: "Bold", path: "fonts/bold.ttf", bytes: 6_302_244 },
   { family: "Childhood", path: "fonts/childhood.ttf", bytes: 8_006_948 },

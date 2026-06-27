@@ -83,7 +83,7 @@
 
         .location-city,
         .location-venue {
-            font-family: "ThinBlack", sans-serif;
+            font-family: "Bold", sans-serif;
             font-size: 8vw;
             color: $color-primary;
             letter-spacing: 4px;
@@ -91,7 +91,7 @@
         }
 
         .location-dot {
-            font-family: "ThinBlack", sans-serif;
+            font-family: "Bold", sans-serif;
             font-size: 13vw;
             color: $color-accent;
         }
@@ -148,7 +148,7 @@
             darken($color-accent, 8%) 100%
         );
         color: white;
-        font-family: "ThinBlack", sans-serif;
+        font-family: "Bold", sans-serif;
         font-size: 5vw;
         border: none;
         border-radius: 50px;
