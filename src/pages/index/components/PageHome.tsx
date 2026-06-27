@@ -122,12 +122,13 @@ function PageHomeContent() {
         </AnimatedView>
 
         <AnimatedView
+          className="invite-title-wrap"
           animation="fadeInUp"
           delay={700}
           duration={600}
           isActive={animationsReady}
         >
-          <Text className="invite-title">诚挚邀请您见证我们的婚礼</Text>
+          <Text className="invite-title">诚挚邀请您{'\n'}见证我们的婚礼</Text>
         </AnimatedView>
 
         <AnimatedView

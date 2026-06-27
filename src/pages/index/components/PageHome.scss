@@ -140,16 +140,20 @@
         width: 120px;
     }
 
+    .invite-title-wrap {
+        margin-top: 3vh;
+        width: 100%;
+    }
+
     .invite-title {
         font-family: "Main", sans-serif;
-        font-size: 4.5vw;
-        margin: $spacing-md 0;
+        font-size: 5.7vw;
         letter-spacing: 2px;
         color: $color-accent;
     }
 
     .poem-section {
-        margin-top: $spacing-xl;
+        margin-top: 3vh;
         display: flex;
         flex-direction: column;
         gap: $spacing-sm;
