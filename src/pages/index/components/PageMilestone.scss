@@ -54,7 +54,7 @@
     .context-text {
         font-family: "Bold", sans-serif;
         font-size: 5vw;
-        color: $color-secondary;
+        color: $color-primary;
         line-height: 1.8;
         display: block;
         letter-spacing: 2px;
@@ -74,13 +74,12 @@
     }
 
     .poetry-block {
-        margin: $spacing-lg 0;
+        margin: $spacing-md 0;
     }
 
     .poetry-text {
-        font-family: "Main", sans-serif;
+        font-family: "Bold", sans-serif;
         font-size: 5vw;
-        color: $color-primary;
         line-height: 1.5;
         margin: 0;
         display: block;
@@ -89,6 +88,12 @@
         & + .poetry-text {
             margin-top: 4px;
         }
+    }
+
+    .wedding-date-box-wrap {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .wedding-date-box {
@@ -101,7 +106,10 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        width: fit-content;
+        max-width: 100%;
+        box-sizing: border-box;
 
         &::before,
         &::after {
@@ -128,13 +136,24 @@
             display: block;
             margin-bottom: $spacing-sm;
             letter-spacing: 4px;
+            text-align: center;
+            white-space: nowrap;
         }
 
         .we-text {
-            font-family: "Bold", sans-serif;
+            font-family: "Main", sans-serif;
             font-size: 5vw;
             color: $color-secondary;
             letter-spacing: 2px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .countdown {
+            width: 100%;
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
         }
     }
 

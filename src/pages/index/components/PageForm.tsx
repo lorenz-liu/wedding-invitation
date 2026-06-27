@@ -258,7 +258,7 @@ function PageFormContent({
               delay={250}
               duration={800}
             >
-              <Text className="thanks-title">我们已收到您的回函</Text>
+              <Text className="thanks-title">我们已收到您的答函</Text>
             </AnimatedView>
           </View>
 
@@ -271,7 +271,9 @@ function PageFormContent({
             <View className="thanks-body">
               <Text className="thanks-message">感谢您花时间填写</Text>
               <Text className="thanks-detail">
-                2026年7月25日 · 成都
+                2026年7月25日
+                {"\n"}
+                成都 · 慕上
                 {"\n"}
                 期待与您相见
               </Text>
@@ -309,7 +311,7 @@ function PageFormContent({
         <AnimatedView animation="fadeInUp" isActive={animationsReady} duration={800}>
           <View className="paper-header">
             <View className="header-content">
-              <Text className="form-title">回函</Text>
+              <Text className="form-title">邀请函</Text>
               <Text className="form-subtitle">诚挚期待您的出席</Text>
             </View>
           </View>

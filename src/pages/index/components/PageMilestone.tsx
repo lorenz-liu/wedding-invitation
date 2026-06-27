@@ -72,10 +72,10 @@ function PageMilestoneContent() {
           duration={600}
           className="poetry-block"
         >
-          <Text className="poetry-text">
+          <Text className="context-text">
             当所有的经纬度最终重合
           </Text>
-          <Text className="poetry-text">
+          <Text className="context-text">
             便成为里程碑
           </Text>
         </AnimatedView>
@@ -85,6 +85,7 @@ function PageMilestoneContent() {
           isActive={animationsReady}
           delay={800}
           duration={800}
+          className="wedding-date-box-wrap"
         >
           <View className="wedding-date-box">
             <Text className="date-highlight">2026年7月25日</Text>

@@ -57,9 +57,9 @@ function PageGraduateContent() {
               {'\n'}
               正式进入职场
               {'\n'}
-              一路走过来
+              一路走来
               {'\n'}
-              我们学会了分担与陪伴 
+              有风有雨有繁花
             </Text>
           </View>
         </AnimatedView>

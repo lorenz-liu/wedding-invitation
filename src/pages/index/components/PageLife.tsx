@@ -106,9 +106,7 @@ function PageLifeContent() {
             <Text className="life-text">
               家里还有一只名叫宝宝的小猫
               {"\n"}
-              是我们在这个城市里最暖的陪伴
-              {"\n"}
-              也让我们的生活因此而更加圆满
+              让我们的生活更加圆满
             </Text>
           </AnimatedView>
         </View>

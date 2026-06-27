@@ -58,7 +58,7 @@ function PageTorontoContent() {
           delay={300}
           duration={600}
         >
-          <Text className="arrival-text">抵达加拿大多伦多</Text>
+          <Text className="arrival-text">抵达加拿大</Text>
         </AnimatedView>
 
         <AnimatedView

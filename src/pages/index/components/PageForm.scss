@@ -97,7 +97,7 @@ $form-font-scale: 1.3;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     position: relative;
     z-index: 1;
 
@@ -129,7 +129,7 @@ $form-font-scale: 1.3;
         font-size: form-fs(8);
         color: $color-primary;
         letter-spacing: 16px;
-        margin-bottom: 12px;
+        margin-bottom: 20px;
     }
 
     .title-line {
@@ -736,13 +736,15 @@ $form-font-scale: 1.3;
         font-family: "Bold", "PingFang SC", sans-serif;
         font-size: form-fs(2.8);
         color: $color-text-secondary;
-        line-height: 1.15;
+        line-height: 1.5;
         letter-spacing: 1px;
         display: block;
         white-space: nowrap;
 
         &.credits-en {
+          margin-top: 5px;
             white-space: normal;
+            font-size: form-fs(2.2);
         }
     }
 }
@@ -791,9 +793,9 @@ $form-font-scale: 1.3;
 
         .thanks-title {
             font-family: "Bold", "PingFang SC", sans-serif;
-            font-size: form-fs(7.27);
+            font-size: form-fs(6);
             color: $color-primary;
-            letter-spacing: 8px;
+            letter-spacing: 4px;
             display: block;
             margin-bottom: 16px;
         }
@@ -809,7 +811,7 @@ $form-font-scale: 1.3;
 
         .thanks-message {
             font-family: "Bold", "PingFang SC", sans-serif;
-            font-size: form-fs(3.7);
+            font-size: form-fs(4);
             color: $color-text-primary;
             line-height: 2;
             display: block;
@@ -819,9 +821,9 @@ $form-font-scale: 1.3;
 
         .thanks-detail {
             font-family: "Bold", "PingFang SC", sans-serif;
-            font-size: form-fs(3.3);
+            font-size: form-fs(4.3);
             color: $color-accent;
-            line-height: 2;
+            line-height: 1.6;
             letter-spacing: 2px;
             white-space: pre-line;
         }

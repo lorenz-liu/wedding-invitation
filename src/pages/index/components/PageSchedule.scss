@@ -140,15 +140,15 @@
           font-size: 5.2vw;
           color: $color-primary;
           display: block;
-          margin-bottom: $spacing-xs;
+          margin-bottom: $spacing-sm;
         }
 
         .event-subtitle {
           font-family: 'Main', sans-serif;
-          font-size: 3.7vw;
+          font-size: 4vw;
           color: $color-accent;
           display: block;
-          margin-bottom: $spacing-sm;
+          margin-bottom: $spacing-md;
           letter-spacing: 1px;
         }
 

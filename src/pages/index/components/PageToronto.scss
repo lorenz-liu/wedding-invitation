@@ -61,9 +61,9 @@
     }
 
     .arrival-text {
-        font-family: "Bold", sans-serif;
-        font-size: 6vw;
-        color: $color-primary;
+        font-family: "Main", sans-serif;
+        font-size: 7.5vw;
+        color: $color-accent;
         margin: $spacing-md 0;
         margin-top: $spacing-xl;
         letter-spacing: 4px;
@@ -76,10 +76,10 @@
         margin: $spacing-lg 0;
 
         .deco-text {
-            font-family: "Main", sans-serif;
-            font-size: 5.5vw;
-            color: $color-accent;
-            letter-spacing: 2px;
+            font-family: "Bold", sans-serif;
+            font-size: 6vw;
+            color: $color-primary;
+            line-height: 1.5;
         }
     }
 
