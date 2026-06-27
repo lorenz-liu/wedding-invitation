@@ -27,3 +27,34 @@ export async function resolveWeappMediaPath(url: string): Promise<string> {
 }
 
 const mediaPathCache = new Map<string, string>();
+
+function weappPackagePathCandidates(url: string): string[] {
+  const trimmed = url.replace(/^\//, "");
+  return [...new Set([trimmed, `/${trimmed}`, url])];
+}
+
+/**
+ * Verify a code-package asset exists (dev local /assets/... paths).
+ * Used when getImageInfo rejects WebP in WeChat devtools.
+ */
+export async function assertWeappPackageAsset(url: string): Promise<void> {
+  if (!url || process.env.TARO_ENV !== "weapp") return;
+  if (url.startsWith("http://") || url.startsWith("https://")) return;
+
+  const fs = Taro.getFileSystemManager();
+
+  for (const path of weappPackagePathCandidates(url)) {
+    const exists = await new Promise<boolean>((resolve) => {
+      fs.access({
+        path,
+        success: () => resolve(true),
+        fail: () => resolve(false),
+      });
+    });
+    if (exists) return;
+  }
+
+  throw new Error(`Package asset not found: ${url}`);
+}
+
+export { weappPackagePathCandidates };

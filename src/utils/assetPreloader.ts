@@ -8,7 +8,7 @@ import {
   getPreloadTotalBytes,
   MUSIC_PRELOAD_BYTES,
 } from "./assets";
-import { resolveWeappMediaPath } from "./weappMedia";
+import { assertWeappPackageAsset, resolveWeappMediaPath, weappPackagePathCandidates } from "./weappMedia";
 import { toWeappFontSourceAsync } from "./weappAsset";
 
 export interface AssetLoadProgress {
@@ -72,21 +72,29 @@ function getImageInfoAsync(src: string, originalUrl: string): Promise<void> {
 }
 
 async function preloadWeappImage(url: string): Promise<void> {
-  if (!url.startsWith("http://") && !url.startsWith("https://")) {
-    throw new Error(
-      `WeChat image preload requires HTTPS URL, got: ${url}. Check resolveImageAssetPath().`,
-    );
-  }
-
-  const localPath = await resolveWeappMediaPath(url);
-
-  // WeChat devtools often rejects WebP in getImageInfo even after downloadFile.
-  // Download success is enough to gate startup; <Image> renders WebP normally.
-  if (isWebpAssetUrl(url)) {
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    const localPath = await resolveWeappMediaPath(url);
+    if (isWebpAssetUrl(url)) return;
+    await getImageInfoAsync(localPath, url);
     return;
   }
 
-  await getImageInfoAsync(localPath, url);
+  // Dev: local /assets/... copied into the code package.
+  if (isWebpAssetUrl(url)) {
+    await assertWeappPackageAsset(url);
+    return;
+  }
+
+  for (const src of weappPackagePathCandidates(url)) {
+    try {
+      await getImageInfoAsync(src, url);
+      return;
+    } catch {
+      // try next path variant
+    }
+  }
+
+  await assertWeappPackageAsset(url);
 }
 
 async function preloadWeappImages(

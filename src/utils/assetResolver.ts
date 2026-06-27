@@ -35,11 +35,11 @@ export function resolveFontAssetPath(relativePath: string): string {
 }
 
 /**
- * WeChat getImageInfo is unreliable for package-local WebP paths in devtools.
- * Always load images from OSS on weapp (dev + prod); H5 dev keeps local /assets/.
+ * WeChat getImageInfo is unreliable for package-local WebP in devtools.
+ * Dev weapp: local /assets/... (copied to dist/). Production weapp: OSS.
  */
 export function resolveImageAssetPath(relativePath: string): string {
-  if (process.env.TARO_ENV === "weapp") {
+  if (process.env.TARO_ENV === "weapp" && !isDev()) {
     return aliyunAssetUrl(normalizeAssetPath(relativePath));
   }
   return resolveAssetPath(relativePath);
