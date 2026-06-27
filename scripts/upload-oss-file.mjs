@@ -42,6 +42,17 @@ function usage() {
   process.exit(1);
 }
 
+function uploadHeaders(contentType) {
+  const headers = {
+    "Content-Type": contentType,
+    ...OSS_PUBLIC_READ_HEADER,
+  };
+  if (contentType.startsWith("image/")) {
+    headers["Content-Disposition"] = "inline";
+  }
+  return headers;
+}
+
 async function main() {
   const { profile, args } = parseAliyunArgs();
   const relativeArg = args[0];
@@ -91,10 +102,7 @@ async function main() {
   console.log(`→ oss://${BUCKET}/${objectKey} (${contentType})\n`);
 
   await client.put(objectKey, filePath, {
-    headers: {
-      "Content-Type": contentType,
-      ...OSS_PUBLIC_READ_HEADER,
-    },
+    headers: uploadHeaders(contentType),
   });
 
   console.log("\nDone. Bump ASSETS_CACHE_VERSION in src/constants/aliyun.ts if needed.");

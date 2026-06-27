@@ -56,10 +56,15 @@ async function loadWeappFont(family: string, url: string): Promise<void> {
   });
 }
 
-function preloadWeappImage(url: string): Promise<void> {
+async function preloadWeappImage(url: string): Promise<void> {
+  const src =
+    url.startsWith("http://") || url.startsWith("https://")
+      ? await resolveWeappMediaPath(url)
+      : url;
+
   return new Promise((resolve, reject) => {
     Taro.getImageInfo({
-      src: url,
+      src,
       success: () => resolve(),
       fail: (err) =>
         reject(new Error(`Image preload failed: ${url} — ${JSON.stringify(err)}`)),

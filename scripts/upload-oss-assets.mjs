@@ -64,6 +64,17 @@ function contentTypeFor(filePath) {
   return MIME_TYPES[ext] || "application/octet-stream";
 }
 
+function uploadHeaders(contentType) {
+  const headers = {
+    "Content-Type": contentType,
+    ...OSS_PUT_OPTIONS.headers,
+  };
+  if (contentType.startsWith("image/")) {
+    headers["Content-Disposition"] = "inline";
+  }
+  return headers;
+}
+
 async function getOssClient(profile) {
   let credentials;
   try {
@@ -119,10 +130,7 @@ async function main() {
 
     console.log(`→ ${objectKey}`);
     await client.put(objectKey, filePath, {
-      headers: {
-        "Content-Type": contentType,
-        ...OSS_PUT_OPTIONS.headers,
-      },
+      headers: uploadHeaders(contentType),
     });
   }
 
