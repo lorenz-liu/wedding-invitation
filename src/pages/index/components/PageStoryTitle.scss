@@ -70,10 +70,12 @@
         }
 
         .subtitle-desc {
+            display: block;
             font-family: "Bold", sans-serif;
-            font-size: 5vw;
+            font-size: 6vw;
             color: $color-secondary;
-            letter-spacing: 2px;
+            line-height: 1.5;
+            margin-top: 2vh;
         }
     }
 }

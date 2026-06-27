@@ -54,7 +54,7 @@ function PageStoryTitleContent() {
           duration={800}
         >
           <View className="subtitle-section">
-            <Text className="subtitle-desc">从稚子并肩，到终生相伴</Text>
+            <Text className="subtitle-desc">从稚子并肩{'\n'}到终生相伴</Text>
           </View>
         </AnimatedView>
       </View>

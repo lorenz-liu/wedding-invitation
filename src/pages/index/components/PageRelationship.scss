@@ -68,13 +68,14 @@
 
   .story-title {
     font-family: 'Main', sans-serif;
-    font-size: 5.5vw;
-    color: $color-primary;
+    font-size: 7.5vw;
+    color: $color-accent;
     letter-spacing: 4px;
   }
 
   .story-title-wrap {
-    margin-bottom: $spacing-md;
+    margin-top: $spacing-lg;
+    margin-bottom: $spacing-xl;
   }
 
   .story-content-wrap {
@@ -83,9 +84,9 @@
 
   .story-content {
     font-family: 'Bold', sans-serif;
-    font-size: 4.8vw;
+    font-size: 5vw;
     color: $color-text-primary;
-    line-height: 2;
+    line-height: 1.8;
     margin: 0;
     white-space: pre-line;
   }

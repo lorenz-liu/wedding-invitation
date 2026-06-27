@@ -75,7 +75,7 @@ function PageBirthContent() {
           <Text className="intro-text">
             两个注定相遇的灵魂
             {'\n'}
-            由同一个医生带到了这个世界
+            在同一家医院诞生
           </Text>
         </AnimatedView>
       </View>

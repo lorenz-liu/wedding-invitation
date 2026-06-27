@@ -45,7 +45,7 @@
     }
 
     .corner-br {
-        bottom: 5vh;
+        bottom: 12vh;
         right: 30px;
         transform: translateX(120%);
     }
@@ -70,7 +70,7 @@
             font-family: "Main", sans-serif;
             font-size: 4.2vw;
             margin-bottom: $spacing-sm;
-            color: $color-primary;
+            color: $color-secondary;
             text-align: center;
             white-space: nowrap;
         }
@@ -145,8 +145,7 @@
     .intro-text {
         font-family: "Bold", sans-serif;
         font-size: 5.29vw;
-        color: $color-text-secondary;
-        line-height: 1.8;
+        line-height: 1.5;
         letter-spacing: 2px;
     }
 }
