@@ -1,23 +1,45 @@
 import Taro from "@tarojs/taro";
 import {
   getAllImageUrls,
+  getFontPreloadByteWeight,
   getFontUrls,
+  getImagePreloadByteWeight,
   getMusicUrl,
+  getPreloadTotalBytes,
+  MUSIC_PRELOAD_BYTES,
 } from "./assets";
 import { resolveWeappMediaPath } from "./weappMedia";
 import { toWeappFontSourceAsync } from "./weappAsset";
 
-export type AssetLoadPhase = "images" | "fonts" | "audio";
-
 export interface AssetLoadProgress {
-  phase: AssetLoadPhase;
-  loaded: number;
-  total: number;
+  loadedBytes: number;
+  totalBytes: number;
 }
 
 type ProgressCallback = (progress: AssetLoadProgress) => void;
 
-const IMAGE_CONCURRENCY = 6;
+const IMAGE_CONCURRENCY = 10;
+
+class ByteProgressTracker {
+  private loadedBytes = 0;
+
+  constructor(
+    private readonly totalBytes: number,
+    private readonly onProgress?: ProgressCallback,
+  ) {}
+
+  reportInitial(): void {
+    this.onProgress?.({ loadedBytes: 0, totalBytes: this.totalBytes });
+  }
+
+  report(bytes: number): void {
+    this.loadedBytes = Math.min(this.totalBytes, this.loadedBytes + bytes);
+    this.onProgress?.({
+      loadedBytes: this.loadedBytes,
+      totalBytes: this.totalBytes,
+    });
+  }
+}
 
 async function loadWeappFont(family: string, url: string): Promise<void> {
   const source = await toWeappFontSourceAsync(url);
@@ -39,66 +61,53 @@ function preloadWeappImage(url: string): Promise<void> {
     Taro.getImageInfo({
       src: url,
       success: () => resolve(),
-      fail: (err) => reject(new Error(`Image preload failed: ${url} — ${JSON.stringify(err)}`)),
+      fail: (err) =>
+        reject(new Error(`Image preload failed: ${url} — ${JSON.stringify(err)}`)),
     });
   });
 }
 
 async function preloadWeappImages(
   urls: string[],
-  onProgress?: ProgressCallback,
+  tracker: ByteProgressTracker,
 ): Promise<void> {
-  const total = urls.length;
-  let loaded = 0;
-
-  const report = () => {
-    onProgress?.({ phase: "images", loaded, total });
-  };
-
-  report();
-
   for (let i = 0; i < urls.length; i += IMAGE_CONCURRENCY) {
     const batch = urls.slice(i, i + IMAGE_CONCURRENCY);
     await Promise.all(
       batch.map(async (url) => {
         await preloadWeappImage(url);
-        loaded += 1;
-        report();
+        tracker.report(getImagePreloadByteWeight(url));
       }),
     );
   }
 }
 
-async function preloadWeappFonts(onProgress?: ProgressCallback): Promise<void> {
+async function preloadWeappFonts(tracker: ByteProgressTracker): Promise<void> {
   const fonts = getFontUrls();
-  const total = fonts.length;
-  let loaded = 0;
-
-  const report = () => {
-    onProgress?.({ phase: "fonts", loaded, total });
-  };
-
-  report();
-
-  for (const { family, url } of fonts) {
-    await loadWeappFont(family, url);
-    loaded += 1;
-    report();
-  }
+  await Promise.all(
+    fonts.map(async ({ family, url }) => {
+      await loadWeappFont(family, url);
+      tracker.report(getFontPreloadByteWeight(family));
+    }),
+  );
 }
 
-async function preloadWeappAudio(onProgress?: ProgressCallback): Promise<void> {
-  onProgress?.({ phase: "audio", loaded: 0, total: 1 });
+async function preloadWeappAudio(tracker: ByteProgressTracker): Promise<void> {
   const musicUrl = getMusicUrl();
   await resolveWeappMediaPath(musicUrl);
-  onProgress?.({ phase: "audio", loaded: 1, total: 1 });
+  tracker.report(MUSIC_PRELOAD_BYTES);
 }
 
 async function preloadWeappAssets(onProgress?: ProgressCallback): Promise<void> {
+  const tracker = new ByteProgressTracker(getPreloadTotalBytes(), onProgress);
+  tracker.reportInitial();
+
   const imageUrls = getAllImageUrls();
-  await preloadWeappImages(imageUrls, onProgress);
-  await preloadWeappFonts(onProgress);
-  await preloadWeappAudio(onProgress);
+  await Promise.all([
+    preloadWeappImages(imageUrls, tracker),
+    preloadWeappFonts(tracker),
+    preloadWeappAudio(tracker),
+  ]);
 }
 
 function preloadH5Image(url: string): Promise<void> {
@@ -112,69 +121,55 @@ function preloadH5Image(url: string): Promise<void> {
 
 async function preloadH5Images(
   urls: string[],
-  onProgress?: ProgressCallback,
+  tracker: ByteProgressTracker,
 ): Promise<void> {
-  const total = urls.length;
-  let loaded = 0;
-
-  const report = () => {
-    onProgress?.({ phase: "images", loaded, total });
-  };
-
-  report();
-
   for (let i = 0; i < urls.length; i += IMAGE_CONCURRENCY) {
     const batch = urls.slice(i, i + IMAGE_CONCURRENCY);
     await Promise.all(
       batch.map(async (url) => {
         await preloadH5Image(url);
-        loaded += 1;
-        report();
+        tracker.report(getImagePreloadByteWeight(url));
       }),
     );
   }
 }
 
-async function preloadH5Fonts(onProgress?: ProgressCallback): Promise<void> {
+async function preloadH5Fonts(tracker: ByteProgressTracker): Promise<void> {
   const fonts = getFontUrls();
-  const total = fonts.length;
-  let loaded = 0;
-
-  const report = () => {
-    onProgress?.({ phase: "fonts", loaded, total });
-  };
-
-  report();
-
-  for (const { family, url } of fonts) {
-    const face = new FontFace(family, `url("${url}")`);
-    await face.load();
-    document.fonts.add(face);
-    loaded += 1;
-    report();
-  }
+  await Promise.all(
+    fonts.map(async ({ family, url }) => {
+      const face = new FontFace(family, `url("${url}")`);
+      await face.load();
+      document.fonts.add(face);
+      tracker.report(getFontPreloadByteWeight(family));
+    }),
+  );
 }
 
-async function preloadH5Audio(onProgress?: ProgressCallback): Promise<void> {
-  onProgress?.({ phase: "audio", loaded: 0, total: 1 });
+async function preloadH5Audio(tracker: ByteProgressTracker): Promise<void> {
   const musicUrl = getMusicUrl();
   const response = await fetch(musicUrl);
   if (!response.ok) {
     throw new Error(`Audio preload failed: ${musicUrl} — HTTP ${response.status}`);
   }
   await response.blob();
-  onProgress?.({ phase: "audio", loaded: 1, total: 1 });
+  tracker.report(MUSIC_PRELOAD_BYTES);
 }
 
 async function preloadH5Assets(onProgress?: ProgressCallback): Promise<void> {
+  const tracker = new ByteProgressTracker(getPreloadTotalBytes(), onProgress);
+  tracker.reportInitial();
+
   const imageUrls = getAllImageUrls();
-  await preloadH5Images(imageUrls, onProgress);
-  await preloadH5Fonts(onProgress);
-  await preloadH5Audio(onProgress);
+  await Promise.all([
+    preloadH5Images(imageUrls, tracker),
+    preloadH5Fonts(tracker),
+    preloadH5Audio(tracker),
+  ]);
 }
 
 /**
- * Preload all static assets (images, fonts, music).
+ * Preload all static assets (images, fonts, music) in parallel.
  * Rejects if any asset fails — the app must not start until this succeeds.
  */
 export async function preloadAllAssets(
