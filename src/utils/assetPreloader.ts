@@ -56,6 +56,21 @@ async function loadWeappFont(family: string, url: string): Promise<void> {
   });
 }
 
+function isWebpAssetUrl(url: string): boolean {
+  return url.split("?")[0].toLowerCase().endsWith(".webp");
+}
+
+function getImageInfoAsync(src: string, originalUrl: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    Taro.getImageInfo({
+      src,
+      success: () => resolve(),
+      fail: (err) =>
+        reject(new Error(`Image preload failed: ${originalUrl} — ${JSON.stringify(err)}`)),
+    });
+  });
+}
+
 async function preloadWeappImage(url: string): Promise<void> {
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
     throw new Error(
@@ -65,14 +80,13 @@ async function preloadWeappImage(url: string): Promise<void> {
 
   const localPath = await resolveWeappMediaPath(url);
 
-  return new Promise((resolve, reject) => {
-    Taro.getImageInfo({
-      src: localPath,
-      success: () => resolve(),
-      fail: (err) =>
-        reject(new Error(`Image preload failed: ${url} — ${JSON.stringify(err)}`)),
-    });
-  });
+  // WeChat devtools often rejects WebP in getImageInfo even after downloadFile.
+  // Download success is enough to gate startup; <Image> renders WebP normally.
+  if (isWebpAssetUrl(url)) {
+    return;
+  }
+
+  await getImageInfoAsync(localPath, url);
 }
 
 async function preloadWeappImages(
