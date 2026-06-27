@@ -57,14 +57,17 @@ async function loadWeappFont(family: string, url: string): Promise<void> {
 }
 
 async function preloadWeappImage(url: string): Promise<void> {
-  const src =
-    url.startsWith("http://") || url.startsWith("https://")
-      ? await resolveWeappMediaPath(url)
-      : url;
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    throw new Error(
+      `WeChat image preload requires HTTPS URL, got: ${url}. Check resolveImageAssetPath().`,
+    );
+  }
+
+  const localPath = await resolveWeappMediaPath(url);
 
   return new Promise((resolve, reject) => {
     Taro.getImageInfo({
-      src,
+      src: localPath,
       success: () => resolve(),
       fail: (err) =>
         reject(new Error(`Image preload failed: ${url} — ${JSON.stringify(err)}`)),
