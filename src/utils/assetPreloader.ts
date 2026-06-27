@@ -1,4 +1,5 @@
 import Taro from "@tarojs/taro";
+import { isDev } from "../constants/env";
 import {
   getAllImageUrls,
   getFontPreloadByteWeight,
@@ -8,7 +9,7 @@ import {
   getPreloadTotalBytes,
   MUSIC_PRELOAD_BYTES,
 } from "./assets";
-import { assertWeappPackageAsset, resolveWeappMediaPath, weappPackagePathCandidates } from "./weappMedia";
+import { resolveWeappMediaPath } from "./weappMedia";
 import { toWeappFontSourceAsync } from "./weappAsset";
 
 export interface AssetLoadProgress {
@@ -79,22 +80,13 @@ async function preloadWeappImage(url: string): Promise<void> {
     return;
   }
 
-  // Dev: local /assets/... copied into the code package.
-  if (isWebpAssetUrl(url)) {
-    await assertWeappPackageAsset(url);
+  // Local /assets/... only exists in dev (see resolveImageAssetPath).
+  // WeChat devtools cannot inspect package WebP via getImageInfo or FileSystemManager.
+  if (isDev()) {
     return;
   }
 
-  for (const src of weappPackagePathCandidates(url)) {
-    try {
-      await getImageInfoAsync(src, url);
-      return;
-    } catch {
-      // try next path variant
-    }
-  }
-
-  await assertWeappPackageAsset(url);
+  throw new Error(`Unexpected local image path in production weapp: ${url}`);
 }
 
 async function preloadWeappImages(
