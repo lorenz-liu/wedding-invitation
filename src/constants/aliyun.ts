@@ -20,7 +20,7 @@ export const ALIYUN_FC_BASE_URL = "https://weddingtion-api-psnzcgebbh.cn-chengdu
 /**
  * Bump when you upload new images/fonts to OSS so clients fetch fresh files.
  */
-export const ASSETS_CACHE_VERSION = "202606271654";
+export const ASSETS_CACHE_VERSION = "202606281618";
 
 export function isAliyunConfigured(): boolean {
   return (
