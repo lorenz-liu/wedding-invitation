@@ -1,0 +1,23 @@
+@import "../../../styles/variables.scss";
+
+.page-school-years {
+    .distance-header {
+        margin-bottom: 16px;
+
+        .year-title {
+            margin-bottom: 4px;
+        }
+    }
+
+    .timeline-board {
+        padding-top: 8px;
+
+        .event-row-wrapper {
+            margin-bottom: 12px;
+        }
+
+        .event-content {
+            gap: 8px;
+        }
+    }
+}

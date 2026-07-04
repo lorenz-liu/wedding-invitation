@@ -10,6 +10,7 @@ import {
 import { images } from "../../../utils/assets";
 import { getTimelineLineStyle } from "./distanceTimeline";
 import "./PageDistance.scss";
+import "./PageSchoolYears.scss";
 
 interface PageSchoolYearsProps {
   isActive: boolean;
@@ -31,27 +32,27 @@ const EVENTS: SchoolEvent[] = [
     label: "小学",
     image: images.elementarySchool,
     tilt: 0,
-    side: "right",
-    imageWidth: "min(300px, 55vw)",
-    offset: -200,
+    side: "left",
+    imageWidth: "min(300px, 65vw)",
+    offset: 30,
   },
   {
     year: "2016",
     label: "初中",
     image: images.middleSchool,
     tilt: 0,
-    side: "left",
-    imageWidth: "min(150px, 38vw)",
-    offset: 25,
+    side: "right",
+    imageWidth: "min(180px, 40vw)",
+    offset: 30,
   },
   {
     year: "2019",
     label: "高中",
     image: images.highSchool,
     tilt: 0,
-    side: "right",
-    imageWidth: "min(200px, 38vw)",
-    offset: 40,
+    side: "left",
+    imageWidth: "min(200px, 40vw)",
+    offset: 30,
   },
 ];
 
@@ -61,7 +62,7 @@ function PageSchoolYearsContent() {
   const animationsReady = usePageAnimationsReady();
 
   return (
-    <View className="page page-distance">
+    <View className="page page-distance page-school-years">
       <View className="distance-header">
         <YearTitle>2008 — 2019</YearTitle>
       </View>
@@ -92,6 +93,8 @@ function PageSchoolYearsContent() {
               >
                 <View className="event-tag">
                   <Text className="tag-year">{evt.year}</Text>
+                  <Text className="tag-sep">·</Text>
+                  <Text className="tag-location">{evt.label}</Text>
                 </View>
 
                 <View
@@ -109,8 +112,6 @@ function PageSchoolYearsContent() {
                     mode="widthFix"
                   />
                 </View>
-
-                <Text className="event-caption">{evt.label}</Text>
               </View>
             </View>
           </AnimatedView>
