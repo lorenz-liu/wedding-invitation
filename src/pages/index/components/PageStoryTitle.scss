@@ -18,7 +18,8 @@
 
     .story-logo {
         width: min(800px, 70vw);
-        margin-bottom: $spacing-lg;
+        margin-top: -12vh;
+        margin-bottom: $spacing-xl;
         opacity: 0;
         transform: translateY(-160%);
         transition:
