@@ -43,7 +43,7 @@ function PageGrowingUpContent() {
         </View>
 
         <View className="text-block">
-          <YearTitle>2001 - 2019</YearTitle>
+          <YearTitle>2001 - 2008</YearTitle>
 
           <AnimatedView
             animation="fadeInUp"

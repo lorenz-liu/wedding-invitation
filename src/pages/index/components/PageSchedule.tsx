@@ -33,7 +33,7 @@ const scheduleData: ScheduleItem[] = [
     imageOffset: "right",
   },
   {
-    time: "18:30",
+    time: "18:08",
     title: "喜宴开始",
     subtitle: "佳肴盈席，共叙情谊",
     description:

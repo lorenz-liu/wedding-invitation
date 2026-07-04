@@ -69,7 +69,7 @@ function PageDistanceContent() {
   return (
       <View className="page page-distance">
       <View className="distance-header">
-        <YearTitle>2020 — 2022</YearTitle>
+        <YearTitle>2019 — 2022</YearTitle>
 
         <AnimatedView
           animation="fadeInUp"
