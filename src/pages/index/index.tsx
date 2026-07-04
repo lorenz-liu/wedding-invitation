@@ -13,6 +13,7 @@ import { PageHome } from "./components/PageHome";
 import { PageStoryTitle } from "./components/PageStoryTitle";
 import { PageBirth } from "./components/PageBirth";
 import { PageGrowingUp } from "./components/PageGrowingUp";
+import { PageSchoolYears } from "./components/PageSchoolYears";
 import { PageRelationship } from "./components/PageRelationship";
 import { PageDistance } from "./components/PageDistance";
 import { PageDistance2 } from "./components/PageDistance2";
@@ -26,8 +27,8 @@ import { PageForm } from "./components/PageForm";
 import { RESUME_LAST_PAGE_ENABLED, RESUME_LAST_PAGE_KEY } from "../../constants/config";
 import "./index.scss";
 
-const TOTAL_PAGES = 14;
-const FORM_PAGE_INDEX = 13;
+const TOTAL_PAGES = 15;
+const FORM_PAGE_INDEX = 14;
 const FORM_SCROLL_TOP_THRESHOLD = 8;
 
 function readSavedPageIndex(): number {
@@ -163,24 +164,26 @@ const Index: React.FC = () => {
       case 3:
         return <PageGrowingUp isActive={isActive} />;
       case 4:
-        return <PageRelationship isActive={isActive} />;
+        return <PageSchoolYears isActive={isActive} />;
       case 5:
-        return <PageDistance isActive={isActive} />;
+        return <PageRelationship isActive={isActive} />;
       case 6:
-        return <PageDistance2 isActive={isActive} />;
+        return <PageDistance isActive={isActive} />;
       case 7:
-        return <PageToronto isActive={isActive} />;
+        return <PageDistance2 isActive={isActive} />;
       case 8:
-        return <PageGraduate isActive={isActive} />;
+        return <PageToronto isActive={isActive} />;
       case 9:
-        return <PageLife isActive={isActive} />;
+        return <PageGraduate isActive={isActive} />;
       case 10:
-        return <PageMilestone isActive={isActive} />;
+        return <PageLife isActive={isActive} />;
       case 11:
-        return <PageSchedule isActive={isActive} />;
+        return <PageMilestone isActive={isActive} />;
       case 12:
-        return <PageLocation isActive={isActive} />;
+        return <PageSchedule isActive={isActive} />;
       case 13:
+        return <PageLocation isActive={isActive} />;
+      case 14:
         return (
           <PageForm
             isActive={isActive}
