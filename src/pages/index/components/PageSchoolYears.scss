@@ -16,8 +16,17 @@
             margin-bottom: 12px;
         }
 
+        // Wide images must not expand the column — otherwise WeChat/H5
+        // centers the whole block and the tag lands on the timeline axis.
         .event-content {
+            min-width: 0;
             gap: 8px;
+
+            .event-tag {
+                flex-shrink: 0;
+                width: fit-content;
+                max-width: 100%;
+            }
         }
     }
 }

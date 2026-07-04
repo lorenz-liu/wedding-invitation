@@ -33,8 +33,8 @@ const EVENTS: SchoolEvent[] = [
     image: images.elementarySchool,
     tilt: 0,
     side: "left",
-    imageWidth: "min(300px, 65vw)",
-    offset: 30,
+    imageWidth: "min(300px, 60vw)",
+    offset: 100,
   },
   {
     year: "2016",
@@ -42,8 +42,8 @@ const EVENTS: SchoolEvent[] = [
     image: images.middleSchool,
     tilt: 0,
     side: "right",
-    imageWidth: "min(180px, 40vw)",
-    offset: 30,
+    imageWidth: "min(180px, 45vw)",
+    offset: 50,
   },
   {
     year: "2019",
@@ -52,7 +52,7 @@ const EVENTS: SchoolEvent[] = [
     tilt: 0,
     side: "left",
     imageWidth: "min(200px, 40vw)",
-    offset: 30,
+    offset: 50,
   },
 ];
 
