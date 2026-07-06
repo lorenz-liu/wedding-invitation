@@ -33,7 +33,7 @@ const EVENTS: SchoolEvent[] = [
     image: images.elementarySchool,
     tilt: 0,
     side: "left",
-    imageWidth: "min(300px, 60vw)",
+    imageWidth: "min(300px, 58vw)",
     offset: 100,
   },
   {

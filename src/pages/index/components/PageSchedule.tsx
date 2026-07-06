@@ -25,7 +25,7 @@ interface ScheduleItem {
 const scheduleData: ScheduleItem[] = [
   {
     time: "17:25",
-    title: "典礼开始",
+    title: "典礼启幕",
     subtitle: "花门轻启，盟誓此夕",
     description:
       "婚礼仪式将在麓月礼堂内开始。我们没有着装要求，请您以舒适度为主安排服饰。",
@@ -37,7 +37,7 @@ const scheduleData: ScheduleItem[] = [
     title: "喜宴开始",
     subtitle: "佳肴盈席，共叙情谊",
     description:
-      "请您在该电子请柬最后一页告知我们您的特殊饮食需求，比如食物过敏等。",
+      "愿您落座即如归，在笑语与佳肴中，与旧友新朋举杯同庆，共享此刻良辰美景。",
     image: images.agendaDinner,
     imageOffset: "left",
   },
