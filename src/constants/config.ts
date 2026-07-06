@@ -8,10 +8,15 @@ import {
 
 export const FORM_SUBMITTED_KEY = "wedding-form-submitted";
 export const GUEST_ID_KEY = "wedding-guest-id";
+export const FORM_DATA_KEY = "wedding-form-data";
 export const DOODLE_DRAFT_KEY = "wedding-doodle-draft";
 
+export const HOME_PAGE_INDEX = 0;
+export const SCHEDULE_PAGE_INDEX = 12;
+export const LOCATION_PAGE_INDEX = 13;
 export const FORM_PAGE_INDEX = 14;
 export const DOODLE_PAGE_INDEX = 15;
+export const FINAL_PAGE_INDEX = 16;
 
 export function isFormSubmitted(): boolean {
   try {
@@ -22,7 +27,7 @@ export function isFormSubmitted(): boolean {
 }
 
 export function getMaxPageIndex(formSubmitted: boolean): number {
-  return formSubmitted ? DOODLE_PAGE_INDEX : FORM_PAGE_INDEX;
+  return formSubmitted ? FINAL_PAGE_INDEX : FORM_PAGE_INDEX;
 }
 
 export function getTotalInvitationPages(formSubmitted: boolean): number {

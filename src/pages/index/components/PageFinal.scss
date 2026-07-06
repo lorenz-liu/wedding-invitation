@@ -1,0 +1,63 @@
+@import "../../../styles/variables.scss";
+
+.page-final {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
+  box-sizing: border-box;
+  padding: 40px 20px;
+}
+
+.final-container {
+  width: min(640px, 92vw);
+  text-align: center;
+}
+
+.final-message {
+  display: block;
+  font-family: "Bold", sans-serif;
+  font-size: 8.4vw;
+  color: $color-primary;
+  letter-spacing: 2px;
+  line-height: 1.65;
+  margin-bottom: 70px;
+}
+
+.final-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.final-btn {
+  width: 100%;
+  height: 96px;
+  line-height: 96px;
+  border-radius: 48px;
+  font-family: "Bold", sans-serif;
+  font-size: 4.6vw;
+  letter-spacing: 2px;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    $color-accent 0%,
+    darken($color-accent, 8%) 100%
+  );
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(201, 168, 124, 0.35);
+
+  &::after {
+    border: none;
+  }
+
+  &:active {
+    opacity: 0.92;
+  }
+}
+
+.final-btn-text {
+  color: #ffffff;
+}

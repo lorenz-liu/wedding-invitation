@@ -25,9 +25,14 @@ import { PageSchedule } from "./components/PageSchedule";
 import { PageLocation } from "./components/PageLocation";
 import { PageForm } from "./components/PageForm";
 import { PageDoodle } from "./components/PageDoodle";
+import { PageFinal } from "./components/PageFinal";
 import {
   DOODLE_PAGE_INDEX,
+  FINAL_PAGE_INDEX,
   FORM_PAGE_INDEX,
+  HOME_PAGE_INDEX,
+  LOCATION_PAGE_INDEX,
+  SCHEDULE_PAGE_INDEX,
   getMaxPageIndex,
   getTotalInvitationPages,
   isFormSubmitted,
@@ -152,13 +157,6 @@ const Index: React.FC = () => {
     setFormSubmitted(true);
   }, []);
 
-  const handleFormRefilled = useCallback(() => {
-    setFormSubmitted(false);
-    if (currentPage > FORM_PAGE_INDEX) {
-      goToPage(FORM_PAGE_INDEX);
-    }
-  }, [currentPage, goToPage]);
-
   const prevPage = useCallback(() => {
     if (currentPage > 0) {
       goToPage(currentPage - 1);
@@ -233,7 +231,6 @@ const Index: React.FC = () => {
               formScrollTopRef.current = scrollTop;
             }}
             onSubmitted={handleFormSubmitted}
-            onRefilled={handleFormRefilled}
           />
         );
       case 15:
@@ -245,7 +242,6 @@ const Index: React.FC = () => {
                 formScrollTopRef.current = scrollTop;
               }}
               onSubmitted={handleFormSubmitted}
-              onRefilled={handleFormRefilled}
             />
           );
         }
@@ -255,6 +251,26 @@ const Index: React.FC = () => {
             onScrollTopChange={(scrollTop) => {
               doodleScrollTopRef.current = scrollTop;
             }}
+          />
+        );
+      case 16:
+        if (!formSubmitted) {
+          return (
+            <PageForm
+              isActive={isActive}
+              onScrollTopChange={(scrollTop) => {
+                formScrollTopRef.current = scrollTop;
+              }}
+              onSubmitted={handleFormSubmitted}
+            />
+          );
+        }
+        return (
+          <PageFinal
+            isActive={isActive}
+            onGoHome={() => goToPage(HOME_PAGE_INDEX)}
+            onGoLocation={() => goToPage(LOCATION_PAGE_INDEX)}
+            onGoSchedule={() => goToPage(SCHEDULE_PAGE_INDEX)}
           />
         );
       default:

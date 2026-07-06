@@ -15,7 +15,7 @@ import {
   usePageAnimationsReady,
 } from "../../../components/PageReadyGate";
 import Taro from "@tarojs/taro";
-import { FORM_SUBMITTED_KEY, GUEST_ID_KEY } from "../../../constants/config";
+import { FORM_DATA_KEY, FORM_SUBMITTED_KEY, GUEST_ID_KEY } from "../../../constants/config";
 import { submitGuestForm } from "../../../utils/submitGuestForm";
 import { images } from "../../../utils/assets";
 import "./PageForm.scss";
@@ -57,11 +57,36 @@ const EMPTY_FORM_DATA: FormData = {
   notes: "",
 };
 
+function loadStoredFormData(): FormData {
+  try {
+    const saved = Taro.getStorageSync(FORM_DATA_KEY);
+    if (!saved || typeof saved !== "object") return EMPTY_FORM_DATA;
+    const data = saved as Partial<FormData>;
+    return {
+      ...EMPTY_FORM_DATA,
+      ...data,
+      guests:
+        Array.isArray(data.guests) && data.guests.length > 0
+          ? data.guests
+          : EMPTY_FORM_DATA.guests,
+    };
+  } catch {
+    return EMPTY_FORM_DATA;
+  }
+}
+
+function persistFormData(data: FormData): void {
+  try {
+    Taro.setStorageSync(FORM_DATA_KEY, data);
+  } catch {
+    // ignore
+  }
+}
+
 interface PageFormProps {
   isActive: boolean;
   onScrollTopChange?: (scrollTop: number) => void;
   onSubmitted?: (guestId: string) => void;
-  onRefilled?: () => void;
 }
 
 const PAGE_IMAGES = uniqueImageUrls([
@@ -122,11 +147,10 @@ function CreditFooter({ signatureReveal }: CreditFooterProps) {
 function PageFormContent({
   onScrollTopChange,
   onSubmitted,
-  onRefilled,
-}: Pick<PageFormProps, "onScrollTopChange" | "onSubmitted" | "onRefilled">) {
+}: Pick<PageFormProps, "onScrollTopChange" | "onSubmitted">) {
   const animationsReady = usePageAnimationsReady();
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState<FormData>(EMPTY_FORM_DATA);
+  const [formData, setFormData] = useState<FormData>(loadStoredFormData);
   const [signatureReveal, setSignatureReveal] = useState(false);
   const signatureRevealStartedRef = useRef(false);
 
@@ -136,6 +160,10 @@ function PageFormContent({
       setSubmitted(true);
     }
   }, []);
+
+  useEffect(() => {
+    persistFormData(formData);
+  }, [formData]);
 
   useEffect(() => {
     onScrollTopChange?.(0);
@@ -179,12 +207,8 @@ function PageFormContent({
     });
   };
 
-  const handleRefillForm = () => {
-    Taro.removeStorageSync(FORM_SUBMITTED_KEY);
-    Taro.removeStorageSync(GUEST_ID_KEY);
-    setFormData(EMPTY_FORM_DATA);
+  const handleEditForm = () => {
     setSubmitted(false);
-    onRefilled?.();
   };
 
   const handleGuestChange = (
@@ -222,6 +246,7 @@ function PageFormContent({
 
       if (result.success) {
         Taro.setStorageSync(FORM_SUBMITTED_KEY, true);
+        persistFormData(formData);
         if (result.id) {
           Taro.setStorageSync(GUEST_ID_KEY, result.id);
         }
@@ -279,7 +304,6 @@ function PageFormContent({
             duration={600}
           >
             <View className="thanks-body">
-              <Text className="thanks-message">感谢您花时间填写</Text>
               <Text className="thanks-detail">
                 2026年7月25日
                 {"\n"}
@@ -297,8 +321,8 @@ function PageFormContent({
             duration={600}
           >
             <View className="submit-section">
-              <Button className="submit-btn" onClick={handleRefillForm}>
-                <Text className="btn-text">重新填写</Text>
+              <Button className="submit-btn" onClick={handleEditForm}>
+                <Text className="btn-text">修改填写</Text>
               </Button>
             </View>
           </AnimatedView>
@@ -501,7 +525,7 @@ function PageFormContent({
                     onInput={(e) =>
                       handleInputChange("shuttleLocation", e.detail.value)
                     }
-                    placeholder="例如：成都东站、双流机场等"
+                    placeholder="例如：地铁麓湖站A口、双流机场等"
                     placeholderClass={FORM_PLACEHOLDER_CLASS}
                     placeholderStyle={FORM_PLACEHOLDER_STYLE}
                   />
@@ -570,13 +594,11 @@ export const PageForm: React.FC<PageFormProps> = ({
   isActive,
   onScrollTopChange,
   onSubmitted,
-  onRefilled,
 }) => (
   <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
     <PageFormContent
       onScrollTopChange={onScrollTopChange}
       onSubmitted={onSubmitted}
-      onRefilled={onRefilled}
     />
   </PageReadyGate>
 );

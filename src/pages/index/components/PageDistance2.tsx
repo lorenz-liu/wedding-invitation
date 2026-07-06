@@ -27,7 +27,7 @@ interface DistanceEvent {
 
 const EVENTS: DistanceEvent[] = [
   {
-    year: "2022",
+    year: "2023",
     location: "北京",
     caption: "新郎本科毕业啦！",
     image: images.niuUndergradNoBg,

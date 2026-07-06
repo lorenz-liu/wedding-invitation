@@ -50,7 +50,7 @@ const EVENTS: DistanceEvent[] = [
   },
   {
     year: "2022",
-    location: "伯克利",
+    location: "加州伯克利",
     caption: "新娘本科毕业啦！",
     image: images.gaoUndergradNoBg,
     framed: false,
