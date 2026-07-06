@@ -110,6 +110,42 @@
         }
     }
 
+    .venue-address-card {
+        position: relative;
+        box-sizing: border-box;
+        width: 85vw;
+        padding: 24px;
+        border-radius: $border-radius-md;
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(6px);
+        pointer-events: auto;
+        box-shadow: 0 4px 16px rgba(201, 168, 124, 0.1);
+
+        &:active {
+            opacity: 0.92;
+        }
+
+        .venue-address-text {
+            display: block;
+            font-family: "Bold", sans-serif;
+            font-size: 3.1vw;
+            color: $color-secondary;
+            line-height: 1.65;
+            letter-spacing: 0.5px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .venue-address-hint {
+            display: block;
+            font-family: "Main", sans-serif;
+            font-size: 3vw;
+            color: $color-accent;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+    }
+
     .overlay-bottom {
         position: relative;
         z-index: 2;

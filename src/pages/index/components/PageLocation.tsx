@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { View, Text, Map, Button } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import {
@@ -21,6 +21,9 @@ const VENUE = {
   address: "四川省成都市双流区华阳街道麓湖中路西段888号13栋附101-104号",
 };
 
+const VENUE_COPY_TEXT =
+  "慕上OnTheMoon·北欧餐厅(成都麓湖店)\n双流区华阳街道麓湖中路西段888号13栋附101-104号";
+
 function PageLocationContent() {
   const animationsReady = usePageAnimationsReady();
 
@@ -33,6 +36,18 @@ function PageLocationContent() {
       scale: 16,
     });
   };
+
+  const handleCopyAddress = useCallback(() => {
+    Taro.setClipboardData({
+      data: VENUE_COPY_TEXT,
+      success: () => {
+        Taro.showToast({ title: "地址已复制", icon: "success" });
+      },
+      fail: () => {
+        Taro.showToast({ title: "复制失败，请重试", icon: "none" });
+      },
+    });
+  }, []);
 
   return (
     <View className="page page-location">
@@ -73,6 +88,18 @@ function PageLocationContent() {
               <Text className="location-city">成都</Text>
               <Text className="location-dot">·</Text>
               <Text className="location-venue">慕上</Text>
+            </View>
+          </AnimatedView>
+
+          <AnimatedView
+            animation="fadeInUp"
+            isActive={animationsReady}
+            delay={350}
+            duration={600}
+          >
+            <View className="venue-address-card" onClick={handleCopyAddress}>
+              <Text className="venue-address-text">{VENUE_COPY_TEXT}</Text>
+              <Text className="venue-address-hint">点击复制</Text>
             </View>
           </AnimatedView>
         </View>
