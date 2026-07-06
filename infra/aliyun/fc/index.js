@@ -153,7 +153,7 @@ async function handleGuestDrawing(rawBody, originHeader) {
     {
       success: true,
       drawingId,
-      message: "涂鸦已提交，感谢您的创作！",
+      message: "上传成功！",
     },
     originHeader,
   );

@@ -110,7 +110,7 @@ function PageDoodleContent({
               disabled={submitting}
               onClick={handleSubmit}
             >
-              提交涂鸦
+              上传涂鸦
             </Button>
           </View>
           {submittedCount > 0 && (
