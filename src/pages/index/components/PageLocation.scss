@@ -12,8 +12,8 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        transform: translateY(10vw);
+        // Taller map keeps the top edge filled while center sits 20vw below mid-screen.
+        height: calc(100% + 40vw);
         z-index: 0;
         pointer-events: none;
     }
