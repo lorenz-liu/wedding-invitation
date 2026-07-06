@@ -28,7 +28,7 @@ const FORM_INPUT_STYLE = {
 const FORM_TEXTAREA_STYLE =
   "color: #2c2c2c";
 const NOTES_PLACEHOLDER =
-  "在此处留下您想送上的祝福，或是需要我们特别留意的事项，例如饮食过敏等。";
+  "在此处留下您想送上的祝福，或是需要我们特别留意的事项 :)";
 
 interface Guest {
   name: string;
@@ -355,7 +355,7 @@ function PageFormContent({
                   type="number"
                   value={formData.phone}
                   onInput={(e) => handleInputChange("phone", e.detail.value)}
-                  placeholder="选填，便于我们与您联系"
+                  placeholder="选填，以便我们与您联系"
                   placeholderClass={FORM_PLACEHOLDER_CLASS}
                   placeholderStyle={FORM_PLACEHOLDER_STYLE}
                 />
@@ -369,7 +369,7 @@ function PageFormContent({
                   nativeProps={{ style: FORM_INPUT_STYLE }}
                   value={formData.wechatId}
                   onInput={(e) => handleInputChange("wechatId", e.detail.value)}
-                  placeholder="选填，便于我们与您联系"
+                  placeholder="选填，以便我们与您联系"
                   placeholderClass={FORM_PLACEHOLDER_CLASS}
                   placeholderStyle={FORM_PLACEHOLDER_STYLE}
                 />

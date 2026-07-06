@@ -117,7 +117,8 @@ function PageHomeContent() {
         >
           <View className="date-info">
             <Text className="date-text">2026年7月25日</Text>
-            <Text className="date-text">礼拜六 · 成都</Text>
+            <Text className="location-text">礼拜六 · 成都 · 麓湖</Text>
+            <Text className="venue-text">慕上OnTheMoon · 北欧餐厅</Text>
           </View>
         </AnimatedView>
 
@@ -139,7 +140,7 @@ function PageHomeContent() {
         >
           <View className="poem-section">
             <Text className="poem-line">我们期待</Text>
-            <Text className="poem-line">于我们意义非凡的您</Text>
+            <Text className="poem-line">对我们意义非凡的您</Text>
             <Text className="poem-line">能够莅临现场</Text>
           </View>
         </AnimatedView>

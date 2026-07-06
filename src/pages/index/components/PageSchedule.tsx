@@ -28,7 +28,7 @@ const scheduleData: ScheduleItem[] = [
     title: "典礼开始",
     subtitle: "花门轻启，盟誓此夕",
     description:
-      "婚礼仪式将于麓月礼堂内开始。我们没有着装要求，请您以舒适度为主安排服饰。",
+      "婚礼仪式将在麓月礼堂内开始。我们没有着装要求，请您以舒适度为主安排服饰。",
     image: images.agendaCeremony,
     imageOffset: "right",
   },
