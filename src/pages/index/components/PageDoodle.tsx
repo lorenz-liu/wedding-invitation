@@ -76,49 +76,51 @@ function PageDoodleContent({
       onScroll={(e) => onScrollTopChange?.(e.detail.scrollTop)}
     >
       <View className="doodle-scroll-inner">
-        <AnimatedView animation="fadeInUp" isActive={animationsReady} duration={700}>
-          <View className="doodle-header">
-            <Text className="doodle-title">涂鸦</Text>
-            <Text className="doodle-subtitle">
-              您可以在此画画，随意发挥{'\n'}说不定在婚礼现场会放到大屏幕上喔
-            </Text>
-          </View>
-        </AnimatedView>
+        <View className="doodle-panel">
+          <AnimatedView animation="fadeInUp" isActive={animationsReady} duration={700}>
+            <View className="doodle-header">
+              <Text className="doodle-title">涂鸦</Text>
+              <Text className="doodle-subtitle">
+                您可以在此画画，随意发挥{"\n"}说不定在婚礼现场会放到大屏幕上喔
+              </Text>
+            </View>
+          </AnimatedView>
 
-        <AnimatedView
-          animation="fadeIn"
-          isActive={animationsReady}
-          delay={200}
-          duration={700}
-        >
-          <DoodleBoard ref={boardRef} />
-        </AnimatedView>
+          <AnimatedView
+            animation="fadeIn"
+            isActive={animationsReady}
+            delay={200}
+            duration={700}
+          >
+            <DoodleBoard ref={boardRef} />
+          </AnimatedView>
 
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={animationsReady}
-          delay={350}
-          duration={600}
-        >
-          <View className="doodle-actions">
-            <Button className="doodle-btn secondary" onClick={handleClear}>
-              清空
-            </Button>
-            <Button
-              className="doodle-btn primary"
-              loading={submitting}
-              disabled={submitting}
-              onClick={handleSubmit}
-            >
-              上传涂鸦
-            </Button>
-          </View>
-          {submittedCount > 0 && (
-            <Text className="doodle-success-note">
-              已提交 {submittedCount} 幅作品，欢迎继续创作
-            </Text>
-          )}
-        </AnimatedView>
+          <AnimatedView
+            animation="fadeInUp"
+            isActive={animationsReady}
+            delay={350}
+            duration={600}
+          >
+            <View className="doodle-actions">
+              <Button className="doodle-btn secondary" onClick={handleClear}>
+                清空
+              </Button>
+              <Button
+                className="doodle-btn primary"
+                loading={submitting}
+                disabled={submitting}
+                onClick={handleSubmit}
+              >
+                上传涂鸦
+              </Button>
+            </View>
+            {submittedCount > 0 && (
+              <Text className="doodle-success-note">
+                已提交 {submittedCount} 幅作品，欢迎继续创作
+              </Text>
+            )}
+          </AnimatedView>
+        </View>
       </View>
     </ScrollView>
   );
