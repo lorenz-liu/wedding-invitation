@@ -80,7 +80,7 @@ function PageDoodleContent({
           <View className="doodle-header">
             <Text className="doodle-title">涂鸦</Text>
             <Text className="doodle-subtitle">
-              您可以在此画画，说不定在婚礼现场会放到大屏幕上喔
+              您可以在此画画，随意发挥{'\n'}说不定在婚礼现场会放到大屏幕上喔
             </Text>
           </View>
         </AnimatedView>
