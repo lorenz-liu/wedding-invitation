@@ -22,7 +22,7 @@ const VENUE = {
 };
 
 const VENUE_COPY_TEXT =
-  "慕上OnTheMoon·北欧餐厅(成都麓湖店)\n双流区华阳街道麓湖中路西段888号13栋附101-104号";
+  "慕上OnTheMoon·北欧餐厅(成都麓湖店)\n双流区华阳街道麓湖中路西段888号\n13栋附101-104号";
 
 function PageLocationContent() {
   const animationsReady = usePageAnimationsReady();
