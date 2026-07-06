@@ -26,12 +26,12 @@ export function isFormSubmitted(): boolean {
   }
 }
 
-export function getMaxPageIndex(formSubmitted: boolean): number {
-  return formSubmitted ? FINAL_PAGE_INDEX : FORM_PAGE_INDEX;
+export function getMaxPageIndex(formThanksVisible: boolean): number {
+  return formThanksVisible ? FINAL_PAGE_INDEX : FORM_PAGE_INDEX;
 }
 
-export function getTotalInvitationPages(formSubmitted: boolean): number {
-  return getMaxPageIndex(formSubmitted) + 1;
+export function getTotalInvitationPages(formThanksVisible: boolean): number {
+  return getMaxPageIndex(formThanksVisible) + 1;
 }
 
 /** Persist last visited page across reloads (dev + production). */

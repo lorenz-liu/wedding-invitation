@@ -59,16 +59,34 @@ const EMPTY_FORM_DATA: FormData = {
 
 function loadStoredFormData(): FormData {
   try {
-    const saved = Taro.getStorageSync(FORM_DATA_KEY);
+    let saved = Taro.getStorageSync(FORM_DATA_KEY);
+    if (typeof saved === "string") {
+      saved = saved ? JSON.parse(saved) : null;
+    }
     if (!saved || typeof saved !== "object") return EMPTY_FORM_DATA;
+
     const data = saved as Partial<FormData>;
+    const guests = Array.isArray(data.guests)
+      ? data.guests.filter(
+          (guest): guest is Guest =>
+            Boolean(guest) &&
+            typeof guest === "object" &&
+            "name" in guest &&
+            "relation" in guest,
+        )
+      : EMPTY_FORM_DATA.guests;
+
     return {
-      ...EMPTY_FORM_DATA,
-      ...data,
-      guests:
-        Array.isArray(data.guests) && data.guests.length > 0
-          ? data.guests
-          : EMPTY_FORM_DATA.guests,
+      mainContact:
+        typeof data.mainContact === "string" ? data.mainContact : "",
+      phone: typeof data.phone === "string" ? data.phone : "",
+      wechatId: typeof data.wechatId === "string" ? data.wechatId : "",
+      guests: guests.length > 0 ? guests : EMPTY_FORM_DATA.guests,
+      isDriving: Boolean(data.isDriving),
+      needsShuttle: Boolean(data.needsShuttle),
+      shuttleLocation:
+        typeof data.shuttleLocation === "string" ? data.shuttleLocation : "",
+      notes: typeof data.notes === "string" ? data.notes : "",
     };
   } catch {
     return EMPTY_FORM_DATA;
@@ -87,6 +105,8 @@ interface PageFormProps {
   isActive: boolean;
   onScrollTopChange?: (scrollTop: number) => void;
   onSubmitted?: (guestId: string) => void;
+  /** Fires when the form switches between editing and the thank-you view. */
+  onThanksVisibleChange?: (visible: boolean) => void;
 }
 
 const PAGE_IMAGES = uniqueImageUrls([
@@ -147,21 +167,35 @@ function CreditFooter({ signatureReveal }: CreditFooterProps) {
 function PageFormContent({
   onScrollTopChange,
   onSubmitted,
-}: Pick<PageFormProps, "onScrollTopChange" | "onSubmitted">) {
+  onThanksVisibleChange,
+}: Pick<
+  PageFormProps,
+  "onScrollTopChange" | "onSubmitted" | "onThanksVisibleChange"
+>) {
   const animationsReady = usePageAnimationsReady();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>(loadStoredFormData);
   const [signatureReveal, setSignatureReveal] = useState(false);
   const signatureRevealStartedRef = useRef(false);
+  const skipPersistRef = useRef(true);
+  const guestRows =
+    Array.isArray(formData.guests) && formData.guests.length > 0
+      ? formData.guests
+      : EMPTY_FORM_DATA.guests;
 
   useEffect(() => {
     const alreadySubmitted = Taro.getStorageSync(FORM_SUBMITTED_KEY);
     if (alreadySubmitted) {
       setSubmitted(true);
+      onThanksVisibleChange?.(true);
     }
-  }, []);
+  }, [onThanksVisibleChange]);
 
   useEffect(() => {
+    if (skipPersistRef.current) {
+      skipPersistRef.current = false;
+      return;
+    }
     persistFormData(formData);
   }, [formData]);
 
@@ -209,6 +243,7 @@ function PageFormContent({
 
   const handleEditForm = () => {
     setSubmitted(false);
+    onThanksVisibleChange?.(false);
   };
 
   const handleGuestChange = (
@@ -216,9 +251,11 @@ function PageFormContent({
     field: keyof Guest,
     value: string,
   ) => {
-    const newGuests = [...formData.guests];
-    newGuests[index] = { ...newGuests[index], [field]: value };
-    setFormData((prev) => ({ ...prev, guests: newGuests }));
+    setFormData((prev) => {
+      const newGuests = [...prev.guests];
+      newGuests[index] = { ...newGuests[index], [field]: value };
+      return { ...prev, guests: newGuests };
+    });
   };
 
   const addGuest = () => {
@@ -229,8 +266,13 @@ function PageFormContent({
   };
 
   const removeGuest = (index: number) => {
-    const newGuests = formData.guests.filter((_, i) => i !== index);
-    setFormData((prev) => ({ ...prev, guests: newGuests }));
+    setFormData((prev) => ({
+      ...prev,
+      guests:
+        prev.guests.length > 1
+          ? prev.guests.filter((_, i) => i !== index)
+          : prev.guests,
+    }));
   };
 
   const handleSubmit = async () => {
@@ -251,6 +293,7 @@ function PageFormContent({
           Taro.setStorageSync(GUEST_ID_KEY, result.id);
         }
         setSubmitted(true);
+        onThanksVisibleChange?.(true);
         onSubmitted?.(result.id || "");
       } else {
         throw new Error(result.error || result.message || "提交失败");
@@ -369,7 +412,6 @@ function PageFormContent({
                 <Input
                   className="field-input"
                   style={FORM_INPUT_STYLE}
-                  nativeProps={{ style: FORM_INPUT_STYLE }}
                   value={formData.mainContact}
                   onInput={(e) =>
                     handleInputChange("mainContact", e.detail.value)
@@ -385,7 +427,6 @@ function PageFormContent({
                 <Input
                   className="field-input"
                   style={FORM_INPUT_STYLE}
-                  nativeProps={{ style: FORM_INPUT_STYLE }}
                   type="number"
                   value={formData.phone}
                   onInput={(e) => handleInputChange("phone", e.detail.value)}
@@ -400,7 +441,6 @@ function PageFormContent({
                 <Input
                   className="field-input"
                   style={FORM_INPUT_STYLE}
-                  nativeProps={{ style: FORM_INPUT_STYLE }}
                   value={formData.wechatId}
                   onInput={(e) => handleInputChange("wechatId", e.detail.value)}
                   placeholder="选填，以便我们与您联系"
@@ -426,14 +466,13 @@ function PageFormContent({
               <Text className="section-title">同行宾客</Text>
             </View>
             <View className="guests-list">
-              {formData.guests.map((guest, index) => (
+              {guestRows.map((guest, index) => (
                 <View key={index} className="guest-card">
                   <View className="guest-number">{index + 1}</View>
                   <View className="guest-inputs">
                     <Input
                       className="guest-input-name"
                       style={FORM_INPUT_STYLE}
-                      nativeProps={{ style: FORM_INPUT_STYLE }}
                       value={guest.name}
                       onInput={(e) =>
                         handleGuestChange(index, "name", e.detail.value)
@@ -446,7 +485,6 @@ function PageFormContent({
                     <Input
                       className="guest-input-relation"
                       style={FORM_INPUT_STYLE}
-                      nativeProps={{ style: FORM_INPUT_STYLE }}
                       value={guest.relation}
                       onInput={(e) =>
                         handleGuestChange(index, "relation", e.detail.value)
@@ -456,7 +494,7 @@ function PageFormContent({
                       placeholderStyle={FORM_PLACEHOLDER_STYLE}
                     />
                   </View>
-                  {formData.guests.length > 1 && (
+                  {guestRows.length > 1 && (
                     <View
                       className="remove-guest-btn"
                       onClick={() => removeGuest(index)}
@@ -520,7 +558,6 @@ function PageFormContent({
                   <Input
                     className="shuttle-input"
                     style={FORM_INPUT_STYLE}
-                    nativeProps={{ style: FORM_INPUT_STYLE }}
                     value={formData.shuttleLocation}
                     onInput={(e) =>
                       handleInputChange("shuttleLocation", e.detail.value)
@@ -554,7 +591,6 @@ function PageFormContent({
               <Textarea
                 className="text-area"
                 style={FORM_TEXTAREA_STYLE}
-                nativeProps={{ style: FORM_TEXTAREA_STYLE }}
                 value={formData.notes}
                 maxlength={500}
                 onInput={(e) => handleInputChange("notes", e.detail.value)}
@@ -594,11 +630,13 @@ export const PageForm: React.FC<PageFormProps> = ({
   isActive,
   onScrollTopChange,
   onSubmitted,
+  onThanksVisibleChange,
 }) => (
   <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
     <PageFormContent
       onScrollTopChange={onScrollTopChange}
       onSubmitted={onSubmitted}
+      onThanksVisibleChange={onThanksVisibleChange}
     />
   </PageReadyGate>
 );

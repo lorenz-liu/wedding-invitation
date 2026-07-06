@@ -44,8 +44,8 @@ import "./index.scss";
 const FORM_SCROLL_TOP_THRESHOLD = 8;
 const SCROLLABLE_PAGE_INDICES = new Set([FORM_PAGE_INDEX, DOODLE_PAGE_INDEX]);
 
-function readSavedPageIndex(formSubmitted: boolean): number {
-  const maxIndex = getMaxPageIndex(formSubmitted);
+function readSavedPageIndex(formThanksVisible: boolean): number {
+  const maxIndex = getMaxPageIndex(formThanksVisible);
   if (!RESUME_LAST_PAGE_ENABLED) return 0;
   try {
     const saved = Taro.getStorageSync(RESUME_LAST_PAGE_KEY);
@@ -74,7 +74,7 @@ const Index: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const preloadStartedRef = useRef(false);
 
-  const [formSubmitted, setFormSubmitted] = useState(isFormSubmitted);
+  const [formThanksVisible, setFormThanksVisible] = useState(isFormSubmitted);
   const [currentPage, setCurrentPage] = useState(() =>
     readSavedPageIndex(isFormSubmitted()),
   );
@@ -85,8 +85,8 @@ const Index: React.FC = () => {
   const doodleScrollTopRef = React.useRef(0);
   const [audioInitialized, setAudioInitialized] = useState(false);
 
-  const maxPageIndex = getMaxPageIndex(formSubmitted);
-  const totalPages = getTotalInvitationPages(formSubmitted);
+  const maxPageIndex = getMaxPageIndex(formThanksVisible);
+  const totalPages = getTotalInvitationPages(formThanksVisible);
 
   const startPreload = useCallback(async () => {
     setError(null);
@@ -153,8 +153,8 @@ const Index: React.FC = () => {
     }
   }, [currentPage, goToPage, maxPageIndex]);
 
-  const handleFormSubmitted = useCallback((_guestId: string) => {
-    setFormSubmitted(true);
+  const handleFormThanksVisibleChange = useCallback((visible: boolean) => {
+    setFormThanksVisible(visible);
   }, []);
 
   const prevPage = useCallback(() => {
@@ -230,18 +230,18 @@ const Index: React.FC = () => {
             onScrollTopChange={(scrollTop) => {
               formScrollTopRef.current = scrollTop;
             }}
-            onSubmitted={handleFormSubmitted}
+            onThanksVisibleChange={handleFormThanksVisibleChange}
           />
         );
       case 15:
-        if (!formSubmitted) {
+        if (!formThanksVisible) {
           return (
             <PageForm
               isActive={isActive}
               onScrollTopChange={(scrollTop) => {
                 formScrollTopRef.current = scrollTop;
               }}
-              onSubmitted={handleFormSubmitted}
+              onThanksVisibleChange={handleFormThanksVisibleChange}
             />
           );
         }
@@ -254,14 +254,14 @@ const Index: React.FC = () => {
           />
         );
       case 16:
-        if (!formSubmitted) {
+        if (!formThanksVisible) {
           return (
             <PageForm
               isActive={isActive}
               onScrollTopChange={(scrollTop) => {
                 formScrollTopRef.current = scrollTop;
               }}
-              onSubmitted={handleFormSubmitted}
+              onThanksVisibleChange={handleFormThanksVisibleChange}
             />
           );
         }
