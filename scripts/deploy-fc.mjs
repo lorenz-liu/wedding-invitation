@@ -191,6 +191,8 @@ function functionBody() {
       TABLESTORE_INSTANCE: "wedding",
       TABLESTORE_ENDPOINT: "https://wedding.cn-chengdu.ots.aliyuncs.com",
       TABLESTORE_TABLE: "guests",
+      DRAWINGS_OSS_BUCKET: "guest-drawings",
+      DRAWINGS_OSS_REGION: "oss-cn-chengdu",
     },
     code: {
       ossBucketName: OSS_BUCKET,

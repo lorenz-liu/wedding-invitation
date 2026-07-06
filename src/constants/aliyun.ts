@@ -11,6 +11,11 @@ export const ALIYUN_OSS_BUCKET = "wedding-asset";
 export const ALIYUN_OSS_BASE_URL =
   "https://wedding-asset.oss-cn-chengdu.aliyuncs.com";
 
+/** Private OSS bucket for guest doodle submissions */
+export const ALIYUN_DRAWINGS_OSS_BUCKET = "guest-drawings";
+export const ALIYUN_DRAWINGS_OSS_BASE_URL =
+  "https://guest-drawings.oss-cn-chengdu.aliyuncs.com";
+
 /**
  * Function Compute HTTP trigger base URL (no trailing slash).
  * Replace after `pnpm deploy:aliyun`.
@@ -43,4 +48,8 @@ export function aliyunAssetUrl(relativePath: string): string {
 
 export function guestFormApiUrl(): string {
   return `${ALIYUN_FC_BASE_URL.replace(/\/$/, "")}/api/guest-form`;
+}
+
+export function guestDrawingApiUrl(): string {
+  return `${ALIYUN_FC_BASE_URL.replace(/\/$/, "")}/api/guest-drawing`;
 }

@@ -831,6 +831,16 @@ $form-font-scale: 1.3;
 
     .thanks-actions {
         margin-bottom: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .submit-btn.secondary-btn {
+            background: transparent;
+            border: 2px solid rgba(201, 168, 124, 0.5);
+            color: $color-accent;
+            box-shadow: none;
+        }
 
         .refill-btn {
             height: 48px;

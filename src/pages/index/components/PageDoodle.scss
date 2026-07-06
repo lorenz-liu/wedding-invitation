@@ -1,0 +1,94 @@
+@import "../../../styles/variables.scss";
+
+.page-doodle {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
+  box-sizing: border-box;
+}
+
+.doodle-scroll-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 40px 20px 48px;
+}
+
+.doodle-header {
+  width: min(640px, 92vw);
+  text-align: center;
+  margin-bottom: 24px;
+
+  .doodle-title {
+    display: block;
+    font-family: "Main", sans-serif;
+    font-size: 8vw;
+    color: $color-primary;
+    letter-spacing: 8px;
+    margin-bottom: 12px;
+  }
+
+  .doodle-subtitle {
+    display: block;
+    font-family: "Bold", sans-serif;
+    font-size: 3.6vw;
+    color: $color-text-secondary;
+    line-height: 1.65;
+    letter-spacing: 1px;
+  }
+}
+
+.doodle-board {
+  width: min(640px, 92vw);
+}
+
+.doodle-actions {
+  width: min(640px, 92vw);
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.doodle-btn {
+  flex: 1;
+  height: 88px;
+  line-height: 88px;
+  border-radius: 44px;
+  font-family: "Bold", sans-serif;
+  font-size: 4vw;
+  letter-spacing: 2px;
+  border: none;
+
+  &::after {
+    border: none;
+  }
+
+  &.primary {
+    background: linear-gradient(
+      135deg,
+      $color-accent 0%,
+      darken($color-accent, 8%) 100%
+    );
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(201, 168, 124, 0.35);
+  }
+
+  &.secondary {
+    background: rgba(255, 255, 255, 0.88);
+    color: $color-primary;
+    border: 1px dashed rgba(201, 168, 124, 0.55);
+  }
+}
+
+.doodle-success-note {
+  display: block;
+  width: min(640px, 92vw);
+  margin-top: 14px;
+  text-align: center;
+  font-family: "Main", sans-serif;
+  font-size: 3.2vw;
+  color: $color-accent;
+  letter-spacing: 1px;
+}

@@ -15,7 +15,7 @@ import {
   usePageAnimationsReady,
 } from "../../../components/PageReadyGate";
 import Taro from "@tarojs/taro";
-import { FORM_SUBMITTED_KEY } from "../../../constants/config";
+import { FORM_SUBMITTED_KEY, GUEST_ID_KEY } from "../../../constants/config";
 import { submitGuestForm } from "../../../utils/submitGuestForm";
 import { images } from "../../../utils/assets";
 import "./PageForm.scss";
@@ -60,6 +60,8 @@ const EMPTY_FORM_DATA: FormData = {
 interface PageFormProps {
   isActive: boolean;
   onScrollTopChange?: (scrollTop: number) => void;
+  onSubmitted?: (guestId: string) => void;
+  onRefilled?: () => void;
 }
 
 const PAGE_IMAGES = uniqueImageUrls([
@@ -119,7 +121,9 @@ function CreditFooter({ signatureReveal }: CreditFooterProps) {
 
 function PageFormContent({
   onScrollTopChange,
-}: Pick<PageFormProps, "onScrollTopChange">) {
+  onSubmitted,
+  onRefilled,
+}: Pick<PageFormProps, "onScrollTopChange" | "onSubmitted" | "onRefilled">) {
   const animationsReady = usePageAnimationsReady();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM_DATA);
@@ -177,8 +181,10 @@ function PageFormContent({
 
   const handleRefillForm = () => {
     Taro.removeStorageSync(FORM_SUBMITTED_KEY);
+    Taro.removeStorageSync(GUEST_ID_KEY);
     setFormData(EMPTY_FORM_DATA);
     setSubmitted(false);
+    onRefilled?.();
   };
 
   const handleGuestChange = (
@@ -216,7 +222,11 @@ function PageFormContent({
 
       if (result.success) {
         Taro.setStorageSync(FORM_SUBMITTED_KEY, true);
+        if (result.id) {
+          Taro.setStorageSync(GUEST_ID_KEY, result.id);
+        }
         setSubmitted(true);
+        onSubmitted?.(result.id || "");
       } else {
         throw new Error(result.error || result.message || "提交失败");
       }
@@ -559,8 +569,14 @@ function PageFormContent({
 export const PageForm: React.FC<PageFormProps> = ({
   isActive,
   onScrollTopChange,
+  onSubmitted,
+  onRefilled,
 }) => (
   <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
-    <PageFormContent onScrollTopChange={onScrollTopChange} />
+    <PageFormContent
+      onScrollTopChange={onScrollTopChange}
+      onSubmitted={onSubmitted}
+      onRefilled={onRefilled}
+    />
   </PageReadyGate>
 );

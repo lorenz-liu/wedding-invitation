@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@alicloud/credentials": "^2.4.2",
+    "ali-oss": "^6.23.0",
     "tablestore": "^5.6.0"
   }
 }
