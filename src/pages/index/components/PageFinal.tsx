@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button } from "@tarojs/components";
+import { View, Text, Button, Image } from "@tarojs/components";
 import { AnimatedView } from "../../../components/AnimatedView";
 import {
   PageReadyGate,
@@ -15,7 +15,11 @@ interface PageFinalProps {
   onGoSchedule: () => void;
 }
 
-const PAGE_IMAGES: string[] = [images.gown];
+const PAGE_IMAGES: string[] = [
+  images.gown,
+  images.signatureNiuGold,
+  images.signatureGaoGold,
+];
 
 function PageFinalContent({
   onGoHome,
@@ -23,6 +27,9 @@ function PageFinalContent({
   onGoSchedule,
 }: Pick<PageFinalProps, "onGoHome" | "onGoLocation" | "onGoSchedule">) {
   const animationsReady = usePageAnimationsReady();
+  const signatureRevealClass = animationsReady
+    ? "final-signature-wrap final-signature-wrap--reveal"
+    : "final-signature-wrap";
 
   return (
     <View className="page page-final">
@@ -30,6 +37,27 @@ function PageFinalContent({
         className="final-bg"
         style={{ backgroundImage: `url(${images.gown})` }}
       />
+      <View className="final-signature final-signature--niu">
+        <View className={signatureRevealClass}>
+          <Image
+            className="final-signature-img"
+            src={images.signatureNiuGold}
+            mode="widthFix"
+          />
+        </View>
+      </View>
+      <View className="final-signature final-signature--gao">
+        <View
+          className={signatureRevealClass}
+          style={{ animationDelay: "280ms" }}
+        >
+          <Image
+            className="final-signature-img"
+            src={images.signatureGaoGold}
+            mode="widthFix"
+          />
+        </View>
+      </View>
       <View className="final-container">
         <View className="final-content">
           <AnimatedView

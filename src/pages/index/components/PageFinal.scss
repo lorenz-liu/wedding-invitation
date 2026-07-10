@@ -17,12 +17,54 @@
   pointer-events: none;
 }
 
+.final-signature {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+
+  &--niu {
+    left: 23vw;
+    top: 23vh;
+  }
+
+  &--gao {
+    right: 41vw;
+    top: 41vh;
+  }
+}
+
+.final-signature-wrap {
+  display: inline-block;
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+
+  &--reveal {
+    animation: finalSignatureWipe 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  }
+}
+
+.final-signature-img {
+  display: block;
+  width: 28vw;
+  max-width: 220px;
+}
+
+@keyframes finalSignatureWipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 .final-container {
   position: absolute;
   bottom: 100px;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
