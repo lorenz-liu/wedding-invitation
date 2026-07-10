@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { View, Image } from "@tarojs/components";
-import Taro, { useReady } from "@tarojs/taro";
+import Taro, { useReady, useShareAppMessage, useShareTimeline } from "@tarojs/taro";
 import { AssetLoadingScreen } from "../../components/AssetLoadingScreen";
 import { AudioControl } from "../../components/AudioControl";
 import { useBackgroundAudio } from "../../hooks/useAudio";
@@ -38,6 +38,9 @@ import {
   isFormSubmitted,
   RESUME_LAST_PAGE_ENABLED,
   RESUME_LAST_PAGE_KEY,
+  SHARE_IMAGE_URL,
+  SHARE_PATH,
+  SHARE_TITLE,
 } from "../../constants/config";
 import "./index.scss";
 
@@ -69,6 +72,17 @@ function persistPageIndex(pageIndex: number): void {
 }
 
 const Index: React.FC = () => {
+  useShareAppMessage(() => ({
+    title: SHARE_TITLE,
+    path: SHARE_PATH,
+    imageUrl: SHARE_IMAGE_URL,
+  }));
+
+  useShareTimeline(() => ({
+    title: SHARE_TITLE,
+    imageUrl: SHARE_IMAGE_URL,
+  }));
+
   const [assetsReady, setAssetsReady] = useState(false);
   const [progress, setProgress] = useState<AssetLoadProgress | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -109,6 +123,16 @@ const Index: React.FC = () => {
     preloadStartedRef.current = true;
     void startPreload();
   });
+
+  useEffect(() => {
+    if (process.env.TARO_ENV !== "weapp") return;
+    void Taro.showShareMenu({
+      withShareTicket: true,
+      showShareItems: ["shareAppMessage", "shareTimeline"],
+    }).catch(() => {
+      // ignore — menu may already be visible
+    });
+  }, []);
 
   useEffect(() => {
     if (!SCROLLABLE_PAGE_INDICES.has(currentPage)) {
