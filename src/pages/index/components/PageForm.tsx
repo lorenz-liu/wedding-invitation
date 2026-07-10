@@ -242,6 +242,7 @@ function PageFormContent({
   };
 
   const handleEditForm = () => {
+    Taro.removeStorageSync(FORM_SUBMITTED_KEY);
     setSubmitted(false);
     onThanksVisibleChange?.(false);
   };
