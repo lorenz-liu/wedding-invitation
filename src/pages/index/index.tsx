@@ -253,6 +253,7 @@ const Index: React.FC = () => {
             onScrollTopChange={(scrollTop) => {
               doodleScrollTopRef.current = scrollTop;
             }}
+            onNextPage={() => goToPage(FINAL_PAGE_INDEX)}
           />
         );
       case 16:

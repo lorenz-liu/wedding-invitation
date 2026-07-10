@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Text, Button, ScrollView } from "@tarojs/components";
+import { View, Text, Button, ScrollView, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { AnimatedView } from "../../../components/AnimatedView";
 import {
@@ -11,17 +11,22 @@ import {
   type DoodleBoardHandle,
 } from "../../../components/DoodleBoard";
 import { GUEST_ID_KEY } from "../../../constants/config";
+import { images } from "../../../utils/assets";
 import { submitGuestDrawing } from "../../../utils/submitGuestDrawing";
 import "./PageDoodle.scss";
+
+const PAGE_IMAGES = [images.iconsNext];
 
 interface PageDoodleProps {
   isActive: boolean;
   onScrollTopChange?: (scrollTop: number) => void;
+  onNextPage?: () => void;
 }
 
 function PageDoodleContent({
   onScrollTopChange,
-}: Pick<PageDoodleProps, "onScrollTopChange">) {
+  onNextPage,
+}: Pick<PageDoodleProps, "onScrollTopChange" | "onNextPage">) {
   const animationsReady = usePageAnimationsReady();
   const boardRef = useRef<DoodleBoardHandle>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -114,6 +119,16 @@ function PageDoodleContent({
                 上传涂鸦
               </Button>
             </View>
+            <Button className="doodle-next-btn" onClick={onNextPage}>
+              <View className="doodle-next-btn-content">
+                <Text className="doodle-next-btn-text">下一页</Text>
+                <Image
+                  className="doodle-next-btn-icon"
+                  src={images.iconsNext}
+                  mode="widthFix"
+                />
+              </View>
+            </Button>
             {submittedCount > 0 && (
               <Text className="doodle-success-note">
                 已提交 {submittedCount} 幅作品，欢迎继续创作
@@ -129,8 +144,12 @@ function PageDoodleContent({
 export const PageDoodle: React.FC<PageDoodleProps> = ({
   isActive,
   onScrollTopChange,
+  onNextPage,
 }) => (
-  <PageReadyGate imageUrls={[]} isActive={isActive}>
-    <PageDoodleContent onScrollTopChange={onScrollTopChange} />
+  <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
+    <PageDoodleContent
+      onScrollTopChange={onScrollTopChange}
+      onNextPage={onNextPage}
+    />
   </PageReadyGate>
 );
