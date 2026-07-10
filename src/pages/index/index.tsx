@@ -231,6 +231,7 @@ const Index: React.FC = () => {
               formScrollTopRef.current = scrollTop;
             }}
             onThanksVisibleChange={handleFormThanksVisibleChange}
+            onContinueBrowsing={() => goToPage(DOODLE_PAGE_INDEX)}
           />
         );
       case 15:
@@ -242,6 +243,7 @@ const Index: React.FC = () => {
                 formScrollTopRef.current = scrollTop;
               }}
               onThanksVisibleChange={handleFormThanksVisibleChange}
+              onContinueBrowsing={() => goToPage(DOODLE_PAGE_INDEX)}
             />
           );
         }
@@ -262,6 +264,7 @@ const Index: React.FC = () => {
                 formScrollTopRef.current = scrollTop;
               }}
               onThanksVisibleChange={handleFormThanksVisibleChange}
+              onContinueBrowsing={() => goToPage(DOODLE_PAGE_INDEX)}
             />
           );
         }

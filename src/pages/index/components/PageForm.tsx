@@ -107,6 +107,7 @@ interface PageFormProps {
   onSubmitted?: (guestId: string) => void;
   /** Fires when the form switches between editing and the thank-you view. */
   onThanksVisibleChange?: (visible: boolean) => void;
+  onContinueBrowsing?: () => void;
 }
 
 const PAGE_IMAGES = uniqueImageUrls([
@@ -168,9 +169,13 @@ function PageFormContent({
   onScrollTopChange,
   onSubmitted,
   onThanksVisibleChange,
+  onContinueBrowsing,
 }: Pick<
   PageFormProps,
-  "onScrollTopChange" | "onSubmitted" | "onThanksVisibleChange"
+  | "onScrollTopChange"
+  | "onSubmitted"
+  | "onThanksVisibleChange"
+  | "onContinueBrowsing"
 >) {
   const animationsReady = usePageAnimationsReady();
   const [submitted, setSubmitted] = useState(false);
@@ -365,8 +370,14 @@ function PageFormContent({
             duration={600}
           >
             <View className="submit-section">
-              <Button className="submit-btn" onClick={handleEditForm}>
+              <Button className="submit-btn edit-btn" onClick={handleEditForm}>
                 <Text className="btn-text">修改填写</Text>
+              </Button>
+              <Button
+                className="submit-btn"
+                onClick={onContinueBrowsing}
+              >
+                <Text className="btn-text">继续浏览</Text>
               </Button>
             </View>
           </AnimatedView>
@@ -632,12 +643,14 @@ export const PageForm: React.FC<PageFormProps> = ({
   onScrollTopChange,
   onSubmitted,
   onThanksVisibleChange,
+  onContinueBrowsing,
 }) => (
   <PageReadyGate imageUrls={PAGE_IMAGES} isActive={isActive}>
     <PageFormContent
       onScrollTopChange={onScrollTopChange}
       onSubmitted={onSubmitted}
       onThanksVisibleChange={onThanksVisibleChange}
+      onContinueBrowsing={onContinueBrowsing}
     />
   </PageReadyGate>
 );

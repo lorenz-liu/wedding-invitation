@@ -832,6 +832,23 @@ $form-font-scale: 1.3;
     .submit-section {
         margin-top: 0;
         margin-bottom: 8px;
+        gap: 14px;
+
+        .edit-btn {
+            background: transparent;
+            border: 2px solid $color-accent;
+            box-shadow: none;
+
+            .btn-text {
+                color: $color-accent;
+            }
+
+            &:active {
+                transform: scale(0.98);
+                background: rgba(201, 168, 124, 0.08);
+                box-shadow: none;
+            }
+        }
     }
 
     .form-footer {
