@@ -19,7 +19,7 @@
 
 .final-container {
   position: absolute;
-  bottom: 60px;
+  bottom: 100px;
   left: 0;
   right: 0;
   z-index: 1;
@@ -39,11 +39,11 @@
   display: block;
   white-space: nowrap;
   font-family: "Bold", sans-serif;
-  font-size: 8.4vw;
+  font-size: 6.4vw;
   color: $color-primary;
   letter-spacing: 2px;
-  line-height: 1.65;
-  margin-bottom: 70px;
+  line-height: 1.5;
+  margin-bottom: 24px;
 }
 
 .final-actions {
@@ -58,11 +58,11 @@
   width: 100%;
   box-sizing: border-box;
   white-space: nowrap;
-  height: 96px;
-  line-height: 96px;
-  border-radius: 48px;
+  height: 76px;
+  line-height: 76px;
+  border-radius: 38px;
   font-family: "Bold", sans-serif;
-  font-size: 4.6vw;
+  font-size: 4.5vw;
   letter-spacing: 2px;
   border: none;
   background: linear-gradient(
