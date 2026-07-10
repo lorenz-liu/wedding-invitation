@@ -14,7 +14,7 @@
 
     .hand-holding-anchor {
         position: absolute;
-        top: -6vh;
+        top: 0vh;
         left: 0;
         width: 100vw;
         z-index: 1;
@@ -34,13 +34,13 @@
         align-items: center;
         text-align: center;
         max-width: 500px;
-        margin-top: 15vh;
+        margin-top: 18vh;
     }
 
     // Spacing must live on AnimatedView wrappers — Text margins don't
     // reliably expand the flex item in WeChat mini-program.
     .milestone-year-block {
-        margin-bottom: 50px;
+        margin-bottom: 30px;
     }
 
     .year-count {

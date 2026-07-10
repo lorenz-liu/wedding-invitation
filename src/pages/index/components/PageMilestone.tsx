@@ -63,15 +63,6 @@ function PageMilestoneContent() {
         >
           <Text className="context-text">在这个充满随机性的世界</Text>
           <Text className="context-text">我们的轨迹始终指向彼此</Text>
-        </AnimatedView>
-
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={animationsReady}
-          delay={600}
-          duration={600}
-          className="poetry-block"
-        >
           <Text className="context-text">
             当所有的经纬度最终重合
           </Text>

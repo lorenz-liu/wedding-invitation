@@ -30,7 +30,8 @@ const VENUE_MARKERS = [
     longitude: VENUE.longitude,
     latitude: VENUE.latitude,
     title: VENUE.name,
-    width: 50,
+    width: 30,
+    height: 45
   },
 ];
 
