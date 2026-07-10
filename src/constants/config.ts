@@ -57,4 +57,4 @@ export function getCdnAssetUrl(relativePath: string): string {
 /** WeChat mini program share — image must be HTTPS. */
 export const SHARE_TITLE = "刘兆薰 & 高文珩 婚礼请柬";
 export const SHARE_PATH = "/pages/index/index";
-export const SHARE_IMAGE_URL = aliyunAssetUrl("images/logo-no-bg.webp");
+export const SHARE_IMAGE_URL = aliyunAssetUrl("images/wechat-share-cover.webp");
