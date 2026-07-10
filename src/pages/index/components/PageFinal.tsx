@@ -38,24 +38,28 @@ function PageFinalContent({
         style={{ backgroundImage: `url(${images.gown})` }}
       />
       <View className="final-signature final-signature--niu">
-        <View className={signatureRevealClass}>
-          <Image
-            className="final-signature-img"
-            src={images.signatureNiuGold}
-            mode="widthFix"
-          />
+        <View className="final-signature-rotate">
+          <View className={signatureRevealClass}>
+            <Image
+              className="final-signature-img final-signature-img--niu"
+              src={images.signatureNiuGold}
+              mode="widthFix"
+            />
+          </View>
         </View>
       </View>
       <View className="final-signature final-signature--gao">
-        <View
-          className={signatureRevealClass}
-          style={{ animationDelay: "280ms" }}
-        >
-          <Image
-            className="final-signature-img"
-            src={images.signatureGaoGold}
-            mode="widthFix"
-          />
+        <View className="final-signature-rotate">
+          <View
+            className={signatureRevealClass}
+            style={{ animationDelay: "280ms" }}
+          >
+            <Image
+              className="final-signature-img final-signature-img--gao"
+              src={images.signatureGaoGold}
+              mode="widthFix"
+            />
+          </View>
         </View>
       </View>
       <View className="final-container">

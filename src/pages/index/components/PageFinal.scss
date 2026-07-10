@@ -21,16 +21,23 @@
   position: absolute;
   z-index: 1;
   pointer-events: none;
+  overflow: visible;
 
   &--niu {
-    left: 23vw;
-    top: 23vh;
+    left: 12vw;
+    top: 30vh;
   }
 
   &--gao {
-    right: 41vw;
+    right: 11vw;
     top: 41vh;
   }
+}
+
+.final-signature-rotate {
+  transform: rotate(-20deg);
+  transform-origin: center center;
+  overflow: visible;
 }
 
 .final-signature-wrap {
@@ -45,8 +52,14 @@
 
 .final-signature-img {
   display: block;
-  width: 28vw;
-  max-width: 220px;
+
+  &--niu {
+    width: 44vw;
+  }
+
+  &--gao {
+    width: 35vw;
+  }
 }
 
 @keyframes finalSignatureWipe {
