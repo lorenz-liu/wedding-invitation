@@ -125,10 +125,9 @@
   }
 
   .history-icon {
-    font-family: "Bold", sans-serif;
-    font-size: 22px;
-    line-height: 1;
-    color: $color-primary;
+    display: block;
+    width: 22px;
+    flex-shrink: 0;
   }
 
   .doodle-canvas-wrap {

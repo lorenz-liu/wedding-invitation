@@ -15,7 +15,7 @@ import { images } from "../../../utils/assets";
 import { submitGuestDrawing } from "../../../utils/submitGuestDrawing";
 import "./PageDoodle.scss";
 
-const PAGE_IMAGES = [images.iconsNext];
+const PAGE_IMAGES = [images.iconsNext, images.iconsUndo, images.iconsRedo];
 
 interface PageDoodleProps {
   isActive: boolean;

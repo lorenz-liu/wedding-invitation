@@ -59,6 +59,8 @@ export const images = {
   signatureNiu: resolveImageAssetPath("images/signature-niu.webp"),
   gown: resolveImageAssetPath("images/gown.webp"),
   iconsNext: resolveImageAssetPath("images/icons-next.webp"),
+  iconsUndo: resolveImageAssetPath("images/icons-undo.webp"),
+  iconsRedo: resolveImageAssetPath("images/icons-redo.webp"),
 } as const;
 
 /** Local file sizes — used for byte-weighted preload progress only. */
@@ -102,6 +104,8 @@ const IMAGE_PRELOAD_BYTES: Record<keyof typeof images, number> = {
   signatureNiu: 13_142,
   gown: 311_742,
   iconsNext: 306,
+  iconsUndo: 286,
+  iconsRedo: 294,
 };
 
 const imagePreloadByteWeightByUrl = new Map<string, number>(

@@ -6,9 +6,10 @@ import React, {
   useState,
   forwardRef,
 } from "react";
-import { Canvas, View, Text } from "@tarojs/components";
+import { Canvas, View, Text, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { DOODLE_DRAFT_KEY } from "../../constants/config";
+import { images } from "../../utils/assets";
 import { exportCanvasToBase64, type DoodleCanvas } from "../../utils/exportDoodleCanvas";
 import "./index.scss";
 
@@ -391,7 +392,11 @@ export const DoodleBoard = forwardRef<DoodleBoardHandle, DoodleBoardProps>(
               }}
             >
               <Text className="history-label">恢复</Text>
-              <Text className="history-icon">↪</Text>
+              <Image
+                className="history-icon"
+                src={images.iconsRedo}
+                mode="widthFix"
+              />
             </View>
           </View>
 
@@ -423,7 +428,11 @@ export const DoodleBoard = forwardRef<DoodleBoardHandle, DoodleBoardProps>(
               }}
             >
               <Text className="history-label">撤销</Text>
-              <Text className="history-icon">↩</Text>
+              <Image
+                className="history-icon"
+                src={images.iconsUndo}
+                mode="widthFix"
+              />
             </View>
           </View>
         </View>
