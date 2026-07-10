@@ -94,12 +94,16 @@
 .doodle-success-note {
   display: block;
   width: 100%;
-  margin-top: 4px;
+  margin-top: 20px;
   text-align: center;
   font-family: "Main", sans-serif;
   font-size: 4vw;
   color: $color-accent;
   letter-spacing: 1px;
+}
+
+.doodle-success-note + .doodle-next-btn {
+  margin-top: 32px;
 }
 
 .doodle-next-btn {

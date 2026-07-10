@@ -119,6 +119,11 @@ function PageDoodleContent({
                 上传涂鸦
               </Button>
             </View>
+            {submittedCount > 0 && (
+              <Text className="doodle-success-note">
+                已提交 {submittedCount} 幅作品，欢迎继续创作
+              </Text>
+            )}
             <Button className="doodle-next-btn" onClick={onNextPage}>
               <View className="doodle-next-btn-content">
                 <Text className="doodle-next-btn-text">下一页</Text>
@@ -129,11 +134,6 @@ function PageDoodleContent({
                 />
               </View>
             </Button>
-            {submittedCount > 0 && (
-              <Text className="doodle-success-note">
-                已提交 {submittedCount} 幅作品，欢迎继续创作
-              </Text>
-            )}
           </AnimatedView>
         </View>
       </View>
