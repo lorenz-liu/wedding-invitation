@@ -5,6 +5,7 @@ import {
   PageReadyGate,
   usePageAnimationsReady,
 } from "../../../components/PageReadyGate";
+import { images } from "../../../utils/assets";
 import "./PageFinal.scss";
 
 interface PageFinalProps {
@@ -14,7 +15,7 @@ interface PageFinalProps {
   onGoSchedule: () => void;
 }
 
-const PAGE_IMAGES: string[] = [];
+const PAGE_IMAGES: string[] = [images.gown];
 
 function PageFinalContent({
   onGoHome,
@@ -25,33 +26,39 @@ function PageFinalContent({
 
   return (
     <View className="page page-final">
+      <View
+        className="final-bg"
+        style={{ backgroundImage: `url(${images.gown})` }}
+      />
       <View className="final-container">
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={animationsReady}
-          duration={700}
-        >
-          <Text className="final-message">诚挚感谢您的光临</Text>
-        </AnimatedView>
+        <View className="final-content">
+          <AnimatedView
+            animation="fadeInUp"
+            isActive={animationsReady}
+            duration={700}
+          >
+            <Text className="final-message">诚挚感谢您的光临</Text>
+          </AnimatedView>
 
-        <AnimatedView
-          animation="fadeInUp"
-          isActive={animationsReady}
-          delay={250}
-          duration={600}
-        >
-          <View className="final-actions">
-            <Button className="final-btn" onClick={onGoHome}>
-              <Text className="final-btn-text">访问首页</Text>
-            </Button>
-            <Button className="final-btn" onClick={onGoLocation}>
-              <Text className="final-btn-text">查看地点</Text>
-            </Button>
-            <Button className="final-btn" onClick={onGoSchedule}>
-              <Text className="final-btn-text">当日安排</Text>
-            </Button>
-          </View>
-        </AnimatedView>
+          <AnimatedView
+            animation="fadeInUp"
+            isActive={animationsReady}
+            delay={250}
+            duration={600}
+          >
+            <View className="final-actions">
+              <Button className="final-btn" onClick={onGoHome}>
+                <Text className="final-btn-text">访问首页</Text>
+              </Button>
+              <Button className="final-btn" onClick={onGoLocation}>
+                <Text className="final-btn-text">查看地点</Text>
+              </Button>
+              <Button className="final-btn" onClick={onGoSchedule}>
+                <Text className="final-btn-text">当日安排</Text>
+              </Button>
+            </View>
+          </AnimatedView>
+        </View>
       </View>
     </View>
   );

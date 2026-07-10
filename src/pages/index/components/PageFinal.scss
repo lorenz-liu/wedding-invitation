@@ -1,23 +1,43 @@
 @import "../../../styles/variables.scss";
 
 .page-final {
+  position: relative;
   height: 100vh;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
   box-sizing: border-box;
-  padding: 40px 20px;
+  overflow: hidden;
+}
+
+.final-bg {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat-x;
+  background-size: auto 100vh;
+  background-position: center center;
+  pointer-events: none;
 }
 
 .final-container {
-  width: min(640px, 92vw);
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final-content {
+  display: inline-block;
+  max-width: calc(100vw - 40px);
+  vertical-align: top;
   text-align: center;
 }
 
 .final-message {
   display: block;
+  white-space: nowrap;
   font-family: "Bold", sans-serif;
   font-size: 8.4vw;
   color: $color-primary;
@@ -29,11 +49,15 @@
 .final-actions {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  width: 100%;
   gap: 14px;
 }
 
 .final-btn {
   width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
   height: 96px;
   line-height: 96px;
   border-radius: 48px;

@@ -57,6 +57,7 @@ export const images = {
   agendaParty: resolveImageAssetPath("images/agenda-party.webp"),
   signatureGao: resolveImageAssetPath("images/signature-gao.webp"),
   signatureNiu: resolveImageAssetPath("images/signature-niu.webp"),
+  gown: resolveImageAssetPath("images/gown.webp"),
 } as const;
 
 /** Local file sizes — used for byte-weighted preload progress only. */
@@ -98,6 +99,7 @@ const IMAGE_PRELOAD_BYTES: Record<keyof typeof images, number> = {
   agendaParty: 22_716,
   signatureGao: 11_812,
   signatureNiu: 13_142,
+  gown: 311_742,
 };
 
 const imagePreloadByteWeightByUrl = new Map<string, number>(
