@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text } from "@tarojs/components";
 import "./index.scss";
 
-/** Wedding ceremony — Chengdu (UTC+8), 2026-07-25 17:00 */
-const TARGET_MS = new Date("2026-07-25T17:00:00+08:00").getTime();
+/** Wedding ceremony — Chengdu (UTC+8), 2026-07-25 17:25 */
+const TARGET_MS = new Date("2026-07-25T17:25:00+08:00").getTime();
 
 const UNITS = [
   { key: "days", label: "天" },

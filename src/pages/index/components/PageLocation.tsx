@@ -24,6 +24,16 @@ const VENUE = {
 const VENUE_COPY_TEXT =
   "慕上OnTheMoon·北欧餐厅(成都麓湖店)\n双流区华阳街道麓湖中路西段888号\n13栋附101-104号";
 
+const VENUE_MARKERS = [
+  {
+    id: 1,
+    longitude: VENUE.longitude,
+    latitude: VENUE.latitude,
+    title: VENUE.name,
+    width: 50,
+  },
+];
+
 function PageLocationContent() {
   const animationsReady = usePageAnimationsReady();
 
@@ -56,14 +66,7 @@ function PageLocationContent() {
         longitude={VENUE.longitude}
         latitude={VENUE.latitude}
         scale={16}
-        markers={[
-          {
-            id: 1,
-            longitude: VENUE.longitude,
-            latitude: VENUE.latitude,
-            title: VENUE.name,
-          },
-        ]}
+        markers={VENUE_MARKERS}
         enableScroll={false}
         enableZoom={false}
         enableRotate={false}
