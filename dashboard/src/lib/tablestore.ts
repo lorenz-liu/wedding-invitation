@@ -100,7 +100,10 @@ function parseCompanions(raw: unknown) {
           relation: String(record.relation ?? "").trim(),
         };
       })
-      .filter((item): item is { name: string; relation: string } => Boolean(item));
+      .filter(
+        (item): item is { name: string; relation: string } =>
+          item !== null && (item.name !== "" || item.relation !== ""),
+      );
   } catch {
     return [];
   }
