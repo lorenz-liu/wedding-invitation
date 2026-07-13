@@ -1,3 +1,5 @@
+assets/pngs.zip
+assets/pngs/
 dist/
 .deploy/
 *.local.*
